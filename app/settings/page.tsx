@@ -1,421 +1,477 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+"use client";
+
+import { useState } from "react";
+import { ModernNavigation } from "@/components/modern-navigation";
+import { ModernFooter } from "@/components/modern-footer";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
-import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
-  Settings,
-  Bell,
-  Shield,
-  CreditCard,
-  Moon,
-  Sun,
-  Globe,
-  Smartphone,
-  Mail,
-  Phone,
-  CheckCircle,
-  AlertTriangle,
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { 
+  User, Bell, Shield, CreditCard, Settings as SettingsIcon,
+  Mail, Phone, MapPin, Camera, Save, Trash2, Lock
 } from "lucide-react";
 
 export default function SettingsPage() {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [profile, setProfile] = useState({
+    name: "John Doe",
+    email: "john@example.com",
+    phone: "+1 (555) 123-4567",
+    location: "San Francisco, CA",
+    bio: "Experienced service provider with 10+ years in home maintenance."
+  });
+
+  const [notifications, setNotifications] = useState({
+    emailBookings: true,
+    emailMessages: true,
+    emailPromotions: false,
+    pushBookings: true,
+    pushMessages: true,
+    pushPromotions: false,
+    smsBookings: false,
+    smsMessages: false
+  });
+
+  const [privacy, setPrivacy] = useState({
+    profileVisibility: "public",
+    showEmail: false,
+    showPhone: false,
+    dataProcessing: true,
+    analytics: true
+  });
+
+  React.useEffect(() => {
+    setIsLoaded(true);
+  }, []);
+
+  const user = {
+    name: "John Doe",
+    email: "john@example.com"
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background/95 to-primary/5">
-      <div className="container mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-4">
-            Settings
-          </h1>
-          <p className="text-muted-foreground">
-            Manage your account preferences and privacy settings
-          </p>
-        </div>
+    <div className="min-h-screen bg-gradient-to-br from-stratosphere via-cirrus to-white dark:from-gray-900 dark:via-gray-800 dark:to-black transition-colors duration-300">
+      {/* Neural Background Pattern */}
+      <div className="absolute inset-0 opacity-[0.03]">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `radial-gradient(circle at 25px 25px, hsl(var(--neural-500)) 2px, transparent 0),
+                           radial-gradient(circle at 75px 75px, hsl(var(--quantum-500)) 1px, transparent 0)`,
+          backgroundSize: '100px 100px'
+        }} />
+      </div>
 
-        <Tabs defaultValue="general" className="w-full">
-          <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="general">General</TabsTrigger>
-            <TabsTrigger value="notifications">Notifications</TabsTrigger>
-            <TabsTrigger value="privacy">Privacy</TabsTrigger>
-            <TabsTrigger value="billing">Billing</TabsTrigger>
-          </TabsList>
+      <ModernNavigation currentPath="/settings" user={user} />
 
-          <TabsContent value="general" className="mt-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Appearance */}
-              <Card>
+      <div className="relative z-10 px-6 py-12">
+        <div className="max-w-6xl mx-auto">
+          {/* Header */}
+          <div className={`mb-12 transition-all duration-1000 ${
+            isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+          }`}>
+            <h1 className="text-4xl font-bold text-gradient-neural mb-4">Account Settings</h1>
+            <p className="text-lg text-muted-foreground">
+              Manage your account preferences and personal information
+            </p>
+          </div>
+
+          {/* Settings Tabs */}
+          <Tabs defaultValue="general" variant="glass" className={`transition-all duration-1000 delay-300 ${
+            isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+          }`}>
+            <TabsList variant="glass" className="w-full max-w-2xl mb-8">
+              <TabsTrigger value="general" variant="glass" className="flex-1">
+                <User className="w-4 h-4 mr-2" />
+                General
+              </TabsTrigger>
+              <TabsTrigger value="notifications" variant="glass" className="flex-1">
+                <Bell className="w-4 h-4 mr-2" />
+                Notifications
+              </TabsTrigger>
+              <TabsTrigger value="privacy" variant="glass" className="flex-1">
+                <Shield className="w-4 h-4 mr-2" />
+                Privacy
+              </TabsTrigger>
+              <TabsTrigger value="billing" variant="glass" className="flex-1">
+                <CreditCard className="w-4 h-4 mr-2" />
+                Billing
+              </TabsTrigger>
+            </TabsList>
+
+            {/* General Settings */}
+            <TabsContent value="general">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div className="lg:col-span-2">
+                  <Card variant="glass" className="mb-8">
+                    <CardHeader>
+                      <CardTitle variant="gradient-neural">Profile Information</CardTitle>
+                      <CardDescription>
+                        Update your personal details and profile information
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-6">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="space-y-2">
+                          <Label htmlFor="name">Full Name</Label>
+                          <Input
+                            id="name"
+                            variant="glass"
+                            value={profile.name}
+                            onChange={(e) => setProfile({...profile, name: e.target.value})}
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="email">Email Address</Label>
+                          <Input
+                            id="email"
+                            type="email"
+                            variant="glass"
+                            value={profile.email}
+                            onChange={(e) => setProfile({...profile, email: e.target.value})}
+                          />
+                        </div>
+                      </div>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="space-y-2">
+                          <Label htmlFor="phone">Phone Number</Label>
+                          <Input
+                            id="phone"
+                            variant="glass"
+                            value={profile.phone}
+                            onChange={(e) => setProfile({...profile, phone: e.target.value})}
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="location">Location</Label>
+                          <Input
+                            id="location"
+                            variant="glass"
+                            value={profile.location}
+                            onChange={(e) => setProfile({...profile, location: e.target.value})}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="bio">Bio</Label>
+                        <textarea
+                          id="bio"
+                          className="w-full h-24 px-4 py-3 glass border-white/30 rounded-2xl resize-none focus:outline-none focus:ring-2 focus:ring-neural-500/50 focus:border-neural-500/50 transition-all duration-300"
+                          placeholder="Tell us about yourself..."
+                          value={profile.bio}
+                          onChange={(e) => setProfile({...profile, bio: e.target.value})}
+                        />
+                      </div>
+
+                      <Button className="bg-gradient-neural text-white hover:shadow-glow-neural">
+                        <Save className="w-4 h-4 mr-2" />
+                        Save Changes
+                      </Button>
+                    </CardContent>
+                  </Card>
+
+                  <Card variant="glass">
+                    <CardHeader>
+                      <CardTitle variant="gradient-trust">Security</CardTitle>
+                      <CardDescription>
+                        Manage your password and security preferences
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-6">
+                      <div className="space-y-2">
+                        <Label htmlFor="current-password">Current Password</Label>
+                        <Input id="current-password" type="password" variant="glass" />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="new-password">New Password</Label>
+                        <Input id="new-password" type="password" variant="glass" />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="confirm-password">Confirm New Password</Label>
+                        <Input id="confirm-password" type="password" variant="glass" />
+                      </div>
+                      
+                      <Button className="bg-gradient-trust text-white hover:shadow-glow-trust">
+                        <Lock className="w-4 h-4 mr-2" />
+                        Update Password
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                <div>
+                  <Card variant="neural" className="mb-8">
+                    <CardHeader>
+                      <CardTitle variant="gradient-neural">Profile Photo</CardTitle>
+                      <CardDescription>
+                        Upload a professional profile photo
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="text-center space-y-4">
+                      <div className="w-32 h-32 bg-gradient-neural rounded-full flex items-center justify-center mx-auto">
+                        <span className="text-4xl font-bold text-white">JD</span>
+                      </div>
+                      <Button variant="outline" className="w-full">
+                        <Camera className="w-4 h-4 mr-2" />
+                        Upload Photo
+                      </Button>
+                    </CardContent>
+                  </Card>
+
+                  <Card variant="quantum">
+                    <CardHeader>
+                      <CardTitle variant="gradient-quantum">Account Stats</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Member since</span>
+                        <span className="font-semibold">Jan 2023</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Total bookings</span>
+                        <span className="font-semibold text-gradient-quantum">127</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Rating</span>
+                        <span className="font-semibold text-gradient-quantum">4.9/5</span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
+            </TabsContent>
+
+            {/* Notifications Settings */}
+            <TabsContent value="notifications">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <Card variant="glass">
+                  <CardHeader>
+                    <CardTitle variant="gradient-neural">Email Notifications</CardTitle>
+                    <CardDescription>
+                      Choose what emails you want to receive
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <Label>Booking confirmations</Label>
+                        <p className="text-sm text-muted-foreground">Get notified when bookings are confirmed</p>
+                      </div>
+                      <Switch
+                        checked={notifications.emailBookings}
+                        onCheckedChange={(checked) => setNotifications({...notifications, emailBookings: checked})}
+                      />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <Label>Messages</Label>
+                        <p className="text-sm text-muted-foreground">New message notifications</p>
+                      </div>
+                      <Switch
+                        checked={notifications.emailMessages}
+                        onCheckedChange={(checked) => setNotifications({...notifications, emailMessages: checked})}
+                      />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <Label>Promotions</Label>
+                        <p className="text-sm text-muted-foreground">Special offers and updates</p>
+                      </div>
+                      <Switch
+                        checked={notifications.emailPromotions}
+                        onCheckedChange={(checked) => setNotifications({...notifications, emailPromotions: checked})}
+                      />
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card variant="glass">
+                  <CardHeader>
+                    <CardTitle variant="gradient-quantum">Push Notifications</CardTitle>
+                    <CardDescription>
+                      Manage mobile and browser notifications
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <Label>Booking updates</Label>
+                        <p className="text-sm text-muted-foreground">Real-time booking notifications</p>
+                      </div>
+                      <Switch
+                        checked={notifications.pushBookings}
+                        onCheckedChange={(checked) => setNotifications({...notifications, pushBookings: checked})}
+                      />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <Label>Messages</Label>
+                        <p className="text-sm text-muted-foreground">Instant message alerts</p>
+                      </div>
+                      <Switch
+                        checked={notifications.pushMessages}
+                        onCheckedChange={(checked) => setNotifications({...notifications, pushMessages: checked})}
+                      />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <Label>Promotions</Label>
+                        <p className="text-sm text-muted-foreground">Marketing notifications</p>
+                      </div>
+                      <Switch
+                        checked={notifications.pushPromotions}
+                        onCheckedChange={(checked) => setNotifications({...notifications, pushPromotions: checked})}
+                      />
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </TabsContent>
+
+            {/* Privacy Settings */}
+            <TabsContent value="privacy">
+              <Card variant="glass">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Sun className="w-5 h-5" />
-                    Appearance
-                  </CardTitle>
+                  <CardTitle variant="gradient-trust">Privacy & Data</CardTitle>
+                  <CardDescription>
+                    Control how your data is used and what others can see
+                  </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-6">
                   <div className="space-y-2">
-                    <Label>Theme</Label>
-                    <Select defaultValue="system">
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="light">Light</SelectItem>
-                        <SelectItem value="dark">Dark</SelectItem>
-                        <SelectItem value="system">System</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label>Language</Label>
-                    <Select defaultValue="en">
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="en">🇺🇸 English</SelectItem>
-                        <SelectItem value="es">🇪🇸 Spanish</SelectItem>
-                        <SelectItem value="fr">🇫🇷 French</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label>Time Zone</Label>
-                    <Select defaultValue="est">
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="est">Eastern Time (EST)</SelectItem>
-                        <SelectItem value="cst">Central Time (CST)</SelectItem>
-                        <SelectItem value="mst">Mountain Time (MST)</SelectItem>
-                        <SelectItem value="pst">Pacific Time (PST)</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Account Preferences */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Settings className="w-5 h-5" />
-                    Account Preferences
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div className="space-y-0.5">
-                      <Label>Auto-confirm bookings</Label>
-                      <p className="text-sm text-muted-foreground">
-                        Automatically confirm bookings from trusted providers
-                      </p>
-                    </div>
-                    <Switch />
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div className="space-y-0.5">
-                      <Label>Show profile to providers</Label>
-                      <p className="text-sm text-muted-foreground">
-                        Allow providers to see your profile information
-                      </p>
-                    </div>
-                    <Switch defaultChecked />
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div className="space-y-0.5">
-                      <Label>Enable location services</Label>
-                      <p className="text-sm text-muted-foreground">
-                        Help us find services near you
-                      </p>
-                    </div>
-                    <Switch defaultChecked />
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
-
-          <TabsContent value="notifications" className="mt-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Email Notifications */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Mail className="w-5 h-5" />
-                    Email Notifications
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div className="space-y-0.5">
-                      <Label>Booking confirmations</Label>
-                      <p className="text-sm text-muted-foreground">
-                        Get notified when bookings are confirmed
-                      </p>
-                    </div>
-                    <Switch defaultChecked />
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div className="space-y-0.5">
-                      <Label>Service reminders</Label>
-                      <p className="text-sm text-muted-foreground">
-                        Receive reminders before scheduled services
-                      </p>
-                    </div>
-                    <Switch defaultChecked />
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div className="space-y-0.5">
-                      <Label>Marketing emails</Label>
-                      <p className="text-sm text-muted-foreground">
-                        Receive updates about new features and promotions
-                      </p>
-                    </div>
-                    <Switch />
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div className="space-y-0.5">
-                      <Label>Weekly digest</Label>
-                      <p className="text-sm text-muted-foreground">
-                        Summary of your activity and recommendations
-                      </p>
-                    </div>
-                    <Switch defaultChecked />
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Push Notifications */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Bell className="w-5 h-5" />
-                    Push Notifications
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div className="space-y-0.5">
-                      <Label>Provider messages</Label>
-                      <p className="text-sm text-muted-foreground">
-                        New messages from service providers
-                      </p>
-                    </div>
-                    <Switch defaultChecked />
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div className="space-y-0.5">
-                      <Label>Booking updates</Label>
-                      <p className="text-sm text-muted-foreground">
-                        Changes to your scheduled services
-                      </p>
-                    </div>
-                    <Switch defaultChecked />
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div className="space-y-0.5">
-                      <Label>Payment alerts</Label>
-                      <p className="text-sm text-muted-foreground">
-                        Payment confirmations and failures
-                      </p>
-                    </div>
-                    <Switch defaultChecked />
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div className="space-y-0.5">
-                      <Label>Security alerts</Label>
-                      <p className="text-sm text-muted-foreground">
-                        Important security and account updates
-                      </p>
-                    </div>
-                    <Switch defaultChecked />
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
-
-          <TabsContent value="privacy" className="mt-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Privacy Controls */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Shield className="w-5 h-5" />
-                    Privacy Controls
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div className="space-y-0.5">
-                      <Label>Profile visibility</Label>
-                      <p className="text-sm text-muted-foreground">
-                        Control who can see your profile
-                      </p>
-                    </div>
-                    <Select defaultValue="providers">
-                      <SelectTrigger className="w-32">
+                    <Label>Profile Visibility</Label>
+                    <Select value={privacy.profileVisibility} onValueChange={(value) => setPrivacy({...privacy, profileVisibility: value})}>
+                      <SelectTrigger className="glass rounded-2xl">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="public">Public</SelectItem>
-                        <SelectItem value="providers">
-                          Providers only
-                        </SelectItem>
                         <SelectItem value="private">Private</SelectItem>
+                        <SelectItem value="contacts">Contacts Only</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
                   <div className="flex items-center justify-between">
-                    <div className="space-y-0.5">
-                      <Label>Location sharing</Label>
-                      <p className="text-sm text-muted-foreground">
-                        Share your location with service providers
-                      </p>
+                    <div>
+                      <Label>Show email on profile</Label>
+                      <p className="text-sm text-muted-foreground">Let others see your email address</p>
                     </div>
-                    <Switch defaultChecked />
+                    <Switch
+                      checked={privacy.showEmail}
+                      onCheckedChange={(checked) => setPrivacy({...privacy, showEmail: checked})}
+                    />
                   </div>
 
                   <div className="flex items-center justify-between">
-                    <div className="space-y-0.5">
-                      <Label>Activity tracking</Label>
-                      <p className="text-sm text-muted-foreground">
-                        Help us improve our service with usage analytics
-                      </p>
+                    <div>
+                      <Label>Show phone on profile</Label>
+                      <p className="text-sm text-muted-foreground">Display phone number publicly</p>
                     </div>
-                    <Switch defaultChecked />
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Data Management */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>Data Management</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <Button variant="outline" className="w-full justify-start">
-                    Download your data
-                  </Button>
-                  <Button variant="outline" className="w-full justify-start">
-                    Request data deletion
-                  </Button>
-                  <Button
-                    variant="outline"
-                    className="w-full justify-start text-red-600 hover:text-red-700"
-                  >
-                    Delete account
-                  </Button>
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
-
-          <TabsContent value="billing" className="mt-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Payment Methods */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <CreditCard className="w-5 h-5" />
-                    Payment Methods
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex items-center justify-between p-3 border rounded-lg">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                        <CreditCard className="w-4 h-4 text-blue-600" />
-                      </div>
-                      <div>
-                        <p className="font-medium">Visa •••• 4242</p>
-                        <p className="text-sm text-muted-foreground">
-                          Expires 12/26
-                        </p>
-                      </div>
-                    </div>
-                    <Badge>Default</Badge>
+                    <Switch
+                      checked={privacy.showPhone}
+                      onCheckedChange={(checked) => setPrivacy({...privacy, showPhone: checked})}
+                    />
                   </div>
 
-                  <Button variant="outline" className="w-full">
-                    Add Payment Method
-                  </Button>
-                </CardContent>
-              </Card>
-
-              {/* Billing Settings */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>Billing Settings</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <div className="space-y-0.5">
-                      <Label>Auto-pay</Label>
-                      <p className="text-sm text-muted-foreground">
-                        Automatically pay for completed services
-                      </p>
+                    <div>
+                      <Label>Data processing</Label>
+                      <p className="text-sm text-muted-foreground">Allow data processing for better experience</p>
                     </div>
-                    <Switch defaultChecked />
+                    <Switch
+                      checked={privacy.dataProcessing}
+                      onCheckedChange={(checked) => setPrivacy({...privacy, dataProcessing: checked})}
+                    />
                   </div>
 
-                  <div className="space-y-2">
-                    <Label>Spending limit (monthly)</Label>
-                    <Select defaultValue="500">
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="200">$200</SelectItem>
-                        <SelectItem value="500">$500</SelectItem>
-                        <SelectItem value="1000">$1,000</SelectItem>
-                        <SelectItem value="unlimited">Unlimited</SelectItem>
-                      </SelectContent>
-                    </Select>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Label>Analytics</Label>
+                      <p className="text-sm text-muted-foreground">Help improve our services with usage data</p>
+                    </div>
+                    <Switch
+                      checked={privacy.analytics}
+                      onCheckedChange={(checked) => setPrivacy({...privacy, analytics: checked})}
+                    />
                   </div>
 
-                  <Button variant="outline" className="w-full">
-                    View Billing History
+                  <Button className="bg-gradient-trust text-white hover:shadow-glow-trust">
+                    Save Privacy Settings
                   </Button>
                 </CardContent>
               </Card>
-            </div>
-          </TabsContent>
-        </Tabs>
+            </TabsContent>
 
-        {/* Save Changes */}
-        <Card className="mt-6">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 text-green-600">
-                <CheckCircle className="w-5 h-5" />
-                <span>All changes saved automatically</span>
+            {/* Billing Settings */}
+            <TabsContent value="billing">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <Card variant="glass">
+                  <CardHeader>
+                    <CardTitle variant="gradient-plasma">Payment Methods</CardTitle>
+                    <CardDescription>
+                      Manage your payment information
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="glass rounded-2xl p-4 border border-plasma-200/30">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-3">
+                          <div className="w-8 h-8 bg-gradient-plasma rounded-lg"></div>
+                          <div>
+                            <p className="font-medium">•••• •••• •••• 4242</p>
+                            <p className="text-sm text-muted-foreground">Expires 12/25</p>
+                          </div>
+                        </div>
+                        <Button variant="outline" size="sm">Edit</Button>
+                      </div>
+                    </div>
+                    <Button variant="outline" className="w-full">
+                      Add Payment Method
+                    </Button>
+                  </CardContent>
+                </Card>
+
+                <Card variant="glass">
+                  <CardHeader>
+                    <CardTitle variant="gradient-plasma">Billing History</CardTitle>
+                    <CardDescription>
+                      View your recent transactions
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="space-y-3">
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <p className="font-medium">Premium Subscription</p>
+                          <p className="text-sm text-muted-foreground">Dec 1, 2024</p>
+                        </div>
+                        <span className="font-bold text-gradient-plasma">$29.99</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <p className="font-medium">Service Fee</p>
+                          <p className="text-sm text-muted-foreground">Nov 15, 2024</p>
+                        </div>
+                        <span className="font-bold text-gradient-plasma">$4.99</span>
+                      </div>
+                    </div>
+                    <Button variant="outline" className="w-full">
+                      View All Transactions
+                    </Button>
+                  </CardContent>
+                </Card>
               </div>
-              <Button>Reset to Defaults</Button>
-            </div>
-          </CardContent>
-        </Card>
+            </TabsContent>
+          </Tabs>
+        </div>
       </div>
+
+      <ModernFooter />
     </div>
   );
 }
