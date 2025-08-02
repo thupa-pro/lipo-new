@@ -1,191 +1,168 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* 2025 Premium Design System - AI-Native & Futuristic */
 @layer base {
   :root {
-    /* OKLCH Color System - Perceptually Uniform */
-    
-    /* Primary Neural Network Palette */
-    --neural-50: oklch(0.98 0.01 250);
-    --neural-100: oklch(0.95 0.02 250);
-    --neural-200: oklch(0.90 0.04 250);
-    --neural-300: oklch(0.82 0.08 250);
-    --neural-400: oklch(0.72 0.12 250);
-    --neural-500: oklch(0.65 0.15 250); /* Primary Neural Blue */
-    --neural-600: oklch(0.58 0.18 250);
-    --neural-700: oklch(0.48 0.20 250);
-    --neural-800: oklch(0.38 0.18 250);
-    --neural-900: oklch(0.28 0.15 250);
-    --neural-950: oklch(0.18 0.10 250);
-    
-    /* Quantum Computing Palette */
-    --quantum-50: oklch(0.98 0.01 200);
-    --quantum-100: oklch(0.95 0.03 200);
-    --quantum-200: oklch(0.88 0.06 200);
-    --quantum-300: oklch(0.80 0.09 200);
-    --quantum-400: oklch(0.72 0.11 200);
-    --quantum-500: oklch(0.75 0.12 200); /* Primary Quantum Cyan */
-    --quantum-600: oklch(0.65 0.14 200);
-    --quantum-700: oklch(0.55 0.16 200);
-    --quantum-800: oklch(0.45 0.14 200);
-    --quantum-900: oklch(0.35 0.12 200);
-    --quantum-950: oklch(0.25 0.08 200);
-    
-    /* Trust & Security Palette */
-    --trust-50: oklch(0.98 0.01 150);
-    --trust-100: oklch(0.94 0.03 150);
-    --trust-200: oklch(0.88 0.06 150);
-    --trust-300: oklch(0.80 0.09 150);
-    --trust-400: oklch(0.72 0.11 150);
-    --trust-500: oklch(0.70 0.13 150); /* Primary Trust Green */
-    --trust-600: oklch(0.62 0.15 150);
-    --trust-700: oklch(0.52 0.16 150);
-    --trust-800: oklch(0.42 0.14 150);
-    --trust-900: oklch(0.32 0.12 150);
-    --trust-950: oklch(0.22 0.08 150);
-    
-    /* Plasma Energy Palette */
-    --plasma-50: oklch(0.98 0.01 300);
-    --plasma-100: oklch(0.94 0.04 300);
-    --plasma-200: oklch(0.88 0.08 300);
-    --plasma-300: oklch(0.80 0.12 300);
-    --plasma-400: oklch(0.70 0.16 300);
-    --plasma-500: oklch(0.60 0.18 300); /* Primary Plasma Purple */
-    --plasma-600: oklch(0.52 0.20 300);
-    --plasma-700: oklch(0.44 0.18 300);
-    --plasma-800: oklch(0.36 0.16 300);
-    --plasma-900: oklch(0.28 0.14 300);
-    --plasma-950: oklch(0.20 0.10 300);
-    
-    /* Atmospheric Neutral System */
-    --stratosphere: oklch(0.98 0.01 250); /* Ultra light background */
-    --cirrus: oklch(0.92 0.02 250);       /* Light borders, dividers */
-    --nimbus: oklch(0.65 0.03 250);       /* Secondary text */
-    --storm: oklch(0.35 0.04 250);        /* Primary text */
-    --eclipse: oklch(0.15 0.05 250);      /* Headers, emphasis */
-    
-    /* Semantic Color Mapping */
-    --success: oklch(0.70 0.13 150);      /* Trust green */
-    --warning: oklch(0.75 0.15 80);       /* Amber warning */
-    --error: oklch(0.65 0.18 25);         /* Red error */
-    --info: oklch(0.70 0.12 250);         /* Neural blue */
-    
     /* Design System Variables - Light Mode */
-    --background: var(--stratosphere);
-    --foreground: var(--eclipse);
-    --card: 255 255 255;
-    --card-foreground: var(--eclipse);
-    --popover: 255 255 255;
-    --popover-foreground: var(--eclipse);
-    --primary: var(--neural-500);
-    --primary-foreground: 255 255 255;
-    --secondary: var(--cirrus);
-    --secondary-foreground: var(--storm);
-    --muted: var(--cirrus);
-    --muted-foreground: var(--nimbus);
-    --accent: var(--plasma-500);
-    --accent-foreground: 255 255 255;
-    --destructive: var(--error);
-    --destructive-foreground: 255 255 255;
-    --border: var(--cirrus);
-    --input: var(--cirrus);
-    --ring: var(--neural-500);
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
     --radius: 0.75rem;
     
-    /* Glassmorphism Variables */
-    --glass-bg: rgba(255, 255, 255, 0.1);
-    --glass-bg-strong: rgba(255, 255, 255, 0.15);
-    --glass-border: rgba(255, 255, 255, 0.2);
-    --glass-border-strong: rgba(255, 255, 255, 0.3);
-    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    --glass-shadow-strong: 0 12px 40px rgba(0, 0, 0, 0.15);
+    /* Neural Color Palette */
+    --neural-50: 250 100% 98%;
+    --neural-100: 250 100% 95%;
+    --neural-200: 250 100% 90%;
+    --neural-300: 250 100% 82%;
+    --neural-400: 250 100% 72%;
+    --neural-500: 250 100% 65%;
+    --neural-600: 250 100% 58%;
+    --neural-700: 250 100% 48%;
+    --neural-800: 250 100% 38%;
+    --neural-900: 250 100% 28%;
+    --neural-950: 250 100% 18%;
     
-    /* Animation & Timing Variables */
-    --animation-speed-instant: 100ms;
-    --animation-speed-fast: 150ms;
-    --animation-speed-normal: 300ms;
-    --animation-speed-slow: 500ms;
-    --animation-speed-slower: 800ms;
+    /* Quantum Color Palette */
+    --quantum-50: 200 100% 98%;
+    --quantum-100: 200 100% 95%;
+    --quantum-200: 200 100% 88%;
+    --quantum-300: 200 100% 80%;
+    --quantum-400: 200 100% 72%;
+    --quantum-500: 200 100% 75%;
+    --quantum-600: 200 100% 65%;
+    --quantum-700: 200 100% 55%;
+    --quantum-800: 200 100% 45%;
+    --quantum-900: 200 100% 35%;
+    --quantum-950: 200 100% 25%;
     
-    /* Easing Functions */
-    --ease-premium: cubic-bezier(0.4, 0, 0.2, 1);
-    --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    --ease-expo-out: cubic-bezier(0.16, 1, 0.3, 1);
-    --ease-expo-in: cubic-bezier(0.7, 0, 0.84, 0);
+    /* Trust Color Palette */
+    --trust-50: 150 100% 98%;
+    --trust-100: 150 100% 94%;
+    --trust-200: 150 100% 88%;
+    --trust-300: 150 100% 80%;
+    --trust-400: 150 100% 72%;
+    --trust-500: 150 100% 70%;
+    --trust-600: 150 100% 62%;
+    --trust-700: 150 100% 52%;
+    --trust-800: 150 100% 42%;
+    --trust-900: 150 100% 32%;
+    --trust-950: 150 100% 22%;
     
-    /* Chart Colors */
-    --chart-1: var(--neural-500);
-    --chart-2: var(--quantum-500);
-    --chart-3: var(--trust-500);
-    --chart-4: var(--plasma-500);
-    --chart-5: var(--warning);
+    /* Plasma Color Palette */
+    --plasma-50: 300 100% 98%;
+    --plasma-100: 300 100% 94%;
+    --plasma-200: 300 100% 88%;
+    --plasma-300: 300 100% 80%;
+    --plasma-400: 300 100% 70%;
+    --plasma-500: 300 100% 60%;
+    --plasma-600: 300 100% 52%;
+    --plasma-700: 300 100% 44%;
+    --plasma-800: 300 100% 36%;
+    --plasma-900: 300 100% 28%;
+    --plasma-950: 300 100% 20%;
   }
 
   .dark {
-    /* Dark Mode Color Overrides */
-    --background: var(--eclipse);
-    --foreground: var(--stratosphere);
-    --card: rgba(var(--storm), 0.3);
-    --card-foreground: var(--stratosphere);
-    --popover: var(--storm);
-    --popover-foreground: var(--stratosphere);
-    --primary: var(--neural-400);
-    --primary-foreground: var(--eclipse);
-    --secondary: rgba(var(--nimbus), 0.2);
-    --secondary-foreground: var(--stratosphere);
-    --muted: rgba(var(--nimbus), 0.2);
-    --muted-foreground: var(--nimbus);
-    --accent: var(--plasma-400);
-    --accent-foreground: var(--eclipse);
-    --destructive: var(--error);
-    --destructive-foreground: var(--stratosphere);
-    --border: rgba(var(--nimbus), 0.2);
-    --input: rgba(var(--nimbus), 0.2);
-    --ring: var(--plasma-400);
-    
-    /* Dark Mode Glassmorphism */
-    --glass-bg: rgba(0, 0, 0, 0.3);
-    --glass-bg-strong: rgba(0, 0, 0, 0.5);
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --glass-border-strong: rgba(255, 255, 255, 0.2);
-    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    --glass-shadow-strong: 0 12px 40px rgba(0, 0, 0, 0.5);
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 84% 4.9%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 94.1%;
   }
 
-  /* Base Element Styles */
   * {
     @apply border-border;
   }
 
-  html {
-    scroll-behavior: smooth;
-    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
-    font-variation-settings: 'opsz' 32;
-  }
-
   body {
-    @apply bg-background text-foreground font-sans antialiased;
-    font-family: 'Inter Variable', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    font-optical-sizing: auto;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
 
-  /* Enhanced Typography System */
+  /* AI-Native Gradient Text Effects */
+  .text-gradient-neural {
+    background: linear-gradient(135deg, hsl(var(--neural-500)), hsl(var(--plasma-500)));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text-gradient-quantum {
+    background: linear-gradient(135deg, hsl(var(--quantum-500)), hsl(var(--neural-500)));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text-gradient-trust {
+    background: linear-gradient(135deg, hsl(var(--trust-500)), hsl(var(--quantum-500)));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text-gradient-plasma {
+    background: linear-gradient(135deg, hsl(var(--plasma-500)), hsl(var(--neural-500)));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Glassmorphism Effects */
+  .glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  }
+
+  .glass-strong {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Enhanced Typography */
   .text-display-xl {
     font-size: clamp(2.5rem, 8vw, 4.5rem);
     line-height: 1.1;
     font-weight: 800;
     letter-spacing: -0.02em;
-    font-optical-sizing: auto;
   }
 
   .text-display-l {
@@ -193,22 +170,6 @@
     line-height: 1.15;
     font-weight: 700;
     letter-spacing: -0.015em;
-    font-optical-sizing: auto;
-  }
-
-  .text-display-m {
-    font-size: clamp(1.75rem, 5vw, 2.5rem);
-    line-height: 1.2;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    font-optical-sizing: auto;
-  }
-
-  .text-heading-l {
-    font-size: clamp(1.5rem, 4vw, 2rem);
-    line-height: 1.25;
-    font-weight: 600;
-    letter-spacing: -0.005em;
   }
 
   .text-heading-m {
@@ -223,418 +184,33 @@
     font-weight: 400;
   }
 
-  .text-body-m {
-    font-size: clamp(1rem, 1.5vw, 1.125rem);
-    line-height: 1.5;
-    font-weight: 400;
+  /* Shadow Effects */
+  .shadow-glass-lg {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
   }
 
-  .text-body-s {
-    font-size: clamp(0.875rem, 1vw, 1rem);
-    line-height: 1.4;
-    font-weight: 400;
+  .shadow-glass-xl {
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
   }
 
-  /* AI-Native Gradient Text Effects */
-  .text-gradient-neural {
-    background: linear-gradient(135deg, var(--neural-500), var(--plasma-500));
-    background-size: 200% 100%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: gradient-shift 3s ease-in-out infinite;
+  .shadow-glow-neural {
+    box-shadow: 0 0 20px hsl(var(--neural-500) / 0.3);
   }
 
-  .text-gradient-quantum {
-    background: linear-gradient(135deg, var(--quantum-500), var(--neural-500));
-    background-size: 200% 100%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: gradient-shift 4s ease-in-out infinite;
-  }
-
-  .text-gradient-trust {
-    background: linear-gradient(135deg, var(--trust-500), var(--quantum-500));
-    background-size: 200% 100%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: gradient-shift 5s ease-in-out infinite;
-  }
-
-  .text-gradient-plasma {
-    background: linear-gradient(135deg, var(--plasma-500), var(--neural-500));
-    background-size: 200% 100%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: gradient-shift 6s ease-in-out infinite;
-  }
-
-  /* Premium Glassmorphism Effects */
-  .glass {
-    background: var(--glass-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
-    box-shadow: var(--glass-shadow);
-  }
-
-  .glass-strong {
-    background: var(--glass-bg-strong);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
-    border: 1px solid var(--glass-border-strong);
-    box-shadow: var(--glass-shadow-strong);
-  }
-
-  .glass-subtle {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-  }
-
-  /* Enhanced Shadow System */
-  .shadow-neural {
-    box-shadow: 0 4px 20px rgba(79, 124, 255, 0.3), 0 0 0 1px rgba(79, 124, 255, 0.1);
-  }
-
-  .shadow-quantum {
-    box-shadow: 0 4px 20px rgba(0, 212, 255, 0.3), 0 0 0 1px rgba(0, 212, 255, 0.1);
-  }
-
-  .shadow-trust {
-    box-shadow: 0 4px 20px rgba(0, 200, 150, 0.3), 0 0 0 1px rgba(0, 200, 150, 0.1);
-  }
-
-  .shadow-plasma {
-    box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3), 0 0 0 1px rgba(139, 92, 246, 0.1);
-  }
-
-  .shadow-glow {
-    box-shadow: 0 0 20px rgba(79, 124, 255, 0.3);
-  }
-
-  .shadow-glow-lg {
-    box-shadow: 0 0 40px rgba(79, 124, 255, 0.2);
-  }
-
-  /* Interactive States */
-  .hover-lift {
-    transition: transform var(--animation-speed-normal) var(--ease-premium);
-  }
-
-  .hover-lift:hover {
-    transform: translateY(-2px);
-  }
-
-  .hover-scale {
-    transition: transform var(--animation-speed-normal) var(--ease-premium);
-  }
-
-  .hover-scale:hover {
-    transform: scale(1.02);
-  }
-
-  .hover-glow {
-    transition: box-shadow var(--animation-speed-normal) var(--ease-premium);
-  }
-
-  .hover-glow:hover {
-    box-shadow: 0 8px 30px rgba(79, 124, 255, 0.4);
-  }
-
-  .hover-glass {
-    transition: all var(--animation-speed-normal) var(--ease-premium);
-  }
-
-  .hover-glass:hover {
-    background: var(--glass-bg-strong);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
-  }
-
-  /* Focus States for Accessibility */
-  .focus-neural:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(79, 124, 255, 0.3);
-  }
-
-  .focus-quantum:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.3);
-  }
-
-  .focus-trust:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(0, 200, 150, 0.3);
-  }
-
-  .focus-plasma:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.3);
-  }
-
-  /* Premium Animations */
-  @keyframes gradient-shift {
-    0%, 100% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-  }
-
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
-  }
-
-  @keyframes pulse-glow {
-    0%, 100% {
-      box-shadow: 0 0 20px rgba(79, 124, 255, 0.3);
-    }
-    50% {
-      box-shadow: 0 0 30px rgba(79, 124, 255, 0.6);
-    }
-  }
-
-  @keyframes particle-float {
-    0% {
-      transform: translateY(0px) rotate(0deg);
-      opacity: 0;
-    }
-    10% {
-      opacity: 1;
-    }
-    90% {
-      opacity: 1;
-    }
-    100% {
-      transform: translateY(-100px) rotate(360deg);
-      opacity: 0;
-    }
-  }
-
-  @keyframes shimmer {
-    0% {
-      background-position: -200% 0;
-    }
-    100% {
-      background-position: 200% 0;
-    }
-  }
-
-  @keyframes ai-thinking {
-    0%, 100% {
-      opacity: 0.4;
-    }
-    50% {
-      opacity: 1;
-    }
-  }
-
-  @keyframes neural-pulse {
-    0% {
-      transform: scale(1);
-      opacity: 1;
-    }
-    50% {
-      transform: scale(1.05);
-      opacity: 0.8;
-    }
-    100% {
-      transform: scale(1);
-      opacity: 1;
-    }
-  }
-
-  /* Animation Classes */
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
-  }
-
-  .animate-pulse-glow {
-    animation: pulse-glow 2s ease-in-out infinite;
-  }
-
-  .animate-particle {
-    animation: particle-float 3s linear infinite;
-  }
-
-  .animate-shimmer {
-    animation: shimmer 2s linear infinite;
-  }
-
-  .animate-ai-thinking {
-    animation: ai-thinking 1.5s ease-in-out infinite;
-  }
-
-  .animate-neural-pulse {
-    animation: neural-pulse 2s ease-in-out infinite;
-  }
-
-  /* Scrollbar Styling */
-  ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: rgba(var(--nimbus), 0.3);
-    border-radius: 4px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: rgba(var(--nimbus), 0.5);
-  }
-
-  ::-webkit-scrollbar-corner {
-    background: transparent;
-  }
-
-  /* Selection Styling */
-  ::selection {
-    background: rgba(79, 124, 255, 0.3);
-    color: var(--foreground);
-  }
-
-  ::-moz-selection {
-    background: rgba(79, 124, 255, 0.3);
-    color: var(--foreground);
-  }
-
-  /* Reduced Motion Support */
-  @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
-    }
-  }
-
-  /* High Contrast Mode Support */
-  @media (prefers-contrast: high) {
-    .glass,
-    .glass-strong,
-    .glass-subtle {
-      background: var(--background);
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
-      border: 2px solid var(--border);
-    }
-  }
-}
-
-@layer utilities {
-  /* Text Balance for Better Typography */
-  .text-balance {
-    text-wrap: balance;
-  }
-
-  .text-pretty {
-    text-wrap: pretty;
-  }
-
-  /* Fluid Spacing Utilities */
-  .space-y-fluid > * + * {
-    margin-top: clamp(1rem, 3vw, 2rem);
-  }
-
-  .space-x-fluid > * + * {
-    margin-left: clamp(1rem, 3vw, 2rem);
-  }
-
-  /* Container Utilities */
-  .container-fluid {
-    width: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 clamp(1rem, 5vw, 3rem);
-  }
-
-  .container-narrow {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 0 clamp(1rem, 5vw, 2rem);
-  }
-
-  .container-wide {
-    width: 100%;
-    max-width: 1600px;
-    margin: 0 auto;
-    padding: 0 clamp(1rem, 5vw, 4rem);
-  }
-
-  /* Aspect Ratio Utilities */
-  .aspect-golden {
-    aspect-ratio: 1.618 / 1;
-  }
-
-  .aspect-card {
-    aspect-ratio: 5 / 4;
-  }
-
-  /* Gradient Background Utilities */
+  /* Gradient Backgrounds */
   .bg-gradient-neural {
-    background: linear-gradient(135deg, var(--neural-500), var(--plasma-500));
+    background: linear-gradient(135deg, hsl(var(--neural-500)), hsl(var(--plasma-500)));
   }
 
   .bg-gradient-quantum {
-    background: linear-gradient(135deg, var(--quantum-500), var(--neural-500));
+    background: linear-gradient(135deg, hsl(var(--quantum-500)), hsl(var(--neural-500)));
   }
 
   .bg-gradient-trust {
-    background: linear-gradient(135deg, var(--trust-500), var(--quantum-500));
+    background: linear-gradient(135deg, hsl(var(--trust-500)), hsl(var(--quantum-500)));
   }
 
   .bg-gradient-plasma {
-    background: linear-gradient(135deg, var(--plasma-500), var(--neural-500));
-  }
-
-  /* Border Gradient Utilities */
-  .border-gradient-neural {
-    border: 1px solid transparent;
-    background: linear-gradient(var(--background), var(--background)) padding-box,
-                linear-gradient(135deg, var(--neural-500), var(--plasma-500)) border-box;
-  }
-
-  .border-gradient-quantum {
-    border: 1px solid transparent;
-    background: linear-gradient(var(--background), var(--background)) padding-box,
-                linear-gradient(135deg, var(--quantum-500), var(--neural-500)) border-box;
-  }
-
-  /* Performance Optimization */
-  .gpu-accelerated {
-    transform: translateZ(0);
-    will-change: transform;
-  }
-
-  .contain-layout {
-    contain: layout;
-  }
-
-  .contain-paint {
-    contain: paint;
-  }
-
-  .contain-strict {
-    contain: strict;
+    background: linear-gradient(135deg, hsl(var(--plasma-500)), hsl(var(--neural-500)));
   }
 }
