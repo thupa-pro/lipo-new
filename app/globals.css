@@ -100,30 +100,6 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 224.3 76.3% 94.1%;
-
-    /* Dark mode color adjustments */
-    --neural-50: 250 50% 15%;
-    --neural-100: 250 50% 20%;
-    --neural-200: 250 50% 25%;
-    --neural-300: 250 60% 35%;
-    --neural-400: 250 70% 45%;
-    --neural-500: 250 80% 60%;
-    --neural-600: 250 85% 70%;
-    --neural-700: 250 90% 80%;
-    --neural-800: 250 95% 85%;
-    --neural-900: 250 100% 90%;
-    --neural-950: 250 100% 95%;
-  }
-
-  /* Dark mode glassmorphism adjustments */
-  .dark .glass {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .dark .glass-strong {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.15);
   }
 
   * {
