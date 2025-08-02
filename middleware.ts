@@ -1,4 +1,4 @@
-import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs";
+import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import createIntlMiddleware from "next-intl/middleware";
@@ -64,7 +64,27 @@ export async function middleware(req: NextRequest) {
 
   // Initialize Supabase client. This needs to happen before any potential redirects
   // or session checks, as it might set cookies on 'res'.
-  // const supabase = createMiddlewareClient({ req, res }); // Temporarily commented out for development
+  // const supabase = createServerClient(
+  //   process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  //   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+  //   {
+  //     cookies: {
+  //       get(name: string) {
+  //         return req.cookies.get(name)?.value
+  //       },
+  //       set(name: string, value: string, options: CookieOptions) {
+  //         req.cookies.set({ name, value, ...options })
+  //         res = NextResponse.next({ request: { headers: req.headers } })
+  //         res.cookies.set({ name, value, ...options })
+  //       },
+  //       remove(name: string, options: CookieOptions) {
+  //         req.cookies.set({ name, value: '', ...options })
+  //         res = NextResponse.next({ request: { headers: req.headers } })
+  //         res.cookies.set({ name, value: '', ...options })
+  //       },
+  //     },
+  //   }
+  // ) // Temporarily commented out for development
 
   // Rate limiting for API routes
   if (req.nextUrl.pathname.startsWith("/api/")) {
