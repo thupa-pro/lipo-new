@@ -223,7 +223,7 @@ export default function HomePage() {
                   </div>
                   <span className="text-quantum-600 text-sm font-medium">↗ +15.2%</span>
                 </div>
-                <div className="text-3xl font-bold text-gradient-quantum mb-2">< 2hrs</div>
+                <div className="text-3xl font-bold text-gradient-quantum mb-2">&lt; 2hrs</div>
                 <div className="text-sm text-muted-foreground">Average Response</div>
               </div>
               
