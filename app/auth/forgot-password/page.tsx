@@ -11,6 +11,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Mail, ArrowLeft, AlertCircle, CheckCircle } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useToast } from "@/components/ui/use-toast"
+import { authService } from "@/lib/auth/auth-utils"
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("")
@@ -39,29 +40,37 @@ export default function ForgotPasswordPage() {
       return
     }
 
-    // Simulate API call to send reset email
-    await new Promise((resolve) => setTimeout(resolve, 2000))
+    try {
+      const { error: authError } = await authService.resetPassword(email)
 
-    // Simulate success or failure
-    if (email === "test@example.com") {
-      setMessage("If an account with that email exists, a password reset link has been sent.")
+      if (authError) {
+        setError(authError.message)
+        toast({
+          title: "Reset Failed",
+          description: authError.message,
+          variant: "destructive",
+        })
+      } else {
+        // For security, we give a generic message regardless of whether email exists
+        setMessage("If an account with that email exists, a password reset link has been sent.")
+        toast({
+          title: "Password Reset Email Sent",
+          description: "Please check your inbox for instructions.",
+          variant: "default",
+        })
+        setEmail("") // Clear email field
+      }
+    } catch (error) {
+      console.error("Password reset error:", error)
+      setError("An unexpected error occurred. Please try again.")
       toast({
-        title: "Password Reset Email Sent",
-        description: "Please check your inbox for instructions.",
-        variant: "default",
+        title: "Reset Failed",
+        description: "An unexpected error occurred. Please try again.",
+        variant: "destructive",
       })
-      setEmail(""); // Clear email field on success
-    } else {
-      // For security, we often give a generic message even if email doesn't exist
-      setMessage("If an account with that email exists, a password reset link has been sent.")
-      toast({
-        title: "Password Reset Initiated",
-        description: "Please check your inbox for instructions.",
-        variant: "default",
-      })
-      setEmail(""); // Clear email field
+    } finally {
+      setIsLoading(false)
     }
-    setIsLoading(false)
   }
 
   return (
