@@ -63,6 +63,8 @@ interface DynamicPaymentSystemProps {
   currency?: string;
   recipient?: string;
   description?: string;
+  bookingId?: string;
+  providerId?: string;
   onComplete?: (transaction: Transaction) => void;
   onCancel?: () => void;
   className?: string;
