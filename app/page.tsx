@@ -274,7 +274,7 @@ export default function HomePage() {
               <span className="material-icons text-purple-400 text-3xl">hub</span>
               <span className="text-2xl font-bold text-white tracking-wider">Loconomy</span>
             </div>
-            <p className="text-mid-gray text-sm">The future of local services, today.</p>
+            <p className="text-[var(--mid-gray)] text-sm">The future of local services, today.</p>
           </div>
           
           <div>
