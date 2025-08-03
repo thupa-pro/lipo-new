@@ -190,6 +190,15 @@ const SLASH_COMMANDS: SlashCommand[] = [
     category: 'tools',
     action: () => window.location.href = '/customer-support'
   },
+  {
+    id: 'optimize',
+    name: 'Optimize Service',
+    description: 'AI-powered tip and boost optimization',
+    icon: TrendingUp,
+    keywords: ['optimize', 'boost', 'tip', 'ai', 'enhance', 'visibility'],
+    category: 'tools',
+    action: () => window.location.href = '/optimize-service'
+  },
 
   // Social
   {
