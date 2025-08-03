@@ -31,12 +31,20 @@ import { RealtimeChat } from "@/components/messages/realtime-chat";
 import { useSocket } from "@/hooks/use-socket";
 import { createClient } from "@/lib/supabase/client";
 
-export const metadata: Metadata = {
-  title: "Messages - Loconomy",
-  description: "Chat with service providers and customers",
-};
-
 export default function MessagesPage() {
+  const [currentUser, setCurrentUser] = useState<any>(null);
+  const [selectedConversation, setSelectedConversation] = useState<any>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const { isConnected, error } = useSocket();
+
+  useEffect(() => {
+    const getCurrentUser = async () => {
+      const supabase = createClient();
+      const { data: { user } } = await supabase.auth.getUser();
+      setCurrentUser(user);
+    };
+    getCurrentUser();
+  }, []);
   const conversations = [
     {
       id: 1,
