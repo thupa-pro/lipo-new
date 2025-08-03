@@ -212,7 +212,7 @@ export default function HomePage() {
                 </div>
               </div>
               <p className="text-5xl font-bold text-white mb-2">4.9/5</p>
-              <p className="text-mid-gray mb-4">Average Rating</p>
+              <p className="text-[var(--mid-gray)] mb-4">Average Rating</p>
               <span className="text-green-400 font-semibold text-sm">+1.8% vs last month</span>
             </div>
           </div>
