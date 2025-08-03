@@ -232,6 +232,12 @@ export function DynamicPaymentSystem({
   const startPayment = async () => {
     if (!selectedMethod) return;
 
+    // Handle Stripe checkout
+    if (selectedMethod.id === "stripe-checkout") {
+      setUseStripeCheckout(true);
+      return;
+    }
+
     // Validate if using new card
     if (selectedMethod.id === "new-card" && !validateCard()) {
       return;
