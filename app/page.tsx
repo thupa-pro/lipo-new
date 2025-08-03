@@ -29,10 +29,10 @@ export default function HomePage() {
           </div>
           
           <nav className="hidden lg:flex items-center space-x-8 text-sm font-medium text-gray-300">
-            <a className="hover:text-white transition-colors duration-300" href="#find-service">Find Services</a>
-            <a className="hover:text-white transition-colors duration-300" href="#how-it-works">How It Works</a>
-            <a className="hover:text-white transition-colors duration-300" href="#become-provider">Become a Provider</a>
-            <a className="hover:text-white transition-colors duration-300" href="#blog">Blog</a>
+            <Link href="/browse" className="hover:text-white transition-colors duration-300">Find Services</Link>
+            <Link href="/how-it-works" className="hover:text-white transition-colors duration-300">How It Works</Link>
+            <Link href="/become-provider" className="hover:text-white transition-colors duration-300">Become a Provider</Link>
+            <Link href="/blog" className="hover:text-white transition-colors duration-300">Blog</Link>
           </nav>
           
           <div className="flex items-center space-x-4">
