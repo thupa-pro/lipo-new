@@ -56,10 +56,16 @@ export function SiteHeader() {
                       </Link>
                     </NavigationMenuLink>
                   </div>
+                  <Link href="/post-job" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                    <div className="text-sm font-medium leading-none">Post a Job</div>
+                    <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                      AI-powered job posting wizard
+                    </p>
+                  </Link>
                   <Link href="/request-service" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                     <div className="text-sm font-medium leading-none">Request Service</div>
                     <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                      Post your service request and get quotes
+                      Get quotes from multiple providers
                     </p>
                   </Link>
                   <Link href="/ai-demo" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
