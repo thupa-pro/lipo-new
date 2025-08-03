@@ -18,7 +18,7 @@ export default function HomePage() {
       <div className="absolute top-[30%] right-[10%] w-[500px] h-[500px] bg-fuchsia-700/20 rounded-full blur-[150px] animate-pulse animation-delay-2000"></div>
 
       {/* Header */}
-      <header className="relative z-10 py-6 px-4 sm:px-6 lg:px-8 bg-glass-strong/80 border-b border-white/10 sticky top-0 backdrop-blur-md">
+      <header className="relative z-10 py-6 px-4 sm:px-6 lg:px-8 bg-glass/80 border-b border-white/10 sticky top-0">
         <div className="container mx-auto flex justify-between items-center">
           <div className="flex items-center space-x-3">
             <span className="material-icons text-purple-400 text-4xl">hub</span>
