@@ -179,7 +179,7 @@ export default function HomePage() {
                 </div>
               </div>
               <p className="text-5xl font-bold text-white mb-2">2.4M+</p>
-              <p className="text-mid-gray mb-4">Active Users</p>
+              <p className="text-[var(--mid-gray)] mb-4">Active Users</p>
               <span className="text-green-400 font-semibold text-sm">+23.5% vs last month</span>
             </div>
             
