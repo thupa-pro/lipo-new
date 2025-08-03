@@ -175,22 +175,59 @@ export default function CategoryPage() {
   const [selectedDistance, setSelectedDistance] = useState("25");
 
   useEffect(() => {
-    // Simulate API call
-    setLoading(true);
-    setTimeout(() => {
-      const foundCategory = MOCK_CATEGORIES[slug];
-      setCategory(foundCategory || null);
-      
-      if (foundCategory) {
-        const categoryProviders = MOCK_PROVIDERS.filter(
-          p => p.category.slug === foundCategory.slug
-        );
-        setProviders(categoryProviders);
+    const fetchCategoryData = async () => {
+      setLoading(true);
+      try {
+        // Get user location if available
+        let lat = 0, lng = 0;
+        if (navigator.geolocation) {
+          const position = await new Promise<GeolocationPosition>((resolve, reject) => {
+            navigator.geolocation.getCurrentPosition(resolve, reject);
+          }).catch(() => null);
+
+          if (position) {
+            lat = position.coords.latitude;
+            lng = position.coords.longitude;
+          }
+        }
+
+        const params = new URLSearchParams({
+          q: searchQuery,
+          minPrice: priceRange[0].toString(),
+          maxPrice: priceRange[1].toString(),
+          distance: selectedDistance,
+          sortBy,
+          ...(lat && lng ? { lat: lat.toString(), lng: lng.toString() } : {}),
+        });
+
+        const response = await fetch(`/api/categories/${slug}?${params}`);
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch category data');
+        }
+
+        const data = await response.json();
+        setCategory(data.category);
+        setProviders(data.providers || []);
+      } catch (error) {
+        console.error('Error fetching category data:', error);
+        // Fallback to mock data
+        const foundCategory = MOCK_CATEGORIES[slug];
+        setCategory(foundCategory || null);
+
+        if (foundCategory) {
+          const categoryProviders = MOCK_PROVIDERS.filter(
+            p => p.category.slug === foundCategory.slug
+          );
+          setProviders(categoryProviders);
+        }
+      } finally {
+        setLoading(false);
       }
-      
-      setLoading(false);
-    }, 500);
-  }, [slug]);
+    };
+
+    fetchCategoryData();
+  }, [slug, searchQuery, priceRange, selectedDistance, sortBy]);
 
   const filteredProviders = useMemo(() => {
     let filtered = [...providers];
