@@ -30,6 +30,7 @@ import {
   Smartphone as PhoneIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { StripeCheckout } from "./stripe-checkout";
 
 interface PaymentMethod {
   id: string;
