@@ -70,20 +70,20 @@ export default function HomePage() {
           </p>
           
           <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
-            <a 
-              className="w-full sm:w-auto flex items-center justify-center gap-3 px-10 py-5 bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white font-bold rounded-full text-lg btn-glow transition-transform transform hover:scale-105" 
-              href="#find-service"
+            <Link
+              href="/browse"
+              className="w-full sm:w-auto flex items-center justify-center gap-3 px-10 py-5 bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white font-bold rounded-full text-lg btn-glow transition-transform transform hover:scale-105"
             >
               <span className="material-icons">search</span>
               Find Services Now
-            </a>
-            <a 
-              className="w-full sm:w-auto flex items-center justify-center gap-3 px-10 py-5 bg-white/10 text-white font-bold rounded-full text-lg hover:bg-white/20 transition-all duration-300 border border-transparent hover:border-white/30" 
-              href="#become-provider"
+            </Link>
+            <Link
+              href="/become-provider"
+              className="w-full sm:w-auto flex items-center justify-center gap-3 px-10 py-5 bg-white/10 text-white font-bold rounded-full text-lg hover:bg-white/20 transition-all duration-300 border border-transparent hover:border-white/30"
             >
               <span className="material-icons">group_add</span>
               Become a Provider
-            </a>
+            </Link>
           </div>
         </section>
 
