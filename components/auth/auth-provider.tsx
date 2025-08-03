@@ -46,6 +46,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const supabase = isSupabaseConfigured ? createSupabaseClient() : null
 
   const fetchUserProfile = async (userId: string) => {
+    if (!supabase) return null
+
     try {
       const { data, error } = await supabase
         .from('users')
@@ -66,6 +68,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   const refreshUser = async () => {
+    if (!supabase) return
+
     const { data: { session } } = await supabase.auth.getSession()
     if (session?.user) {
       const profile = await fetchUserProfile(session.user.id)
@@ -74,6 +78,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   useEffect(() => {
+    // If Supabase is not configured, set loading to false and return
+    if (!supabase) {
+      setLoading(false)
+      return
+    }
+
     // Get initial session
     const getSession = async () => {
       try {
@@ -121,9 +131,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     )
 
     return () => subscription.unsubscribe()
-  }, [supabase.auth])
+  }, [supabase])
 
   const signOut = async () => {
+    if (!supabase) {
+      // Clear local state even if Supabase is not configured
+      setUser(null)
+      setSession(null)
+      setUserProfile(null)
+      return
+    }
+
     try {
       const { error } = await supabase.auth.signOut()
       if (error) {
