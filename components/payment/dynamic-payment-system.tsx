@@ -310,6 +310,33 @@ export function DynamicPaymentSystem({
     setBiometricAuth(false);
     setTransaction(null);
     setCardErrors({});
+    setUseStripeCheckout(false);
+  };
+
+  const handleStripeSuccess = (paymentIntentId: string) => {
+    const completedTransaction: Transaction = {
+      id: paymentIntentId,
+      amount: getTotalAmount(),
+      currency,
+      description,
+      recipient,
+      status: "completed",
+      timestamp: new Date(),
+      fee: calculateFee(),
+    };
+
+    setTransaction(completedTransaction);
+    setCurrentStep(3);
+    onComplete?.(completedTransaction);
+  };
+
+  const handleStripeError = (error: string) => {
+    console.error('Stripe payment error:', error);
+    // Could show error and allow retry
+  };
+
+  const handleStripeCancel = () => {
+    setUseStripeCheckout(false);
   };
 
   const renderPaymentMethods = () => (
