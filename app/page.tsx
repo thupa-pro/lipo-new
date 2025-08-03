@@ -255,7 +255,7 @@ export default function HomePage() {
               <div className="relative z-10 flex flex-col h-full">
                 <span className="material-icons text-5xl text-fuchsia-400 mb-4">school</span>
                 <h3 className="text-2xl font-bold text-white mb-2">Education & Tutoring</h3>
-                <p className="text-mid-gray mb-6 flex-grow">Find expert tutors for any subject, from math and science to music lessons.</p>
+                <p className="text-[var(--mid-gray)] mb-6 flex-grow">Find expert tutors for any subject, from math and science to music lessons.</p>
                 <a className="font-semibold text-fuchsia-300 flex items-center group-hover:text-white transition-colors" href="#">
                   Explore 
                   <span className="material-icons text-lg ml-1 group-hover:translate-x-1 transition-transform">arrow_forward</span>
