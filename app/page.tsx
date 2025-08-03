@@ -300,12 +300,12 @@ export default function HomePage() {
               Join millions of satisfied customers who have found their perfect service providers through our platform.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="/browse" className="bg-gradient-neural text-white px-8 py-4 rounded-2xl font-medium hover:shadow-glow-neural transition-all duration-300 text-lg flex items-center justify-center">
+              <Link href="/browse" className="bg-gradient-neural text-white px-8 py-4 rounded-2xl font-medium hover:shadow-glow-neural transition-all duration-300 text-lg flex items-center justify-center">
                 Find Services Now
-              </a>
-              <a href="/become-provider" className="glass px-8 py-4 rounded-2xl font-medium text-neural-600 hover:bg-neural-50 transition-all duration-300 text-lg flex items-center justify-center">
+              </Link>
+              <Link href="/become-provider" className="glass px-8 py-4 rounded-2xl font-medium text-neural-600 hover:bg-neural-50 transition-all duration-300 text-lg flex items-center justify-center">
                 Start Earning as Provider
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -348,10 +348,10 @@ export default function HomePage() {
           </div>
 
           <div className="text-center mt-12">
-            <a href="/how-it-works" className="glass px-8 py-3 rounded-2xl font-medium text-neural-600 hover:bg-neural-50 transition-all duration-300 inline-flex items-center">
+            <Link href="/how-it-works" className="glass px-8 py-3 rounded-2xl font-medium text-neural-600 hover:bg-neural-50 transition-all duration-300 inline-flex items-center">
               Learn More About Our Process
               <ArrowRight className="w-4 h-4 ml-2" />
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -429,10 +429,10 @@ export default function HomePage() {
           </div>
 
           <div className="text-center mt-12">
-            <a href="/success-stories" className="glass px-8 py-3 rounded-2xl font-medium text-neural-600 hover:bg-neural-50 transition-all duration-300 inline-flex items-center">
+            <Link href="/success-stories" className="glass px-8 py-3 rounded-2xl font-medium text-neural-600 hover:bg-neural-50 transition-all duration-300 inline-flex items-center">
               Read More Success Stories
               <ArrowRight className="w-4 h-4 ml-2" />
-            </a>
+            </Link>
           </div>
         </div>
       </section>
