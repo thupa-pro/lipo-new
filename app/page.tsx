@@ -102,7 +102,7 @@ export default function HomePage() {
                   />
                 </div>
                 <div className="w-full md:w-auto flex items-center pl-4 pr-2 border-t md:border-t-0 md:border-l border-white/10 mt-3 md:mt-0 pt-3 md:pt-0">
-                  <span className="material-icons text-mid-gray mr-3">location_on</span>
+                  <span className="material-icons text-[var(--mid-gray)] mr-3">location_on</span>
                   <input 
                     className="bg-transparent w-full text-white placeholder-mid-gray focus:outline-none py-3 text-lg focus-glow" 
                     placeholder="Your Location" 
