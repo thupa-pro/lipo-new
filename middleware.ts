@@ -2,12 +2,19 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export function middleware(req: NextRequest) {
-  // For now, just pass through all requests
+  // Simple middleware - just pass through for now
+  // TODO: Add i18n routing when ready for localization
   return NextResponse.next();
 }
 
 export const config = {
   matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico|manifest.json|sw.js|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    // Match all request paths except for the ones starting with:
+    // - api (API routes)
+    // - _next/static (static files)
+    // - _next/image (image optimization files)
+    // - favicon.ico (favicon file)
+    // - public files (icon.svg, manifest.json, etc.)
+    "/((?!api|_next/static|_next/image|icon|favicon|manifest|sw|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|json|js)$).*)",
   ],
 };
