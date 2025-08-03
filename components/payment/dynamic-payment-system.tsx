@@ -673,7 +673,20 @@ export function DynamicPaymentSystem({
       </CardHeader>
 
       <CardContent className="space-y-6">
-        {currentStep === 1 && (
+        {useStripeCheckout ? (
+          <StripeCheckout
+            amount={amount}
+            currency={currency}
+            description={description}
+            recipientName={recipient}
+            bookingId={bookingId}
+            providerId={providerId}
+            onSuccess={handleStripeSuccess}
+            onError={handleStripeError}
+            onCancel={handleStripeCancel}
+            className="shadow-none border-0"
+          />
+        ) : currentStep === 1 && (
           <>
             {renderPaymentMethods()}
 
