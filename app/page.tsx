@@ -221,7 +221,7 @@ export default function HomePage() {
         {/* Service Categories Section */}
         <section className="py-20">
           <h2 className="text-4xl font-bold text-center text-white mb-4">Popular Service Categories</h2>
-          <p className="text-lg text-mid-gray text-center mb-12 max-w-2xl mx-auto">Explore thousands of verified service providers across all major categories.</p>
+          <p className="text-lg text-[var(--mid-gray)] text-center mb-12 max-w-2xl mx-auto">Explore thousands of verified service providers across all major categories.</p>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="bg-glass rounded-3xl p-8 card-glow overflow-hidden relative group">
