@@ -3,6 +3,8 @@
  * Replace with actual next-intl implementation when ready
  */
 
+import React from 'react';
+
 export function useTranslations(namespace?: string) {
   return (key: string, params?: Record<string, any>) => {
     // Simple fallback - return the key as the translation
@@ -22,5 +24,5 @@ export function useLocale() {
 }
 
 export function NextIntlClientProvider({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+  return React.createElement(React.Fragment, null, children);
 }
