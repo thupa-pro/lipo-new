@@ -135,6 +135,8 @@ export function DynamicPaymentSystem({
   currency = "USD",
   recipient = "Sarah Mitchell - House Cleaning",
   description = "Premium house cleaning service",
+  bookingId,
+  providerId,
   onComplete,
   onCancel,
   className,
