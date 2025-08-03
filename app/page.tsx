@@ -36,6 +36,7 @@ export default function HomePage() {
           </nav>
           
           <div className="flex items-center space-x-4">
+            <ThemeToggle />
             <button className="p-2 rounded-full hover:bg-white/10 transition-colors">
               <span className="material-icons text-gray-300">notifications_none</span>
             </button>
