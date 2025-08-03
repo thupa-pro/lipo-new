@@ -103,6 +103,22 @@ CREATE TABLE IF NOT EXISTS messages (
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+-- Payments table
+CREATE TABLE IF NOT EXISTS payments (
+  id VARCHAR(255) PRIMARY KEY, -- Stripe payment intent ID
+  user_id UUID REFERENCES users(id) NOT NULL,
+  booking_id UUID REFERENCES bookings(id),
+  provider_id UUID REFERENCES providers(id),
+  stripe_payment_intent_id VARCHAR(255) UNIQUE NOT NULL,
+  amount DECIMAL(10,2) NOT NULL,
+  currency VARCHAR(3) NOT NULL DEFAULT 'USD',
+  status payment_status DEFAULT 'pending',
+  failure_reason TEXT,
+  completed_at TIMESTAMP WITH TIME ZONE,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
 -- Health check table
 CREATE TABLE IF NOT EXISTS health_check (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
