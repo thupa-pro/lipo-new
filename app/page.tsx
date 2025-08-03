@@ -162,14 +162,14 @@ export default function HomePage() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-              <a href="/browse" className="bg-gradient-neural text-white px-8 py-4 rounded-2xl font-medium hover:shadow-glow-neural transition-all duration-300 text-lg flex items-center justify-center">
+              <Link href="/browse" className="bg-gradient-neural text-white px-8 py-4 rounded-2xl font-medium hover:shadow-glow-neural transition-all duration-300 text-lg flex items-center justify-center">
                 <Search className="w-5 h-5 mr-2" />
                 Find Services
-              </a>
-              <a href="/become-provider" className="glass px-8 py-4 rounded-2xl font-medium text-neural-600 hover:bg-neural-50 transition-all duration-300 text-lg flex items-center justify-center">
+              </Link>
+              <Link href="/become-provider" className="glass px-8 py-4 rounded-2xl font-medium text-neural-600 hover:bg-neural-50 transition-all duration-300 text-lg flex items-center justify-center">
                 <Users className="w-5 h-5 mr-2" />
                 Become a Provider
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -281,10 +281,10 @@ export default function HomePage() {
           </div>
 
           <div className="text-center">
-            <a href="/browse" className="glass px-8 py-3 rounded-2xl font-medium text-neural-600 hover:bg-neural-50 transition-all duration-300 inline-flex items-center">
+            <Link href="/browse" className="glass px-8 py-3 rounded-2xl font-medium text-neural-600 hover:bg-neural-50 transition-all duration-300 inline-flex items-center">
               View All Categories
               <ArrowRight className="w-4 h-4 ml-2" />
-            </a>
+            </Link>
           </div>
         </div>
       </section>
