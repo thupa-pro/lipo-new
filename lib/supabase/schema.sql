@@ -68,12 +68,14 @@ CREATE TABLE IF NOT EXISTS bookings (
   provider_id UUID REFERENCES providers(id),
   service_id UUID REFERENCES services(id),
   status booking_status DEFAULT 'pending',
+  payment_status payment_status DEFAULT 'pending',
   scheduled_at TIMESTAMP WITH TIME ZONE NOT NULL,
   duration_minutes INTEGER,
   location JSONB NOT NULL,
   notes TEXT,
   pricing JSONB NOT NULL,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 -- Reviews and ratings
