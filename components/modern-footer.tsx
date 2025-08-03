@@ -14,10 +14,8 @@ export function ModernFooter() {
             {/* Company Info */}
             <div className="lg:col-span-2">
               <div className="flex items-center space-x-3 mb-6">
-                <div className="w-10 h-10 bg-gradient-neural rounded-2xl flex items-center justify-center">
-                  <Sparkles className="w-6 h-6 text-white" />
-                </div>
-                <span className="text-2xl font-bold text-gradient-neural">Loconomy</span>
+                <span className="material-icons text-purple-400 text-3xl">hub</span>
+                <span className="text-2xl font-bold text-white tracking-wider">Loconomy</span>
               </div>
               <p className="text-muted-foreground mb-6 leading-relaxed">
                 The premium local services marketplace connecting customers with verified professionals. 
