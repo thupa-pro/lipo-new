@@ -93,12 +93,12 @@ export function CategoriesSection() {
     >
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {categories.map((category, index) => (
-          <PremiumCard
-            key={index}
-            variant="default"
-            className="cursor-pointer border-0 shadow-lg hover:shadow-2xl group"
-            style={{ animationDelay: `${index * 0.1}s` }}
-          >
+          <Link key={index} href={`/category/${category.slug}`}>
+            <PremiumCard
+              variant="default"
+              className="cursor-pointer border-0 shadow-lg hover:shadow-2xl group"
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
             <PremiumCardContent className="p-8">
               <div
                 className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br ${category.gradient} mb-6 group-hover:scale-110 transition-all duration-300 shadow-lg`}
@@ -118,7 +118,8 @@ export function CategoriesSection() {
                 <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-blue-500 group-hover:translate-x-1 transition-all" />
               </div>
             </PremiumCardContent>
-          </PremiumCard>
+            </PremiumCard>
+          </Link>
         ))}
       </div>
 
