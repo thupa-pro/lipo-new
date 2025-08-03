@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { 
+import Link from 'next/link';
+import {
   Search, Sparkles, Home, Wrench, Car, GraduationCap, Heart, Gamepad2,
   Menu, X, Star, Shield, Users, TrendingUp, ChevronRight, Play, ArrowRight,
   Clock, CheckCircle, Brain, Zap
