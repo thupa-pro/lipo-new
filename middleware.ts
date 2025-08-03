@@ -9,9 +9,20 @@ export async function middleware(req: NextRequest) {
     },
   })
 
+  // Skip middleware if Supabase environment variables are not configured
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+  if (!supabaseUrl || !supabaseAnonKey ||
+      supabaseUrl.includes('your-project-ref') ||
+      supabaseAnonKey.includes('your-anon-key')) {
+    console.warn('Supabase environment variables not configured. Skipping authentication middleware.')
+    return response
+  }
+
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    supabaseUrl,
+    supabaseAnonKey,
     {
       cookies: {
         get(name: string) {
