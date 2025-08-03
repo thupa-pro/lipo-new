@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useAuth } from "@/components/auth/auth-provider";
+import { ProtectedRoute } from "@/components/auth/protected-route";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -27,17 +29,17 @@ import {
   BarChart3
 } from "lucide-react";
 
-export default function DashboardPage() {
+function DashboardContent() {
   const [isLoaded, setIsLoaded] = useState(false);
+  const { user, userProfile } = useAuth();
 
   useEffect(() => {
     setIsLoaded(true);
   }, []);
 
-  const user = {
-    name: "John Doe",
-    email: "john@example.com"
-  };
+  const displayName = userProfile?.display_name || user?.email?.split('@')[0] || 'User';
+  const userEmail = user?.email || '';
+  const userRole = userProfile?.role || 'customer';
 
   const stats = [
     {
@@ -143,10 +145,13 @@ export default function DashboardPage() {
             <div className="flex items-center justify-between">
               <div>
                 <h1 className="text-4xl font-bold text-gradient-neural mb-2">
-                  Welcome back, {user.name}!
+                  Welcome back, {displayName}!
                 </h1>
                 <p className="text-lg text-muted-foreground">
-                  Here's your service provider dashboard overview
+                  Here's your {userRole === 'provider' ? 'service provider' : 'customer'} dashboard overview
+                </p>
+                <p className="text-sm text-muted-foreground/70">
+                  {userEmail} • {userRole.charAt(0).toUpperCase() + userRole.slice(1)}
                 </p>
               </div>
               <div className="flex gap-3">
@@ -357,5 +362,13 @@ export default function DashboardPage() {
 
       <ModernFooter />
     </div>
+  );
+}
+
+export default function DashboardPage() {
+  return (
+    <ProtectedRoute requireEmailVerification={false}>
+      <DashboardContent />
+    </ProtectedRoute>
   );
 }
