@@ -92,7 +92,7 @@ export default function HomePage() {
             <div className="max-w-4xl mx-auto">
               <div className="flex flex-col md:flex-row items-center bg-black/20 p-3 rounded-full shadow-inner shadow-black/30 border border-white/10">
                 <div className="flex-grow w-full flex items-center pl-4 pr-2">
-                  <span className="material-icons text-mid-gray mr-3">work_outline</span>
+                  <span className="material-icons text-[var(--mid-gray)] mr-3">work_outline</span>
                   <input 
                     className="bg-transparent w-full text-white placeholder-mid-gray focus:outline-none py-3 text-lg focus-glow" 
                     placeholder="What service do you need?" 
