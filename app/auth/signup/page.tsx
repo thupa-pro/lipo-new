@@ -1,12 +1,16 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { authService } from "@/lib/auth/auth-utils";
+import { useToast } from "@/components/ui/use-toast";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { 
   Sparkles, Eye, EyeOff, User, Mail, Lock, ArrowRight, 
   Shield, Star, Users, Zap, CheckCircle 
@@ -16,16 +20,99 @@ import Link from "next/link";
 export default function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
     confirmPassword: "",
-    userType: "customer",
+    userType: "customer" as "customer" | "provider",
     agreeToTerms: false,
     agreeToMarketing: false
   });
+
+  const router = useRouter();
+  const { toast } = useToast();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError("");
+
+    // Validate form
+    if (!formData.firstName.trim()) {
+      setError("First name is required");
+      setIsLoading(false);
+      return;
+    }
+    if (!formData.lastName.trim()) {
+      setError("Last name is required");
+      setIsLoading(false);
+      return;
+    }
+    if (!formData.email.trim()) {
+      setError("Email is required");
+      setIsLoading(false);
+      return;
+    }
+    if (formData.password !== formData.confirmPassword) {
+      setError("Passwords do not match");
+      setIsLoading(false);
+      return;
+    }
+    if (!formData.agreeToTerms) {
+      setError("You must agree to the Terms of Service and Privacy Policy");
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      const { error: authError, needsVerification } = await authService.signUp({
+        email: formData.email,
+        password: formData.password,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        userType: formData.userType,
+        agreeToTerms: formData.agreeToTerms,
+        agreeToMarketing: formData.agreeToMarketing,
+      });
+
+      if (authError) {
+        setError(authError.message);
+        toast({
+          title: "Sign Up Failed",
+          description: authError.message,
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Account Created Successfully!",
+          description: needsVerification
+            ? "Please check your email to verify your account before signing in."
+            : "Welcome to Loconomy! You are now signed in.",
+          variant: "default",
+        });
+
+        if (needsVerification) {
+          router.push("/auth/verify-email");
+        } else {
+          router.push("/dashboard");
+        }
+      }
+    } catch (error) {
+      console.error("Signup error:", error);
+      setError("An unexpected error occurred. Please try again.");
+      toast({
+        title: "Sign Up Failed",
+        description: "An unexpected error occurred. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const features = [
     {
@@ -136,6 +223,14 @@ export default function SignUpPage() {
                 </CardHeader>
 
                 <CardContent className="space-y-6">
+                  {error && (
+                    <Alert variant="destructive">
+                      <AlertCircle className="h-4 w-4" />
+                      <AlertDescription>{error}</AlertDescription>
+                    </Alert>
+                  )}
+
+                  <form onSubmit={handleSubmit} className="space-y-6">
                   {/* User Type Selection */}
                   <div className="grid grid-cols-2 gap-3">
                     <button
@@ -176,6 +271,8 @@ export default function SignUpPage() {
                         placeholder="John"
                         value={formData.firstName}
                         onChange={(e) => setFormData({...formData, firstName: e.target.value})}
+                        disabled={isLoading}
+                        required
                       />
                     </div>
                     <div className="space-y-2">
@@ -186,6 +283,8 @@ export default function SignUpPage() {
                         placeholder="Doe"
                         value={formData.lastName}
                         onChange={(e) => setFormData({...formData, lastName: e.target.value})}
+                        disabled={isLoading}
+                        required
                       />
                     </div>
                   </div>
@@ -203,6 +302,8 @@ export default function SignUpPage() {
                         className="pl-12"
                         value={formData.email}
                         onChange={(e) => setFormData({...formData, email: e.target.value})}
+                        disabled={isLoading}
+                        required
                       />
                     </div>
                   </div>
@@ -220,6 +321,8 @@ export default function SignUpPage() {
                         className="pl-12 pr-12"
                         value={formData.password}
                         onChange={(e) => setFormData({...formData, password: e.target.value})}
+                        disabled={isLoading}
+                        required
                       />
                       <button
                         type="button"
@@ -244,6 +347,8 @@ export default function SignUpPage() {
                         className="pl-12 pr-12"
                         value={formData.confirmPassword}
                         onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
+                        disabled={isLoading}
+                        required
                       />
                       <button
                         type="button"
@@ -262,6 +367,7 @@ export default function SignUpPage() {
                         id="terms"
                         checked={formData.agreeToTerms}
                         onCheckedChange={(checked) => setFormData({...formData, agreeToTerms: checked as boolean})}
+                        disabled={isLoading}
                       />
                       <Label htmlFor="terms" className="text-sm leading-relaxed">
                         I agree to the{" "}
@@ -279,6 +385,7 @@ export default function SignUpPage() {
                         id="marketing"
                         checked={formData.agreeToMarketing}
                         onCheckedChange={(checked) => setFormData({...formData, agreeToMarketing: checked as boolean})}
+                        disabled={isLoading}
                       />
                       <Label htmlFor="marketing" className="text-sm">
                         I want to receive updates about new features and special offers
@@ -286,10 +393,25 @@ export default function SignUpPage() {
                     </div>
                   </div>
 
-                  <Button className="w-full bg-gradient-neural text-white hover:shadow-glow-neural transition-all duration-300 text-lg py-6">
-                    Create Account
-                    <ArrowRight className="w-5 h-5 ml-2" />
+                  <Button
+                    type="submit"
+                    className="w-full bg-gradient-neural text-white hover:shadow-glow-neural transition-all duration-300 text-lg py-6"
+                    disabled={isLoading}
+                  >
+                    {isLoading ? (
+                      <>
+                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                        Creating Account...
+                      </>
+                    ) : (
+                      <>
+                        Create Account
+                        <ArrowRight className="w-5 h-5 ml-2" />
+                      </>
+                    )}
                   </Button>
+
+                  </form>
 
                   <div className="text-center">
                     <p className="text-sm text-muted-foreground">
