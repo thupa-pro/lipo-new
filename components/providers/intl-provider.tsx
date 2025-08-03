@@ -1,6 +1,6 @@
 "use client";
 
-import { NextIntlClientProvider } from "next-intl";
+import { NextIntlClientProvider } from "@/lib/i18n-stub";
 import { ReactNode } from "react";
 import { ErrorBoundary } from "@/components/error-boundary";
 
