@@ -49,12 +49,12 @@ const CardTitle = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      "text-2xl font-bold leading-none tracking-tight",
+      "text-2xl font-bold leading-none tracking-tight text-white",
       {
-        "text-gradient-neural": variant === "gradient-neural",
-        "text-gradient-quantum": variant === "gradient-quantum",
-        "text-gradient-trust": variant === "gradient-trust",
-        "text-gradient-plasma": variant === "gradient-plasma",
+        "gradient-text": variant === "gradient-neural",
+        "gradient-text": variant === "gradient-quantum",
+        "gradient-text": variant === "gradient-trust",
+        "gradient-text": variant === "gradient-plasma",
       },
       className
     )}
