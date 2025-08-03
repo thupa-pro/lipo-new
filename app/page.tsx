@@ -61,7 +61,7 @@ export default function HomePage() {
             <span className="text-white">Service Professionals You Trust</span>
           </h1>
           
-          <p className="max-w-3xl mx-auto text-lg md:text-xl text-mid-gray mb-12">
+          <p className="max-w-3xl mx-auto text-lg md:text-xl text-[var(--mid-gray)] mb-12">
             Loconomy is the premium marketplace connecting you with verified local service providers. From home repairs to personal training - find trusted professionals in your area with our AI-powered matching system.
           </p>
           
