@@ -1,34 +1,33 @@
+"use client";
+
 import { Moon, Sun } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 export function ThemeToggle() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
-    // Check for saved theme preference or default to light mode
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      setIsDarkMode(true);
-      document.documentElement.classList.add('dark');
-    }
+    setMounted(true);
   }, []);
 
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-    document.documentElement.classList.toggle('dark');
-    localStorage.setItem('theme', !isDarkMode ? 'dark' : 'light');
-  };
+  if (!mounted) {
+    return (
+      <div className="p-2 rounded-xl glass w-[40px] h-[40px]" />
+    );
+  }
 
   return (
     <button
-      onClick={toggleDarkMode}
-      className="p-2 rounded-xl glass hover:bg-neural-50 transition-colors duration-300"
+      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+      className="p-2 rounded-xl glass hover:bg-neural-50 dark:hover:bg-neural-900/50 transition-colors duration-300"
       aria-label="Toggle theme"
     >
-      {isDarkMode ? (
-        <Sun className="w-5 h-5 text-neural-600" />
+      {theme === "dark" ? (
+        <Sun className="w-5 h-5 text-neural-600 dark:text-neural-400" />
       ) : (
-        <Moon className="w-5 h-5 text-neural-600" />
+        <Moon className="w-5 h-5 text-neural-600 dark:text-neural-400" />
       )}
     </button>
   );

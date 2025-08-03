@@ -1,3 +1,6 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -21,15 +24,27 @@ import {
   Circle,
   Star,
   Clock,
+  Wifi,
+  WifiOff,
 } from "lucide-react";
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Messages - Loconomy",
-  description: "Chat with service providers and customers",
-};
+import { RealtimeChat } from "@/components/messages/realtime-chat";
+import { useSocket } from "@/hooks/use-socket";
+import { createClient } from "@/lib/supabase/client";
 
 export default function MessagesPage() {
+  const [currentUser, setCurrentUser] = useState<any>(null);
+  const [selectedConversation, setSelectedConversation] = useState<any>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const { isConnected, error } = useSocket();
+
+  useEffect(() => {
+    const getCurrentUser = async () => {
+      const supabase = createClient();
+      const { data: { user } } = await supabase.auth.getUser();
+      setCurrentUser(user);
+    };
+    getCurrentUser();
+  }, []);
   const conversations = [
     {
       id: 1,
@@ -128,7 +143,24 @@ export default function MessagesPage() {
                 <Input
                   placeholder="Search conversations..."
                   className="pl-10"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                 />
+              </div>
+
+              {/* Connection Status */}
+              <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                {isConnected ? (
+                  <>
+                    <Wifi className="w-3 h-3 text-green-500" />
+                    <span>Connected</span>
+                  </>
+                ) : (
+                  <>
+                    <WifiOff className="w-3 h-3 text-red-500" />
+                    <span>Connecting...</span>
+                  </>
+                )}
               </div>
             </CardHeader>
             <CardContent className="p-0">
@@ -136,7 +168,12 @@ export default function MessagesPage() {
                 {conversations.map((conversation) => (
                   <div
                     key={conversation.id}
-                    className="flex items-center gap-3 p-4 hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer transition-colors border-l-4 border-transparent hover:border-blue-500"
+                    onClick={() => setSelectedConversation(conversation)}
+                    className={`flex items-center gap-3 p-4 hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer transition-colors border-l-4 ${
+                      selectedConversation?.id === conversation.id
+                        ? "border-blue-500 bg-blue-50 dark:bg-blue-950/20"
+                        : "border-transparent hover:border-blue-500"
+                    }`}
                   >
                     <div className="relative">
                       <Avatar className="w-12 h-12">
@@ -193,103 +230,30 @@ export default function MessagesPage() {
           </Card>
 
           {/* Chat Area */}
-          <Card className="lg:col-span-2 border-0 shadow-sm">
-            <CardHeader className="border-b border-slate-200 dark:border-slate-700">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <Avatar className="w-10 h-10">
-                    <AvatarImage
-                      src="/placeholder.svg?height=40&width=40"
-                      alt="Sarah Chen"
-                    />
-                    <AvatarFallback className="bg-gradient-to-br from-blue-600 to-purple-600 text-white">
-                      SC
-                    </AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <h3 className="font-semibold text-slate-900 dark:text-white">
-                      Sarah Chen
-                    </h3>
-                    <div className="flex items-center gap-2">
-                      <Circle className="w-2 h-2 fill-emerald-500 text-emerald-500" />
-                      <span className="text-sm text-slate-600 dark:text-slate-400">
-                        Online
-                      </span>
-                    </div>
-                  </div>
+          <div className="lg:col-span-2">
+            {selectedConversation && currentUser ? (
+              <RealtimeChat
+                conversationId={`conv-${selectedConversation.id}`}
+                currentUserId={currentUser.id}
+                recipient={{
+                  id: `user-${selectedConversation.id}`,
+                  display_name: selectedConversation.name,
+                  avatar_url: selectedConversation.avatar,
+                }}
+                className="border-0 shadow-sm"
+              />
+            ) : (
+              <Card className="border-0 shadow-sm h-[600px] flex items-center justify-center">
+                <div className="text-center">
+                  <MessageSquare className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
+                  <h3 className="text-xl font-semibold mb-2">Select a conversation</h3>
+                  <p className="text-muted-foreground">
+                    Choose a conversation from the list to start chatting
+                  </p>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Button variant="ghost" size="sm">
-                    <Phone className="w-4 h-4" />
-                  </Button>
-                  <Button variant="ghost" size="sm">
-                    <Video className="w-4 h-4" />
-                  </Button>
-                  <Button variant="ghost" size="sm">
-                    <MoreVertical className="w-4 h-4" />
-                  </Button>
-                </div>
-              </div>
-            </CardHeader>
-
-            <CardContent className="p-0">
-              {/* Messages */}
-              <div className="h-96 overflow-y-auto p-4 space-y-4">
-                {messages.map((message) => (
-                  <div
-                    key={message.id}
-                    className={`flex ${
-                      message.isMe ? "justify-end" : "justify-start"
-                    }`}
-                  >
-                    <div
-                      className={`max-w-xs lg:max-w-md px-4 py-2 rounded-2xl ${
-                        message.isMe
-                          ? "bg-blue-600 text-white"
-                          : "bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white"
-                      }`}
-                    >
-                      <p className="text-sm">{message.content}</p>
-                      <p
-                        className={`text-xs mt-1 ${
-                          message.isMe
-                            ? "text-blue-100"
-                            : "text-slate-500 dark:text-slate-400"
-                        }`}
-                      >
-                        {message.time}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Message Input */}
-              <div className="border-t border-slate-200 dark:border-slate-700 p-4">
-                <div className="flex items-center gap-2">
-                  <Button variant="ghost" size="sm">
-                    <Paperclip className="w-4 h-4" />
-                  </Button>
-                  <div className="flex-1 relative">
-                    <Input
-                      placeholder="Type your message..."
-                      className="pr-10"
-                    />
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="absolute right-1 top-1/2 transform -translate-y-1/2"
-                    >
-                      <Smile className="w-4 h-4" />
-                    </Button>
-                  </div>
-                  <Button className="bg-blue-600 hover:bg-blue-700">
-                    <Send className="w-4 h-4" />
-                  </Button>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+              </Card>
+            )}
+          </div>
         </div>
       </div>
     </div>

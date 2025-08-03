@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { useTranslations } from "next-intl";
+import { useTranslations } from "@/lib/i18n-stub";
 import {
   Search,
   TrendingUp,

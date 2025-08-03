@@ -30,6 +30,7 @@ import {
   Smartphone as PhoneIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { StripeCheckout } from "./stripe-checkout";
 
 interface PaymentMethod {
   id: string;
@@ -62,6 +63,8 @@ interface DynamicPaymentSystemProps {
   currency?: string;
   recipient?: string;
   description?: string;
+  bookingId?: string;
+  providerId?: string;
   onComplete?: (transaction: Transaction) => void;
   onCancel?: () => void;
   className?: string;
@@ -69,13 +72,22 @@ interface DynamicPaymentSystemProps {
 
 const paymentMethods: PaymentMethod[] = [
   {
+    id: "stripe-checkout",
+    type: "card",
+    name: "Credit/Debit Card",
+    icon: CreditCard,
+    isDefault: true,
+    fee: 0.029,
+    processingTime: "Instant",
+    connected: true,
+  },
+  {
     id: "card-1",
     type: "card",
     name: "Visa •••• 4242",
     icon: CreditCard,
     lastFour: "4242",
     brand: "visa",
-    isDefault: true,
     fee: 0.029,
     processingTime: "Instant",
   },
@@ -123,6 +135,8 @@ export function DynamicPaymentSystem({
   currency = "USD",
   recipient = "Sarah Mitchell - House Cleaning",
   description = "Premium house cleaning service",
+  bookingId,
+  providerId,
   onComplete,
   onCancel,
   className,
@@ -137,6 +151,7 @@ export function DynamicPaymentSystem({
   const [progress, setProgress] = useState(0);
   const [securityCheck, setSecurityCheck] = useState(false);
   const [biometricAuth, setBiometricAuth] = useState(false);
+  const [useStripeCheckout, setUseStripeCheckout] = useState(false);
 
   // Card form states
   const [cardNumber, setCardNumber] = useState("");
@@ -217,6 +232,12 @@ export function DynamicPaymentSystem({
   const startPayment = async () => {
     if (!selectedMethod) return;
 
+    // Handle Stripe checkout
+    if (selectedMethod.id === "stripe-checkout") {
+      setUseStripeCheckout(true);
+      return;
+    }
+
     // Validate if using new card
     if (selectedMethod.id === "new-card" && !validateCard()) {
       return;
@@ -289,6 +310,33 @@ export function DynamicPaymentSystem({
     setBiometricAuth(false);
     setTransaction(null);
     setCardErrors({});
+    setUseStripeCheckout(false);
+  };
+
+  const handleStripeSuccess = (paymentIntentId: string) => {
+    const completedTransaction: Transaction = {
+      id: paymentIntentId,
+      amount: getTotalAmount(),
+      currency,
+      description,
+      recipient,
+      status: "completed",
+      timestamp: new Date(),
+      fee: calculateFee(),
+    };
+
+    setTransaction(completedTransaction);
+    setCurrentStep(3);
+    onComplete?.(completedTransaction);
+  };
+
+  const handleStripeError = (error: string) => {
+    console.error('Stripe payment error:', error);
+    // Could show error and allow retry
+  };
+
+  const handleStripeCancel = () => {
+    setUseStripeCheckout(false);
   };
 
   const renderPaymentMethods = () => (
@@ -625,7 +673,20 @@ export function DynamicPaymentSystem({
       </CardHeader>
 
       <CardContent className="space-y-6">
-        {currentStep === 1 && (
+        {useStripeCheckout ? (
+          <StripeCheckout
+            amount={amount}
+            currency={currency}
+            description={description}
+            recipientName={recipient}
+            bookingId={bookingId}
+            providerId={providerId}
+            onSuccess={handleStripeSuccess}
+            onError={handleStripeError}
+            onCancel={handleStripeCancel}
+            className="shadow-none border-0"
+          />
+        ) : currentStep === 1 && (
           <>
             {renderPaymentMethods()}
 

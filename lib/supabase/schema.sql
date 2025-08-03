@@ -4,7 +4,8 @@ CREATE EXTENSION IF NOT EXISTS "postgis";
 
 -- Create custom types
 CREATE TYPE user_role AS ENUM ('customer', 'provider', 'admin', 'super_admin');
-CREATE TYPE booking_status AS ENUM ('pending', 'confirmed', 'in_progress', 'completed', 'cancelled');
+CREATE TYPE booking_status AS ENUM ('pending', 'confirmed', 'in_progress', 'completed', 'cancelled', 'payment_failed');
+CREATE TYPE payment_status AS ENUM ('pending', 'processing', 'completed', 'failed', 'canceled');
 CREATE TYPE message_type AS ENUM ('text', 'image', 'file');
 
 -- Users table (core user profiles)
@@ -67,12 +68,14 @@ CREATE TABLE IF NOT EXISTS bookings (
   provider_id UUID REFERENCES providers(id),
   service_id UUID REFERENCES services(id),
   status booking_status DEFAULT 'pending',
+  payment_status payment_status DEFAULT 'pending',
   scheduled_at TIMESTAMP WITH TIME ZONE NOT NULL,
   duration_minutes INTEGER,
   location JSONB NOT NULL,
   notes TEXT,
   pricing JSONB NOT NULL,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 -- Reviews and ratings
@@ -100,6 +103,22 @@ CREATE TABLE IF NOT EXISTS messages (
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+-- Payments table
+CREATE TABLE IF NOT EXISTS payments (
+  id VARCHAR(255) PRIMARY KEY, -- Stripe payment intent ID
+  user_id UUID REFERENCES users(id) NOT NULL,
+  booking_id UUID REFERENCES bookings(id),
+  provider_id UUID REFERENCES providers(id),
+  stripe_payment_intent_id VARCHAR(255) UNIQUE NOT NULL,
+  amount DECIMAL(10,2) NOT NULL,
+  currency VARCHAR(3) NOT NULL DEFAULT 'USD',
+  status payment_status DEFAULT 'pending',
+  failure_reason TEXT,
+  completed_at TIMESTAMP WITH TIME ZONE,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
 -- Health check table
 CREATE TABLE IF NOT EXISTS health_check (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -124,6 +143,10 @@ CREATE INDEX IF NOT EXISTS idx_reviews_rating ON reviews(rating);
 CREATE INDEX IF NOT EXISTS idx_messages_conversation_id ON messages(conversation_id);
 CREATE INDEX IF NOT EXISTS idx_messages_sender_id ON messages(sender_id);
 CREATE INDEX IF NOT EXISTS idx_messages_recipient_id ON messages(recipient_id);
+CREATE INDEX IF NOT EXISTS idx_payments_user_id ON payments(user_id);
+CREATE INDEX IF NOT EXISTS idx_payments_booking_id ON payments(booking_id);
+CREATE INDEX IF NOT EXISTS idx_payments_status ON payments(status);
+CREATE INDEX IF NOT EXISTS idx_payments_stripe_id ON payments(stripe_payment_intent_id);
 
 -- Row Level Security (RLS) Policies
 ALTER TABLE users ENABLE ROW LEVEL SECURITY;
@@ -132,6 +155,7 @@ ALTER TABLE services ENABLE ROW LEVEL SECURITY;
 ALTER TABLE bookings ENABLE ROW LEVEL SECURITY;
 ALTER TABLE reviews ENABLE ROW LEVEL SECURITY;
 ALTER TABLE messages ENABLE ROW LEVEL SECURITY;
+ALTER TABLE payments ENABLE ROW LEVEL SECURITY;
 
 -- Users can read their own profile and update it
 CREATE POLICY "Users can view own profile" ON users
@@ -188,6 +212,16 @@ CREATE POLICY "Users can send messages" ON messages
 
 CREATE POLICY "Users can mark messages as read" ON messages
   FOR UPDATE USING (auth.uid() = recipient_id);
+
+-- Payment policies
+CREATE POLICY "Users can view own payments" ON payments
+  FOR SELECT USING (
+    auth.uid() = user_id OR
+    auth.uid() IN (SELECT user_id FROM providers WHERE id = provider_id)
+  );
+
+CREATE POLICY "System can manage payments" ON payments
+  FOR ALL USING (true); -- Managed by API with proper auth checks
 
 -- Insert sample data
 INSERT INTO categories (name, slug, description, icon_name, sort_order) VALUES
