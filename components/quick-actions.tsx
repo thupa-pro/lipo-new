@@ -3,9 +3,9 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { 
+import {
   Search, Users, Calendar, MessageCircle, Settings, BarChart3,
-  Bell, Heart, Star, Clock, Shield, Zap, DollarSign, Award
+  Bell, Heart, Star, Clock, Shield, Zap, DollarSign, Award, CheckCircle
 } from 'lucide-react';
 
 export function QuickActions() {
@@ -109,6 +109,3 @@ export function QuickActions() {
     </div>
   );
 }
-
-// Import CheckCircle at the top
-import { CheckCircle } from 'lucide-react';
