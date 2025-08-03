@@ -485,6 +485,7 @@ export default function HomePage() {
       </section>
 
       <ModernFooter />
+      <CommandPaletteHint />
     </div>
   );
 }
