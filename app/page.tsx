@@ -190,7 +190,7 @@ export default function HomePage() {
                 </div>
               </div>
               <p className="text-5xl font-bold text-white mb-2">&lt; 2hrs</p>
-              <p className="text-mid-gray mb-4">Average Response</p>
+              <p className="text-[var(--mid-gray)] mb-4">Average Response</p>
               <span className="text-green-400 font-semibold text-sm">+15.2% vs last month</span>
             </div>
             
