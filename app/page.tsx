@@ -88,18 +88,18 @@ export default function HomePage() {
             
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-8">
-              <a href="/browse" className="text-sm font-medium text-muted-foreground hover:text-neural-600 transition-colors">Browse Services</a>
-              <a href="/become-provider" className="text-sm font-medium text-muted-foreground hover:text-neural-600 transition-colors">Become Provider</a>
-              <a href="/how-it-works" className="text-sm font-medium text-muted-foreground hover:text-neural-600 transition-colors">How It Works</a>
-              <a href="/pricing" className="text-sm font-medium text-muted-foreground hover:text-neural-600 transition-colors">Pricing</a>
+              <Link href="/browse" className="text-sm font-medium text-muted-foreground hover:text-neural-600 transition-colors">Browse Services</Link>
+              <Link href="/become-provider" className="text-sm font-medium text-muted-foreground hover:text-neural-600 transition-colors">Become Provider</Link>
+              <Link href="/how-it-works" className="text-sm font-medium text-muted-foreground hover:text-neural-600 transition-colors">How It Works</Link>
+              <Link href="/pricing" className="text-sm font-medium text-muted-foreground hover:text-neural-600 transition-colors">Pricing</Link>
               
               <ThemeToggle />
               
               <div className="flex items-center space-x-3">
-                <a href="/auth/login" className="text-sm font-medium text-muted-foreground hover:text-neural-600 transition-colors">Sign In</a>
-                <a href="/auth/signup" className="bg-gradient-neural text-white px-6 py-3 rounded-2xl font-medium hover:shadow-glow-neural transition-all duration-300">
+                <Link href="/auth/signin" className="text-sm font-medium text-muted-foreground hover:text-neural-600 transition-colors">Sign In</Link>
+                <Link href="/auth/signup" className="bg-gradient-neural text-white px-6 py-3 rounded-2xl font-medium hover:shadow-glow-neural transition-all duration-300">
                   Get Started
-                </a>
+                </Link>
               </div>
             </div>
 
