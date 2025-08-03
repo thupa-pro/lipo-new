@@ -143,7 +143,24 @@ export default function MessagesPage() {
                 <Input
                   placeholder="Search conversations..."
                   className="pl-10"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                 />
+              </div>
+
+              {/* Connection Status */}
+              <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                {isConnected ? (
+                  <>
+                    <Wifi className="w-3 h-3 text-green-500" />
+                    <span>Connected</span>
+                  </>
+                ) : (
+                  <>
+                    <WifiOff className="w-3 h-3 text-red-500" />
+                    <span>Connecting...</span>
+                  </>
+                )}
               </div>
             </CardHeader>
             <CardContent className="p-0">
