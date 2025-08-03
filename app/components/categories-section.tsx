@@ -51,6 +51,7 @@ const categories = [
   {
     icon: Heart,
     name: "Health & Wellness",
+    slug: "health-fitness",
     count: "750+ providers",
     gradient: "from-pink-500 to-rose-500",
     description: "Fitness, therapy, nutrition",
@@ -58,6 +59,7 @@ const categories = [
   {
     icon: Camera,
     name: "Creative Services",
+    slug: "creative-services",
     count: "650+ providers",
     gradient: "from-indigo-500 to-purple-500",
     description: "Photography, design, events",
@@ -65,6 +67,7 @@ const categories = [
   {
     icon: Scissors,
     name: "Beauty & Personal",
+    slug: "personal-care",
     count: "550+ providers",
     gradient: "from-yellow-500 to-orange-500",
     description: "Hair, makeup, spa services",
@@ -72,6 +75,7 @@ const categories = [
   {
     icon: Paintbrush,
     name: "Art & Design",
+    slug: "art-design",
     count: "450+ providers",
     gradient: "from-teal-500 to-cyan-500",
     description: "Interior design, art, crafts",
