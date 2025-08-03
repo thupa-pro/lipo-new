@@ -119,17 +119,17 @@ export default function HomePage() {
           {isMobileMenuOpen && (
             <div className="lg:hidden mt-4 glass rounded-3xl p-6 animate-fade-in">
               <div className="space-y-4">
-                <a href="/browse" className="block text-sm font-medium text-muted-foreground hover:text-neural-600 transition-colors">Browse Services</a>
-                <a href="/become-provider" className="block text-sm font-medium text-muted-foreground hover:text-neural-600 transition-colors">Become Provider</a>
-                <a href="/how-it-works" className="block text-sm font-medium text-muted-foreground hover:text-neural-600 transition-colors">How It Works</a>
-                <a href="/pricing" className="block text-sm font-medium text-muted-foreground hover:text-neural-600 transition-colors">Pricing</a>
+                <Link href="/browse" className="block text-sm font-medium text-muted-foreground hover:text-neural-600 transition-colors">Browse Services</Link>
+                <Link href="/become-provider" className="block text-sm font-medium text-muted-foreground hover:text-neural-600 transition-colors">Become Provider</Link>
+                <Link href="/how-it-works" className="block text-sm font-medium text-muted-foreground hover:text-neural-600 transition-colors">How It Works</Link>
+                <Link href="/pricing" className="block text-sm font-medium text-muted-foreground hover:text-neural-600 transition-colors">Pricing</Link>
                 <div className="flex space-x-3 pt-2">
-                  <a href="/auth/login" className="flex-1 glass text-center px-6 py-3 rounded-2xl font-medium text-neural-600 hover:bg-neural-50 transition-all duration-300">
+                  <Link href="/auth/signin" className="flex-1 glass text-center px-6 py-3 rounded-2xl font-medium text-neural-600 hover:bg-neural-50 transition-all duration-300">
                     Sign In
-                  </a>
-                  <a href="/auth/signup" className="flex-1 bg-gradient-neural text-white px-6 py-3 rounded-2xl font-medium hover:shadow-glow-neural transition-all duration-300 text-center">
+                  </Link>
+                  <Link href="/auth/signup" className="flex-1 bg-gradient-neural text-white px-6 py-3 rounded-2xl font-medium hover:shadow-glow-neural transition-all duration-300 text-center">
                     Get Started
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
