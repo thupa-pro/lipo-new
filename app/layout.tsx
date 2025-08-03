@@ -66,10 +66,8 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <CommandPaletteProvider>
-            <main className="min-h-screen">{children}</main>
-            <Toaster />
-          </CommandPaletteProvider>
+          <main className="min-h-screen">{children}</main>
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
