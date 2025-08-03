@@ -168,7 +168,12 @@ export default function MessagesPage() {
                 {conversations.map((conversation) => (
                   <div
                     key={conversation.id}
-                    className="flex items-center gap-3 p-4 hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer transition-colors border-l-4 border-transparent hover:border-blue-500"
+                    onClick={() => setSelectedConversation(conversation)}
+                    className={`flex items-center gap-3 p-4 hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer transition-colors border-l-4 ${
+                      selectedConversation?.id === conversation.id
+                        ? "border-blue-500 bg-blue-50 dark:bg-blue-950/20"
+                        : "border-transparent hover:border-blue-500"
+                    }`}
                   >
                     <div className="relative">
                       <Avatar className="w-12 h-12">
