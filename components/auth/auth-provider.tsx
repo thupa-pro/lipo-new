@@ -43,7 +43,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     !supabaseUrl.includes('your-project-ref') &&
     !supabaseAnonKey.includes('your-anon-key')
 
-  const supabase = isSupabaseConfigured ? createSupabaseClient() : null
+  let supabase = null
+
+  if (isSupabaseConfigured) {
+    try {
+      supabase = createSupabaseClient()
+    } catch (error) {
+      console.warn('Failed to create Supabase client:', error)
+      supabase = null
+    }
+  }
 
   const fetchUserProfile = async (userId: string) => {
     if (!supabase) return null
