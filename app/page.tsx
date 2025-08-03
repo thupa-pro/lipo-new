@@ -87,7 +87,7 @@ export default function HomePage() {
         <section className="py-20" id="find-service">
           <div className="bg-glass rounded-3xl p-8 md:p-12 card-glow">
             <h2 className="text-4xl font-bold text-center text-white mb-2">Start Your Search</h2>
-            <p className="text-center text-mid-gray mb-10">Get matched with the perfect professional in seconds.</p>
+            <p className="text-center text-[var(--mid-gray)] mb-10">Get matched with the perfect professional in seconds.</p>
             
             <div className="max-w-4xl mx-auto">
               <div className="flex flex-col md:flex-row items-center bg-black/20 p-3 rounded-full shadow-inner shadow-black/30 border border-white/10">
