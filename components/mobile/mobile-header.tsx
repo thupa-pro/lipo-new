@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { useTranslations } from "next-intl";
+import { useTranslations } from "@/lib/i18n-stub";
 import {
   Bell,
   Search,
