@@ -17,6 +17,7 @@ import { useCommandPalette } from '@/components/providers/command-palette-provid
 
 export function SiteHeader() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { openCommandPalette } = useCommandPalette();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
