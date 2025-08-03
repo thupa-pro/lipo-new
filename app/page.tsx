@@ -155,7 +155,7 @@ export default function HomePage() {
                 <span className="text-4xl font-black gradient-text">2</span>
               </div>
               <h3 className="text-2xl font-bold text-white mb-3">Get Matches</h3>
-              <p className="text-mid-gray">Our smart AI algorithm matches you with qualified, vetted pros in your area who are ready to help.</p>
+              <p className="text-[var(--mid-gray)]">Our smart AI algorithm matches you with qualified, vetted pros in your area who are ready to help.</p>
             </div>
             
             <div className="relative text-center z-10">
