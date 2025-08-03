@@ -229,7 +229,7 @@ export default function HomePage() {
               <div className="relative z-10 flex flex-col h-full">
                 <span className="material-icons text-5xl text-purple-400 mb-4">home_repair_service</span>
                 <h3 className="text-2xl font-bold text-white mb-2">Home Services</h3>
-                <p className="text-mid-gray mb-6 flex-grow">Plumbing, electrical, cleaning, and more. All your home needs covered.</p>
+                <p className="text-[var(--mid-gray)] mb-6 flex-grow">Plumbing, electrical, cleaning, and more. All your home needs covered.</p>
                 <a className="font-semibold text-purple-300 flex items-center group-hover:text-white transition-colors" href="#">
                   Explore 
                   <span className="material-icons text-lg ml-1 group-hover:translate-x-1 transition-transform">arrow_forward</span>
