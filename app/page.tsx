@@ -310,6 +310,178 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* How It Works Section */}
+      <section className="relative z-10 px-6 py-24 bg-gradient-to-r from-neural-50/50 to-quantum-50/50">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gradient-neural mb-6">How Loconomy Works</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Getting the perfect service provider has never been easier. Our AI-powered platform handles everything.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="w-20 h-20 bg-gradient-neural rounded-full flex items-center justify-center mx-auto mb-6">
+                <Search className="w-10 h-10 text-white" />
+              </div>
+              <h3 className="text-xl font-bold mb-4">1. Describe Your Need</h3>
+              <p className="text-muted-foreground">Tell us what service you need using natural language. Our AI understands exactly what you're looking for.</p>
+            </div>
+
+            <div className="text-center">
+              <div className="w-20 h-20 bg-gradient-quantum rounded-full flex items-center justify-center mx-auto mb-6">
+                <Users className="w-10 h-10 text-white" />
+              </div>
+              <h3 className="text-xl font-bold mb-4">2. Get Matched Instantly</h3>
+              <p className="text-muted-foreground">Our neural network instantly matches you with the best verified providers in your area based on your specific needs.</p>
+            </div>
+
+            <div className="text-center">
+              <div className="w-20 h-20 bg-gradient-trust rounded-full flex items-center justify-center mx-auto mb-6">
+                <CheckCircle className="w-10 h-10 text-white" />
+              </div>
+              <h3 className="text-xl font-bold mb-4">3. Book & Relax</h3>
+              <p className="text-muted-foreground">Book your preferred provider with one click. Enjoy protected payments and real-time updates throughout the service.</p>
+            </div>
+          </div>
+
+          <div className="text-center mt-12">
+            <a href="/how-it-works" className="glass px-8 py-3 rounded-2xl font-medium text-neural-600 hover:bg-neural-50 transition-all duration-300 inline-flex items-center">
+              Learn More About Our Process
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="relative z-10 px-6 py-24">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gradient-plasma mb-6">What Our Users Say</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Join millions of satisfied customers who trust Loconomy for their service needs
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="glass rounded-3xl p-8 hover:shadow-glass-xl transition-all duration-300">
+              <div className="flex items-center mb-6">
+                <div className="w-12 h-12 bg-gradient-neural rounded-full flex items-center justify-center mr-4">
+                  <span className="text-white font-bold">SJ</span>
+                </div>
+                <div>
+                  <h4 className="font-bold text-gradient-neural">Sarah Johnson</h4>
+                  <p className="text-sm text-muted-foreground">Homeowner</p>
+                </div>
+              </div>
+              <div className="flex mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-4 h-4 text-yellow-500 fill-current" />
+                ))}
+              </div>
+              <p className="text-muted-foreground italic">
+                "Found an amazing house cleaner through Loconomy in minutes. The booking process was seamless and the service quality exceeded my expectations!"
+              </p>
+            </div>
+
+            <div className="glass rounded-3xl p-8 hover:shadow-glass-xl transition-all duration-300">
+              <div className="flex items-center mb-6">
+                <div className="w-12 h-12 bg-gradient-quantum rounded-full flex items-center justify-center mr-4">
+                  <span className="text-white font-bold">MR</span>
+                </div>
+                <div>
+                  <h4 className="font-bold text-gradient-quantum">Mike Rodriguez</h4>
+                  <p className="text-sm text-muted-foreground">Business Owner</p>
+                </div>
+              </div>
+              <div className="flex mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-4 h-4 text-yellow-500 fill-current" />
+                ))}
+              </div>
+              <p className="text-muted-foreground italic">
+                "As a provider, Loconomy has transformed my business. The AI matching brings me perfect clients and the platform handles everything seamlessly."
+              </p>
+            </div>
+
+            <div className="glass rounded-3xl p-8 hover:shadow-glass-xl transition-all duration-300">
+              <div className="flex items-center mb-6">
+                <div className="w-12 h-12 bg-gradient-trust rounded-full flex items-center justify-center mr-4">
+                  <span className="text-white font-bold">ET</span>
+                </div>
+                <div>
+                  <h4 className="font-bold text-gradient-trust">Emma Thompson</h4>
+                  <p className="text-sm text-muted-foreground">Tech Professional</p>
+                </div>
+              </div>
+              <div className="flex mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-4 h-4 text-yellow-500 fill-current" />
+                ))}
+              </div>
+              <p className="text-muted-foreground italic">
+                "The AI recommendations are spot-on! Got my laptop fixed by a certified technician who arrived within 2 hours. Incredible service!"
+              </p>
+            </div>
+          </div>
+
+          <div className="text-center mt-12">
+            <a href="/success-stories" className="glass px-8 py-3 rounded-2xl font-medium text-neural-600 hover:bg-neural-50 transition-all duration-300 inline-flex items-center">
+              Read More Success Stories
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="relative z-10 px-6 py-24 bg-gradient-to-l from-plasma-50/50 to-trust-50/50">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gradient-trust mb-6">Why Choose Loconomy</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Advanced technology meets personalized service for the ultimate experience
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-gradient-neural rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <Brain className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-lg font-bold mb-3 text-gradient-neural">AI-Powered Matching</h3>
+              <p className="text-muted-foreground text-sm">Our neural network learns your preferences and matches you with the perfect providers every time.</p>
+            </div>
+
+            <div className="text-center">
+              <div className="w-16 h-16 bg-gradient-quantum rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <Shield className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-lg font-bold mb-3 text-gradient-quantum">Verified & Insured</h3>
+              <p className="text-muted-foreground text-sm">Every provider is background-checked, verified, and fully insured for your peace of mind.</p>
+            </div>
+
+            <div className="text-center">
+              <div className="w-16 h-16 bg-gradient-trust rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <Zap className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-lg font-bold mb-3 text-gradient-trust">Instant Booking</h3>
+              <p className="text-muted-foreground text-sm">Book services instantly with real-time availability and immediate confirmation.</p>
+            </div>
+
+            <div className="text-center">
+              <div className="w-16 h-16 bg-gradient-plasma rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <Clock className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-lg font-bold mb-3 text-gradient-plasma">24/7 Support</h3>
+              <p className="text-muted-foreground text-sm">Round-the-clock customer support and live tracking for all your service needs.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <ModernFooter />
     </div>
   );
