@@ -70,13 +70,22 @@ interface DynamicPaymentSystemProps {
 
 const paymentMethods: PaymentMethod[] = [
   {
+    id: "stripe-checkout",
+    type: "card",
+    name: "Credit/Debit Card",
+    icon: CreditCard,
+    isDefault: true,
+    fee: 0.029,
+    processingTime: "Instant",
+    connected: true,
+  },
+  {
     id: "card-1",
     type: "card",
     name: "Visa •••• 4242",
     icon: CreditCard,
     lastFour: "4242",
     brand: "visa",
-    isDefault: true,
     fee: 0.029,
     processingTime: "Instant",
   },
