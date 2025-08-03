@@ -213,6 +213,16 @@ CREATE POLICY "Users can send messages" ON messages
 CREATE POLICY "Users can mark messages as read" ON messages
   FOR UPDATE USING (auth.uid() = recipient_id);
 
+-- Payment policies
+CREATE POLICY "Users can view own payments" ON payments
+  FOR SELECT USING (
+    auth.uid() = user_id OR
+    auth.uid() IN (SELECT user_id FROM providers WHERE id = provider_id)
+  );
+
+CREATE POLICY "System can manage payments" ON payments
+  FOR ALL USING (true); -- Managed by API with proper auth checks
+
 -- Insert sample data
 INSERT INTO categories (name, slug, description, icon_name, sort_order) VALUES
   ('Home Services', 'home-services', 'Professional home maintenance and repair services', 'home', 1),
