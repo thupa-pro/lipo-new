@@ -226,7 +226,7 @@ export default function HomePage() {
         <section className="py-20">
           <h2 className="text-4xl font-bold text-center text-white mb-4">Popular Service Categories</h2>
           <p className="text-lg text-[var(--mid-gray)] text-center mb-12 max-w-2xl mx-auto">Explore thousands of verified service providers across all major categories.</p>
-          
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="bg-glass rounded-3xl p-8 card-glow overflow-hidden relative group">
               <div className="absolute inset-0 bg-gradient-to-t from-purple-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -234,36 +234,211 @@ export default function HomePage() {
                 <span className="material-icons text-5xl text-purple-400 mb-4">home_repair_service</span>
                 <h3 className="text-2xl font-bold text-white mb-2">Home Services</h3>
                 <p className="text-[var(--mid-gray)] mb-6 flex-grow">Plumbing, electrical, cleaning, and more. All your home needs covered.</p>
-                <a className="font-semibold text-purple-300 flex items-center group-hover:text-white transition-colors" href="#">
-                  Explore 
+                <Link href="/category/home-services" className="font-semibold text-purple-300 flex items-center group-hover:text-white transition-colors">
+                  Explore
                   <span className="material-icons text-lg ml-1 group-hover:translate-x-1 transition-transform">arrow_forward</span>
-                </a>
+                </Link>
               </div>
             </div>
-            
+
             <div className="bg-glass rounded-3xl p-8 card-glow overflow-hidden relative group">
               <div className="absolute inset-0 bg-gradient-to-t from-cyan-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <div className="relative z-10 flex flex-col h-full">
                 <span className="material-icons text-5xl text-cyan-400 mb-4">fitness_center</span>
                 <h3 className="text-2xl font-bold text-white mb-2">Wellness & Fitness</h3>
                 <p className="text-[var(--mid-gray)] mb-6 flex-grow">Personal trainers, yoga instructors, and nutritionists to achieve your goals.</p>
-                <a className="font-semibold text-cyan-300 flex items-center group-hover:text-white transition-colors" href="#">
-                  Explore 
+                <Link href="/category/wellness-fitness" className="font-semibold text-cyan-300 flex items-center group-hover:text-white transition-colors">
+                  Explore
                   <span className="material-icons text-lg ml-1 group-hover:translate-x-1 transition-transform">arrow_forward</span>
-                </a>
+                </Link>
               </div>
             </div>
-            
+
             <div className="bg-glass rounded-3xl p-8 card-glow overflow-hidden relative group">
               <div className="absolute inset-0 bg-gradient-to-t from-fuchsia-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <div className="relative z-10 flex flex-col h-full">
                 <span className="material-icons text-5xl text-fuchsia-400 mb-4">school</span>
                 <h3 className="text-2xl font-bold text-white mb-2">Education & Tutoring</h3>
                 <p className="text-[var(--mid-gray)] mb-6 flex-grow">Find expert tutors for any subject, from math and science to music lessons.</p>
-                <a className="font-semibold text-fuchsia-300 flex items-center group-hover:text-white transition-colors" href="#">
-                  Explore 
+                <Link href="/category/education-tutoring" className="font-semibold text-fuchsia-300 flex items-center group-hover:text-white transition-colors">
+                  Explore
                   <span className="material-icons text-lg ml-1 group-hover:translate-x-1 transition-transform">arrow_forward</span>
-                </a>
+                </Link>
+              </div>
+            </div>
+
+            <div className="bg-glass rounded-3xl p-8 card-glow overflow-hidden relative group">
+              <div className="absolute inset-0 bg-gradient-to-t from-green-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="relative z-10 flex flex-col h-full">
+                <span className="material-icons text-5xl text-green-400 mb-4">build</span>
+                <h3 className="text-2xl font-bold text-white mb-2">Tech & Repair</h3>
+                <p className="text-[var(--mid-gray)] mb-6 flex-grow">Computer, phone, appliance repair and technical support services.</p>
+                <Link href="/category/tech-repair" className="font-semibold text-green-300 flex items-center group-hover:text-white transition-colors">
+                  Explore
+                  <span className="material-icons text-lg ml-1 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                </Link>
+              </div>
+            </div>
+
+            <div className="bg-glass rounded-3xl p-8 card-glow overflow-hidden relative group">
+              <div className="absolute inset-0 bg-gradient-to-t from-orange-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="relative z-10 flex flex-col h-full">
+                <span className="material-icons text-5xl text-orange-400 mb-4">directions_car</span>
+                <h3 className="text-2xl font-bold text-white mb-2">Automotive</h3>
+                <p className="text-[var(--mid-gray)] mb-6 flex-grow">Car repair, maintenance, detailing and automotive services.</p>
+                <Link href="/category/automotive" className="font-semibold text-orange-300 flex items-center group-hover:text-white transition-colors">
+                  Explore
+                  <span className="material-icons text-lg ml-1 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                </Link>
+              </div>
+            </div>
+
+            <div className="bg-glass rounded-3xl p-8 card-glow overflow-hidden relative group">
+              <div className="absolute inset-0 bg-gradient-to-t from-pink-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="relative z-10 flex flex-col h-full">
+                <span className="material-icons text-5xl text-pink-400 mb-4">celebration</span>
+                <h3 className="text-2xl font-bold text-white mb-2">Entertainment</h3>
+                <p className="text-[var(--mid-gray)] mb-6 flex-grow">Events, photography, music and entertainment services.</p>
+                <Link href="/category/entertainment" className="font-semibold text-pink-300 flex items-center group-hover:text-white transition-colors">
+                  Explore
+                  <span className="material-icons text-lg ml-1 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Testimonials Section */}
+        <section className="py-24">
+          <h2 className="text-4xl font-bold text-center text-white mb-4">What Our Users Say</h2>
+          <p className="text-lg text-[var(--mid-gray)] text-center mb-16 max-w-2xl mx-auto">
+            Join millions of satisfied customers who trust Loconomy for their service needs
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-glass rounded-3xl p-8 card-glow">
+              <div className="flex items-center mb-6">
+                <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mr-4">
+                  <span className="text-white font-bold">SJ</span>
+                </div>
+                <div>
+                  <h4 className="font-bold text-white">Sarah Johnson</h4>
+                  <p className="text-sm text-[var(--mid-gray)]">Homeowner</p>
+                </div>
+              </div>
+              <div className="flex mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <span key={i} className="material-icons text-yellow-400">star</span>
+                ))}
+              </div>
+              <p className="text-[var(--mid-gray)] italic">
+                "Found an amazing house cleaner through Loconomy in minutes. The booking process was seamless and the service quality exceeded my expectations!"
+              </p>
+            </div>
+
+            <div className="bg-glass rounded-3xl p-8 card-glow">
+              <div className="flex items-center mb-6">
+                <div className="w-12 h-12 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full flex items-center justify-center mr-4">
+                  <span className="text-white font-bold">MR</span>
+                </div>
+                <div>
+                  <h4 className="font-bold text-white">Mike Rodriguez</h4>
+                  <p className="text-sm text-[var(--mid-gray)]">Business Owner</p>
+                </div>
+              </div>
+              <div className="flex mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <span key={i} className="material-icons text-yellow-400">star</span>
+                ))}
+              </div>
+              <p className="text-[var(--mid-gray)] italic">
+                "As a provider, Loconomy has transformed my business. The AI matching brings me perfect clients and the platform handles everything seamlessly."
+              </p>
+            </div>
+
+            <div className="bg-glass rounded-3xl p-8 card-glow">
+              <div className="flex items-center mb-6">
+                <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-teal-500 rounded-full flex items-center justify-center mr-4">
+                  <span className="text-white font-bold">ET</span>
+                </div>
+                <div>
+                  <h4 className="font-bold text-white">Emma Thompson</h4>
+                  <p className="text-sm text-[var(--mid-gray)]">Tech Professional</p>
+                </div>
+              </div>
+              <div className="flex mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <span key={i} className="material-icons text-yellow-400">star</span>
+                ))}
+              </div>
+              <p className="text-[var(--mid-gray)] italic">
+                "The AI recommendations are spot-on! Got my laptop fixed by a certified technician who arrived within 2 hours. Incredible service!"
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Features Section */}
+        <section className="py-24 bg-gradient-to-l from-purple-900/20 to-cyan-900/20">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-white mb-6">Why Choose Loconomy</h2>
+            <p className="text-lg text-[var(--mid-gray)] max-w-2xl mx-auto">
+              Advanced technology meets personalized service for the ultimate experience
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <span className="material-icons text-3xl text-white">psychology</span>
+              </div>
+              <h3 className="text-lg font-bold mb-3 text-white">AI-Powered Matching</h3>
+              <p className="text-[var(--mid-gray)] text-sm">Our neural network learns your preferences and matches you with the perfect providers every time.</p>
+            </div>
+
+            <div className="text-center">
+              <div className="w-16 h-16 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <span className="material-icons text-3xl text-white">verified</span>
+              </div>
+              <h3 className="text-lg font-bold mb-3 text-white">Verified & Insured</h3>
+              <p className="text-[var(--mid-gray)] text-sm">Every provider is background-checked, verified, and fully insured for your peace of mind.</p>
+            </div>
+
+            <div className="text-center">
+              <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-teal-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <span className="material-icons text-3xl text-white">flash_on</span>
+              </div>
+              <h3 className="text-lg font-bold mb-3 text-white">Instant Booking</h3>
+              <p className="text-[var(--mid-gray)] text-sm">Book services instantly with real-time availability and immediate confirmation.</p>
+            </div>
+
+            <div className="text-center">
+              <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <span className="material-icons text-3xl text-white">support_agent</span>
+              </div>
+              <h3 className="text-lg font-bold mb-3 text-white">24/7 Support</h3>
+              <p className="text-[var(--mid-gray)] text-sm">Round-the-clock customer support and live tracking for all your service needs.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Call to Action */}
+        <section className="py-24">
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-glass rounded-3xl p-12 text-center card-glow">
+              <h2 className="text-3xl font-bold text-white mb-6">
+                Ready to Get Started with Loconomy?
+              </h2>
+              <p className="text-lg text-[var(--mid-gray)] mb-8 max-w-2xl mx-auto">
+                Join millions of satisfied customers who have found their perfect service providers through our platform.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link href="/browse" className="bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white px-8 py-4 rounded-full font-semibold text-lg btn-glow transition-transform transform hover:scale-105 flex items-center justify-center">
+                  Find Services Now
+                </Link>
+                <Link href="/become-provider" className="bg-white/10 text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white/20 transition-all duration-300 border border-transparent hover:border-white/30 flex items-center justify-center">
+                  Start Earning as Provider
+                </Link>
               </div>
             </div>
           </div>
