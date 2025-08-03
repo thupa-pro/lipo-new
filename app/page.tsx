@@ -1,15 +1,11 @@
-"use client";
-
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import {
-  Search, Sparkles, Home, Wrench, Car, GraduationCap, Heart, Gamepad2,
-  Menu, X, Star, Shield, Users, TrendingUp, ChevronRight, Play, ArrowRight,
-  Clock, CheckCircle, Brain, Zap
-} from 'lucide-react';
-import { ThemeToggle } from '@/components/ui/theme-toggle';
-import { ModernFooter } from '@/components/modern-footer';
-import { CommandPaletteHint } from '@/components/ui/command-palette-hint';
+export default function HomePage() {
+  return (
+    <div className="p-8">
+      <h1 className="text-4xl font-bold">Welcome to Loconomy</h1>
+      <p className="mt-4 text-lg">The app is now running successfully!</p>
+    </div>
+  );
+}
 
 export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('');
