@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { ModernFooter } from '@/components/modern-footer';
+import { CommandPaletteHint } from '@/components/ui/command-palette-hint';
 
 export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('');
