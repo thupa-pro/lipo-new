@@ -44,10 +44,10 @@ export function ModernFooter() {
             <div>
               <h3 className="font-bold text-white mb-4">Platform</h3>
               <ul className="space-y-3">
-                <li><a href="/browse" className="text-muted-foreground hover:text-neural-600 transition-colors">Browse Services</a></li>
-                <li><a href="/become-provider" className="text-muted-foreground hover:text-neural-600 transition-colors">Become a Provider</a></li>
-                <li><a href="/how-it-works" className="text-muted-foreground hover:text-neural-600 transition-colors">How It Works</a></li>
-                <li><a href="/pricing" className="text-muted-foreground hover:text-neural-600 transition-colors">Pricing</a></li>
+                <li><a href="/browse" className="text-[var(--mid-gray)] hover:text-white transition-colors">Browse Services</a></li>
+                <li><a href="/become-provider" className="text-[var(--mid-gray)] hover:text-white transition-colors">Become a Provider</a></li>
+                <li><a href="/how-it-works" className="text-[var(--mid-gray)] hover:text-white transition-colors">How It Works</a></li>
+                <li><a href="/pricing" className="text-[var(--mid-gray)] hover:text-white transition-colors">Pricing</a></li>
                 <li><a href="/mobile-app" className="text-muted-foreground hover:text-neural-600 transition-colors">Mobile App</a></li>
               </ul>
             </div>
