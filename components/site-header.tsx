@@ -11,8 +11,9 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
-import { Sparkles, Menu, X } from 'lucide-react';
+import { Sparkles, Menu, X, Command } from 'lucide-react';
 import { useState } from 'react';
+import { useCommandPalette } from '@/components/providers/command-palette-provider';
 
 export function SiteHeader() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
