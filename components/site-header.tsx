@@ -120,6 +120,15 @@ export function SiteHeader() {
 
         {/* Right side actions */}
         <div className="flex items-center space-x-4">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={openCommandPalette}
+            className="hidden md:flex items-center gap-2"
+          >
+            <Command className="w-4 h-4" />
+            <span className="text-xs opacity-60">⌘K</span>
+          </Button>
           <ThemeToggle />
           <div className="hidden md:flex items-center space-x-2">
             <Link href="/auth/signin">
