@@ -445,53 +445,8 @@ export default function HomePage() {
         </section>
       </main>
 
-      {/* Footer */}
-      <footer className="relative z-10 mt-24 py-16 px-4 sm:px-6 lg:px-8 border-t border-white/10 bg-glass/50">
-        <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 text-center md:text-left">
-          <div className="col-span-1 md:col-span-1">
-            <div className="flex items-center space-x-3 justify-center md:justify-start mb-4">
-              <span className="material-icons text-purple-400 text-3xl">hub</span>
-              <span className="text-2xl font-bold text-white tracking-wider">Loconomy</span>
-            </div>
-            <p className="text-[var(--mid-gray)] text-sm">The future of local services, today.</p>
-          </div>
-          
-          <div>
-            <h4 className="font-bold text-white mb-4">For Customers</h4>
-            <ul className="space-y-3 text-sm text-[var(--mid-gray)]">
-              <li><a className="hover:text-white" href="#">Find a Pro</a></li>
-              <li><a className="hover:text-white" href="#">How It Works</a></li>
-              <li><a className="hover:text-white" href="#">Login</a></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h4 className="font-bold text-white mb-4">For Professionals</h4>
-            <ul className="space-y-3 text-sm text-[var(--mid-gray)]">
-              <li><a className="hover:text-white" href="#">Join as Pro</a></li>
-              <li><a className="hover:text-white" href="#">Pro Center</a></li>
-              <li><a className="hover:text-white" href="#">Pro Login</a></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h4 className="font-bold text-white mb-4">Company</h4>
-            <ul className="space-y-3 text-sm text-[var(--mid-gray)]">
-              <li><a className="hover:text-white" href="#">About Us</a></li>
-              <li><a className="hover:text-white" href="#">Careers</a></li>
-              <li><a className="hover:text-white" href="#">Contact</a></li>
-            </ul>
-          </div>
-        </div>
-        
-        <div className="container mx-auto mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center text-sm text-[var(--dark-gray)]">
-          <p className="text-[var(--mid-gray)]">© 2024 Loconomy. All rights reserved.</p>
-          <div className="flex space-x-4 mt-4 sm:mt-0">
-            <a className="text-[var(--mid-gray)] hover:text-white" href="#">Terms</a>
-            <a className="text-[var(--mid-gray)] hover:text-white" href="#">Privacy</a>
-          </div>
-        </div>
-      </footer>
+      <ModernFooter />
+      <CommandPaletteHint />
     </div>
   );
 }
