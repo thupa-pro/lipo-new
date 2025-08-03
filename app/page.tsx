@@ -163,7 +163,7 @@ export default function HomePage() {
                 <span className="text-4xl font-black gradient-text">3</span>
               </div>
               <h3 className="text-2xl font-bold text-white mb-3">Hire & Relax</h3>
-              <p className="text-mid-gray">Compare profiles, quotes, and reviews. Hire the best fit and get the job done right, guaranteed.</p>
+              <p className="text-[var(--mid-gray)]">Compare profiles, quotes, and reviews. Hire the best fit and get the job done right, guaranteed.</p>
             </div>
           </div>
         </section>
