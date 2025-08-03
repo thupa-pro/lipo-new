@@ -1,3 +1,6 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -21,8 +24,12 @@ import {
   Circle,
   Star,
   Clock,
+  Wifi,
+  WifiOff,
 } from "lucide-react";
-import { Metadata } from "next";
+import { RealtimeChat } from "@/components/messages/realtime-chat";
+import { useSocket } from "@/hooks/use-socket";
+import { createClient } from "@/lib/supabase/client";
 
 export const metadata: Metadata = {
   title: "Messages - Loconomy",
