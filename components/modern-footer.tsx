@@ -42,7 +42,7 @@ export function ModernFooter() {
 
             {/* Quick Links */}
             <div>
-              <h3 className="font-bold text-gradient-neural mb-4">Platform</h3>
+              <h3 className="font-bold text-white mb-4">Platform</h3>
               <ul className="space-y-3">
                 <li><a href="/browse" className="text-muted-foreground hover:text-neural-600 transition-colors">Browse Services</a></li>
                 <li><a href="/become-provider" className="text-muted-foreground hover:text-neural-600 transition-colors">Become a Provider</a></li>
