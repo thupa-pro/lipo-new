@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useTranslations } from "next-intl";
+import { useTranslations } from "@/lib/i18n-stub";
 import {
   Wallet,
   Plus,
