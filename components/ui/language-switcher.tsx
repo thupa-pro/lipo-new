@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { useLocale, useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "@/lib/i18n-stub";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
