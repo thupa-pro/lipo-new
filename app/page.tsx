@@ -133,7 +133,7 @@ export default function HomePage() {
         {/* How It Works Section */}
         <section className="py-24" id="how-it-works">
           <h2 className="text-4xl font-bold text-center text-white mb-4">How Loconomy Works</h2>
-          <p className="text-lg text-mid-gray text-center mb-16 max-w-2xl mx-auto">Finding your ideal service professional is as easy as 1-2-3.</p>
+          <p className="text-lg text-[var(--mid-gray)] text-center mb-16 max-w-2xl mx-auto">Finding your ideal service professional is as easy as 1-2-3.</p>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
             <div className="absolute top-1/2 left-0 w-full h-px bg-white/10 hidden md:block"></div>
