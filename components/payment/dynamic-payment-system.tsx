@@ -151,6 +151,7 @@ export function DynamicPaymentSystem({
   const [progress, setProgress] = useState(0);
   const [securityCheck, setSecurityCheck] = useState(false);
   const [biometricAuth, setBiometricAuth] = useState(false);
+  const [useStripeCheckout, setUseStripeCheckout] = useState(false);
 
   // Card form states
   const [cardNumber, setCardNumber] = useState("");
