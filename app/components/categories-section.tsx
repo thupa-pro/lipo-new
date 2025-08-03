@@ -19,6 +19,7 @@ const categories = [
   {
     icon: Home,
     name: "Home Services",
+    slug: "home-services",
     count: "2,400+ providers",
     gradient: "from-blue-500 to-cyan-500",
     description: "Cleaning, maintenance, repairs",
@@ -26,6 +27,7 @@ const categories = [
   {
     icon: Wrench,
     name: "Professional Work",
+    slug: "professional-work",
     count: "1,800+ providers",
     gradient: "from-green-500 to-emerald-500",
     description: "Handyman, electrical, plumbing",
@@ -33,6 +35,7 @@ const categories = [
   {
     icon: Car,
     name: "Auto & Transport",
+    slug: "transportation",
     count: "1,200+ providers",
     gradient: "from-red-500 to-rose-500",
     description: "Car wash, repairs, delivery",
@@ -40,6 +43,7 @@ const categories = [
   {
     icon: GraduationCap,
     name: "Education",
+    slug: "education",
     count: "900+ providers",
     gradient: "from-purple-500 to-violet-500",
     description: "Tutoring, coaching, training",
