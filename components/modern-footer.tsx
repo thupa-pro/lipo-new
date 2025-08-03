@@ -48,40 +48,40 @@ export function ModernFooter() {
                 <li><a href="/become-provider" className="text-[var(--mid-gray)] hover:text-white transition-colors">Become a Provider</a></li>
                 <li><a href="/how-it-works" className="text-[var(--mid-gray)] hover:text-white transition-colors">How It Works</a></li>
                 <li><a href="/pricing" className="text-[var(--mid-gray)] hover:text-white transition-colors">Pricing</a></li>
-                <li><a href="/mobile-app" className="text-muted-foreground hover:text-neural-600 transition-colors">Mobile App</a></li>
+                <li><a href="/mobile-app" className="text-[var(--mid-gray)] hover:text-white transition-colors">Mobile App</a></li>
               </ul>
             </div>
 
             {/* Support */}
             <div>
-              <h3 className="font-bold text-gradient-quantum mb-4">Support</h3>
+              <h3 className="font-bold text-white mb-4">Support</h3>
               <ul className="space-y-3">
-                <li><a href="/help" className="text-muted-foreground hover:text-neural-600 transition-colors">Help Center</a></li>
-                <li><a href="/safety" className="text-muted-foreground hover:text-neural-600 transition-colors">Safety Guide</a></li>
-                <li><a href="/community" className="text-muted-foreground hover:text-neural-600 transition-colors">Community</a></li>
-                <li><a href="/contact" className="text-muted-foreground hover:text-neural-600 transition-colors">Contact Us</a></li>
-                <li><a href="/customer-support" className="text-muted-foreground hover:text-neural-600 transition-colors">Customer Support</a></li>
+                <li><a href="/help" className="text-[var(--mid-gray)] hover:text-white transition-colors">Help Center</a></li>
+                <li><a href="/safety" className="text-[var(--mid-gray)] hover:text-white transition-colors">Safety Guide</a></li>
+                <li><a href="/community" className="text-[var(--mid-gray)] hover:text-white transition-colors">Community</a></li>
+                <li><a href="/contact" className="text-[var(--mid-gray)] hover:text-white transition-colors">Contact Us</a></li>
+                <li><a href="/customer-support" className="text-[var(--mid-gray)] hover:text-white transition-colors">Customer Support</a></li>
               </ul>
             </div>
 
             {/* Contact */}
             <div>
-              <h3 className="font-bold text-gradient-trust mb-4">Contact</h3>
+              <h3 className="font-bold text-white mb-4">Contact</h3>
               <ul className="space-y-3">
-                <li className="flex items-center text-muted-foreground">
-                  <Phone className="w-4 h-4 mr-3 text-neural-500" />
+                <li className="flex items-center text-[var(--mid-gray)]">
+                  <Phone className="w-4 h-4 mr-3 text-purple-400" />
                   <span>+1 (555) 123-4567</span>
                 </li>
-                <li className="flex items-center text-muted-foreground">
-                  <Mail className="w-4 h-4 mr-3 text-neural-500" />
+                <li className="flex items-center text-[var(--mid-gray)]">
+                  <Mail className="w-4 h-4 mr-3 text-purple-400" />
                   <span>hello@loconomy.com</span>
                 </li>
-                <li className="flex items-center text-muted-foreground">
-                  <MapPin className="w-4 h-4 mr-3 text-neural-500" />
+                <li className="flex items-center text-[var(--mid-gray)]">
+                  <MapPin className="w-4 h-4 mr-3 text-purple-400" />
                   <span>San Francisco, CA</span>
                 </li>
-                <li className="flex items-center text-muted-foreground">
-                  <MessageCircle className="w-4 h-4 mr-3 text-neural-500" />
+                <li className="flex items-center text-[var(--mid-gray)]">
+                  <MessageCircle className="w-4 h-4 mr-3 text-purple-400" />
                   <span>24/7 Live Chat</span>
                 </li>
               </ul>
@@ -89,15 +89,15 @@ export function ModernFooter() {
           </div>
 
           {/* Bottom Bar */}
-          <div className="border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center">
-            <div className="text-sm text-muted-foreground mb-4 md:mb-0">
+          <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <div className="text-sm text-[var(--mid-gray)] mb-4 md:mb-0">
               © 2025 Loconomy. All rights reserved. Connecting communities through local services.
             </div>
             <div className="flex space-x-6 text-sm">
-              <a href="/privacy" className="text-muted-foreground hover:text-neural-600 transition-colors">Privacy Policy</a>
-              <a href="/terms" className="text-muted-foreground hover:text-neural-600 transition-colors">Terms of Service</a>
-              <a href="/cookies" className="text-muted-foreground hover:text-neural-600 transition-colors">Cookie Policy</a>
-              <a href="/accessibility" className="text-muted-foreground hover:text-neural-600 transition-colors">Accessibility</a>
+              <a href="/privacy" className="text-[var(--mid-gray)] hover:text-white transition-colors">Privacy Policy</a>
+              <a href="/terms" className="text-[var(--mid-gray)] hover:text-white transition-colors">Terms of Service</a>
+              <a href="/cookies" className="text-[var(--mid-gray)] hover:text-white transition-colors">Cookie Policy</a>
+              <a href="/accessibility" className="text-[var(--mid-gray)] hover:text-white transition-colors">Accessibility</a>
             </div>
           </div>
         </div>
