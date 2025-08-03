@@ -2,6 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { ThemeToggle } from '@/components/ui/theme-toggle';
+import { ModernFooter } from '@/components/modern-footer';
+import { CommandPaletteHint } from '@/components/ui/command-palette-hint';
 
 export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -279,7 +282,7 @@ export default function HomePage() {
           
           <div>
             <h4 className="font-bold text-white mb-4">For Customers</h4>
-            <ul className="space-y-3 text-sm text-mid-gray">
+            <ul className="space-y-3 text-sm text-[var(--mid-gray)]">
               <li><a className="hover:text-white" href="#">Find a Pro</a></li>
               <li><a className="hover:text-white" href="#">How It Works</a></li>
               <li><a className="hover:text-white" href="#">Login</a></li>
@@ -288,7 +291,7 @@ export default function HomePage() {
           
           <div>
             <h4 className="font-bold text-white mb-4">For Professionals</h4>
-            <ul className="space-y-3 text-sm text-mid-gray">
+            <ul className="space-y-3 text-sm text-[var(--mid-gray)]">
               <li><a className="hover:text-white" href="#">Join as Pro</a></li>
               <li><a className="hover:text-white" href="#">Pro Center</a></li>
               <li><a className="hover:text-white" href="#">Pro Login</a></li>
@@ -297,7 +300,7 @@ export default function HomePage() {
           
           <div>
             <h4 className="font-bold text-white mb-4">Company</h4>
-            <ul className="space-y-3 text-sm text-mid-gray">
+            <ul className="space-y-3 text-sm text-[var(--mid-gray)]">
               <li><a className="hover:text-white" href="#">About Us</a></li>
               <li><a className="hover:text-white" href="#">Careers</a></li>
               <li><a className="hover:text-white" href="#">Contact</a></li>
@@ -305,11 +308,11 @@ export default function HomePage() {
           </div>
         </div>
         
-        <div className="container mx-auto mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center text-sm text-dark-gray">
-          <p className="text-mid-gray">© 2024 Loconomy. All rights reserved.</p>
+        <div className="container mx-auto mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center text-sm text-[var(--dark-gray)]">
+          <p className="text-[var(--mid-gray)]">© 2024 Loconomy. All rights reserved.</p>
           <div className="flex space-x-4 mt-4 sm:mt-0">
-            <a className="text-mid-gray hover:text-white" href="#">Terms</a>
-            <a className="text-mid-gray hover:text-white" href="#">Privacy</a>
+            <a className="text-[var(--mid-gray)] hover:text-white" href="#">Terms</a>
+            <a className="text-[var(--mid-gray)] hover:text-white" href="#">Privacy</a>
           </div>
         </div>
       </footer>
