@@ -4,7 +4,8 @@ CREATE EXTENSION IF NOT EXISTS "postgis";
 
 -- Create custom types
 CREATE TYPE user_role AS ENUM ('customer', 'provider', 'admin', 'super_admin');
-CREATE TYPE booking_status AS ENUM ('pending', 'confirmed', 'in_progress', 'completed', 'cancelled');
+CREATE TYPE booking_status AS ENUM ('pending', 'confirmed', 'in_progress', 'completed', 'cancelled', 'payment_failed');
+CREATE TYPE payment_status AS ENUM ('pending', 'processing', 'completed', 'failed', 'canceled');
 CREATE TYPE message_type AS ENUM ('text', 'image', 'file');
 
 -- Users table (core user profiles)
