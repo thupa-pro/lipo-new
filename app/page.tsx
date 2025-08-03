@@ -147,7 +147,7 @@ export default function HomePage() {
                 <span className="text-4xl font-black gradient-text">1</span>
               </div>
               <h3 className="text-2xl font-bold text-white mb-3">Post a Job</h3>
-              <p className="text-mid-gray">Tell us what you need. Be specific to get the most accurate quotes from our network of professionals.</p>
+              <p className="text-[var(--mid-gray)]">Tell us what you need. Be specific to get the most accurate quotes from our network of professionals.</p>
             </div>
             
             <div className="relative text-center z-10">
