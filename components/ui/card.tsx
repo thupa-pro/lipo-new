@@ -11,15 +11,15 @@ const Card = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      "rounded-3xl bg-card text-card-foreground shadow-sm transition-all duration-300 hover:shadow-glass-lg",
+      "rounded-3xl text-white shadow-sm transition-all duration-300 card-glow",
       {
-        "border bg-card": variant === "default",
-        "glass": variant === "glass",
-        "glass-strong": variant === "glass-strong",
-        "glass border-neural-200/30 hover:shadow-neural": variant === "neural",
-        "glass border-quantum-200/30 hover:shadow-quantum": variant === "quantum",
-        "glass border-trust-200/30 hover:shadow-trust": variant === "trust",
-        "glass border-plasma-200/30 hover:shadow-plasma": variant === "plasma",
+        "bg-glass border border-white/10": variant === "default",
+        "bg-glass": variant === "glass",
+        "bg-glass-strong": variant === "glass-strong",
+        "bg-glass border border-purple-400/30 hover:shadow-neural": variant === "neural",
+        "bg-glass border border-cyan-400/30 hover:shadow-quantum": variant === "quantum",
+        "bg-glass border border-green-400/30 hover:shadow-trust": variant === "trust",
+        "bg-glass border border-pink-400/30 hover:shadow-plasma": variant === "plasma",
       },
       className
     )}
