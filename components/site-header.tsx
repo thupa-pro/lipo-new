@@ -66,6 +66,12 @@ export function SiteHeader() {
                       Get AI-powered service recommendations
                     </p>
                   </Link>
+                  <Link href="/gig-map" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                    <div className="text-sm font-medium leading-none">Gig Map</div>
+                    <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                      View real-time jobs on interactive map
+                    </p>
+                  </Link>
                 </div>
               </NavigationMenuContent>
             </NavigationMenuItem>
