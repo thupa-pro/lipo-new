@@ -55,16 +55,8 @@ export default function RootLayout({
         <link rel="icon" href="/icon.svg" type="image/svg+xml" />
         <link rel="manifest" href="/manifest.json" />
       </head>
-      <body className={inter.className} suppressHydrationWarning>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <main className="min-h-screen">{children}</main>
-          <Toaster />
-        </ThemeProvider>
+      <body className={inter.className}>
+        <main className="min-h-screen">{children}</main>
       </body>
     </html>
   );
