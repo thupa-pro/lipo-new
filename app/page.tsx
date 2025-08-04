@@ -770,7 +770,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center">
               <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <span className="material-icons text-3xl text-white">psychology</span>
+                <Brain className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-lg font-bold mb-3 text-white">AI-Powered Matching</h3>
               <p className="text-[var(--mid-gray)] text-sm">Our neural network learns your preferences and matches you with the perfect providers every time.</p>
@@ -778,7 +778,7 @@ export default function HomePage() {
 
             <div className="text-center">
               <div className="w-16 h-16 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <span className="material-icons text-3xl text-white">verified</span>
+                <Shield className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-lg font-bold mb-3 text-white">Verified & Insured</h3>
               <p className="text-[var(--mid-gray)] text-sm">Every provider is background-checked, verified, and fully insured for your peace of mind.</p>
@@ -786,7 +786,7 @@ export default function HomePage() {
 
             <div className="text-center">
               <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-teal-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <span className="material-icons text-3xl text-white">flash_on</span>
+                <Zap className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-lg font-bold mb-3 text-white">Instant Booking</h3>
               <p className="text-[var(--mid-gray)] text-sm">Book services instantly with real-time availability and immediate confirmation.</p>
@@ -794,7 +794,7 @@ export default function HomePage() {
 
             <div className="text-center">
               <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <span className="material-icons text-3xl text-white">support_agent</span>
+                <HeadphonesIcon className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-lg font-bold mb-3 text-white">24/7 Support</h3>
               <p className="text-[var(--mid-gray)] text-sm">Round-the-clock customer support and live tracking for all your service needs.</p>
