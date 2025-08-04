@@ -520,17 +520,17 @@ export default function HomePage() {
 
         {/* Stats Section */}
         <section className="py-20">
-          <h2 className="text-4xl font-bold text-center text-white mb-12">Trusted Platform Performance</h2>
+          <h2 className="section-title text-4xl font-bold text-center mb-12">Trusted Platform Performance</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="bg-glass p-8 rounded-3xl text-center card-glow">
+            <div className="stats-card p-8 rounded-3xl text-center interactive-element">
               <div className="flex justify-center items-center mb-4">
-                <div className="p-4 bg-purple-500/20 rounded-full">
-                  <span className="material-icons text-3xl text-purple-400">group</span>
+                <div className="stats-icon-bg p-4 rounded-full">
+                  <span className="material-icons text-3xl text-purple-500">group</span>
                 </div>
               </div>
-              <p className="text-5xl font-bold text-white mb-2">2.4M+</p>
-              <p className="text-[var(--mid-gray)] mb-4">Active Users</p>
-              <span className="text-green-400 font-semibold text-sm">+23.5% vs last month</span>
+              <p className="stats-number text-5xl font-bold mb-2">2.4M+</p>
+              <p className="stats-label mb-4">Active Users</p>
+              <span className="stats-growth font-semibold text-sm">+23.5% vs last month</span>
             </div>
             
             <div className="bg-glass p-8 rounded-3xl text-center card-glow">
