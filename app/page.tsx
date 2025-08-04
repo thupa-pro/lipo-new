@@ -212,11 +212,15 @@ export default function HomePage() {
       <div className="absolute top-[30%] right-[10%] w-[500px] h-[500px] bg-fuchsia-700/20 rounded-full blur-[150px] animate-pulse animation-delay-2000"></div>
 
       {/* Header */}
-      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${
-        isScrolled
-          ? 'py-3 px-4 sm:px-6 lg:px-8 bg-glass/95 backdrop-blur-xl border-b border-white/20 shadow-lg shadow-purple-500/10'
-          : 'py-6 px-4 sm:px-6 lg:px-8 bg-transparent border-b border-transparent'
-      }`}>
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${
+          isScrolled
+            ? 'py-3 px-4 sm:px-6 lg:px-8 bg-glass/95 backdrop-blur-xl border-b border-white/20 shadow-lg shadow-purple-500/10'
+            : 'py-6 px-4 sm:px-6 lg:px-8 bg-transparent border-b border-transparent'
+        }`}
+        role="banner"
+        aria-label="Main navigation"
+      >
         <div className="container mx-auto flex justify-between items-center">
           <div className="flex items-center space-x-3">
             <div className="relative">
