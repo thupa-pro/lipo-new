@@ -482,22 +482,22 @@ export default function HomePage() {
 
         {/* How It Works Section */}
         <section className="py-24" id="how-it-works">
-          <h2 className="text-4xl font-bold text-center text-white mb-4">How Loconomy Works</h2>
-          <p className="text-lg text-[var(--mid-gray)] text-center mb-16 max-w-2xl mx-auto">Finding your ideal service professional is as easy as 1-2-3.</p>
-          
+          <h2 className="section-title text-4xl font-bold text-center mb-4">How Loconomy Works</h2>
+          <p className="section-subtitle text-lg text-center mb-16 max-w-2xl mx-auto">Finding your ideal service professional is as easy as 1-2-3.</p>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
-            <div className="absolute top-1/2 left-0 w-full h-px bg-white/10 hidden md:block"></div>
-            <div className="absolute top-1/2 left-0 w-full hidden md:flex justify-between">
-              <div className="w-1/3 h-px bg-gradient-to-r from-purple-500 to-fuchsia-500"></div>
-              <div className="w-1/3 h-px bg-gradient-to-r from-fuchsia-500 to-cyan-500"></div>
+            <div className="absolute top-1/2 left-0 w-full h-px bg-gray-200 dark:bg-white/10 hidden md:block"></div>
+            <div className="works-connecting-line absolute top-1/2 left-0 w-full hidden md:flex justify-between">
+              <div className="w-1/3 h-px"></div>
+              <div className="w-1/3 h-px"></div>
             </div>
-            
+
             <div className="relative text-center z-10">
-              <div className="w-20 h-20 bg-glass rounded-full flex items-center justify-center mx-auto mb-6 border-2 border-purple-500">
+              <div className="works-number-circle w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
                 <span className="text-4xl font-black gradient-text">1</span>
               </div>
-              <h3 className="text-2xl font-bold text-white mb-3">Post a Job</h3>
-              <p className="text-[var(--mid-gray)]">Tell us what you need. Be specific to get the most accurate quotes from our network of professionals.</p>
+              <h3 className="works-step-title text-2xl font-bold mb-3">Post a Job</h3>
+              <p className="works-step-description">Tell us what you need. Be specific to get the most accurate quotes from our network of professionals.</p>
             </div>
             
             <div className="relative text-center z-10">
