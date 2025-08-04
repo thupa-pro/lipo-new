@@ -639,7 +639,7 @@ export default function HomePage() {
               <span className="stats-growth font-semibold text-sm">+23.5% vs last month</span>
             </div>
             
-            <div className="stats-card card-elite p-8 text-center magnetic-hover animate-elite-float" style="animation-delay: 0.2s;">
+            <div className="stats-card card-elite p-8 text-center magnetic-hover animate-elite-float" style={{animationDelay: '0.2s'}}>
               <div className="flex justify-center items-center mb-4">
                 <div className="stats-icon-bg p-4 rounded-full">
                   <Clock className="w-8 h-8 text-cyan-500" />
