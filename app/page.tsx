@@ -491,26 +491,30 @@ export default function HomePage() {
             </h1>
           </ScrollReveal>
 
-          <p className="hero-description max-w-3xl mx-auto text-base md:text-xl mb-8 md:mb-12 font-body px-4">
-            Loconomy is the premium marketplace connecting you with verified local service providers. From home repairs to personal training - find trusted professionals in your area with our AI-powered matching system.
-          </p>
+          <ScrollReveal delay={600} direction="up">
+            <p className="hero-description max-w-3xl mx-auto text-base md:text-xl mb-8 md:mb-12 font-body px-4">
+              Loconomy is the premium marketplace connecting you with verified local service providers. From home repairs to personal training - find trusted professionals in your area with our AI-powered matching system.
+            </p>
+          </ScrollReveal>
           
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 md:gap-6 px-4">
-            <Link
-              href="/browse"
-              className="w-full sm:w-auto flex items-center justify-center gap-2 md:gap-3 px-6 md:px-10 py-4 md:py-5 btn-elite text-white font-ui font-semibold rounded-full text-base md:text-lg group"
-            >
-              <Search className="w-5 h-5 md:w-6 md:h-6 transition-transform duration-300 group-hover:scale-110" />
-              Find Services Now
-            </Link>
-            <Link
-              href="/become-provider"
-              className="w-full sm:w-auto flex items-center justify-center gap-2 md:gap-3 px-6 md:px-10 py-4 md:py-5 bg-white/10 text-white font-ui font-semibold rounded-full text-base md:text-lg hover:bg-white/20 transition-all duration-300 border border-transparent hover:border-white/30 backdrop-blur-sm group"
-            >
-              <UserPlus className="w-5 h-5 md:w-6 md:h-6 transition-transform duration-300 group-hover:scale-110" />
-              Become a Provider
-            </Link>
-          </div>
+          <ScrollReveal delay={800} direction="up">
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-4 md:gap-6 px-4">
+              <Link
+                href="/browse"
+                className="w-full sm:w-auto flex items-center justify-center gap-2 md:gap-3 px-6 md:px-10 py-4 md:py-5 btn-elite text-white font-ui font-semibold rounded-full text-base md:text-lg group"
+              >
+                <Search className="w-5 h-5 md:w-6 md:h-6 transition-transform duration-300 group-hover:scale-110" />
+                Find Services Now
+              </Link>
+              <Link
+                href="/become-provider"
+                className="w-full sm:w-auto flex items-center justify-center gap-2 md:gap-3 px-6 md:px-10 py-4 md:py-5 bg-white/10 text-white font-ui font-semibold rounded-full text-base md:text-lg hover:bg-white/20 transition-all duration-300 border border-transparent hover:border-white/30 backdrop-blur-sm group"
+              >
+                <UserPlus className="w-5 h-5 md:w-6 md:h-6 transition-transform duration-300 group-hover:scale-110" />
+                Become a Provider
+              </Link>
+            </div>
+          </ScrollReveal>
         </section>
 
         {/* Search Section */}
