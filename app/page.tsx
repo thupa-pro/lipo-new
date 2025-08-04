@@ -888,6 +888,8 @@ export default function HomePage() {
         isOpen={isCommandPaletteOpen}
         onClose={() => setIsCommandPaletteOpen(false)}
       />
+      <FloatingFAB />
+      <MobileBottomNav currentPath="/" />
 
       {/* Mobile Bottom Spacing */}
       <div className="h-20 md:h-0 mobile-bottom-spacing"></div>
