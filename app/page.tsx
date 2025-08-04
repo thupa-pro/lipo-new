@@ -616,7 +616,7 @@ export default function HomePage() {
                 <p className="category-description mb-6 flex-grow">Plumbing, electrical, cleaning, and more. All your home needs covered.</p>
                 <Link href="/category/home-services" className="category-link font-semibold flex items-center group-hover:text-purple-600 dark:group-hover:text-white transition-colors">
                   Explore
-                  <span className="material-icons text-lg ml-1 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                  <ArrowRight className="w-5 h-5 ml-1 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </div>
             </div>
@@ -629,7 +629,7 @@ export default function HomePage() {
                 <p className="text-[var(--mid-gray)] mb-6 flex-grow">Personal trainers, yoga instructors, and nutritionists to achieve your goals.</p>
                 <Link href="/category/wellness-fitness" className="font-semibold text-cyan-300 flex items-center group-hover:text-white transition-colors">
                   Explore
-                  <span className="material-icons text-lg ml-1 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                  <ArrowRight className="w-5 h-5 ml-1 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </div>
             </div>
@@ -642,7 +642,7 @@ export default function HomePage() {
                 <p className="text-[var(--mid-gray)] mb-6 flex-grow">Find expert tutors for any subject, from math and science to music lessons.</p>
                 <Link href="/category/education-tutoring" className="font-semibold text-fuchsia-300 flex items-center group-hover:text-white transition-colors">
                   Explore
-                  <span className="material-icons text-lg ml-1 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                  <ArrowRight className="w-5 h-5 ml-1 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </div>
             </div>
@@ -655,7 +655,7 @@ export default function HomePage() {
                 <p className="text-[var(--mid-gray)] mb-6 flex-grow">Computer, phone, appliance repair and technical support services.</p>
                 <Link href="/category/tech-repair" className="font-semibold text-green-300 flex items-center group-hover:text-white transition-colors">
                   Explore
-                  <span className="material-icons text-lg ml-1 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                  <ArrowRight className="w-5 h-5 ml-1 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </div>
             </div>
@@ -668,7 +668,7 @@ export default function HomePage() {
                 <p className="text-[var(--mid-gray)] mb-6 flex-grow">Car repair, maintenance, detailing and automotive services.</p>
                 <Link href="/category/automotive" className="font-semibold text-orange-300 flex items-center group-hover:text-white transition-colors">
                   Explore
-                  <span className="material-icons text-lg ml-1 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                  <ArrowRight className="w-5 h-5 ml-1 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </div>
             </div>
@@ -681,7 +681,7 @@ export default function HomePage() {
                 <p className="text-[var(--mid-gray)] mb-6 flex-grow">Events, photography, music and entertainment services.</p>
                 <Link href="/category/entertainment" className="font-semibold text-pink-300 flex items-center group-hover:text-white transition-colors">
                   Explore
-                  <span className="material-icons text-lg ml-1 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                  <ArrowRight className="w-5 h-5 ml-1 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </div>
             </div>
@@ -708,7 +708,7 @@ export default function HomePage() {
               </div>
               <div className="flex mb-4">
                 {[...Array(5)].map((_, i) => (
-                  <span key={i} className="material-icons text-yellow-400">star</span>
+                  <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
                 ))}
               </div>
               <p className="text-[var(--mid-gray)] italic">
@@ -728,7 +728,7 @@ export default function HomePage() {
               </div>
               <div className="flex mb-4">
                 {[...Array(5)].map((_, i) => (
-                  <span key={i} className="material-icons text-yellow-400">star</span>
+                  <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
                 ))}
               </div>
               <p className="text-[var(--mid-gray)] italic">
@@ -748,7 +748,7 @@ export default function HomePage() {
               </div>
               <div className="flex mb-4">
                 {[...Array(5)].map((_, i) => (
-                  <span key={i} className="material-icons text-yellow-400">star</span>
+                  <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
                 ))}
               </div>
               <p className="text-[var(--mid-gray)] italic">
