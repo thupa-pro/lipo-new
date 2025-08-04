@@ -396,15 +396,15 @@ export default function HomePage() {
       <main className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
         <section className="hero-section text-center py-24 md:py-40">
-          <div className="hero-badge mb-6 flex justify-center items-center gap-2 text-sm font-medium px-6 py-3 rounded-full inline-flex">
+          <div className="hero-badge floating-element glow-pulse mb-6 flex justify-center items-center gap-2 text-sm font-medium px-6 py-3 rounded-full inline-flex">
             <span className="material-icons text-lg animate-pulse">verified</span>
             <span>Trusted by 2.4M+ Users Worldwide</span>
           </div>
 
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-tight">
-            <span className="hero-title-gradient">Connect with Local</span>
+            <span className="hero-title-gradient text-reveal">Connect with Local</span>
             <br />
-            <span className="hero-title-dark">Service Professionals You Trust</span>
+            <span className="hero-title-dark text-reveal delay-200">Service Professionals You Trust</span>
           </h1>
 
           <p className="hero-description max-w-3xl mx-auto text-lg md:text-xl mb-12 font-medium">
