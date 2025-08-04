@@ -431,7 +431,7 @@ export default function HomePage() {
 
         {/* Search Section */}
         <section className="py-20" id="find-service">
-          <div className="search-card rounded-3xl p-8 md:p-12 card-glow">
+          <div className="search-card ultra-glass rounded-3xl p-8 md:p-12 hover-scale">
             <h2 className="section-title text-4xl font-bold text-center mb-2">Start Your Search</h2>
             <p className="section-subtitle text-center mb-10">Get matched with the perfect professional in seconds.</p>
 
