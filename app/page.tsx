@@ -522,7 +522,7 @@ export default function HomePage() {
         <section className="py-20">
           <h2 className="section-title text-4xl font-bold text-center mb-12">Trusted Platform Performance</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="stats-card p-8 rounded-3xl text-center interactive-element">
+            <div className="stats-card ultra-glass p-8 rounded-3xl text-center interactive-element floating-element">
               <div className="flex justify-center items-center mb-4">
                 <div className="stats-icon-bg p-4 rounded-full">
                   <span className="material-icons text-3xl text-purple-500">group</span>
