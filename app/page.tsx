@@ -611,7 +611,7 @@ export default function HomePage() {
             <div className="category-card rounded-3xl p-8 overflow-hidden relative group">
               <div className="absolute inset-0 bg-gradient-to-t from-purple-100/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <div className="relative z-10 flex flex-col h-full">
-                <span className="material-icons text-5xl text-purple-500 mb-4">home_repair_service</span>
+                <HomeIcon className="w-12 h-12 text-purple-500 mb-4" />
                 <h3 className="category-title text-2xl font-bold mb-2">Home Services</h3>
                 <p className="category-description mb-6 flex-grow">Plumbing, electrical, cleaning, and more. All your home needs covered.</p>
                 <Link href="/category/home-services" className="category-link font-semibold flex items-center group-hover:text-purple-600 dark:group-hover:text-white transition-colors">
@@ -624,7 +624,7 @@ export default function HomePage() {
             <div className="bg-glass rounded-3xl p-8 card-glow overflow-hidden relative group">
               <div className="absolute inset-0 bg-gradient-to-t from-cyan-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <div className="relative z-10 flex flex-col h-full">
-                <span className="material-icons text-5xl text-cyan-400 mb-4">fitness_center</span>
+                <Dumbbell className="w-12 h-12 text-cyan-400 mb-4" />
                 <h3 className="text-2xl font-bold text-white mb-2">Wellness & Fitness</h3>
                 <p className="text-[var(--mid-gray)] mb-6 flex-grow">Personal trainers, yoga instructors, and nutritionists to achieve your goals.</p>
                 <Link href="/category/wellness-fitness" className="font-semibold text-cyan-300 flex items-center group-hover:text-white transition-colors">
@@ -637,7 +637,7 @@ export default function HomePage() {
             <div className="bg-glass rounded-3xl p-8 card-glow overflow-hidden relative group">
               <div className="absolute inset-0 bg-gradient-to-t from-fuchsia-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <div className="relative z-10 flex flex-col h-full">
-                <span className="material-icons text-5xl text-fuchsia-400 mb-4">school</span>
+                <GraduationCap className="w-12 h-12 text-fuchsia-400 mb-4" />
                 <h3 className="text-2xl font-bold text-white mb-2">Education & Tutoring</h3>
                 <p className="text-[var(--mid-gray)] mb-6 flex-grow">Find expert tutors for any subject, from math and science to music lessons.</p>
                 <Link href="/category/education-tutoring" className="font-semibold text-fuchsia-300 flex items-center group-hover:text-white transition-colors">
@@ -650,7 +650,7 @@ export default function HomePage() {
             <div className="bg-glass rounded-3xl p-8 card-glow overflow-hidden relative group">
               <div className="absolute inset-0 bg-gradient-to-t from-green-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <div className="relative z-10 flex flex-col h-full">
-                <span className="material-icons text-5xl text-green-400 mb-4">build</span>
+                <Monitor className="w-12 h-12 text-green-400 mb-4" />
                 <h3 className="text-2xl font-bold text-white mb-2">Tech & Repair</h3>
                 <p className="text-[var(--mid-gray)] mb-6 flex-grow">Computer, phone, appliance repair and technical support services.</p>
                 <Link href="/category/tech-repair" className="font-semibold text-green-300 flex items-center group-hover:text-white transition-colors">
@@ -663,7 +663,7 @@ export default function HomePage() {
             <div className="bg-glass rounded-3xl p-8 card-glow overflow-hidden relative group">
               <div className="absolute inset-0 bg-gradient-to-t from-orange-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <div className="relative z-10 flex flex-col h-full">
-                <span className="material-icons text-5xl text-orange-400 mb-4">directions_car</span>
+                <Car className="w-12 h-12 text-orange-400 mb-4" />
                 <h3 className="text-2xl font-bold text-white mb-2">Automotive</h3>
                 <p className="text-[var(--mid-gray)] mb-6 flex-grow">Car repair, maintenance, detailing and automotive services.</p>
                 <Link href="/category/automotive" className="font-semibold text-orange-300 flex items-center group-hover:text-white transition-colors">
@@ -676,7 +676,7 @@ export default function HomePage() {
             <div className="bg-glass rounded-3xl p-8 card-glow overflow-hidden relative group">
               <div className="absolute inset-0 bg-gradient-to-t from-pink-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <div className="relative z-10 flex flex-col h-full">
-                <span className="material-icons text-5xl text-pink-400 mb-4">celebration</span>
+                <PartyPopper className="w-12 h-12 text-pink-400 mb-4" />
                 <h3 className="text-2xl font-bold text-white mb-2">Entertainment</h3>
                 <p className="text-[var(--mid-gray)] mb-6 flex-grow">Events, photography, music and entertainment services.</p>
                 <Link href="/category/entertainment" className="font-semibold text-pink-300 flex items-center group-hover:text-white transition-colors">
