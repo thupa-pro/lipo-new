@@ -570,17 +570,17 @@ export default function HomePage() {
 
         {/* Service Categories Section */}
         <section className="py-20">
-          <h2 className="text-4xl font-bold text-center text-white mb-4">Popular Service Categories</h2>
-          <p className="text-lg text-[var(--mid-gray)] text-center mb-12 max-w-2xl mx-auto">Explore thousands of verified service providers across all major categories.</p>
+          <h2 className="section-title text-4xl font-bold text-center mb-4">Popular Service Categories</h2>
+          <p className="section-subtitle text-lg text-center mb-12 max-w-2xl mx-auto">Explore thousands of verified service providers across all major categories.</p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-glass rounded-3xl p-8 card-glow overflow-hidden relative group">
-              <div className="absolute inset-0 bg-gradient-to-t from-purple-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div className="category-card rounded-3xl p-8 overflow-hidden relative group">
+              <div className="absolute inset-0 bg-gradient-to-t from-purple-100/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <div className="relative z-10 flex flex-col h-full">
-                <span className="material-icons text-5xl text-purple-400 mb-4">home_repair_service</span>
-                <h3 className="text-2xl font-bold text-white mb-2">Home Services</h3>
-                <p className="text-[var(--mid-gray)] mb-6 flex-grow">Plumbing, electrical, cleaning, and more. All your home needs covered.</p>
-                <Link href="/category/home-services" className="font-semibold text-purple-300 flex items-center group-hover:text-white transition-colors">
+                <span className="material-icons text-5xl text-purple-500 mb-4">home_repair_service</span>
+                <h3 className="category-title text-2xl font-bold mb-2">Home Services</h3>
+                <p className="category-description mb-6 flex-grow">Plumbing, electrical, cleaning, and more. All your home needs covered.</p>
+                <Link href="/category/home-services" className="category-link font-semibold flex items-center group-hover:text-purple-600 dark:group-hover:text-white transition-colors">
                   Explore
                   <span className="material-icons text-lg ml-1 group-hover:translate-x-1 transition-transform">arrow_forward</span>
                 </Link>
