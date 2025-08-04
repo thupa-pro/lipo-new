@@ -520,21 +520,27 @@
     transform: translateY(-1px);
   }
 
-  /* Light mode secondary button */
+  /* Light mode premium secondary button */
   .light .btn-secondary {
-    background: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(226, 232, 240, 0.8);
-    box-shadow: 
-      0 2px 8px rgba(0, 0, 0, 0.05),
-      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(124, 58, 237, 0.2);
+    color: #334155;
+    box-shadow:
+      0 4px 12px rgba(124, 58, 237, 0.08),
+      0 2px 6px rgba(0, 0, 0, 0.06),
+      inset 0 1px 0 rgba(255, 255, 255, 1);
+    backdrop-filter: blur(16px);
   }
 
   .light .btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.95);
-    border-color: rgba(203, 213, 225, 0.9);
-    box-shadow: 
-      0 4px 16px rgba(0, 0, 0, 0.1),
+    background: rgba(255, 255, 255, 1);
+    border-color: rgba(124, 58, 237, 0.3);
+    color: #1E293B;
+    box-shadow:
+      0 8px 20px rgba(124, 58, 237, 0.12),
+      0 4px 12px rgba(0, 0, 0, 0.1),
       inset 0 1px 0 rgba(255, 255, 255, 1);
+    transform: translateY(-2px);
   }
 
   /* Enhanced Input Styles */
