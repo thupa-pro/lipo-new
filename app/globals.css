@@ -785,4 +785,218 @@
     border-color: #7C3AED !important;
     box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15) !important;
   }
+
+  /* ============= SECTION-SPECIFIC LIGHT MODE ENHANCEMENTS ============= */
+
+  /* Hero Section Premium Styling */
+  .light .hero-section {
+    background:
+      radial-gradient(circle at 20% 30%, rgba(124, 58, 237, 0.08) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.06) 0%, transparent 40%),
+      radial-gradient(circle at 40% 80%, rgba(192, 38, 211, 0.05) 0%, transparent 40%),
+      linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 50%, #EFF6FF 100%);
+  }
+
+  .light .hero-badge {
+    background: rgba(255, 255, 255, 0.95) !important;
+    border: 1px solid rgba(124, 58, 237, 0.2) !important;
+    color: #5B21B6 !important;
+    box-shadow:
+      0 8px 24px rgba(124, 58, 237, 0.1),
+      0 2px 8px rgba(0, 0, 0, 0.06),
+      inset 0 1px 0 rgba(255, 255, 255, 1);
+    backdrop-filter: blur(16px);
+  }
+
+  .light .hero-title-gradient {
+    background: linear-gradient(135deg, #7C3AED 0%, #3B82F6 50%, #06B6D4 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    text-shadow: none !important;
+  }
+
+  .light .hero-title-dark {
+    color: #0F172A !important;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .light .hero-description {
+    color: #475569 !important;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+
+  /* Premium Search Section */
+  .light .search-card {
+    background: rgba(255, 255, 255, 0.98) !important;
+    border: 1px solid rgba(255, 255, 255, 0.9) !important;
+    box-shadow:
+      0 32px 64px rgba(124, 58, 237, 0.12),
+      0 16px 32px rgba(59, 130, 246, 0.08),
+      0 8px 16px rgba(0, 0, 0, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 1),
+      inset 0 -1px 0 rgba(124, 58, 237, 0.08);
+  }
+
+  .light .search-input-container {
+    background: rgba(248, 250, 252, 0.8) !important;
+    border: 1px solid rgba(124, 58, 237, 0.15) !important;
+    box-shadow:
+      inset 0 2px 4px rgba(0, 0, 0, 0.04),
+      0 1px 2px rgba(124, 58, 237, 0.05);
+  }
+
+  .light .search-input {
+    color: #0F172A !important;
+    background: transparent !important;
+  }
+
+  .light .search-input::placeholder {
+    color: #64748B !important;
+  }
+
+  .light .search-tag {
+    background: rgba(255, 255, 255, 0.9) !important;
+    border: 1px solid rgba(124, 58, 237, 0.2) !important;
+    color: #334155 !important;
+    box-shadow: 0 2px 8px rgba(124, 58, 237, 0.08);
+  }
+
+  .light .search-tag:hover {
+    background: rgba(255, 255, 255, 1) !important;
+    border-color: rgba(124, 58, 237, 0.3) !important;
+    color: #1E293B !important;
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.12);
+  }
+
+  /* How It Works Section Premium Styling */
+  .light .works-number-circle {
+    background: rgba(255, 255, 255, 0.95) !important;
+    border: 2px solid rgba(124, 58, 237, 0.3) !important;
+    box-shadow:
+      0 12px 24px rgba(124, 58, 237, 0.15),
+      0 4px 8px rgba(0, 0, 0, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 1);
+  }
+
+  .light .works-step-title {
+    color: #0F172A !important;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .light .works-step-description {
+    color: #475569 !important;
+  }
+
+  .light .works-connecting-line {
+    background: linear-gradient(90deg,
+      rgba(124, 58, 237, 0.2) 0%,
+      rgba(59, 130, 246, 0.15) 50%,
+      rgba(6, 182, 212, 0.2) 100%) !important;
+  }
+
+  /* Stats Section Premium Styling */
+  .light .stats-card {
+    background: rgba(255, 255, 255, 0.95) !important;
+    border: 1px solid rgba(255, 255, 255, 0.8) !important;
+    box-shadow:
+      0 20px 40px rgba(124, 58, 237, 0.1),
+      0 8px 16px rgba(59, 130, 246, 0.06),
+      0 4px 8px rgba(0, 0, 0, 0.06),
+      inset 0 1px 0 rgba(255, 255, 255, 1),
+      inset 0 -1px 0 rgba(124, 58, 237, 0.05);
+  }
+
+  .light .stats-icon-bg {
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(59, 130, 246, 0.08)) !important;
+  }
+
+  .light .stats-number {
+    color: #0F172A !important;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .light .stats-label {
+    color: #475569 !important;
+  }
+
+  .light .stats-growth {
+    color: #059669 !important;
+  }
+
+  /* Service Categories Premium Styling */
+  .light .category-card {
+    background: rgba(255, 255, 255, 0.95) !important;
+    border: 1px solid rgba(255, 255, 255, 0.8) !important;
+    box-shadow:
+      0 16px 32px rgba(124, 58, 237, 0.08),
+      0 8px 16px rgba(0, 0, 0, 0.04),
+      inset 0 1px 0 rgba(255, 255, 255, 1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .light .category-card:hover {
+    background: rgba(255, 255, 255, 1) !important;
+    box-shadow:
+      0 24px 48px rgba(124, 58, 237, 0.15),
+      0 12px 24px rgba(0, 0, 0, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 1);
+    transform: translateY(-4px) scale(1.02);
+  }
+
+  .light .category-title {
+    color: #0F172A !important;
+  }
+
+  .light .category-description {
+    color: #475569 !important;
+  }
+
+  .light .category-link {
+    color: #7C3AED !important;
+  }
+
+  .light .category-link:hover {
+    color: #5B21B6 !important;
+  }
+
+  /* Enhanced Premium Gradients for Light Mode */
+  .light .premium-gradient-bg {
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 250, 252, 0.8) 100%),
+      radial-gradient(circle at 30% 20%, rgba(124, 58, 237, 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 70% 80%, rgba(59, 130, 246, 0.04) 0%, transparent 50%);
+  }
+
+  /* Ultra-Premium Text Hierarchy */
+  .light .section-title {
+    color: #0F172A !important;
+    font-weight: 800;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .light .section-subtitle {
+    color: #475569 !important;
+    font-weight: 500;
+  }
+
+  /* Premium Border Effects */
+  .light .premium-border {
+    border: 1px solid rgba(124, 58, 237, 0.2);
+    box-shadow:
+      0 1px 3px rgba(0, 0, 0, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  }
+
+  /* Enhanced Interactive Elements */
+  .light .interactive-element {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .light .interactive-element:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 12px 24px rgba(124, 58, 237, 0.15),
+      0 4px 12px rgba(0, 0, 0, 0.1);
+  }
 }
