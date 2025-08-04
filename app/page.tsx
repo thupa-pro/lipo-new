@@ -160,9 +160,14 @@ export default function HomePage() {
       {/* Header */}
       <header className="relative z-10 py-4 px-4 sm:px-6 lg:px-8 bg-glass/80 border-b border-white/10 sticky top-0">
         <div className="container mx-auto flex justify-between items-center">
-          <div className="flex items-center space-x-2">
-            <span className="material-icons text-purple-400 text-2xl md:text-4xl">hub</span>
-            <span className="text-xl md:text-3xl font-bold text-white tracking-wider">Loconomy</span>
+          <div className="flex items-center space-x-3">
+            <div className="relative">
+              <Sparkles className="w-6 h-6 md:w-8 md:h-8 text-purple-400 animate-pulse" />
+              <div className="absolute inset-0 animate-ping">
+                <Sparkles className="w-6 h-6 md:w-8 md:h-8 text-purple-400 opacity-20" />
+              </div>
+            </div>
+            <span className="text-xl md:text-3xl font-display text-white tracking-tight">Loconomy</span>
           </div>
           
           <nav className="hidden lg:flex items-center space-x-8 text-sm font-medium text-gray-300">
