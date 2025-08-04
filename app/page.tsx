@@ -555,7 +555,7 @@ export default function HomePage() {
             <div className="stats-card ultra-glass p-8 rounded-3xl text-center interactive-element floating-element">
               <div className="flex justify-center items-center mb-4">
                 <div className="stats-icon-bg p-4 rounded-full">
-                  <span className="material-icons text-3xl text-purple-500">group</span>
+                  <Users className="w-8 h-8 text-purple-500" />
                 </div>
               </div>
               <p className="stats-number text-5xl font-bold mb-2">2.4M+</p>
@@ -566,7 +566,7 @@ export default function HomePage() {
             <div className="stats-card ultra-glass p-8 rounded-3xl text-center interactive-element floating-element delay-100">
               <div className="flex justify-center items-center mb-4">
                 <div className="stats-icon-bg p-4 rounded-full">
-                  <span className="material-icons text-3xl text-cyan-500">timer</span>
+                  <Clock className="w-8 h-8 text-cyan-500" />
                 </div>
               </div>
               <p className="stats-number text-5xl font-bold mb-2">&lt; 2hrs</p>
@@ -577,7 +577,7 @@ export default function HomePage() {
             <div className="stats-card ultra-glass p-8 rounded-3xl text-center interactive-element floating-element delay-200">
               <div className="flex justify-center items-center mb-4">
                 <div className="stats-icon-bg p-4 rounded-full">
-                  <span className="material-icons text-3xl text-green-500">check_circle</span>
+                  <CheckCircle className="w-8 h-8 text-green-500" />
                 </div>
               </div>
               <p className="stats-number text-5xl font-bold mb-2">98.7%</p>
@@ -588,7 +588,7 @@ export default function HomePage() {
             <div className="stats-card ultra-glass p-8 rounded-3xl text-center interactive-element floating-element delay-300">
               <div className="flex justify-center items-center mb-4">
                 <div className="stats-icon-bg p-4 rounded-full">
-                  <span className="material-icons text-3xl text-pink-500">star</span>
+                  <Star className="w-8 h-8 text-pink-500 fill-current" />
                 </div>
               </div>
               <p className="stats-number text-5xl font-bold mb-2">4.9/5</p>
