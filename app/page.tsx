@@ -318,10 +318,10 @@ export default function HomePage() {
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild>
                 <button
-                  className="p-2 rounded-full hover:bg-white/10 transition-colors lg:hidden"
+                  className="p-2 rounded-full hover:bg-white/10 transition-all duration-300 hover:scale-105 lg:hidden"
                   onClick={handleMenuClick}
                 >
-                  <span className="material-icons text-gray-300">menu</span>
+                  <Menu className="w-5 h-5 text-gray-300" />
                 </button>
               </SheetTrigger>
               <SheetContent side="right" className="w-80 glass border-white/10">
