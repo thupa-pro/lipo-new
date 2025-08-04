@@ -427,7 +427,7 @@ export default function HomePage() {
             <span className="text-white font-display">Service Professionals You Trust</span>
           </h1>
 
-          <p className="hero-description max-w-3xl mx-auto text-base md:text-xl mb-8 md:mb-12 font-medium px-4">
+          <p className="hero-description max-w-3xl mx-auto text-base md:text-xl mb-8 md:mb-12 font-body px-4">
             Loconomy is the premium marketplace connecting you with verified local service providers. From home repairs to personal training - find trusted professionals in your area with our AI-powered matching system.
           </p>
           
