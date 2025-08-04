@@ -94,6 +94,16 @@ export default function HomePage() {
     setUnreadCount(count);
   }, [notifications]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      setIsScrolled(scrollPosition > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const handleNotificationClick = (notificationId: string) => {
     setNotifications(prev =>
       prev.map(n =>
