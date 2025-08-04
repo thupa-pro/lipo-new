@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { ModernFooter } from '@/components/modern-footer';
 import { CommandPaletteHint } from '@/components/ui/command-palette-hint';
+import { CommandPalette } from '@/components/ui/command-palette';
 import { useToast } from '@/components/ui/use-toast';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
