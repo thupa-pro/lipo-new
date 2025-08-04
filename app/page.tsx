@@ -436,6 +436,9 @@ export default function HomePage() {
         </div>
       </header>
 
+      {/* Header Compensation */}
+      <div className="h-20 md:h-24"></div>
+
       {/* Main Content */}
       <main className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
