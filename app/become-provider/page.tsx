@@ -1054,9 +1054,9 @@ export default function BecomeProviderPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--dark-navy)]">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50 dark:bg-[var(--dark-navy)] transition-all duration-500">
       <HeaderComponent />
-      
+
       {/* Animated Background */}
       <div className="absolute inset-0">
         <div className="blob blob-1"></div>
