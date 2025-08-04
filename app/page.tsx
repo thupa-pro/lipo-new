@@ -516,24 +516,24 @@ export default function HomePage() {
               <div className="works-number-circle w-16 md:w-20 h-16 md:h-20 rounded-full flex items-center justify-center mx-auto mb-4 md:mb-6">
                 <span className="text-2xl md:text-4xl font-black gradient-text">1</span>
               </div>
-              <h3 className="works-step-title text-xl md:text-2xl font-bold mb-2 md:mb-3">Post a Job</h3>
-              <p className="works-step-description text-sm md:text-base">Tell us what you need. Be specific to get the most accurate quotes from our network of professionals.</p>
+              <h3 className="works-step-title text-xl md:text-2xl font-heading mb-2 md:mb-3">Post a Job</h3>
+              <p className="works-step-description text-sm md:text-base font-body">Tell us what you need. Be specific to get the most accurate quotes from our network of professionals.</p>
             </div>
 
             <div className="relative text-center z-10">
               <div className="works-number-circle w-16 md:w-20 h-16 md:h-20 rounded-full flex items-center justify-center mx-auto mb-4 md:mb-6">
                 <span className="text-2xl md:text-4xl font-black gradient-text">2</span>
               </div>
-              <h3 className="works-step-title text-xl md:text-2xl font-bold mb-2 md:mb-3">Get Matches</h3>
-              <p className="works-step-description text-sm md:text-base">Our smart AI algorithm matches you with qualified, vetted pros in your area who are ready to help.</p>
+              <h3 className="works-step-title text-xl md:text-2xl font-heading mb-2 md:mb-3">Get Matches</h3>
+              <p className="works-step-description text-sm md:text-base font-body">Our smart AI algorithm matches you with qualified, vetted pros in your area who are ready to help.</p>
             </div>
 
             <div className="relative text-center z-10">
               <div className="works-number-circle w-16 md:w-20 h-16 md:h-20 rounded-full flex items-center justify-center mx-auto mb-4 md:mb-6">
                 <span className="text-2xl md:text-4xl font-black gradient-text">3</span>
               </div>
-              <h3 className="works-step-title text-xl md:text-2xl font-bold mb-2 md:mb-3">Hire & Relax</h3>
-              <p className="works-step-description text-sm md:text-base">Compare profiles, quotes, and reviews. Hire the best fit and get the job done right, guaranteed.</p>
+              <h3 className="works-step-title text-xl md:text-2xl font-heading mb-2 md:mb-3">Hire & Relax</h3>
+              <p className="works-step-description text-sm md:text-base font-body">Compare profiles, quotes, and reviews. Hire the best fit and get the job done right, guaranteed.</p>
             </div>
           </div>
         </section>
