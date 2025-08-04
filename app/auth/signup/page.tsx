@@ -1,429 +1,276 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { authService } from "@/lib/auth/auth-utils";
-import { useToast } from "@/components/ui/use-toast";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { 
-  Sparkles, Eye, EyeOff, User, Mail, Lock, ArrowRight, 
-  Shield, Star, Users, Zap, CheckCircle 
-} from "lucide-react";
-import Link from "next/link";
 
 export default function SignUpPage() {
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
-    confirmPassword: "",
-    userType: "customer" as "customer" | "provider",
-    agreeToTerms: false,
-    agreeToMarketing: false
+    confirmPassword: ""
   });
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [acceptTerms, setAcceptTerms] = useState(false);
+  const [userType, setUserType] = useState("customer");
 
-  const router = useRouter();
-  const { toast } = useToast();
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setError("");
-
-    // Validate form
-    if (!formData.firstName.trim()) {
-      setError("First name is required");
-      setIsLoading(false);
-      return;
-    }
-    if (!formData.lastName.trim()) {
-      setError("Last name is required");
-      setIsLoading(false);
-      return;
-    }
-    if (!formData.email.trim()) {
-      setError("Email is required");
-      setIsLoading(false);
-      return;
-    }
+    
     if (formData.password !== formData.confirmPassword) {
       setError("Passwords do not match");
       setIsLoading(false);
       return;
     }
-    if (!formData.agreeToTerms) {
-      setError("You must agree to the Terms of Service and Privacy Policy");
+    
+    if (!acceptTerms) {
+      setError("Please accept the terms and conditions");
       setIsLoading(false);
       return;
     }
-
-    try {
-      const { error: authError, needsVerification } = await authService.signUp({
-        email: formData.email,
-        password: formData.password,
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        userType: formData.userType,
-        agreeToTerms: formData.agreeToTerms,
-        agreeToMarketing: formData.agreeToMarketing,
-      });
-
-      if (authError) {
-        setError(authError.message);
-        toast({
-          title: "Sign Up Failed",
-          description: authError.message,
-          variant: "destructive",
-        });
-      } else {
-        toast({
-          title: "Account Created Successfully!",
-          description: needsVerification
-            ? "Please check your email to verify your account before signing in."
-            : "Welcome to Loconomy! You are now signed in.",
-          variant: "default",
-        });
-
-        if (needsVerification) {
-          router.push("/auth/verify-email");
-        } else {
-          router.push("/dashboard");
-        }
-      }
-    } catch (error) {
-      console.error("Signup error:", error);
-      setError("An unexpected error occurred. Please try again.");
-      toast({
-        title: "Sign Up Failed",
-        description: "An unexpected error occurred. Please try again.",
-        variant: "destructive",
-      });
-    } finally {
+    
+    // Simulate API call
+    setTimeout(() => {
       setIsLoading(false);
-    }
+      // Handle sign up logic here
+    }, 1000);
   };
 
-  const features = [
-    {
-      icon: Shield,
-      title: "Verified Professionals",
-      description: "All service providers are background-checked and verified"
-    },
-    {
-      icon: Zap,
-      title: "Instant Matching",
-      description: "AI-powered matching finds perfect providers in seconds"
-    },
-    {
-      icon: Star,
-      title: "Quality Guarantee",
-      description: "5-star average rating with satisfaction guarantee"
-    },
-    {
-      icon: Users,
-      title: "Trusted Community",
-      description: "Join 2.4M+ satisfied customers and providers"
-    }
-  ];
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-stratosphere via-cirrus to-white dark:from-gray-900 dark:via-gray-800 dark:to-black transition-colors duration-300">
-      {/* Neural Background Pattern */}
-      <div className="absolute inset-0 opacity-[0.03]">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 25px 25px, hsl(var(--neural-500)) 2px, transparent 0),
-                           radial-gradient(circle at 75px 75px, hsl(var(--quantum-500)) 1px, transparent 0)`,
-          backgroundSize: '100px 100px'
-        }} />
-      </div>
+    <div className="relative min-h-screen overflow-hidden flex items-center justify-center py-12">
+      {/* Grid Background */}
+      <div className="absolute inset-0 bg-grid-white/[0.04] [mask-image:radial-gradient(ellipse_at_center,white_20%,transparent_70%)]"></div>
+      
+      {/* Animated Background Blobs */}
+      <div className="absolute top-[-20%] left-[-10%] w-[800px] h-[800px] bg-purple-900/30 rounded-full blur-[200px] animate-pulse"></div>
+      <div className="absolute bottom-[-30%] right-[-20%] w-[900px] h-[900px] bg-cyan-700/30 rounded-full blur-[200px] animate-pulse animation-delay-4000"></div>
+      <div className="absolute top-[30%] right-[10%] w-[500px] h-[500px] bg-fuchsia-700/20 rounded-full blur-[150px] animate-pulse animation-delay-2000"></div>
 
-      {/* Header */}
-      <div className="relative z-10 p-6">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <Link href="/" className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-neural rounded-2xl flex items-center justify-center">
-              <Sparkles className="w-6 h-6 text-white" />
+      {/* Back to Home */}
+      <Link href="/" className="absolute top-6 left-6 z-20 flex items-center space-x-2 text-[var(--mid-gray)] hover:text-white transition-colors">
+        <span className="material-icons">arrow_back</span>
+        <span>Back to Home</span>
+      </Link>
+
+      {/* Main Content */}
+      <div className="relative z-10 w-full max-w-md mx-auto p-6">
+        <div className="bg-glass rounded-3xl p-8 card-glow">
+          {/* Header */}
+          <div className="text-center mb-8">
+            <div className="flex items-center justify-center space-x-3 mb-4">
+              <span className="material-icons text-purple-400 text-4xl">hub</span>
+              <span className="text-2xl font-bold text-white tracking-wider">Loconomy</span>
             </div>
-            <span className="text-xl font-bold text-gradient-neural">Loconomy</span>
-          </Link>
-          <div className="flex items-center space-x-4">
-            <ThemeToggle />
-            <Link href="/auth/login" className="text-sm font-medium text-muted-foreground hover:text-neural-600 transition-colors">
-              Already have an account?
-            </Link>
+            <h1 className="text-3xl font-bold text-white mb-2">Create Account</h1>
+            <p className="text-[var(--mid-gray)]">Join thousands of users and providers</p>
           </div>
-        </div>
-      </div>
 
-      <div className="relative z-10 px-6 py-12">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Left Side - Features */}
-            <div className="order-2 lg:order-1">
-              <div className="mb-8">
-                <h1 className="text-4xl font-bold text-gradient-neural mb-4">
-                  Join the Future of
-                  <br />
-                  <span className="text-gradient-quantum">Local Services</span>
-                </h1>
-                <p className="text-lg text-muted-foreground">
-                  Connect with trusted professionals or start earning as a verified service provider.
-                  Join thousands who trust Loconomy for their service needs.
-                </p>
+          {/* User Type Selection */}
+          <div className="flex bg-black/20 rounded-full p-1 mb-6">
+            <button
+              onClick={() => setUserType("customer")}
+              className={`flex-1 py-2 px-4 rounded-full text-sm font-medium transition-colors ${
+                userType === "customer"
+                  ? "bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white"
+                  : "text-[var(--mid-gray)] hover:text-white"
+              }`}
+            >
+              I need services
+            </button>
+            <button
+              onClick={() => setUserType("provider")}
+              className={`flex-1 py-2 px-4 rounded-full text-sm font-medium transition-colors ${
+                userType === "provider"
+                  ? "bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white"
+                  : "text-[var(--mid-gray)] hover:text-white"
+              }`}
+            >
+              I provide services
+            </button>
+          </div>
+
+          {/* Error Alert */}
+          {error && (
+            <Alert className="mb-6 bg-red-500/10 border-red-500/50 text-red-400">
+              <span className="material-icons text-sm">error</span>
+              <AlertDescription>{error}</AlertDescription>
+            </Alert>
+          )}
+
+          {/* Social Sign Up */}
+          <div className="space-y-3 mb-6">
+            <button className="w-full flex items-center justify-center space-x-3 bg-white/10 hover:bg-white/20 text-white py-3 px-4 rounded-full transition-colors border border-white/10 hover:border-white/30">
+              <span className="material-icons text-xl">login</span>
+              <span>Continue with Google</span>
+            </button>
+            <button className="w-full flex items-center justify-center space-x-3 bg-white/10 hover:bg-white/20 text-white py-3 px-4 rounded-full transition-colors border border-white/10 hover:border-white/30">
+              <span className="material-icons text-xl">facebook</span>
+              <span>Continue with Facebook</span>
+            </button>
+          </div>
+
+          {/* Divider */}
+          <div className="flex items-center space-x-4 mb-6">
+            <div className="flex-1 h-px bg-white/10"></div>
+            <span className="text-[var(--mid-gray)] text-sm">or</span>
+            <div className="flex-1 h-px bg-white/10"></div>
+          </div>
+
+          {/* Sign Up Form */}
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="firstName" className="text-white mb-2 block">First Name</Label>
+                <Input
+                  id="firstName"
+                  type="text"
+                  value={formData.firstName}
+                  onChange={(e) => handleInputChange("firstName", e.target.value)}
+                  placeholder="John"
+                  className="bg-black/20 border-white/10 text-white placeholder-[var(--mid-gray)] py-3 rounded-xl focus:border-purple-500 focus:ring-purple-500"
+                  required
+                />
               </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                {features.map((feature, index) => (
-                  <div key={index} className="glass rounded-2xl p-6 hover:shadow-glass-lg transition-all duration-300">
-                    <div className="w-12 h-12 bg-gradient-neural rounded-2xl flex items-center justify-center mb-4">
-                      <feature.icon className="w-6 h-6 text-white" />
-                    </div>
-                    <h3 className="font-bold text-gradient-neural mb-2">{feature.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
-                  </div>
-                ))}
+              <div>
+                <Label htmlFor="lastName" className="text-white mb-2 block">Last Name</Label>
+                <Input
+                  id="lastName"
+                  type="text"
+                  value={formData.lastName}
+                  onChange={(e) => handleInputChange("lastName", e.target.value)}
+                  placeholder="Doe"
+                  className="bg-black/20 border-white/10 text-white placeholder-[var(--mid-gray)] py-3 rounded-xl focus:border-purple-500 focus:ring-purple-500"
+                  required
+                />
               </div>
+            </div>
 
-              <div className="mt-8 glass rounded-2xl p-6">
-                <div className="flex items-center space-x-4">
-                  <div className="flex -space-x-2">
-                    {[1, 2, 3, 4].map((i) => (
-                      <div key={i} className="w-10 h-10 bg-gradient-quantum rounded-full border-2 border-white flex items-center justify-center">
-                        <span className="text-white text-sm font-bold">{String.fromCharCode(65 + i - 1)}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <div>
-                    <p className="font-bold text-gradient-neural">2.4M+ Happy Users</p>
-                    <p className="text-sm text-muted-foreground">Join our growing community</p>
-                  </div>
+            <div>
+              <Label htmlFor="email" className="text-white mb-2 block">Email</Label>
+              <div className="relative">
+                <span className="material-icons absolute left-3 top-1/2 transform -translate-y-1/2 text-[var(--mid-gray)]">mail</span>
+                <Input
+                  id="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) => handleInputChange("email", e.target.value)}
+                  placeholder="john@example.com"
+                  className="bg-black/20 border-white/10 text-white placeholder-[var(--mid-gray)] pl-12 py-3 rounded-xl focus:border-purple-500 focus:ring-purple-500"
+                  required
+                />
+              </div>
+            </div>
+
+            <div>
+              <Label htmlFor="password" className="text-white mb-2 block">Password</Label>
+              <div className="relative">
+                <span className="material-icons absolute left-3 top-1/2 transform -translate-y-1/2 text-[var(--mid-gray)]">lock</span>
+                <Input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  value={formData.password}
+                  onChange={(e) => handleInputChange("password", e.target.value)}
+                  placeholder="Create a strong password"
+                  className="bg-black/20 border-white/10 text-white placeholder-[var(--mid-gray)] pl-12 pr-12 py-3 rounded-xl focus:border-purple-500 focus:ring-purple-500"
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[var(--mid-gray)] hover:text-white transition-colors"
+                >
+                  <span className="material-icons">{showPassword ? "visibility_off" : "visibility"}</span>
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <Label htmlFor="confirmPassword" className="text-white mb-2 block">Confirm Password</Label>
+              <div className="relative">
+                <span className="material-icons absolute left-3 top-1/2 transform -translate-y-1/2 text-[var(--mid-gray)]">lock</span>
+                <Input
+                  id="confirmPassword"
+                  type={showConfirmPassword ? "text" : "password"}
+                  value={formData.confirmPassword}
+                  onChange={(e) => handleInputChange("confirmPassword", e.target.value)}
+                  placeholder="Confirm your password"
+                  className="bg-black/20 border-white/10 text-white placeholder-[var(--mid-gray)] pl-12 pr-12 py-3 rounded-xl focus:border-purple-500 focus:ring-purple-500"
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[var(--mid-gray)] hover:text-white transition-colors"
+                >
+                  <span className="material-icons">{showConfirmPassword ? "visibility_off" : "visibility"}</span>
+                </button>
+              </div>
+            </div>
+
+            <div className="flex items-start space-x-2">
+              <Checkbox
+                id="terms"
+                checked={acceptTerms}
+                onCheckedChange={setAcceptTerms}
+                className="border-white/20 data-[state=checked]:bg-purple-500 data-[state=checked]:border-purple-500 mt-1"
+              />
+              <Label htmlFor="terms" className="text-[var(--mid-gray)] text-sm leading-relaxed">
+                I agree to the{" "}
+                <Link href="/terms" className="text-purple-400 hover:text-purple-300 transition-colors">
+                  Terms of Service
+                </Link>{" "}
+                and{" "}
+                <Link href="/privacy" className="text-purple-400 hover:text-purple-300 transition-colors">
+                  Privacy Policy
+                </Link>
+              </Label>
+            </div>
+
+            <Button
+              type="submit"
+              disabled={isLoading}
+              className="w-full bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white py-3 rounded-full btn-glow transition-transform transform hover:scale-105 disabled:opacity-50 disabled:transform-none"
+            >
+              {isLoading ? (
+                <div className="flex items-center space-x-2">
+                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                  <span>Creating account...</span>
                 </div>
-              </div>
-            </div>
+              ) : (
+                `Create ${userType === "customer" ? "Customer" : "Provider"} Account`
+              )}
+            </Button>
+          </form>
 
-            {/* Right Side - Sign Up Form */}
-            <div className="order-1 lg:order-2">
-              <Card variant="glass-strong" className="w-full max-w-md mx-auto">
-                <CardHeader className="text-center">
-                  <CardTitle variant="gradient-neural" className="text-2xl">Create Your Account</CardTitle>
-                  <CardDescription className="text-base">
-                    Get started with your free Loconomy account
-                  </CardDescription>
-                </CardHeader>
+          {/* Footer */}
+          <div className="text-center mt-8">
+            <p className="text-[var(--mid-gray)]">
+              Already have an account?{" "}
+              <Link href="/auth/signin" className="text-purple-400 hover:text-purple-300 font-medium transition-colors">
+                Sign in
+              </Link>
+            </p>
+          </div>
 
-                <CardContent className="space-y-6">
-                  {error && (
-                    <Alert variant="destructive">
-                      <AlertCircle className="h-4 w-4" />
-                      <AlertDescription>{error}</AlertDescription>
-                    </Alert>
-                  )}
-
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                  {/* User Type Selection */}
-                  <div className="grid grid-cols-2 gap-3">
-                    <button
-                      type="button"
-                      onClick={() => setFormData({...formData, userType: "customer"})}
-                      className={`p-4 rounded-2xl border-2 transition-all duration-300 ${
-                        formData.userType === "customer" 
-                          ? "border-neural-500 bg-neural-50 dark:bg-neural-900/20" 
-                          : "border-border hover:border-neural-300"
-                      }`}
-                    >
-                      <User className="w-6 h-6 mx-auto mb-2 text-neural-600" />
-                      <div className="text-sm font-medium">Customer</div>
-                      <div className="text-xs text-muted-foreground">Find services</div>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setFormData({...formData, userType: "provider"})}
-                      className={`p-4 rounded-2xl border-2 transition-all duration-300 ${
-                        formData.userType === "provider" 
-                          ? "border-quantum-500 bg-quantum-50 dark:bg-quantum-900/20" 
-                          : "border-border hover:border-quantum-300"
-                      }`}
-                    >
-                      <Shield className="w-6 h-6 mx-auto mb-2 text-quantum-600" />
-                      <div className="text-sm font-medium">Provider</div>
-                      <div className="text-xs text-muted-foreground">Offer services</div>
-                    </button>
-                  </div>
-
-                  {/* Name Fields */}
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="firstName">First Name</Label>
-                      <Input
-                        id="firstName"
-                        variant="glass"
-                        placeholder="John"
-                        value={formData.firstName}
-                        onChange={(e) => setFormData({...formData, firstName: e.target.value})}
-                        disabled={isLoading}
-                        required
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="lastName">Last Name</Label>
-                      <Input
-                        id="lastName"
-                        variant="glass"
-                        placeholder="Doe"
-                        value={formData.lastName}
-                        onChange={(e) => setFormData({...formData, lastName: e.target.value})}
-                        disabled={isLoading}
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  {/* Email */}
-                  <div className="space-y-2">
-                    <Label htmlFor="email">Email Address</Label>
-                    <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neural-400 w-5 h-5" />
-                      <Input
-                        id="email"
-                        type="email"
-                        variant="glass"
-                        placeholder="john@example.com"
-                        className="pl-12"
-                        value={formData.email}
-                        onChange={(e) => setFormData({...formData, email: e.target.value})}
-                        disabled={isLoading}
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  {/* Password */}
-                  <div className="space-y-2">
-                    <Label htmlFor="password">Password</Label>
-                    <div className="relative">
-                      <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neural-400 w-5 h-5" />
-                      <Input
-                        id="password"
-                        type={showPassword ? "text" : "password"}
-                        variant="glass"
-                        placeholder="••••••••"
-                        className="pl-12 pr-12"
-                        value={formData.password}
-                        onChange={(e) => setFormData({...formData, password: e.target.value})}
-                        disabled={isLoading}
-                        required
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-neural-400 hover:text-neural-600"
-                      >
-                        {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Confirm Password */}
-                  <div className="space-y-2">
-                    <Label htmlFor="confirmPassword">Confirm Password</Label>
-                    <div className="relative">
-                      <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neural-400 w-5 h-5" />
-                      <Input
-                        id="confirmPassword"
-                        type={showConfirmPassword ? "text" : "password"}
-                        variant="glass"
-                        placeholder="••••••••"
-                        className="pl-12 pr-12"
-                        value={formData.confirmPassword}
-                        onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
-                        disabled={isLoading}
-                        required
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-neural-400 hover:text-neural-600"
-                      >
-                        {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Checkboxes */}
-                  <div className="space-y-4">
-                    <div className="flex items-start space-x-3">
-                      <Checkbox
-                        id="terms"
-                        checked={formData.agreeToTerms}
-                        onCheckedChange={(checked) => setFormData({...formData, agreeToTerms: checked as boolean})}
-                        disabled={isLoading}
-                      />
-                      <Label htmlFor="terms" className="text-sm leading-relaxed">
-                        I agree to the{" "}
-                        <Link href="/terms" className="text-neural-600 hover:text-neural-700 underline">
-                          Terms of Service
-                        </Link>{" "}
-                        and{" "}
-                        <Link href="/privacy" className="text-neural-600 hover:text-neural-700 underline">
-                          Privacy Policy
-                        </Link>
-                      </Label>
-                    </div>
-                    <div className="flex items-start space-x-3">
-                      <Checkbox
-                        id="marketing"
-                        checked={formData.agreeToMarketing}
-                        onCheckedChange={(checked) => setFormData({...formData, agreeToMarketing: checked as boolean})}
-                        disabled={isLoading}
-                      />
-                      <Label htmlFor="marketing" className="text-sm">
-                        I want to receive updates about new features and special offers
-                      </Label>
-                    </div>
-                  </div>
-
-                  <Button
-                    type="submit"
-                    className="w-full bg-gradient-neural text-white hover:shadow-glow-neural transition-all duration-300 text-lg py-6"
-                    disabled={isLoading}
-                  >
-                    {isLoading ? (
-                      <>
-                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
-                        Creating Account...
-                      </>
-                    ) : (
-                      <>
-                        Create Account
-                        <ArrowRight className="w-5 h-5 ml-2" />
-                      </>
-                    )}
-                  </Button>
-
-                  </form>
-
-                  <div className="text-center">
-                    <p className="text-sm text-muted-foreground">
-                      Already have an account?{" "}
-                      <Link href="/auth/login" className="text-neural-600 hover:text-neural-700 font-medium">
-                        Sign in
-                      </Link>
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+          {/* Security Badge */}
+          <div className="flex items-center justify-center space-x-2 mt-6 text-[var(--mid-gray)] text-xs">
+            <span className="material-icons text-sm">security</span>
+            <span>Your data is protected with end-to-end encryption</span>
           </div>
         </div>
       </div>

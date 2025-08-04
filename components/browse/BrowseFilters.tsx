@@ -17,7 +17,7 @@ interface BrowseFiltersProps {
   sortOptions: { value: string; label: string }[]
 }
 
-export default function BrowseFilters({
+export function BrowseFilters({
   category,
   setCategory,
   priceRange,

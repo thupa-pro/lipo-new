@@ -1,29 +1,14 @@
+"use client";
+
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { ModernNavigation } from "@/components/modern-navigation";
 import { ModernFooter } from "@/components/modern-footer";
-import {
-  Search,
-  MapPin,
-  Star,
-  Filter,
-  SlidersHorizontal,
-  Grid,
-  List,
-  Shield,
-  Clock,
-  Award,
-  Sparkles,
-  Heart,
-  ChevronRight,
-  Zap,
-  Target,
-  Eye,
-  TrendingUp,
-} from "lucide-react";
+import { CommandPaletteHint } from "@/components/ui/command-palette-hint";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import Link from "next/link";
 
 const providers = [
@@ -50,288 +35,290 @@ const providers = [
     location: "1.8 miles away",
     rating: 4.8,
     reviews: 89,
-    hourlyRate: 65,
+    hourlyRate: 45,
     tags: ["Licensed", "Insured", "Emergency"],
     verified: true,
     responseTime: "1 hour",
     completedJobs: 156,
     avatar: "MR",
-    specialty: "Electrical & Plumbing",
-    badge: "Trusted Pro"
-  },
-  {
-    id: 3,
-    name: "Emma Chen",
-    profession: "Personal Trainer",
-    location: "0.9 miles away",
-    rating: 5.0,
-    reviews: 92,
-    hourlyRate: 75,
-    tags: ["Certified", "Nutrition", "Home-Visits"],
-    verified: true,
-    responseTime: "30 min",
-    completedJobs: 189,
-    avatar: "EC",
-    specialty: "Strength & Conditioning",
+    specialty: "Electrical Work",
     badge: "Top Rated"
   },
   {
-    id: 4,
-    name: "David Thompson",
-    profession: "Math Tutor",
-    location: "3.1 miles away",
-    rating: 4.9,
-    reviews: 156,
-    hourlyRate: 45,
-    tags: ["PhD", "Online/In-Person", "All Ages"],
+    id: 3,
+    name: "Jessica Chen",
+    profession: "Personal Trainer",
+    location: "0.9 miles away",
+    rating: 5.0,
+    reviews: 203,
+    hourlyRate: 65,
+    tags: ["Certified", "Nutrition", "Home Visits"],
     verified: true,
-    responseTime: "45 min",
-    completedJobs: 298,
-    avatar: "DT",
-    specialty: "Calculus & Statistics",
+    responseTime: "30 mins",
+    completedJobs: 320,
+    avatar: "JC",
+    specialty: "Weight Loss",
     badge: "Expert"
   }
 ];
 
+const categories = [
+  { name: "All Services", count: "2,400+", active: true },
+  { name: "Home Services", count: "850+", active: false },
+  { name: "Wellness", count: "320+", active: false },
+  { name: "Education", count: "290+", active: false },
+  { name: "Tech Support", count: "180+", active: false },
+  { name: "Automotive", count: "140+", active: false },
+];
+
 export default function BrowsePage() {
-  const user = {
-    name: "John Doe",
-    email: "john@example.com"
-  };
+  const [searchQuery, setSearchQuery] = useState("");
+  const [locationQuery, setLocationQuery] = useState("");
+  const [viewMode, setViewMode] = useState("grid");
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-stratosphere via-cirrus to-white dark:from-gray-900 dark:via-gray-800 dark:to-black transition-colors duration-300">
-      {/* Neural Background Pattern */}
-      <div className="absolute inset-0 opacity-[0.03]">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 25px 25px, hsl(var(--neural-500)) 2px, transparent 0),
-                           radial-gradient(circle at 75px 75px, hsl(var(--quantum-500)) 1px, transparent 0)`,
-          backgroundSize: '100px 100px'
-        }} />
-      </div>
-
-      <ModernNavigation currentPath="/browse" user={user} />
+    <div className="relative min-h-screen overflow-hidden">
+      {/* Grid Background */}
+      <div className="absolute inset-0 bg-grid-white/[0.04] [mask-image:radial-gradient(ellipse_at_center,white_20%,transparent_70%)]"></div>
       
-      <div className="relative z-10 px-6 py-12">
-        <div className="max-w-7xl mx-auto">
-          {/* Hero Header */}
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full glass mb-6 group hover:bg-white/10 transition-all duration-500">
-              <div className="w-2 h-2 bg-trust-500 rounded-full animate-pulse" />
-              <span className="text-sm font-medium text-trust-700 dark:text-trust-300">
-                2.4K+ Verified Professionals Available
-              </span>
-              <Sparkles className="w-4 h-4 text-trust-500 dark:text-trust-400" />
-            </div>
+      {/* Animated Background Blobs */}
+      <div className="absolute top-[-20%] left-[-10%] w-[800px] h-[800px] bg-purple-900/30 rounded-full blur-[200px] animate-pulse"></div>
+      <div className="absolute bottom-[-30%] right-[-20%] w-[900px] h-[900px] bg-cyan-700/30 rounded-full blur-[200px] animate-pulse animation-delay-4000"></div>
+      <div className="absolute top-[30%] right-[10%] w-[500px] h-[500px] bg-fuchsia-700/20 rounded-full blur-[150px] animate-pulse animation-delay-2000"></div>
 
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-none">
-              <span className="text-gradient-neural">
-                Find Exceptional
-              </span>
+      {/* Header */}
+      <header className="relative z-10 py-6 px-4 sm:px-6 lg:px-8 bg-glass/80 border-b border-white/10 sticky top-0">
+        <div className="container mx-auto flex justify-between items-center">
+          <Link href="/" className="flex items-center space-x-3">
+            <span className="material-icons text-purple-400 text-4xl">hub</span>
+            <span className="text-3xl font-bold text-white tracking-wider">Loconomy</span>
+          </Link>
+          
+          <nav className="hidden lg:flex items-center space-x-8 text-sm font-medium text-gray-300">
+            <Link href="/browse" className="text-white font-semibold">Find Services</Link>
+            <Link href="/how-it-works" className="hover:text-white transition-colors duration-300">How It Works</Link>
+            <Link href="/become-provider" className="hover:text-white transition-colors duration-300">Become a Provider</Link>
+            <Link href="/blog" className="hover:text-white transition-colors duration-300">Blog</Link>
+          </nav>
+          
+          <div className="flex items-center space-x-4">
+            <ThemeToggle />
+            <button className="p-2 rounded-full hover:bg-white/10 transition-colors">
+              <span className="material-icons text-gray-300">notifications_none</span>
+            </button>
+            <button className="p-2 rounded-full hover:bg-white/10 transition-colors">
+              <span className="material-icons text-gray-300">person_outline</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <main className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Hero Search Section */}
+        <section className="mb-12">
+          <div className="text-center mb-8">
+            <h1 className="text-4xl md:text-6xl font-black mb-4 leading-tight">
+              <span className="gradient-text">Find Local</span>
               <br />
-              <span className="text-gradient-quantum">
-                Local Professionals
-              </span>
+              <span className="text-white">Service Professionals</span>
             </h1>
-
-            <p className="text-lg text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
-              Discover AI-matched, verified professionals who deliver
-              <span className="text-gradient-trust font-semibold">
-                {" "}outstanding results{" "}
-              </span>
-              right in your neighborhood.
+            <p className="text-lg text-[var(--mid-gray)] max-w-2xl mx-auto">
+              Browse thousands of verified professionals in your area. From home repairs to personal training.
             </p>
           </div>
 
-          {/* Search & Filter Section */}
-          <div className="glass-strong rounded-4xl p-8 mb-12">
-            <div className="flex flex-col lg:flex-row gap-6 items-center">
-              <div className="flex-1 relative">
-                <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 text-neural-400 w-5 h-5" />
-                <Input 
-                  placeholder="Search for services, professionals, or skills..."
-                  variant="glass"
-                  className="pl-14 py-4 text-lg"
+          {/* Search Bar */}
+          <div className="bg-glass rounded-3xl p-6 card-glow max-w-4xl mx-auto">
+            <div className="flex flex-col md:flex-row items-center bg-black/20 p-3 rounded-full shadow-inner shadow-black/30 border border-white/10">
+              <div className="flex-grow w-full flex items-center pl-4 pr-2">
+                <span className="material-icons text-[var(--mid-gray)] mr-3">work_outline</span>
+                <input 
+                  className="bg-transparent w-full text-white placeholder-[var(--mid-gray)] focus:outline-none py-3 text-lg" 
+                  placeholder="What service do you need?" 
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                 />
               </div>
-              <div className="flex gap-3">
-                <Button variant="outline" className="glass">
-                  <MapPin className="w-4 h-4 mr-2" />
-                  Location
-                </Button>
-                <Button variant="outline" className="glass">
-                  <Filter className="w-4 h-4 mr-2" />
-                  Filters
-                </Button>
-                <Button className="bg-gradient-neural text-white hover:shadow-glow-neural">
-                  <Search className="w-4 h-4 mr-2" />
-                  Search
-                </Button>
+              <div className="w-full md:w-auto flex items-center pl-4 pr-2 border-t md:border-t-0 md:border-l border-white/10 mt-3 md:mt-0 pt-3 md:pt-0">
+                <span className="material-icons text-[var(--mid-gray)] mr-3">location_on</span>
+                <input 
+                  className="bg-transparent w-full text-white placeholder-[var(--mid-gray)] focus:outline-none py-3 text-lg" 
+                  placeholder="Your Location" 
+                  type="text"
+                  value={locationQuery}
+                  onChange={(e) => setLocationQuery(e.target.value)}
+                />
+              </div>
+              <button className="w-full mt-4 md:mt-0 md:w-auto px-8 py-4 bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white font-semibold rounded-full btn-glow transition-transform transform hover:scale-105 flex-shrink-0">
+                Search
+              </button>
+            </div>
+          </div>
+        </section>
+
+        {/* Filters and Categories */}
+        <section className="mb-8">
+          <div className="flex flex-wrap items-center justify-between mb-6">
+            <div className="flex flex-wrap gap-3 mb-4 lg:mb-0">
+              {categories.map((category) => (
+                <button
+                  key={category.name}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                    category.active
+                      ? 'bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white btn-glow'
+                      : 'bg-white/10 text-gray-300 hover:bg-white/20 border border-transparent hover:border-purple-400/50'
+                  }`}
+                >
+                  {category.name}
+                  <span className="ml-2 text-xs opacity-75">{category.count}</span>
+                </button>
+              ))}
+            </div>
+            
+            <div className="flex items-center space-x-4">
+              <button className="flex items-center space-x-2 bg-white/10 text-gray-300 px-4 py-2 rounded-full hover:bg-white/20 transition-colors">
+                <span className="material-icons text-sm">tune</span>
+                <span>Filters</span>
+              </button>
+              
+              <div className="flex bg-white/10 rounded-full p-1">
+                <button
+                  onClick={() => setViewMode('grid')}
+                  className={`p-2 rounded-full transition-colors ${
+                    viewMode === 'grid' ? 'bg-purple-500 text-white' : 'text-gray-300 hover:text-white'
+                  }`}
+                >
+                  <span className="material-icons text-sm">grid_view</span>
+                </button>
+                <button
+                  onClick={() => setViewMode('list')}
+                  className={`p-2 rounded-full transition-colors ${
+                    viewMode === 'list' ? 'bg-purple-500 text-white' : 'text-gray-300 hover:text-white'
+                  }`}
+                >
+                  <span className="material-icons text-sm">view_list</span>
+                </button>
               </div>
             </div>
           </div>
+        </section>
 
-          {/* Results Section */}
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-            {/* Filters Sidebar */}
-            <div className="lg:col-span-1">
-              <Card variant="glass" className="sticky top-6">
-                <CardHeader>
-                  <CardTitle variant="gradient-neural">Filters</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div>
-                    <h4 className="font-semibold mb-3">Service Type</h4>
-                    <div className="space-y-2">
-                      {["Home Services", "Tech Support", "Tutoring", "Fitness", "Automotive"].map((service) => (
-                        <label key={service} className="flex items-center space-x-2 cursor-pointer">
-                          <input type="checkbox" className="rounded" />
-                          <span className="text-sm">{service}</span>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <h4 className="font-semibold mb-3">Price Range</h4>
-                    <div className="space-y-2">
-                      {["$20-40/hr", "$40-60/hr", "$60-80/hr", "$80+/hr"].map((range) => (
-                        <label key={range} className="flex items-center space-x-2 cursor-pointer">
-                          <input type="checkbox" className="rounded" />
-                          <span className="text-sm">{range}</span>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <h4 className="font-semibold mb-3">Distance</h4>
-                    <div className="space-y-2">
-                      {["Within 1 mile", "Within 5 miles", "Within 10 miles", "Within 25 miles"].map((distance) => (
-                        <label key={distance} className="flex items-center space-x-2 cursor-pointer">
-                          <input type="checkbox" className="rounded" />
-                          <span className="text-sm">{distance}</span>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-
-                  <Button className="w-full bg-gradient-quantum text-white hover:shadow-glow-quantum">
-                    Apply Filters
-                  </Button>
-                </CardContent>
-              </Card>
+        {/* Results */}
+        <section>
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold text-white">
+              2,400+ Professionals Available
+            </h2>
+            <div className="flex items-center space-x-4">
+              <select className="bg-glass border border-white/10 text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                <option>Sort by: Best Match</option>
+                <option>Highest Rated</option>
+                <option>Lowest Price</option>
+                <option>Nearest</option>
+              </select>
             </div>
+          </div>
 
-            {/* Provider Cards */}
-            <div className="lg:col-span-3">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold text-gradient-neural">Available Professionals</h2>
-                <div className="flex gap-2">
-                  <Button variant="outline" size="sm" className="glass">
-                    <Grid className="w-4 h-4" />
-                  </Button>
-                  <Button variant="outline" size="sm" className="glass">
-                    <List className="w-4 h-4" />
-                  </Button>
+          <div className={`grid gap-6 ${viewMode === 'grid' ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}>
+            {providers.map((provider) => (
+              <div key={provider.id} className="bg-glass rounded-3xl p-6 card-glow overflow-hidden relative group">
+                <div className="absolute inset-0 bg-gradient-to-t from-purple-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                
+                <div className="relative z-10">
+                  {/* Provider Header */}
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                        <span className="text-white font-bold">{provider.avatar}</span>
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-bold text-white">{provider.name}</h3>
+                        <p className="text-[var(--mid-gray)] text-sm">{provider.profession}</p>
+                      </div>
+                    </div>
+                    <button className="p-2 rounded-full hover:bg-white/10 transition-colors">
+                      <span className="material-icons text-gray-300">favorite_border</span>
+                    </button>
+                  </div>
+
+                  {/* Badge and Verification */}
+                  <div className="flex items-center space-x-2 mb-3">
+                    {provider.verified && (
+                      <div className="flex items-center space-x-1 bg-green-500/20 text-green-400 px-2 py-1 rounded-full text-xs">
+                        <span className="material-icons text-xs">verified</span>
+                        <span>Verified</span>
+                      </div>
+                    )}
+                    <div className="bg-purple-500/20 text-purple-400 px-2 py-1 rounded-full text-xs">
+                      {provider.badge}
+                    </div>
+                  </div>
+
+                  {/* Rating and Stats */}
+                  <div className="flex items-center space-x-4 mb-3">
+                    <div className="flex items-center space-x-1">
+                      <span className="material-icons text-yellow-400 text-sm">star</span>
+                      <span className="text-white font-semibold">{provider.rating}</span>
+                      <span className="text-[var(--mid-gray)] text-sm">({provider.reviews})</span>
+                    </div>
+                    <div className="text-[var(--mid-gray)] text-sm">
+                      {provider.completedJobs} jobs completed
+                    </div>
+                  </div>
+
+                  {/* Location and Response Time */}
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center space-x-1 text-[var(--mid-gray)] text-sm">
+                      <span className="material-icons text-xs">location_on</span>
+                      <span>{provider.location}</span>
+                    </div>
+                    <div className="flex items-center space-x-1 text-[var(--mid-gray)] text-sm">
+                      <span className="material-icons text-xs">schedule</span>
+                      <span>Responds in {provider.responseTime}</span>
+                    </div>
+                  </div>
+
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {provider.tags.map((tag) => (
+                      <span key={tag} className="bg-white/10 text-gray-300 px-2 py-1 rounded-full text-xs">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Price and CTA */}
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="text-2xl font-bold text-white">${provider.hourlyRate}</div>
+                      <div className="text-[var(--mid-gray)] text-sm">per hour</div>
+                    </div>
+                    <div className="flex space-x-2">
+                      <button className="bg-white/10 text-white px-4 py-2 rounded-full hover:bg-white/20 transition-colors text-sm">
+                        Message
+                      </button>
+                      <button className="bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white px-4 py-2 rounded-full btn-glow transition-transform transform hover:scale-105 text-sm">
+                        Book Now
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {providers.map((provider) => (
-                  <Card key={provider.id} variant="glass" className="group hover:scale-[1.02] transition-all duration-300 cursor-pointer">
-                    <CardHeader className="pb-4">
-                      <div className="flex items-start justify-between">
-                        <div className="flex items-center space-x-4">
-                          <div className="relative">
-                            <div className="w-16 h-16 bg-gradient-neural rounded-2xl flex items-center justify-center">
-                              <span className="text-xl font-bold text-white">{provider.avatar}</span>
-                            </div>
-                            {provider.verified && (
-                              <div className="absolute -top-1 -right-1 w-6 h-6 bg-gradient-trust rounded-full flex items-center justify-center">
-                                <Shield className="w-3 h-3 text-white" />
-                              </div>
-                            )}
-                          </div>
-                          <div className="flex-1">
-                            <div className="flex items-center gap-2 mb-1">
-                              <h3 className="font-bold text-lg">{provider.name}</h3>
-                              <Badge variant="outline" className="text-xs bg-gradient-plasma text-white border-0">
-                                {provider.badge}
-                              </Badge>
-                            </div>
-                            <p className="text-muted-foreground font-medium">{provider.profession}</p>
-                            <p className="text-sm text-neural-600">{provider.specialty}</p>
-                          </div>
-                        </div>
-                        <Button variant="ghost" size="sm" className="opacity-0 group-hover:opacity-100 transition-opacity">
-                          <Heart className="w-4 h-4" />
-                        </Button>
-                      </div>
-                    </CardHeader>
-
-                    <CardContent className="space-y-4">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-1">
-                          <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                          <span className="font-bold">{provider.rating}</span>
-                          <span className="text-muted-foreground text-sm">({provider.reviews} reviews)</span>
-                        </div>
-                        <div className="flex items-center text-muted-foreground text-sm">
-                          <MapPin className="w-3 h-3 mr-1" />
-                          {provider.location}
-                        </div>
-                      </div>
-
-                      <div className="flex flex-wrap gap-2">
-                        {provider.tags.map((tag) => (
-                          <Badge key={tag} variant="secondary" className="text-xs">
-                            {tag}
-                          </Badge>
-                        ))}
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-4 text-sm">
-                        <div className="flex items-center">
-                          <Clock className="w-4 h-4 mr-2 text-quantum-500" />
-                          <span>Responds in {provider.responseTime}</span>
-                        </div>
-                        <div className="flex items-center">
-                          <Award className="w-4 h-4 mr-2 text-trust-500" />
-                          <span>{provider.completedJobs} jobs completed</span>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center justify-between pt-4 border-t border-border">
-                        <div>
-                          <span className="text-2xl font-bold text-gradient-plasma">${provider.hourlyRate}</span>
-                          <span className="text-muted-foreground">/hr</span>
-                        </div>
-                        <div className="flex gap-2">
-                          <Button variant="outline" size="sm" className="glass">
-                            Message
-                          </Button>
-                          <Button size="sm" className="bg-gradient-neural text-white hover:shadow-glow-neural">
-                            Book Now
-                          </Button>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-
-              <div className="text-center mt-12">
-                <Button variant="outline" size="lg" className="glass">
-                  Load More Professionals
-                </Button>
-              </div>
-            </div>
+            ))}
           </div>
-        </div>
-      </div>
+
+          {/* Load More */}
+          <div className="text-center mt-12">
+            <button className="bg-glass text-white px-8 py-3 rounded-full font-medium hover:bg-white/10 transition-all duration-300 border border-white/10 hover:border-purple-400/50">
+              Load More Professionals
+            </button>
+          </div>
+        </section>
+      </main>
 
       <ModernFooter />
+      <CommandPaletteHint />
     </div>
   );
 }

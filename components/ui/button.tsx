@@ -10,20 +10,20 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground shadow-md hover:bg-primary/90 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0",
+          "bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white shadow-lg hover:from-purple-700 hover:to-fuchsia-600 btn-glow hover:scale-105 transition-all duration-300",
         destructive:
-          "bg-destructive text-destructive-foreground shadow-md hover:bg-destructive/90 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0",
+          "bg-gradient-to-r from-red-600 to-pink-600 text-white shadow-lg hover:from-red-700 hover:to-pink-700 hover:scale-105 transition-all duration-300",
         outline:
-          "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground hover:shadow-md hover:-translate-y-0.5 active:translate-y-0",
+          "border border-white/20 bg-glass text-white hover:bg-white/20 hover:border-white/30 hover:scale-105 transition-all duration-300",
         secondary:
-          "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 hover:shadow-md hover:-translate-y-0.5 active:translate-y-0",
+          "bg-white/10 text-white hover:bg-white/20 hover:scale-105 transition-all duration-300",
         ghost:
-          "hover:bg-accent hover:text-accent-foreground hover:-translate-y-0.5 active:translate-y-0",
-        link: "text-primary underline-offset-4 hover:underline",
+          "text-white hover:bg-white/10 hover:scale-105 transition-all duration-300",
+        link: "text-purple-400 underline-offset-4 hover:underline hover:text-purple-300 transition-colors",
         premium:
-          "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg hover:from-blue-700 hover:to-purple-700 hover:shadow-xl hover:-translate-y-1 active:translate-y-0 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:translate-x-[-100%] hover:before:translate-x-[100%] before:transition-transform before:duration-500",
+          "bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white shadow-lg btn-glow hover:scale-105 transition-all duration-300 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:translate-x-[-100%] hover:before:translate-x-[100%] before:transition-transform before:duration-500",
         glass:
-          "bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-lg hover:bg-white/20 hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0",
+          "bg-glass backdrop-blur-md border border-white/20 text-white shadow-lg hover:bg-white/20 card-glow hover:scale-105 transition-all duration-300",
       },
       size: {
         default: "h-10 px-4 py-2",

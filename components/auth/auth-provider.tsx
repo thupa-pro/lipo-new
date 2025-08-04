@@ -35,9 +35,28 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [session, setSession] = useState<Session | null>(null)
   const [userProfile, setUserProfile] = useState<any | null>(null)
   const [loading, setLoading] = useState(true)
-  const supabase = createSupabaseClient()
+
+  // Check if Supabase environment variables are configured
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  const isSupabaseConfigured = supabaseUrl && supabaseAnonKey &&
+    !supabaseUrl.includes('your-project-ref') &&
+    !supabaseAnonKey.includes('your-anon-key')
+
+  let supabase = null
+
+  if (isSupabaseConfigured) {
+    try {
+      supabase = createSupabaseClient()
+    } catch (error) {
+      console.warn('Failed to create Supabase client:', error)
+      supabase = null
+    }
+  }
 
   const fetchUserProfile = async (userId: string) => {
+    if (!supabase) return null
+
     try {
       const { data, error } = await supabase
         .from('users')
@@ -58,6 +77,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   const refreshUser = async () => {
+    if (!supabase) return
+
     const { data: { session } } = await supabase.auth.getSession()
     if (session?.user) {
       const profile = await fetchUserProfile(session.user.id)
@@ -66,6 +87,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   useEffect(() => {
+    // If Supabase is not configured, set loading to false and return
+    if (!supabase) {
+      setLoading(false)
+      return
+    }
+
     // Get initial session
     const getSession = async () => {
       try {
@@ -113,9 +140,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     )
 
     return () => subscription.unsubscribe()
-  }, [supabase.auth])
+  }, [supabase])
 
   const signOut = async () => {
+    if (!supabase) {
+      // Clear local state even if Supabase is not configured
+      setUser(null)
+      setSession(null)
+      setUserProfile(null)
+      return
+    }
+
     try {
       const { error } = await supabase.auth.signOut()
       if (error) {

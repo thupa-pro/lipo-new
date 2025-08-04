@@ -47,7 +47,7 @@ interface ProviderCardProps {
   viewMode: "grid" | "list";
 }
 
-export default function ProviderCard({
+export function ProviderCard({
   provider,
   viewMode,
 }: ProviderCardProps) {
