@@ -148,11 +148,11 @@ export default function HomePage() {
       <div className="absolute top-[30%] right-[10%] w-[500px] h-[500px] bg-fuchsia-700/20 rounded-full blur-[150px] animate-pulse animation-delay-2000"></div>
 
       {/* Header */}
-      <header className="relative z-10 py-6 px-4 sm:px-6 lg:px-8 bg-glass/80 border-b border-white/10 sticky top-0">
+      <header className="relative z-10 py-4 px-4 sm:px-6 lg:px-8 bg-glass/80 border-b border-white/10 sticky top-0">
         <div className="container mx-auto flex justify-between items-center">
-          <div className="flex items-center space-x-3">
-            <span className="material-icons text-purple-400 text-4xl">hub</span>
-            <span className="text-3xl font-bold text-white tracking-wider">Loconomy</span>
+          <div className="flex items-center space-x-2">
+            <span className="material-icons text-purple-400 text-2xl md:text-4xl">hub</span>
+            <span className="text-xl md:text-3xl font-bold text-white tracking-wider">Loconomy</span>
           </div>
           
           <nav className="hidden lg:flex items-center space-x-8 text-sm font-medium text-gray-300">
@@ -395,62 +395,62 @@ export default function HomePage() {
       {/* Main Content */}
       <main className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
-        <section className="hero-section text-center py-24 md:py-40">
-          <div className="hero-badge floating-element glow-pulse mb-6 flex justify-center items-center gap-2 text-sm font-medium px-6 py-3 rounded-full inline-flex">
-            <span className="material-icons text-lg animate-pulse">verified</span>
+        <section className="hero-section text-center py-16 md:py-40">
+          <div className="hero-badge floating-element glow-pulse mb-6 flex justify-center items-center gap-2 text-xs md:text-sm font-medium px-4 md:px-6 py-2 md:py-3 rounded-full inline-flex">
+            <span className="material-icons text-sm md:text-lg animate-pulse">verified</span>
             <span>Trusted by 2.4M+ Users Worldwide</span>
           </div>
 
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-tight">
+          <h1 className="text-3xl md:text-7xl lg:text-8xl font-black mb-6 leading-tight px-4">
             <span className="hero-title-gradient text-reveal">Connect with Local</span>
             <br />
             <span className="hero-title-dark text-reveal delay-200">Service Professionals You Trust</span>
           </h1>
 
-          <p className="hero-description max-w-3xl mx-auto text-lg md:text-xl mb-12 font-medium">
+          <p className="hero-description max-w-3xl mx-auto text-base md:text-xl mb-8 md:mb-12 font-medium px-4">
             Loconomy is the premium marketplace connecting you with verified local service providers. From home repairs to personal training - find trusted professionals in your area with our AI-powered matching system.
           </p>
           
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 md:gap-6 px-4">
             <Link
               href="/browse"
-              className="w-full sm:w-auto flex items-center justify-center gap-3 px-10 py-5 bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white font-bold rounded-full text-lg btn-glow transition-transform transform hover:scale-105"
+              className="w-full sm:w-auto flex items-center justify-center gap-2 md:gap-3 px-6 md:px-10 py-4 md:py-5 bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white font-bold rounded-full text-base md:text-lg btn-glow transition-transform transform hover:scale-105"
             >
-              <span className="material-icons">search</span>
+              <span className="material-icons text-lg md:text-xl">search</span>
               Find Services Now
             </Link>
             <Link
               href="/become-provider"
-              className="w-full sm:w-auto flex items-center justify-center gap-3 px-10 py-5 bg-white/10 text-white font-bold rounded-full text-lg hover:bg-white/20 transition-all duration-300 border border-transparent hover:border-white/30"
+              className="w-full sm:w-auto flex items-center justify-center gap-2 md:gap-3 px-6 md:px-10 py-4 md:py-5 bg-white/10 text-white font-bold rounded-full text-base md:text-lg hover:bg-white/20 transition-all duration-300 border border-transparent hover:border-white/30"
             >
-              <span className="material-icons">group_add</span>
+              <span className="material-icons text-lg md:text-xl">group_add</span>
               Become a Provider
             </Link>
           </div>
         </section>
 
         {/* Search Section */}
-        <section className="py-20" id="find-service">
-          <div className="search-card ultra-glass rounded-3xl p-8 md:p-12 hover-scale">
-            <h2 className="section-title text-4xl font-bold text-center mb-2">Start Your Search</h2>
-            <p className="section-subtitle text-center mb-10">Get matched with the perfect professional in seconds.</p>
+        <section className="py-12 md:py-20" id="find-service">
+          <div className="search-card ultra-glass rounded-3xl p-6 md:p-12 hover-scale mx-4 md:mx-0">
+            <h2 className="section-title text-2xl md:text-4xl font-bold text-center mb-2">Start Your Search</h2>
+            <p className="section-subtitle text-center mb-6 md:mb-10">Get matched with the perfect professional in seconds.</p>
 
             <div className="max-w-4xl mx-auto">
-              <div className="search-input-container flex flex-col md:flex-row items-center p-3 rounded-full">
-                <div className="flex-grow w-full flex items-center pl-4 pr-2">
-                  <span className="material-icons text-[var(--mid-gray)] mr-3">work_outline</span>
+              <div className="search-input-container flex flex-col md:flex-row items-center p-2 md:p-3 rounded-full">
+                <div className="flex-grow w-full flex items-center pl-3 md:pl-4 pr-2">
+                  <span className="material-icons text-[var(--mid-gray)] mr-2 md:mr-3 text-lg md:text-xl">work_outline</span>
                   <input
-                    className="search-input w-full focus:outline-none py-3 text-lg"
+                    className="search-input w-full focus:outline-none py-2 md:py-3 text-base md:text-lg"
                     placeholder="What service do you need?"
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                   />
                 </div>
-                <div className="w-full md:w-auto flex items-center pl-4 pr-2 border-t md:border-t-0 md:border-l border-gray-200 dark:border-white/10 mt-3 md:mt-0 pt-3 md:pt-0">
-                  <span className="material-icons text-gray-500 dark:text-[var(--mid-gray)] mr-3">location_on</span>
+                <div className="w-full md:w-auto flex items-center pl-3 md:pl-4 pr-2 border-t md:border-t-0 md:border-l border-gray-200 dark:border-white/10 mt-2 md:mt-0 pt-2 md:pt-0">
+                  <span className="material-icons text-gray-500 dark:text-[var(--mid-gray)] mr-2 md:mr-3 text-lg md:text-xl">location_on</span>
                   <input
-                    className="search-input w-full focus:outline-none py-3 text-lg"
+                    className="search-input w-full focus:outline-none py-2 md:py-3 text-base md:text-lg"
                     placeholder="Your Location"
                     type="text"
                     value={locationQuery}
@@ -459,18 +459,18 @@ export default function HomePage() {
                 </div>
                 <button
                   onClick={handleSearch}
-                  className="w-full mt-4 md:mt-0 md:w-auto px-10 py-4 bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white font-semibold rounded-full btn-glow transition-transform transform hover:scale-105 flex-shrink-0"
+                  className="w-full mt-3 md:mt-0 md:w-auto px-6 md:px-10 py-3 md:py-4 bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white font-semibold rounded-full btn-glow transition-transform transform hover:scale-105 flex-shrink-0"
                 >
                   Search
                 </button>
               </div>
               
-              <div className="flex flex-wrap justify-center gap-3 mt-8 text-sm">
+              <div className="flex flex-wrap justify-center gap-2 md:gap-3 mt-6 md:mt-8 text-xs md:text-sm">
                 {['House Cleaning', 'Plumber', 'Electrician', 'Personal Trainer', 'Math Tutor'].map((tag) => (
                   <button
                     key={tag}
                     onClick={() => handleQuickSearch(tag)}
-                    className="search-tag interactive-element px-4 py-2 rounded-full transition-all duration-300"
+                    className="search-tag interactive-element px-3 md:px-4 py-1.5 md:py-2 rounded-full transition-all duration-300"
                   >
                     {tag}
                   </button>
@@ -481,11 +481,11 @@ export default function HomePage() {
         </section>
 
         {/* How It Works Section */}
-        <section className="py-24" id="how-it-works">
-          <h2 className="section-title text-4xl font-bold text-center mb-4">How Loconomy Works</h2>
-          <p className="section-subtitle text-lg text-center mb-16 max-w-2xl mx-auto">Finding your ideal service professional is as easy as 1-2-3.</p>
+        <section className="py-16 md:py-24 px-4" id="how-it-works">
+          <h2 className="section-title text-2xl md:text-4xl font-bold text-center mb-4">How Loconomy Works</h2>
+          <p className="section-subtitle text-base md:text-lg text-center mb-12 md:mb-16 max-w-2xl mx-auto">Finding your ideal service professional is as easy as 1-2-3.</p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 relative">
             <div className="absolute top-1/2 left-0 w-full h-px bg-gray-200 dark:bg-white/10 hidden md:block"></div>
             <div className="works-connecting-line absolute top-1/2 left-0 w-full hidden md:flex justify-between">
               <div className="w-1/3 h-px"></div>
@@ -493,27 +493,27 @@ export default function HomePage() {
             </div>
 
             <div className="relative text-center z-10">
-              <div className="works-number-circle w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-4xl font-black gradient-text">1</span>
+              <div className="works-number-circle w-16 md:w-20 h-16 md:h-20 rounded-full flex items-center justify-center mx-auto mb-4 md:mb-6">
+                <span className="text-2xl md:text-4xl font-black gradient-text">1</span>
               </div>
-              <h3 className="works-step-title text-2xl font-bold mb-3">Post a Job</h3>
-              <p className="works-step-description">Tell us what you need. Be specific to get the most accurate quotes from our network of professionals.</p>
-            </div>
-            
-            <div className="relative text-center z-10">
-              <div className="works-number-circle w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-4xl font-black gradient-text">2</span>
-              </div>
-              <h3 className="works-step-title text-2xl font-bold mb-3">Get Matches</h3>
-              <p className="works-step-description">Our smart AI algorithm matches you with qualified, vetted pros in your area who are ready to help.</p>
+              <h3 className="works-step-title text-xl md:text-2xl font-bold mb-2 md:mb-3">Post a Job</h3>
+              <p className="works-step-description text-sm md:text-base">Tell us what you need. Be specific to get the most accurate quotes from our network of professionals.</p>
             </div>
 
             <div className="relative text-center z-10">
-              <div className="works-number-circle w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-4xl font-black gradient-text">3</span>
+              <div className="works-number-circle w-16 md:w-20 h-16 md:h-20 rounded-full flex items-center justify-center mx-auto mb-4 md:mb-6">
+                <span className="text-2xl md:text-4xl font-black gradient-text">2</span>
               </div>
-              <h3 className="works-step-title text-2xl font-bold mb-3">Hire & Relax</h3>
-              <p className="works-step-description">Compare profiles, quotes, and reviews. Hire the best fit and get the job done right, guaranteed.</p>
+              <h3 className="works-step-title text-xl md:text-2xl font-bold mb-2 md:mb-3">Get Matches</h3>
+              <p className="works-step-description text-sm md:text-base">Our smart AI algorithm matches you with qualified, vetted pros in your area who are ready to help.</p>
+            </div>
+
+            <div className="relative text-center z-10">
+              <div className="works-number-circle w-16 md:w-20 h-16 md:h-20 rounded-full flex items-center justify-center mx-auto mb-4 md:mb-6">
+                <span className="text-2xl md:text-4xl font-black gradient-text">3</span>
+              </div>
+              <h3 className="works-step-title text-xl md:text-2xl font-bold mb-2 md:mb-3">Hire & Relax</h3>
+              <p className="works-step-description text-sm md:text-base">Compare profiles, quotes, and reviews. Hire the best fit and get the job done right, guaranteed.</p>
             </div>
           </div>
         </section>
