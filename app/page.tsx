@@ -431,12 +431,12 @@ export default function HomePage() {
 
         {/* Search Section */}
         <section className="py-20" id="find-service">
-          <div className="bg-glass rounded-3xl p-8 md:p-12 card-glow">
-            <h2 className="text-4xl font-bold text-center text-white mb-2">Start Your Search</h2>
-            <p className="text-center text-[var(--mid-gray)] mb-10">Get matched with the perfect professional in seconds.</p>
-            
+          <div className="search-card rounded-3xl p-8 md:p-12 card-glow">
+            <h2 className="section-title text-4xl font-bold text-center mb-2">Start Your Search</h2>
+            <p className="section-subtitle text-center mb-10">Get matched with the perfect professional in seconds.</p>
+
             <div className="max-w-4xl mx-auto">
-              <div className="flex flex-col md:flex-row items-center bg-black/20 p-3 rounded-full shadow-inner shadow-black/30 border border-white/10">
+              <div className="search-input-container flex flex-col md:flex-row items-center p-3 rounded-full">
                 <div className="flex-grow w-full flex items-center pl-4 pr-2">
                   <span className="material-icons text-[var(--mid-gray)] mr-3">work_outline</span>
                   <input
