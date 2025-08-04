@@ -54,8 +54,10 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#8A2BE2" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+        <meta name="theme-color" content="#0A091A" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <link rel="icon" href="/icon.svg" type="image/svg+xml" />
         <link rel="manifest" href="/manifest.json" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
