@@ -653,7 +653,7 @@ export default function HomePage() {
           <p className="section-subtitle text-lg text-center mb-12 max-w-2xl mx-auto">Explore thousands of verified service providers across all major categories.</p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="category-card rounded-3xl p-8 overflow-hidden relative group">
+            <div className="category-card card-elite p-8 overflow-hidden relative group magnetic-hover">
               <div className="absolute inset-0 bg-gradient-to-t from-purple-100/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <div className="relative z-10 flex flex-col h-full">
                 <HomeIcon className="w-12 h-12 text-purple-500 mb-4" />
@@ -666,7 +666,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="bg-glass rounded-3xl p-8 card-glow overflow-hidden relative group">
+            <div className="card-elite p-8 overflow-hidden relative group magnetic-hover">
               <div className="absolute inset-0 bg-gradient-to-t from-cyan-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <div className="relative z-10 flex flex-col h-full">
                 <Dumbbell className="w-12 h-12 text-cyan-400 mb-4" />
@@ -679,7 +679,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="bg-glass rounded-3xl p-8 card-glow overflow-hidden relative group">
+            <div className="card-elite p-8 overflow-hidden relative group magnetic-hover">
               <div className="absolute inset-0 bg-gradient-to-t from-fuchsia-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <div className="relative z-10 flex flex-col h-full">
                 <GraduationCap className="w-12 h-12 text-fuchsia-400 mb-4" />
@@ -692,7 +692,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="bg-glass rounded-3xl p-8 card-glow overflow-hidden relative group">
+            <div className="card-elite p-8 overflow-hidden relative group magnetic-hover">
               <div className="absolute inset-0 bg-gradient-to-t from-green-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <div className="relative z-10 flex flex-col h-full">
                 <Monitor className="w-12 h-12 text-green-400 mb-4" />
@@ -705,7 +705,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="bg-glass rounded-3xl p-8 card-glow overflow-hidden relative group">
+            <div className="card-elite p-8 overflow-hidden relative group magnetic-hover">
               <div className="absolute inset-0 bg-gradient-to-t from-orange-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <div className="relative z-10 flex flex-col h-full">
                 <Car className="w-12 h-12 text-orange-400 mb-4" />
@@ -718,7 +718,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="bg-glass rounded-3xl p-8 card-glow overflow-hidden relative group">
+            <div className="card-elite p-8 overflow-hidden relative group magnetic-hover">
               <div className="absolute inset-0 bg-gradient-to-t from-pink-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <div className="relative z-10 flex flex-col h-full">
                 <PartyPopper className="w-12 h-12 text-pink-400 mb-4" />
