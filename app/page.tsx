@@ -223,16 +223,16 @@ export default function HomePage() {
       >
         <div className="container mx-auto flex justify-between items-center">
           <div className="flex items-center space-x-3">
-            <div className="relative">
+            <div className="relative" aria-hidden="true">
               <Sparkles className="w-6 h-6 md:w-8 md:h-8 text-purple-400 animate-pulse" />
               <div className="absolute inset-0 animate-ping">
                 <Sparkles className="w-6 h-6 md:w-8 md:h-8 text-purple-400 opacity-20" />
               </div>
             </div>
-            <span className="text-xl md:text-3xl font-display text-white tracking-tight">Loconomy</span>
+            <span className="text-xl md:text-3xl font-display text-white tracking-tight" role="img" aria-label="Loconomy Logo">Loconomy</span>
           </div>
           
-          <nav className="hidden lg:flex items-center space-x-8 text-sm font-medium text-gray-300">
+          <nav className="hidden lg:flex items-center space-x-8 text-sm font-medium text-gray-300" role="navigation" aria-label="Primary navigation">
             <Link href="/browse" className="hover:text-white transition-colors duration-300">Find Services</Link>
             <Link href="/how-it-works" className="hover:text-white transition-colors duration-300">How It Works</Link>
             <Link href="/become-provider" className="hover:text-white transition-colors duration-300">Become a Provider</Link>
@@ -245,7 +245,7 @@ export default function HomePage() {
             {/* Notifications */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <button className="relative p-2 rounded-full hover:bg-white/10 transition-all duration-300 hover:scale-105">
+                <button className="relative p-2 rounded-full hover:bg-white/10 transition-all duration-300 hover:scale-105" aria-label="View notifications">
                   <Bell className="w-5 h-5 text-gray-300 transition-transform duration-300 hover:rotate-12" />
                   {unreadCount > 0 && (
                     <Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full p-0 text-xs bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white border-2 border-[var(--dark-navy)] animate-pulse">
@@ -382,6 +382,8 @@ export default function HomePage() {
                 <button
                   className="p-2 rounded-full hover:bg-white/10 transition-all duration-300 hover:scale-105 lg:hidden"
                   onClick={handleMenuClick}
+                  aria-label="Open mobile menu"
+                  aria-expanded={mobileMenuOpen}
                 >
                   <Menu className="w-5 h-5 text-gray-300" />
                 </button>
@@ -475,7 +477,7 @@ export default function HomePage() {
       {/* Main Content */}
       <main className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
-        <section className="hero-section text-center py-16 md:py-40">
+        <section className="hero-section text-center py-16 md:py-40" role="main" aria-labelledby="hero-title">
           <ScrollReveal delay={200} direction="scale">
             <div className="hero-badge floating-element glow-pulse mb-6 flex justify-center items-center gap-3 text-xs md:text-sm font-ui px-4 md:px-6 py-2 md:py-3 rounded-full inline-flex">
               <div className="relative">
@@ -489,7 +491,7 @@ export default function HomePage() {
           </ScrollReveal>
 
           <ScrollReveal delay={400} direction="up">
-            <h1 className="text-3xl md:text-7xl lg:text-8xl font-display mb-6 leading-tight px-4">
+            <h1 id="hero-title" className="text-3xl md:text-7xl lg:text-8xl font-display mb-6 leading-tight px-4">
               <span className="gradient-text">Connect with Local</span>
               <br />
               <span className="text-white font-display">Service Professionals You Trust</span>
@@ -523,9 +525,9 @@ export default function HomePage() {
         </section>
 
         {/* Search Section */}
-        <section className="py-12 md:py-20" id="find-service">
+        <section className="py-12 md:py-20" id="find-service" role="search" aria-labelledby="search-title">
           <div className="search-card card-elite p-6 md:p-12 hover-scale mx-4 md:mx-0 animate-elite-float">
-            <h2 className="section-title text-2xl md:text-4xl font-heading text-center mb-2">Start Your Search</h2>
+            <h2 id="search-title" className="section-title text-2xl md:text-4xl font-heading text-center mb-2">Start Your Search</h2>
             <p className="section-subtitle text-center mb-6 md:mb-10 font-body">Get matched with the perfect professional in seconds.</p>
 
             <div className="max-w-4xl mx-auto">
@@ -538,6 +540,8 @@ export default function HomePage() {
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
+                    aria-label="Service type"
+                    id="service-input"
                   />
                 </div>
                 <div className="w-full md:w-auto flex items-center pl-3 md:pl-4 pr-2 border-t md:border-t-0 md:border-l border-gray-200 dark:border-white/10 mt-2 md:mt-0 pt-2 md:pt-0">
@@ -548,11 +552,14 @@ export default function HomePage() {
                     type="text"
                     value={locationQuery}
                     onChange={(e) => setLocationQuery(e.target.value)}
+                    aria-label="Service location"
+                    id="location-input"
                   />
                 </div>
                 <button
                   onClick={handleSearch}
                   className="w-full mt-3 md:mt-0 md:w-auto px-6 md:px-10 py-3 md:py-4 bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white font-ui font-semibold rounded-full btn-glow transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex-shrink-0"
+                  aria-label="Search for services"
                 >
                   Search
                 </button>
