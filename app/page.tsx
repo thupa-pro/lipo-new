@@ -440,17 +440,17 @@ export default function HomePage() {
                 <div className="flex-grow w-full flex items-center pl-4 pr-2">
                   <span className="material-icons text-[var(--mid-gray)] mr-3">work_outline</span>
                   <input
-                    className="bg-transparent w-full text-white placeholder-[var(--mid-gray)] focus:outline-none py-3 text-lg"
+                    className="search-input w-full focus:outline-none py-3 text-lg"
                     placeholder="What service do you need?"
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                   />
                 </div>
-                <div className="w-full md:w-auto flex items-center pl-4 pr-2 border-t md:border-t-0 md:border-l border-white/10 mt-3 md:mt-0 pt-3 md:pt-0">
-                  <span className="material-icons text-[var(--mid-gray)] mr-3">location_on</span>
+                <div className="w-full md:w-auto flex items-center pl-4 pr-2 border-t md:border-t-0 md:border-l border-gray-200 dark:border-white/10 mt-3 md:mt-0 pt-3 md:pt-0">
+                  <span className="material-icons text-gray-500 dark:text-[var(--mid-gray)] mr-3">location_on</span>
                   <input
-                    className="bg-transparent w-full text-white placeholder-[var(--mid-gray)] focus:outline-none py-3 text-lg"
+                    className="search-input w-full focus:outline-none py-3 text-lg"
                     placeholder="Your Location"
                     type="text"
                     value={locationQuery}
