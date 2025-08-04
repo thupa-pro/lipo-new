@@ -203,6 +203,10 @@ export default function HomePage() {
 
   return (
     <div className="relative min-h-screen overflow-hidden">
+      {/* Skip Links for Accessibility */}
+      <a href="#main-content" className="skip-link">Skip to main content</a>
+      <a href="#find-service" className="skip-link">Skip to search</a>
+      <a href="#how-it-works" className="skip-link">Skip to how it works</a>
       {/* Grid Background */}
       <div className="absolute inset-0 bg-grid-white/[0.04] [mask-image:radial-gradient(ellipse_at_center,white_20%,transparent_70%)]"></div>
       
