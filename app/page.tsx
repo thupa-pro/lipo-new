@@ -793,6 +793,9 @@ export default function HomePage() {
 
       <ModernFooter />
       <CommandPaletteHint />
+
+      {/* Mobile Bottom Spacing */}
+      <div className="h-20 md:h-0"></div>
     </div>
   );
 }
