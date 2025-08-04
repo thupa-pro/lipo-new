@@ -470,7 +470,7 @@ export default function HomePage() {
                   <button
                     key={tag}
                     onClick={() => handleQuickSearch(tag)}
-                    className="bg-white/10 hover:bg-white/20 transition-colors text-gray-300 px-4 py-2 rounded-full border border-transparent hover:border-purple-400/50"
+                    className="search-tag interactive-element px-4 py-2 rounded-full transition-all duration-300"
                   >
                     {tag}
                   </button>
