@@ -78,46 +78,49 @@
     --radius: 1.5rem;
   }
 
-  /* Light Mode Theme Override */
+  /* Light Mode Theme Override - Premium & Beautiful */
   .light {
-    /* Beautiful Light Mode Color Palette */
-    --bg-primary: var(--light-pearl);
-    --bg-secondary: rgba(248, 250, 252, 0.9);
-    --bg-glass: rgba(255, 255, 255, 0.25);
-    --bg-glass-strong: rgba(255, 255, 255, 0.4);
-    --text-primary: var(--light-midnight);
-    --text-secondary: var(--light-slate);
-    --text-accent: var(--light-violet);
-    --border-primary: rgba(226, 232, 240, 0.6);
-    --border-secondary: rgba(203, 213, 225, 0.8);
-    --shadow-primary: rgba(168, 85, 247, 0.08);
-    --shadow-secondary: rgba(59, 130, 246, 0.08);
-    --gradient-primary: linear-gradient(135deg, var(--light-purple) 0%, var(--light-violet) 25%, var(--light-indigo) 50%, var(--light-blue) 75%, var(--light-cyan) 100%);
-    --gradient-button: linear-gradient(135deg, var(--light-violet), var(--light-fuchsia), var(--light-blue));
-    --blob-1: rgba(168, 85, 247, 0.06);
-    --blob-2: rgba(236, 72, 153, 0.04);
-    --blob-3: rgba(59, 130, 246, 0.05);
-    
-    /* Light mode base variables */
-    --background: 254 254 254; /* Pearl white */
-    --foreground: 30 41 59; /* Midnight */
+    /* Revolutionary Light Mode Color Palette */
+    --bg-primary: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%);
+    --bg-secondary: rgba(255, 255, 255, 0.95);
+    --bg-glass: rgba(255, 255, 255, 0.8);
+    --bg-glass-strong: rgba(255, 255, 255, 0.95);
+    --text-primary: #0F172A; /* Deep slate for maximum readability */
+    --text-secondary: #334155; /* Strong slate for secondary text */
+    --text-accent: #7C3AED; /* Vibrant violet */
+    --text-muted: #64748B; /* Readable muted text */
+    --text-nav: #1E293B; /* Strong navigation text */
+    --border-primary: rgba(148, 163, 184, 0.3);
+    --border-secondary: rgba(100, 116, 139, 0.4);
+    --shadow-primary: rgba(124, 58, 237, 0.15);
+    --shadow-secondary: rgba(59, 130, 246, 0.12);
+    --gradient-primary: linear-gradient(135deg, #7C3AED 0%, #3B82F6 25%, #06B6D4 50%, #10B981 75%, #F59E0B 100%);
+    --gradient-button: linear-gradient(135deg, #7C3AED 0%, #C026D3 50%, #3B82F6 100%);
+    --gradient-text: linear-gradient(135deg, #7C3AED 0%, #3B82F6 50%, #06B6D4 100%);
+    --blob-1: rgba(124, 58, 237, 0.08);
+    --blob-2: rgba(192, 38, 211, 0.06);
+    --blob-3: rgba(59, 130, 246, 0.07);
+
+    /* Enhanced light mode base variables */
+    --background: 255 255 255; /* Pure white */
+    --foreground: 15 23 42; /* Deep slate */
     --card: 255 255 255; /* Pure white */
-    --card-foreground: 30 41 59;
+    --card-foreground: 15 23 42;
     --popover: 255 255 255;
-    --popover-foreground: 30 41 59;
-    --primary: 168 85 247; /* Light purple */
+    --popover-foreground: 15 23 42;
+    --primary: 124 58 237; /* Vibrant violet */
     --primary-foreground: 255 255 255;
-    --secondary: 241 245 249; /* Light cloud */
-    --secondary-foreground: 51 65 85;
+    --secondary: 248 250 252; /* Light background */
+    --secondary-foreground: 30 41 59;
     --muted: 241 245 249;
     --muted-foreground: 100 116 139;
-    --accent: 139 92 246; /* Light violet */
+    --accent: 124 58 237; /* Vibrant violet */
     --accent-foreground: 255 255 255;
     --destructive: 239 68 68;
     --destructive-foreground: 255 255 255;
     --border: 226 232 240;
     --input: 226 232 240;
-    --ring: 168 85 247;
+    --ring: 124 58 237;
   }
 
   * {
