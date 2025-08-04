@@ -614,6 +614,70 @@
     background-size: 200% 200%;
   }
 
+  .animate-elite-float {
+    animation: elite-float 6s ease-in-out infinite;
+  }
+
+  .animate-magnetic-pull {
+    animation: magnetic-pull 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .animate-ripple {
+    animation: ripple-effect 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .animate-particle-float {
+    animation: particle-float 8s ease-in-out infinite;
+  }
+
+  /* Interactive Hover States */
+  .magnetic-hover {
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+    cursor: pointer;
+  }
+
+  .magnetic-hover:hover {
+    animation: magnetic-pull 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  /* Sophisticated Button Interactions */
+  .btn-elite {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg,
+      rgba(124, 58, 237, 0.9) 0%,
+      rgba(192, 38, 211, 0.9) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .btn-elite::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+    transform: translate(-50%, -50%);
+  }
+
+  .btn-elite:hover::before {
+    width: 300px;
+    height: 300px;
+  }
+
+  .btn-elite:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow:
+      0 12px 40px rgba(124, 58, 237, 0.3),
+      0 6px 20px rgba(192, 38, 211, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
   .animate-shimmer {
     animation: shimmer 2s linear infinite;
     background: linear-gradient(
