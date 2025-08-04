@@ -533,37 +533,37 @@ export default function HomePage() {
               <span className="stats-growth font-semibold text-sm">+23.5% vs last month</span>
             </div>
             
-            <div className="bg-glass p-8 rounded-3xl text-center card-glow">
+            <div className="stats-card p-8 rounded-3xl text-center interactive-element">
               <div className="flex justify-center items-center mb-4">
-                <div className="p-4 bg-cyan-500/20 rounded-full">
-                  <span className="material-icons text-3xl text-cyan-400">timer</span>
+                <div className="stats-icon-bg p-4 rounded-full">
+                  <span className="material-icons text-3xl text-cyan-500">timer</span>
                 </div>
               </div>
-              <p className="text-5xl font-bold text-white mb-2">&lt; 2hrs</p>
-              <p className="text-[var(--mid-gray)] mb-4">Average Response</p>
-              <span className="text-green-400 font-semibold text-sm">+15.2% vs last month</span>
+              <p className="stats-number text-5xl font-bold mb-2">&lt; 2hrs</p>
+              <p className="stats-label mb-4">Average Response</p>
+              <span className="stats-growth font-semibold text-sm">+15.2% vs last month</span>
             </div>
-            
-            <div className="bg-glass p-8 rounded-3xl text-center card-glow">
+
+            <div className="stats-card p-8 rounded-3xl text-center interactive-element">
               <div className="flex justify-center items-center mb-4">
-                <div className="p-4 bg-green-500/20 rounded-full">
-                  <span className="material-icons text-3xl text-green-400">check_circle</span>
+                <div className="stats-icon-bg p-4 rounded-full">
+                  <span className="material-icons text-3xl text-green-500">check_circle</span>
                 </div>
               </div>
-              <p className="text-5xl font-bold text-white mb-2">98.7%</p>
-              <p className="text-[var(--mid-gray)] mb-4">Job Success Rate</p>
-              <span className="text-green-400 font-semibold text-sm">+2.1% vs last month</span>
+              <p className="stats-number text-5xl font-bold mb-2">98.7%</p>
+              <p className="stats-label mb-4">Job Success Rate</p>
+              <span className="stats-growth font-semibold text-sm">+2.1% vs last month</span>
             </div>
-            
-            <div className="bg-glass p-8 rounded-3xl text-center card-glow">
+
+            <div className="stats-card p-8 rounded-3xl text-center interactive-element">
               <div className="flex justify-center items-center mb-4">
-                <div className="p-4 bg-fuchsia-500/20 rounded-full">
-                  <span className="material-icons text-3xl text-fuchsia-400">star</span>
+                <div className="stats-icon-bg p-4 rounded-full">
+                  <span className="material-icons text-3xl text-pink-500">star</span>
                 </div>
               </div>
-              <p className="text-5xl font-bold text-white mb-2">4.9/5</p>
-              <p className="text-[var(--mid-gray)] mb-4">Average Rating</p>
-              <span className="text-green-400 font-semibold text-sm">+1.8% vs last month</span>
+              <p className="stats-number text-5xl font-bold mb-2">4.9/5</p>
+              <p className="stats-label mb-4">Average Rating</p>
+              <span className="stats-growth font-semibold text-sm">+1.8% vs last month</span>
             </div>
           </div>
         </section>
