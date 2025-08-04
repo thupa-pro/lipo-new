@@ -2,13 +2,140 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { ModernFooter } from '@/components/modern-footer';
 import { CommandPaletteHint } from '@/components/ui/command-palette-hint';
+import { useToast } from '@/components/ui/use-toast';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import {
+  Menu,
+  Bell,
+  User,
+  Settings,
+  Home,
+  Briefcase,
+  CreditCard,
+  HelpCircle,
+  LogOut,
+  Activity,
+  X,
+} from 'lucide-react';
+
+interface Notification {
+  id: string;
+  title: string;
+  message: string;
+  time: string;
+  read: boolean;
+}
 
 export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [locationQuery, setLocationQuery] = useState('');
+  const [notifications, setNotifications] = useState<Notification[]>([
+    { id: "1", title: "Welcome!", message: "Explore our premium services", time: "5 min ago", read: false },
+    { id: "2", title: "New Services", message: "Check out our latest provider additions", time: "1 hour ago", read: false },
+    { id: "3", title: "Special Offer", message: "Get 20% off your first booking", time: "2 hours ago", read: true },
+  ]);
+  const [unreadCount, setUnreadCount] = useState(2);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const router = useRouter();
+  const { toast } = useToast();
+
+  const user = {
+    name: "Guest User",
+    email: "guest@loconomy.com",
+    avatar: "",
+    plan: "Free",
+    isLoggedIn: false,
+  };
+
+  useEffect(() => {
+    const count = notifications.filter(n => !n.read).length;
+    setUnreadCount(count);
+  }, [notifications]);
+
+  const handleNotificationClick = (notificationId: string) => {
+    setNotifications(prev =>
+      prev.map(n =>
+        n.id === notificationId ? { ...n, read: true } : n
+      )
+    );
+    toast({
+      title: "Notification opened",
+      description: "Viewing notification details",
+    });
+  };
+
+  const handleMarkAllRead = () => {
+    setNotifications(prev =>
+      prev.map(n => ({ ...n, read: true }))
+    );
+    toast({
+      title: "All notifications marked as read",
+      description: "Your notifications have been updated",
+    });
+  };
+
+  const handleUserProfileClick = () => {
+    if (user.isLoggedIn) {
+      router.push('/profile');
+    } else {
+      router.push('/auth/signin');
+    }
+    toast({
+      title: user.isLoggedIn ? "Opening Profile" : "Sign In Required",
+      description: user.isLoggedIn ? "Navigating to your profile" : "Please sign in to access your profile",
+    });
+  };
+
+  const handleMenuClick = () => {
+    setMobileMenuOpen(true);
+  };
+
+  const handleLogout = () => {
+    toast({
+      title: "Signed Out",
+      description: "You have been successfully signed out.",
+    });
+    router.push("/auth/signin");
+  };
+
+  const handleSearch = () => {
+    if (searchQuery.trim() || locationQuery.trim()) {
+      const params = new URLSearchParams();
+      if (searchQuery.trim()) params.set('q', searchQuery.trim());
+      if (locationQuery.trim()) params.set('location', locationQuery.trim());
+      router.push(`/browse?${params.toString()}`);
+    } else {
+      toast({
+        title: "Search Query Required",
+        description: "Please enter a service or location to search",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleQuickSearch = (tag: string) => {
+    setSearchQuery(tag);
+    const params = new URLSearchParams();
+    params.set('q', tag);
+    router.push(`/browse?${params.toString()}`);
+  };
 
   return (
     <div className="relative min-h-screen overflow-hidden">
@@ -37,15 +164,230 @@ export default function HomePage() {
           
           <div className="flex items-center space-x-4">
             <ThemeToggle />
-            <button className="p-2 rounded-full hover:bg-white/10 transition-colors">
-              <span className="material-icons text-gray-300">notifications_none</span>
-            </button>
-            <button className="p-2 rounded-full hover:bg-white/10 transition-colors">
-              <span className="material-icons text-gray-300">person_outline</span>
-            </button>
-            <button className="p-2 rounded-full hover:bg-white/10 transition-colors lg:hidden">
-              <span className="material-icons text-gray-300">menu</span>
-            </button>
+
+            {/* Notifications */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="relative p-2 rounded-full hover:bg-white/10 transition-colors">
+                  <span className="material-icons text-gray-300">notifications_none</span>
+                  {unreadCount > 0 && (
+                    <Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full p-0 text-xs bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white border-2 border-[var(--dark-navy)] animate-pulse">
+                      {unreadCount}
+                    </Badge>
+                  )}
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-80 glass border-white/20" align="end">
+                <DropdownMenuLabel className="flex items-center justify-between">
+                  <span className="text-white">Notifications</span>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={handleMarkAllRead}
+                    className="text-xs text-purple-400 hover:text-white"
+                  >
+                    Mark all read
+                  </Button>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator className="bg-white/10" />
+                {notifications.map((notification) => (
+                  <DropdownMenuItem
+                    key={notification.id}
+                    className={`flex-col items-start p-4 cursor-pointer hover:bg-white/10 transition-colors ${
+                      !notification.read ? 'bg-purple-500/10' : ''
+                    }`}
+                    onClick={() => handleNotificationClick(notification.id)}
+                  >
+                    <div className="flex items-center justify-between w-full">
+                      <h4 className="font-medium text-white">{notification.title}</h4>
+                      <span className="text-xs text-gray-400">{notification.time}</span>
+                    </div>
+                    <p className="text-sm text-gray-300 mt-1">{notification.message}</p>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* User Menu */}
+            <DropdownMenu open={userMenuOpen} onOpenChange={setUserMenuOpen}>
+              <DropdownMenuTrigger asChild>
+                <button className="relative p-2 rounded-full hover:bg-white/10 transition-colors">
+                  <Avatar className="h-8 w-8 border-2 border-purple-500/50">
+                    <AvatarImage src={user.avatar} alt={user.name} />
+                    <AvatarFallback className="bg-gradient-to-br from-purple-600 to-fuchsia-600 text-white text-sm font-bold">
+                      {user.name.charAt(0)}
+                    </AvatarFallback>
+                  </Avatar>
+                  {user.isLoggedIn && (
+                    <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-cyan-400 rounded-full border-2 border-[var(--dark-navy)]" />
+                  )}
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-64 glass border-white/20" align="end">
+                <DropdownMenuLabel className="font-normal p-4">
+                  <div className="flex flex-col space-y-2">
+                    <div className="flex items-center gap-3">
+                      <Avatar className="h-10 w-10 border-2 border-purple-500/50">
+                        <AvatarImage src={user.avatar} alt={user.name} />
+                        <AvatarFallback className="bg-gradient-to-br from-purple-600 to-fuchsia-600 text-white font-bold">
+                          {user.name.charAt(0)}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <p className="text-sm font-semibold text-white">{user.name}</p>
+                        <Badge className="bg-gradient-to-r from-purple-500 to-fuchsia-500 text-white text-xs">
+                          {user.plan}
+                        </Badge>
+                      </div>
+                    </div>
+                    <p className="text-xs text-gray-400">{user.email}</p>
+                  </div>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator className="bg-white/10" />
+                {user.isLoggedIn ? [
+                  { href: "/dashboard", label: "Dashboard", icon: Activity },
+                  { href: "/profile", label: "Profile", icon: User },
+                  { href: "/my-bookings", label: "My Bookings", icon: Briefcase },
+                  { href: "/payments", label: "Payments", icon: CreditCard },
+                  { href: "/settings", label: "Settings", icon: Settings },
+                  { href: "/help", label: "Help Center", icon: HelpCircle },
+                ].map((item) => (
+                  <DropdownMenuItem
+                    key={item.href}
+                    asChild
+                    className="flex items-center gap-3 cursor-pointer hover:bg-white/10 transition-colors m-1 rounded-2xl p-3"
+                  >
+                    <Link href={item.href}>
+                      <item.icon className="w-4 h-4" />
+                      {item.label}
+                    </Link>
+                  </DropdownMenuItem>
+                )) : [
+                  <DropdownMenuItem
+                    key="signin"
+                    asChild
+                    className="flex items-center gap-3 cursor-pointer hover:bg-white/10 transition-colors m-1 rounded-2xl p-3"
+                  >
+                    <Link href="/auth/signin">
+                      <User className="w-4 h-4" />
+                      Sign In
+                    </Link>
+                  </DropdownMenuItem>,
+                  <DropdownMenuItem
+                    key="signup"
+                    asChild
+                    className="flex items-center gap-3 cursor-pointer hover:bg-white/10 transition-colors m-1 rounded-2xl p-3"
+                  >
+                    <Link href="/auth/signup">
+                      <User className="w-4 h-4" />
+                      Sign Up
+                    </Link>
+                  </DropdownMenuItem>
+                ]}
+                {user.isLoggedIn && (
+                  <>
+                    <DropdownMenuSeparator className="bg-white/10" />
+                    <DropdownMenuItem
+                      className="text-white cursor-pointer hover:bg-white/10 transition-colors m-1 rounded-2xl p-3"
+                      onClick={handleLogout}
+                    >
+                      <LogOut className="w-4 h-4 mr-3" />
+                      Sign Out
+                    </DropdownMenuItem>
+                  </>
+                )}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* Mobile Menu */}
+            <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+              <SheetTrigger asChild>
+                <button
+                  className="p-2 rounded-full hover:bg-white/10 transition-colors lg:hidden"
+                  onClick={handleMenuClick}
+                >
+                  <span className="material-icons text-gray-300">menu</span>
+                </button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-80 glass border-white/10">
+                <div className="flex flex-col space-y-6 mt-8">
+                  <div className="flex items-center space-x-3 pb-6 border-b border-white/10">
+                    <Avatar className="h-12 w-12 border-2 border-purple-500/50">
+                      <AvatarImage src={user.avatar} alt={user.name} />
+                      <AvatarFallback className="bg-gradient-to-br from-purple-600 to-fuchsia-600 text-white font-bold">
+                        {user.name.charAt(0)}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <p className="font-semibold text-white">{user.name}</p>
+                      <Badge className="bg-gradient-to-r from-purple-500 to-fuchsia-500 text-white text-xs">
+                        {user.plan}
+                      </Badge>
+                    </div>
+                  </div>
+
+                  <nav className="flex flex-col space-y-2">
+                    {[
+                      { href: "/", label: "Home", icon: Home },
+                      { href: "/browse", label: "Find Services", icon: Activity },
+                      { href: "/how-it-works", label: "How It Works", icon: HelpCircle },
+                      { href: "/become-provider", label: "Become Provider", icon: Briefcase },
+                      { href: "/blog", label: "Blog", icon: User },
+                    ].map((item) => (
+                      <Button
+                        key={item.href}
+                        variant="ghost"
+                        className="justify-start h-12 w-full glass hover:bg-white/10 transition-all duration-300 rounded-2xl mb-2"
+                        asChild
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        <Link href={item.href} className="flex items-center gap-3">
+                          <item.icon className="w-5 h-5" />
+                          {item.label}
+                        </Link>
+                      </Button>
+                    ))}
+
+                    <div className="border-t border-white/10 pt-4">
+                      {user.isLoggedIn ? (
+                        <Button
+                          variant="ghost"
+                          className="justify-start text-white w-full hover:bg-white/10 transition-colors rounded-2xl h-12"
+                          onClick={handleLogout}
+                        >
+                          <LogOut className="w-5 h-5 mr-3" />
+                          Sign Out
+                        </Button>
+                      ) : (
+                        <div className="space-y-2">
+                          <Button
+                            variant="ghost"
+                            className="justify-start text-white w-full hover:bg-white/10 transition-colors rounded-2xl h-12"
+                            asChild
+                            onClick={() => setMobileMenuOpen(false)}
+                          >
+                            <Link href="/auth/signin">
+                              <User className="w-5 h-5 mr-3" />
+                              Sign In
+                            </Link>
+                          </Button>
+                          <Button
+                            className="justify-start w-full bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white rounded-2xl h-12"
+                            asChild
+                            onClick={() => setMobileMenuOpen(false)}
+                          >
+                            <Link href="/auth/signup">
+                              <User className="w-5 h-5 mr-3" />
+                              Sign Up
+                            </Link>
+                          </Button>
+                        </div>
+                      )}
+                    </div>
+                  </nav>
+                </div>
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
       </header>
@@ -115,15 +457,19 @@ export default function HomePage() {
                     onChange={(e) => setLocationQuery(e.target.value)}
                   />
                 </div>
-                <button className="w-full mt-4 md:mt-0 md:w-auto px-10 py-4 bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white font-semibold rounded-full btn-glow transition-transform transform hover:scale-105 flex-shrink-0">
+                <button
+                  onClick={handleSearch}
+                  className="w-full mt-4 md:mt-0 md:w-auto px-10 py-4 bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white font-semibold rounded-full btn-glow transition-transform transform hover:scale-105 flex-shrink-0"
+                >
                   Search
                 </button>
               </div>
               
               <div className="flex flex-wrap justify-center gap-3 mt-8 text-sm">
                 {['House Cleaning', 'Plumber', 'Electrician', 'Personal Trainer', 'Math Tutor'].map((tag) => (
-                  <button 
+                  <button
                     key={tag}
+                    onClick={() => handleQuickSearch(tag)}
                     className="bg-white/10 hover:bg-white/20 transition-colors text-gray-300 px-4 py-2 rounded-full border border-transparent hover:border-purple-400/50"
                   >
                     {tag}
