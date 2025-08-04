@@ -434,16 +434,16 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4 md:gap-6 px-4">
             <Link
               href="/browse"
-              className="w-full sm:w-auto flex items-center justify-center gap-2 md:gap-3 px-6 md:px-10 py-4 md:py-5 bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white font-bold rounded-full text-base md:text-lg btn-glow transition-transform transform hover:scale-105"
+              className="w-full sm:w-auto flex items-center justify-center gap-2 md:gap-3 px-6 md:px-10 py-4 md:py-5 bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white font-ui font-semibold rounded-full text-base md:text-lg btn-glow transition-all duration-300 transform hover:scale-105 hover:shadow-2xl group"
             >
-              <span className="material-icons text-lg md:text-xl">search</span>
+              <Search className="w-5 h-5 md:w-6 md:h-6 transition-transform duration-300 group-hover:scale-110" />
               Find Services Now
             </Link>
             <Link
               href="/become-provider"
-              className="w-full sm:w-auto flex items-center justify-center gap-2 md:gap-3 px-6 md:px-10 py-4 md:py-5 bg-white/10 text-white font-bold rounded-full text-base md:text-lg hover:bg-white/20 transition-all duration-300 border border-transparent hover:border-white/30"
+              className="w-full sm:w-auto flex items-center justify-center gap-2 md:gap-3 px-6 md:px-10 py-4 md:py-5 bg-white/10 text-white font-ui font-semibold rounded-full text-base md:text-lg hover:bg-white/20 transition-all duration-300 border border-transparent hover:border-white/30 backdrop-blur-sm group"
             >
-              <span className="material-icons text-lg md:text-xl">group_add</span>
+              <UserPlus className="w-5 h-5 md:w-6 md:h-6 transition-transform duration-300 group-hover:scale-110" />
               Become a Provider
             </Link>
           </div>
