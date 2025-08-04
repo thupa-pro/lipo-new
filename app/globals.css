@@ -623,6 +623,60 @@
       rgba(255, 255, 255, 1) 100%);
   }
 
+  /* Premium Navigation Styling for Light Mode */
+  .light nav a,
+  .light .nav-link {
+    color: var(--text-nav) !important;
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+  }
+
+  .light nav a:hover,
+  .light .nav-link:hover {
+    color: var(--text-accent) !important;
+    text-shadow: 0 2px 4px rgba(124, 58, 237, 0.2);
+  }
+
+  /* Enhanced Text Contrast for Light Mode */
+  .light h1,
+  .light h2,
+  .light h3,
+  .light h4,
+  .light h5,
+  .light h6 {
+    color: var(--text-primary) !important;
+    font-weight: 700;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .light p,
+  .light span:not(.gradient-text) {
+    color: var(--text-secondary) !important;
+  }
+
+  .light .text-gray-600 {
+    color: var(--text-muted) !important;
+  }
+
+  .light .text-gray-400 {
+    color: var(--text-muted) !important;
+  }
+
+  .light .text-white {
+    color: var(--text-primary) !important;
+  }
+
+  /* Premium Gradient Text for Light Mode */
+  .light .gradient-text {
+    background: var(--gradient-text) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    font-weight: 800;
+    text-shadow: none;
+  }
+
   /* Scrollbar Styling */
   ::-webkit-scrollbar {
     width: 8px;
