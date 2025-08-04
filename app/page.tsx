@@ -501,19 +501,19 @@ export default function HomePage() {
             </div>
             
             <div className="relative text-center z-10">
-              <div className="w-20 h-20 bg-glass rounded-full flex items-center justify-center mx-auto mb-6 border-2 border-fuchsia-500">
+              <div className="works-number-circle w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
                 <span className="text-4xl font-black gradient-text">2</span>
               </div>
-              <h3 className="text-2xl font-bold text-white mb-3">Get Matches</h3>
-              <p className="text-[var(--mid-gray)]">Our smart AI algorithm matches you with qualified, vetted pros in your area who are ready to help.</p>
+              <h3 className="works-step-title text-2xl font-bold mb-3">Get Matches</h3>
+              <p className="works-step-description">Our smart AI algorithm matches you with qualified, vetted pros in your area who are ready to help.</p>
             </div>
-            
+
             <div className="relative text-center z-10">
-              <div className="w-20 h-20 bg-glass rounded-full flex items-center justify-center mx-auto mb-6 border-2 border-cyan-500">
+              <div className="works-number-circle w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
                 <span className="text-4xl font-black gradient-text">3</span>
               </div>
-              <h3 className="text-2xl font-bold text-white mb-3">Hire & Relax</h3>
-              <p className="text-[var(--mid-gray)]">Compare profiles, quotes, and reviews. Hire the best fit and get the job done right, guaranteed.</p>
+              <h3 className="works-step-title text-2xl font-bold mb-3">Hire & Relax</h3>
+              <p className="works-step-description">Compare profiles, quotes, and reviews. Hire the best fit and get the job done right, guaranteed.</p>
             </div>
           </div>
         </section>
