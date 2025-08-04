@@ -533,7 +533,7 @@ export default function HomePage() {
               <span className="stats-growth font-semibold text-sm">+23.5% vs last month</span>
             </div>
             
-            <div className="stats-card p-8 rounded-3xl text-center interactive-element">
+            <div className="stats-card ultra-glass p-8 rounded-3xl text-center interactive-element floating-element delay-100">
               <div className="flex justify-center items-center mb-4">
                 <div className="stats-icon-bg p-4 rounded-full">
                   <span className="material-icons text-3xl text-cyan-500">timer</span>
@@ -544,7 +544,7 @@ export default function HomePage() {
               <span className="stats-growth font-semibold text-sm">+15.2% vs last month</span>
             </div>
 
-            <div className="stats-card p-8 rounded-3xl text-center interactive-element">
+            <div className="stats-card ultra-glass p-8 rounded-3xl text-center interactive-element floating-element delay-200">
               <div className="flex justify-center items-center mb-4">
                 <div className="stats-icon-bg p-4 rounded-full">
                   <span className="material-icons text-3xl text-green-500">check_circle</span>
@@ -555,7 +555,7 @@ export default function HomePage() {
               <span className="stats-growth font-semibold text-sm">+2.1% vs last month</span>
             </div>
 
-            <div className="stats-card p-8 rounded-3xl text-center interactive-element">
+            <div className="stats-card ultra-glass p-8 rounded-3xl text-center interactive-element floating-element delay-300">
               <div className="flex justify-center items-center mb-4">
                 <div className="stats-icon-bg p-4 rounded-full">
                   <span className="material-icons text-3xl text-pink-500">star</span>
