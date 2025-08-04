@@ -991,6 +991,23 @@
   /* Enhanced Interactive Elements */
   .light .interactive-element {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .light .interactive-element::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(124, 58, 237, 0.1), transparent);
+    transition: left 0.5s;
+  }
+
+  .light .interactive-element:hover::before {
+    left: 100%;
   }
 
   .light .interactive-element:hover {
@@ -998,5 +1015,137 @@
     box-shadow:
       0 12px 24px rgba(124, 58, 237, 0.15),
       0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Ultra-Premium Floating Animation for Light Mode */
+  .light .floating-element {
+    animation: gentle-float 6s ease-in-out infinite;
+  }
+
+  @keyframes gentle-float {
+    0%, 100% {
+      transform: translateY(0px) scale(1);
+    }
+    50% {
+      transform: translateY(-5px) scale(1.02);
+    }
+  }
+
+  /* Premium Glow Pulse for Light Mode */
+  .light .glow-pulse {
+    animation: light-glow-pulse 3s ease-in-out infinite;
+  }
+
+  @keyframes light-glow-pulse {
+    0%, 100% {
+      box-shadow:
+        0 8px 24px rgba(124, 58, 237, 0.1),
+        0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    50% {
+      box-shadow:
+        0 12px 36px rgba(124, 58, 237, 0.15),
+        0 6px 18px rgba(0, 0, 0, 0.08);
+    }
+  }
+
+  /* Beautiful Gradient Border Animation */
+  .light .gradient-border {
+    position: relative;
+    background: rgba(255, 255, 255, 0.98);
+    border-radius: 24px;
+  }
+
+  .light .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    padding: 2px;
+    background: linear-gradient(45deg, #7C3AED, #3B82F6, #06B6D4, #10B981, #F59E0B, #EF4444, #EC4899, #7C3AED);
+    background-size: 400% 400%;
+    border-radius: inherit;
+    animation: gradient-rotate 8s linear infinite;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+  }
+
+  @keyframes gradient-rotate {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  /* Premium Text Reveal Animation */
+  .light .text-reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: text-reveal 1s ease-out forwards;
+  }
+
+  @keyframes text-reveal {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Staggered Animation Delays */
+  .light .delay-100 { animation-delay: 0.1s; }
+  .light .delay-200 { animation-delay: 0.2s; }
+  .light .delay-300 { animation-delay: 0.3s; }
+  .light .delay-400 { animation-delay: 0.4s; }
+  .light .delay-500 { animation-delay: 0.5s; }
+
+  /* Premium Hover Scale Effect */
+  .light .hover-scale {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .light .hover-scale:hover {
+    transform: scale(1.05);
+  }
+
+  /* Beautiful Backdrop Blur Enhancement */
+  .light .ultra-glass {
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    box-shadow:
+      0 32px 64px rgba(124, 58, 237, 0.1),
+      0 16px 32px rgba(0, 0, 0, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 1);
+  }
+
+  /* Enhanced Button Ripple Effect */
+  .light .btn-ripple {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .light .btn-ripple::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s;
+  }
+
+  .light .btn-ripple:active::after {
+    width: 300px;
+    height: 300px;
   }
 }
