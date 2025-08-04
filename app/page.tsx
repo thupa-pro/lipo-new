@@ -411,8 +411,13 @@ export default function HomePage() {
       <main className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
         <section className="hero-section text-center py-16 md:py-40">
-          <div className="hero-badge floating-element glow-pulse mb-6 flex justify-center items-center gap-2 text-xs md:text-sm font-medium px-4 md:px-6 py-2 md:py-3 rounded-full inline-flex">
-            <span className="material-icons text-sm md:text-lg animate-pulse">verified</span>
+          <div className="hero-badge floating-element glow-pulse mb-6 flex justify-center items-center gap-3 text-xs md:text-sm font-ui px-4 md:px-6 py-2 md:py-3 rounded-full inline-flex">
+            <div className="relative">
+              <Shield className="w-4 h-4 md:w-5 md:h-5 text-emerald-400 animate-pulse" />
+              <div className="absolute inset-0 animate-ping">
+                <Shield className="w-4 h-4 md:w-5 md:h-5 text-emerald-400 opacity-30" />
+              </div>
+            </div>
             <span>Trusted by 2.4M+ Users Worldwide</span>
           </div>
 
