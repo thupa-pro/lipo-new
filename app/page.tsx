@@ -581,8 +581,8 @@ export default function HomePage() {
         </section>
 
         {/* How It Works Section */}
-        <section className="py-16 md:py-24 px-4" id="how-it-works">
-          <h2 className="section-title text-2xl md:text-4xl font-heading text-center mb-4">How Loconomy Works</h2>
+        <section className="py-16 md:py-24 px-4" id="how-it-works" role="region" aria-labelledby="how-it-works-title">
+          <h2 id="how-it-works-title" className="section-title text-2xl md:text-4xl font-heading text-center mb-4">How Loconomy Works</h2>
           <p className="section-subtitle text-base md:text-lg text-center mb-12 md:mb-16 max-w-2xl mx-auto font-body">Finding your ideal service professional is as easy as 1-2-3.</p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 relative">
@@ -619,9 +619,9 @@ export default function HomePage() {
         </section>
 
         {/* Stats Section */}
-        <section className="py-20">
+        <section className="py-20" role="region" aria-labelledby="stats-title">
           <ScrollReveal direction="up">
-            <h2 className="section-title text-4xl font-heading text-center mb-12">Trusted Platform Performance</h2>
+            <h2 id="stats-title" className="section-title text-4xl font-heading text-center mb-12">Trusted Platform Performance</h2>
           </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="stats-card card-elite p-8 text-center magnetic-hover animate-elite-float">
@@ -671,8 +671,8 @@ export default function HomePage() {
         </section>
 
         {/* Service Categories Section */}
-        <section className="py-20">
-          <h2 className="section-title text-4xl font-bold text-center mb-4">Popular Service Categories</h2>
+        <section className="py-20" role="region" aria-labelledby="categories-title">
+          <h2 id="categories-title" className="section-title text-4xl font-heading text-center mb-4">Popular Service Categories</h2>
           <p className="section-subtitle text-lg text-center mb-12 max-w-2xl mx-auto">Explore thousands of verified service providers across all major categories.</p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
