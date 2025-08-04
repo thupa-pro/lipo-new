@@ -601,6 +601,29 @@
     }
   }
 
+  @keyframes elite-shimmer {
+    0% {
+      background-position: -100% 0;
+    }
+    50% {
+      background-position: 100% 0;
+    }
+    100% {
+      background-position: -100% 0;
+    }
+  }
+
+  @keyframes pulse-shimmer {
+    0%, 100% {
+      opacity: 0.4;
+      background-position: -200% 0;
+    }
+    50% {
+      opacity: 0.8;
+      background-position: 200% 0;
+    }
+  }
+
   .animate-pulse-glow {
     animation: pulse-glow 2s ease-in-out infinite;
   }
