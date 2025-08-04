@@ -788,6 +788,22 @@
 
   /* ============= MOBILE-SPECIFIC OPTIMIZATIONS ============= */
 
+  /* Mobile Viewport and Status Bar */
+  @supports (-webkit-touch-callout: none) {
+    .min-h-screen {
+      min-height: -webkit-fill-available;
+    }
+  }
+
+  /* Safe area handling for mobile devices */
+  @supports (padding: max(0px)) {
+    body {
+      padding-left: max(0px, env(safe-area-inset-left));
+      padding-right: max(0px, env(safe-area-inset-right));
+      padding-bottom: max(0px, env(safe-area-inset-bottom));
+    }
+  }
+
   /* Mobile Header Optimization */
   @media (max-width: 768px) {
     .hero-section {
