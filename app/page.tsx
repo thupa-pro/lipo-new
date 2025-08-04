@@ -650,7 +650,7 @@ export default function HomePage() {
               <span className="stats-growth font-semibold text-sm">+15.2% vs last month</span>
             </div>
 
-            <div className="stats-card card-elite p-8 text-center magnetic-hover animate-elite-float" style="animation-delay: 0.4s;">
+            <div className="stats-card card-elite p-8 text-center magnetic-hover animate-elite-float" style={{animationDelay: '0.4s'}}>
               <div className="flex justify-center items-center mb-4">
                 <div className="stats-icon-bg p-4 rounded-full">
                   <CheckCircle className="w-8 h-8 text-green-500" />
@@ -661,7 +661,7 @@ export default function HomePage() {
               <span className="stats-growth font-semibold text-sm">+2.1% vs last month</span>
             </div>
 
-            <div className="stats-card card-elite p-8 text-center magnetic-hover animate-elite-float" style="animation-delay: 0.6s;">
+            <div className="stats-card card-elite p-8 text-center magnetic-hover animate-elite-float" style={{animationDelay: '0.6s'}}>
               <div className="flex justify-center items-center mb-4">
                 <div className="stats-icon-bg p-4 rounded-full">
                   <Star className="w-8 h-8 text-pink-500 fill-current" />
