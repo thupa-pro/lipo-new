@@ -41,6 +41,16 @@ import {
   Star,
   ArrowRight,
   Play,
+  Users,
+  Clock,
+  Wrench,
+  HomeIcon,
+  GraduationCap,
+  Car,
+  Music,
+  Brain,
+  HeadphonesIcon,
+  Timer,
 } from 'lucide-react';
 
 interface Notification {
