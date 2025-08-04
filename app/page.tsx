@@ -608,7 +608,9 @@ export default function HomePage() {
 
         {/* Stats Section */}
         <section className="py-20">
-          <h2 className="section-title text-4xl font-bold text-center mb-12">Trusted Platform Performance</h2>
+          <ScrollReveal direction="up">
+            <h2 className="section-title text-4xl font-heading text-center mb-12">Trusted Platform Performance</h2>
+          </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="stats-card card-elite p-8 text-center magnetic-hover animate-elite-float">
               <div className="flex justify-center items-center mb-4">
