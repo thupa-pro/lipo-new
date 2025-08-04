@@ -510,7 +510,7 @@ export default function HomePage() {
 
         {/* Search Section */}
         <section className="py-12 md:py-20" id="find-service">
-          <div className="search-card ultra-glass rounded-3xl p-6 md:p-12 hover-scale mx-4 md:mx-0">
+          <div className="search-card card-elite p-6 md:p-12 hover-scale mx-4 md:mx-0 animate-elite-float">
             <h2 className="section-title text-2xl md:text-4xl font-heading text-center mb-2">Start Your Search</h2>
             <p className="section-subtitle text-center mb-6 md:mb-10 font-body">Get matched with the perfect professional in seconds.</p>
 
@@ -601,7 +601,7 @@ export default function HomePage() {
         <section className="py-20">
           <h2 className="section-title text-4xl font-bold text-center mb-12">Trusted Platform Performance</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="stats-card ultra-glass p-8 rounded-3xl text-center interactive-element floating-element">
+            <div className="stats-card card-elite p-8 text-center magnetic-hover animate-elite-float">
               <div className="flex justify-center items-center mb-4">
                 <div className="stats-icon-bg p-4 rounded-full">
                   <Users className="w-8 h-8 text-purple-500" />
@@ -612,7 +612,7 @@ export default function HomePage() {
               <span className="stats-growth font-semibold text-sm">+23.5% vs last month</span>
             </div>
             
-            <div className="stats-card ultra-glass p-8 rounded-3xl text-center interactive-element floating-element delay-100">
+            <div className="stats-card card-elite p-8 text-center magnetic-hover animate-elite-float" style="animation-delay: 0.2s;">
               <div className="flex justify-center items-center mb-4">
                 <div className="stats-icon-bg p-4 rounded-full">
                   <Clock className="w-8 h-8 text-cyan-500" />
@@ -623,7 +623,7 @@ export default function HomePage() {
               <span className="stats-growth font-semibold text-sm">+15.2% vs last month</span>
             </div>
 
-            <div className="stats-card ultra-glass p-8 rounded-3xl text-center interactive-element floating-element delay-200">
+            <div className="stats-card card-elite p-8 text-center magnetic-hover animate-elite-float" style="animation-delay: 0.4s;">
               <div className="flex justify-center items-center mb-4">
                 <div className="stats-icon-bg p-4 rounded-full">
                   <CheckCircle className="w-8 h-8 text-green-500" />
@@ -634,7 +634,7 @@ export default function HomePage() {
               <span className="stats-growth font-semibold text-sm">+2.1% vs last month</span>
             </div>
 
-            <div className="stats-card ultra-glass p-8 rounded-3xl text-center interactive-element floating-element delay-300">
+            <div className="stats-card card-elite p-8 text-center magnetic-hover animate-elite-float" style="animation-delay: 0.6s;">
               <div className="flex justify-center items-center mb-4">
                 <div className="stats-icon-bg p-4 rounded-full">
                   <Star className="w-8 h-8 text-pink-500 fill-current" />
