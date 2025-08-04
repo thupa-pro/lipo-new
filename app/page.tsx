@@ -402,9 +402,9 @@ export default function HomePage() {
           </div>
 
           <h1 className="text-3xl md:text-7xl lg:text-8xl font-black mb-6 leading-tight px-4">
-            <span className="hero-title-gradient text-reveal">Connect with Local</span>
+            <span className="gradient-text">Connect with Local</span>
             <br />
-            <span className="hero-title-dark text-reveal delay-200">Service Professionals You Trust</span>
+            <span className="text-white">Service Professionals You Trust</span>
           </h1>
 
           <p className="hero-description max-w-3xl mx-auto text-base md:text-xl mb-8 md:mb-12 font-medium px-4">
