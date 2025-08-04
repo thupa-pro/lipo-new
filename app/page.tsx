@@ -51,6 +51,10 @@ import {
   Brain,
   HeadphonesIcon,
   Timer,
+  Dumbbell,
+  PartyPopper,
+  Bot,
+  Monitor,
 } from 'lucide-react';
 
 interface Notification {
