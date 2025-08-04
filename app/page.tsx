@@ -395,19 +395,19 @@ export default function HomePage() {
       {/* Main Content */}
       <main className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
-        <section className="text-center py-24 md:py-40">
-          <div className="mb-6 flex justify-center items-center gap-2 text-sm font-medium text-purple-300 bg-purple-500/10 border border-purple-400/20 px-4 py-1.5 rounded-full inline-flex">
+        <section className="hero-section text-center py-24 md:py-40">
+          <div className="hero-badge mb-6 flex justify-center items-center gap-2 text-sm font-medium px-6 py-3 rounded-full inline-flex">
             <span className="material-icons text-lg animate-pulse">verified</span>
             <span>Trusted by 2.4M+ Users Worldwide</span>
           </div>
-          
+
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-tight">
-            <span className="gradient-text">Connect with Local</span>
+            <span className="hero-title-gradient">Connect with Local</span>
             <br />
-            <span className="text-white">Service Professionals You Trust</span>
+            <span className="hero-title-dark">Service Professionals You Trust</span>
           </h1>
-          
-          <p className="max-w-3xl mx-auto text-lg md:text-xl text-[var(--mid-gray)] mb-12">
+
+          <p className="hero-description max-w-3xl mx-auto text-lg md:text-xl mb-12 font-medium">
             Loconomy is the premium marketplace connecting you with verified local service providers. From home repairs to personal training - find trusted professionals in your area with our AI-powered matching system.
           </p>
           
