@@ -452,13 +452,13 @@ export default function HomePage() {
         {/* Search Section */}
         <section className="py-12 md:py-20" id="find-service">
           <div className="search-card ultra-glass rounded-3xl p-6 md:p-12 hover-scale mx-4 md:mx-0">
-            <h2 className="section-title text-2xl md:text-4xl font-bold text-center mb-2">Start Your Search</h2>
-            <p className="section-subtitle text-center mb-6 md:mb-10">Get matched with the perfect professional in seconds.</p>
+            <h2 className="section-title text-2xl md:text-4xl font-heading text-center mb-2">Start Your Search</h2>
+            <p className="section-subtitle text-center mb-6 md:mb-10 font-body">Get matched with the perfect professional in seconds.</p>
 
             <div className="max-w-4xl mx-auto">
               <div className="search-input-container flex flex-col md:flex-row items-center p-2 md:p-3 rounded-full">
                 <div className="flex-grow w-full flex items-center pl-3 md:pl-4 pr-2">
-                  <span className="material-icons text-[var(--mid-gray)] mr-2 md:mr-3 text-lg md:text-xl">work_outline</span>
+                  <Briefcase className="w-5 h-5 md:w-6 md:h-6 text-[var(--mid-gray)] mr-2 md:mr-3" />
                   <input
                     className="search-input w-full focus:outline-none py-2 md:py-3 text-base md:text-lg"
                     placeholder="What service do you need?"
@@ -468,7 +468,7 @@ export default function HomePage() {
                   />
                 </div>
                 <div className="w-full md:w-auto flex items-center pl-3 md:pl-4 pr-2 border-t md:border-t-0 md:border-l border-gray-200 dark:border-white/10 mt-2 md:mt-0 pt-2 md:pt-0">
-                  <span className="material-icons text-gray-500 dark:text-[var(--mid-gray)] mr-2 md:mr-3 text-lg md:text-xl">location_on</span>
+                  <MapPin className="w-5 h-5 md:w-6 md:h-6 text-gray-500 dark:text-[var(--mid-gray)] mr-2 md:mr-3" />
                   <input
                     className="search-input w-full focus:outline-none py-2 md:py-3 text-base md:text-lg"
                     placeholder="Your Location"
@@ -479,7 +479,7 @@ export default function HomePage() {
                 </div>
                 <button
                   onClick={handleSearch}
-                  className="w-full mt-3 md:mt-0 md:w-auto px-6 md:px-10 py-3 md:py-4 bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white font-semibold rounded-full btn-glow transition-transform transform hover:scale-105 flex-shrink-0"
+                  className="w-full mt-3 md:mt-0 md:w-auto px-6 md:px-10 py-3 md:py-4 bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white font-ui font-semibold rounded-full btn-glow transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex-shrink-0"
                 >
                   Search
                 </button>
