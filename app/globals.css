@@ -356,11 +356,13 @@
     background-size: 50px 50px;
   }
 
-  /* Light mode grid */
+  /* Light mode premium grid */
   .light .bg-grid-white {
-    background-image: 
-      linear-gradient(rgba(168, 85, 247, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(168, 85, 247, 0.03) 1px, transparent 1px);
+    background-image:
+      linear-gradient(rgba(124, 58, 237, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(124, 58, 237, 0.04) 1px, transparent 1px),
+      radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.02) 0%, transparent 70%);
+    background-size: 60px 60px, 60px 60px, 200px 200px;
   }
 
   /* Text Colors with Theme Support */
