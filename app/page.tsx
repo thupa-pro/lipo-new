@@ -31,6 +31,16 @@ import {
   LogOut,
   Activity,
   X,
+  Search,
+  UserPlus,
+  CheckCircle,
+  MapPin,
+  Sparkles,
+  Zap,
+  Shield,
+  Star,
+  ArrowRight,
+  Play,
 } from 'lucide-react';
 
 interface Notification {
