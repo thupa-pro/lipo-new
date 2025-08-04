@@ -8,6 +8,7 @@ import { ModernFooter } from '@/components/modern-footer';
 import { CommandPaletteHint } from '@/components/ui/command-palette-hint';
 import { CommandPalette } from '@/components/ui/command-palette';
 import { ScrollReveal, StaggeredReveal, ParallaxReveal } from '@/components/ui/scroll-reveal';
+import { FloatingFAB, MobileBottomNav } from '@/components/ui/floating-fab';
 import { useToast } from '@/components/ui/use-toast';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
