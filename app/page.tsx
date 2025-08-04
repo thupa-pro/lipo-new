@@ -76,6 +76,7 @@ export default function HomePage() {
   const [unreadCount, setUnreadCount] = useState(2);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const router = useRouter();
   const { toast } = useToast();
