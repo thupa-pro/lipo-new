@@ -872,6 +872,10 @@ export default function HomePage() {
 
       <ModernFooter />
       <CommandPaletteHint />
+      <CommandPalette
+        isOpen={isCommandPaletteOpen}
+        onClose={() => setIsCommandPaletteOpen(false)}
+      />
 
       {/* Mobile Bottom Spacing */}
       <div className="h-20 md:h-0 mobile-bottom-spacing"></div>
