@@ -106,6 +106,31 @@ export default function HomePage() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    const handleKeyboard = (e: KeyboardEvent) => {
+      // Command palette shortcut (Cmd/Ctrl + K)
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setIsCommandPaletteOpen(true);
+      }
+
+      // Slash command for search
+      if (e.key === '/' && !isCommandPaletteOpen) {
+        e.preventDefault();
+        router.push('/browse');
+      }
+
+      // Question mark for help
+      if (e.key === '?' && !isCommandPaletteOpen) {
+        e.preventDefault();
+        router.push('/help');
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyboard);
+    return () => document.removeEventListener('keydown', handleKeyboard);
+  }, [router, isCommandPaletteOpen]);
+
   const handleNotificationClick = (notificationId: string) => {
     setNotifications(prev =>
       prev.map(n =>
