@@ -795,7 +795,7 @@ export default function HomePage() {
       <CommandPaletteHint />
 
       {/* Mobile Bottom Spacing */}
-      <div className="h-20 md:h-0"></div>
+      <div className="h-20 md:h-0 mobile-bottom-spacing"></div>
     </div>
   );
 }
