@@ -502,8 +502,8 @@ export default function HomePage() {
 
         {/* How It Works Section */}
         <section className="py-16 md:py-24 px-4" id="how-it-works">
-          <h2 className="section-title text-2xl md:text-4xl font-bold text-center mb-4">How Loconomy Works</h2>
-          <p className="section-subtitle text-base md:text-lg text-center mb-12 md:mb-16 max-w-2xl mx-auto">Finding your ideal service professional is as easy as 1-2-3.</p>
+          <h2 className="section-title text-2xl md:text-4xl font-heading text-center mb-4">How Loconomy Works</h2>
+          <p className="section-subtitle text-base md:text-lg text-center mb-12 md:mb-16 max-w-2xl mx-auto font-body">Finding your ideal service professional is as easy as 1-2-3.</p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 relative">
             <div className="absolute top-1/2 left-0 w-full h-px bg-gray-200 dark:bg-white/10 hidden md:block"></div>
