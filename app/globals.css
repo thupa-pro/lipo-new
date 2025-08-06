@@ -1336,17 +1336,17 @@
   }
 
   .light .search-tag {
-    background: rgba(255, 255, 255, 0.9) !important;
-    border: 1px solid rgba(124, 58, 237, 0.2) !important;
-    color: #334155 !important;
-    box-shadow: 0 2px 8px rgba(124, 58, 237, 0.08);
+    background: #FFFFFF !important;
+    border: 1px solid #D1D5DB !important;
+    color: #374151 !important;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   }
 
   .light .search-tag:hover {
-    background: rgba(255, 255, 255, 1) !important;
-    border-color: rgba(124, 58, 237, 0.3) !important;
-    color: #1E293B !important;
-    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.12);
+    background: #F9FAFB !important;
+    border-color: #9CA3AF !important;
+    color: #111827 !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }
 
   /* How It Works Section Premium Styling */
