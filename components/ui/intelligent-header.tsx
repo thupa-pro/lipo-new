@@ -205,6 +205,8 @@ export function IntelligentHeader({ onCommandPaletteOpen }: IntelligentHeaderPro
   }, [user, userRole, isCustomer, isProvider, isAdmin, isSuperAdmin]);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       setIsScrolled(scrollPosition > 50);
