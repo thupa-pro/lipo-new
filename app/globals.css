@@ -1064,14 +1064,13 @@
   .light h4,
   .light h5,
   .light h6 {
-    color: var(--text-primary) !important;
+    color: #111827 !important;
     font-weight: 700;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   }
 
   .light p,
   .light span:not(.gradient-text) {
-    color: var(--text-secondary) !important;
+    color: #374151 !important;
   }
 
   .light .text-gray-600 {
