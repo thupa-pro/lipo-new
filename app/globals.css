@@ -1321,11 +1321,9 @@
   }
 
   .light .search-input-container {
-    background: rgba(248, 250, 252, 0.8) !important;
-    border: 1px solid rgba(124, 58, 237, 0.15) !important;
-    box-shadow:
-      inset 0 2px 4px rgba(0, 0, 0, 0.04),
-      0 1px 2px rgba(124, 58, 237, 0.05);
+    background: #F9FAFB !important;
+    border: 1px solid #D1D5DB !important;
+    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
   }
 
   .light .search-input {
