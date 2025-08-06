@@ -532,8 +532,8 @@ export default function HomePage() {
         </section>
 
         {/* Search Section */}
-        <section className="py-12 md:py-20" id="find-service" role="search" aria-labelledby="search-title">
-          <div className="search-card card-elite p-6 md:p-12 hover-scale mx-4 md:mx-0 animate-elite-float">
+        <section className="py-8 sm:py-12 md:py-16 lg:py-20 landscape-compact" id="find-service" role="search" aria-labelledby="search-title">
+          <div className="search-card card-elite resp-p-6 hover-scale mx-2 sm:mx-4 md:mx-0 animate-elite-float">
             <h2 id="search-title" className="section-title text-2xl md:text-4xl font-heading text-center mb-2">Start Your Search</h2>
             <p className="section-subtitle text-center mb-6 md:mb-10 font-body">Get matched with the perfect professional in seconds.</p>
 
