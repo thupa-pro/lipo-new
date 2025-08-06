@@ -236,7 +236,7 @@ export default function HomePage() {
             <span className="text-xl md:text-3xl font-display text-gray-900 dark:text-white tracking-tight" role="img" aria-label="Loconomy Logo">Loconomy</span>
           </div>
           
-          <nav className="hidden lg:flex items-center space-x-8 text-sm font-medium text-gray-300" role="navigation" aria-label="Primary navigation">
+          <nav className="hidden lg:flex items-center space-x-8 text-sm font-medium text-gray-600 dark:text-gray-300" role="navigation" aria-label="Primary navigation">
             <Link href="/browse" className="hover:text-white transition-colors duration-300">Find Services</Link>
             <Link href="/how-it-works" className="hover:text-white transition-colors duration-300">How It Works</Link>
             <Link href="/become-provider" className="hover:text-white transition-colors duration-300">Become a Provider</Link>
