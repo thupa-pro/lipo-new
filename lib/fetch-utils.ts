@@ -259,6 +259,18 @@ export function useCancellableFetch() {
     url: string,
     options: FetchOptions = {}
   ): Promise<FetchResult<T>> => {
+    // Only work on client side
+    if (typeof window === 'undefined') {
+      return {
+        data: null,
+        error: new Error('SSR: fetch not available'),
+        status: null,
+        ok: false,
+        aborted: false,
+        timedOut: false,
+      };
+    }
+
     // Cancel previous request
     if (abortControllerRef.current) {
       abortControllerRef.current.abort();
