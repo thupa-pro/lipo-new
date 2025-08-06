@@ -1428,20 +1428,23 @@
   }
 
   .light .stats-icon-bg {
-    background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(59, 130, 246, 0.08)) !important;
+    background: #F3F4F6 !important;
+    border: 1px solid #E5E7EB !important;
   }
 
   .light .stats-number {
-    color: #0F172A !important;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    color: #111827 !important;
+    font-weight: 800 !important;
   }
 
   .light .stats-label {
-    color: #475569 !important;
+    color: #374151 !important;
+    font-weight: 600 !important;
   }
 
   .light .stats-growth {
     color: #059669 !important;
+    font-weight: 600 !important;
   }
 
   /* Service Categories Premium Styling */
