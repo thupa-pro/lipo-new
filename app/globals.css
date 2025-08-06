@@ -913,6 +913,23 @@
     transform: translateY(-1px);
   }
 
+  /* Light mode - ensure all gradient background buttons have white text */
+  .light button[class*="bg-gradient"],
+  .light .bg-gradient-to-r,
+  .light .bg-gradient-to-l,
+  .light .bg-gradient-to-t,
+  .light .bg-gradient-to-b {
+    color: #FFFFFF !important;
+  }
+
+  .light button[class*="bg-gradient"]:hover,
+  .light .bg-gradient-to-r:hover,
+  .light .bg-gradient-to-l:hover,
+  .light .bg-gradient-to-t:hover,
+  .light .bg-gradient-to-b:hover {
+    color: #FFFFFF !important;
+  }
+
   /* Enhanced Input Styles */
   .input-glass {
     background: var(--bg-glass);
