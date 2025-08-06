@@ -54,11 +54,16 @@ class ErrorMonitor {
   private batchInterval = 30000; // 30 seconds
   private pendingReports: ErrorReport[] = [];
   private isReporting = false;
+  private isClient = false;
 
   constructor() {
+    this.isClient = typeof window !== 'undefined';
     this.sessionId = this.generateSessionId();
-    this.setupGlobalErrorHandlers();
-    this.startBatchReporting();
+
+    if (this.isClient) {
+      this.setupGlobalErrorHandlers();
+      this.startBatchReporting();
+    }
   }
 
   private generateSessionId(): string {
