@@ -1510,15 +1510,14 @@
       radial-gradient(circle at 70% 80%, rgba(59, 130, 246, 0.04) 0%, transparent 50%);
   }
 
-  /* Ultra-Premium Text Hierarchy */
+  /* Clean Text Hierarchy */
   .light .section-title {
-    color: #0F172A !important;
+    color: #111827 !important;
     font-weight: 800;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
 
   .light .section-subtitle {
-    color: #475569 !important;
+    color: #374151 !important;
     font-weight: 500;
   }
 
