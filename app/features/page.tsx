@@ -53,6 +53,9 @@ import {
   Key,
   Wifi,
   Monitor,
+  UserPlus,
+  GraduationCap,
+  Scale,
 } from 'lucide-react';
 
 interface FeatureCardProps {
