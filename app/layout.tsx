@@ -152,12 +152,14 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <AuthProvider>
-            <CommandPaletteProvider>
-              <main className="min-h-screen">{children}</main>
-              <Toaster />
-            </CommandPaletteProvider>
-          </AuthProvider>
+          <NetworkProvider>
+            <AuthProvider>
+              <CommandPaletteProvider>
+                <main className="min-h-screen">{children}</main>
+                <Toaster />
+              </CommandPaletteProvider>
+            </AuthProvider>
+          </NetworkProvider>
         </ThemeProvider>
       </body>
     </html>
