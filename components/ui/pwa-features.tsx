@@ -395,6 +395,8 @@ export function PushNotificationManager() {
 
 export function AppGestures({ children }: { children: React.ReactNode }) {
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
     let startX = 0;
     let startY = 0;
 
