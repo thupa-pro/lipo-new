@@ -174,9 +174,11 @@ export function ParallaxReveal({
       ref={elementRef}
       className={cn('transition-transform', className)}
       style={{
-        transform: direction === 'vertical' 
-          ? `translate3d(0, ${offset}px, 0)` 
-          : `translate3d(${offset}px, 0, 0)`,
+        transform: isClient ? (
+          direction === 'vertical'
+            ? `translate3d(0, ${offset}px, 0)`
+            : `translate3d(${offset}px, 0, 0)`
+        ) : 'translate3d(0, 0, 0)',
         willChange: 'transform',
       }}
     >
