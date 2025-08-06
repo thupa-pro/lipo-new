@@ -49,42 +49,10 @@ interface Notification {
 export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [locationQuery, setLocationQuery] = useState('');
-  const [notifications, setNotifications] = useState<Notification[]>([
-    { id: "1", title: "Welcome!", message: "Explore our premium services", time: "5 min ago", read: false },
-    { id: "2", title: "New Services", message: "Check out our latest provider additions", time: "1 hour ago", read: false },
-    { id: "3", title: "Special Offer", message: "Get 20% off your first booking", time: "2 hours ago", read: true },
-  ]);
-  const [unreadCount, setUnreadCount] = useState(2);
-  const [userMenuOpen, setUserMenuOpen] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
 
   const router = useRouter();
   const { toast } = useToast();
-
-  const user = {
-    name: "Guest User",
-    email: "guest@loconomy.com",
-    avatar: "",
-    plan: "Free",
-    isLoggedIn: false,
-  };
-
-  useEffect(() => {
-    const count = notifications.filter(n => !n.read).length;
-    setUnreadCount(count);
-  }, [notifications]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      setIsScrolled(scrollPosition > 50);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   useEffect(() => {
     const handleKeyboard = (e: KeyboardEvent) => {
@@ -110,52 +78,6 @@ export default function HomePage() {
     document.addEventListener('keydown', handleKeyboard);
     return () => document.removeEventListener('keydown', handleKeyboard);
   }, [router, isCommandPaletteOpen]);
-
-  const handleNotificationClick = (notificationId: string) => {
-    setNotifications(prev =>
-      prev.map(n =>
-        n.id === notificationId ? { ...n, read: true } : n
-      )
-    );
-    toast({
-      title: "Notification opened",
-      description: "Viewing notification details",
-    });
-  };
-
-  const handleMarkAllRead = () => {
-    setNotifications(prev =>
-      prev.map(n => ({ ...n, read: true }))
-    );
-    toast({
-      title: "All notifications marked as read",
-      description: "Your notifications have been updated",
-    });
-  };
-
-  const handleUserProfileClick = () => {
-    if (user.isLoggedIn) {
-      router.push('/profile');
-    } else {
-      router.push('/auth/signin');
-    }
-    toast({
-      title: user.isLoggedIn ? "Opening Profile" : "Sign In Required",
-      description: user.isLoggedIn ? "Navigating to your profile" : "Please sign in to access your profile",
-    });
-  };
-
-  const handleMenuClick = () => {
-    setMobileMenuOpen(true);
-  };
-
-  const handleLogout = () => {
-    toast({
-      title: "Signed Out",
-      description: "You have been successfully signed out.",
-    });
-    router.push("/auth/signin");
-  };
 
   const handleSearch = () => {
     if (searchQuery.trim() || locationQuery.trim()) {
