@@ -481,7 +481,7 @@ export default function HomePage() {
       {/* Main Content */}
       <main id="main-content" className="relative z-10 responsive-container" role="main">
         {/* Hero Section */}
-        <section className="hero-section text-center py-16 md:py-40" role="main" aria-labelledby="hero-title">
+        <section className="hero-section text-center py-8 sm:py-12 md:py-16 lg:py-20 xl:py-24 landscape-compact" role="main" aria-labelledby="hero-title">
           <ScrollReveal delay={200} direction="scale">
             <div className="hero-badge floating-element glow-pulse mb-6 flex justify-center items-center gap-3 text-xs md:text-sm font-ui px-4 md:px-6 py-2 md:py-3 rounded-full inline-flex">
               <div className="relative">
