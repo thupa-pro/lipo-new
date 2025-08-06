@@ -1313,16 +1313,11 @@
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   }
 
-  /* Premium Search Section */
+  /* Clean Search Section */
   .light .search-card {
-    background: rgba(255, 255, 255, 0.98) !important;
-    border: 1px solid rgba(255, 255, 255, 0.9) !important;
-    box-shadow:
-      0 32px 64px rgba(124, 58, 237, 0.12),
-      0 16px 32px rgba(59, 130, 246, 0.08),
-      0 8px 16px rgba(0, 0, 0, 0.08),
-      inset 0 1px 0 rgba(255, 255, 255, 1),
-      inset 0 -1px 0 rgba(124, 58, 237, 0.08);
+    background: #FFFFFF !important;
+    border: 1px solid #E5E7EB !important;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   }
 
   .light .search-input-container {
