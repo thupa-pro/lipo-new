@@ -32,11 +32,18 @@ export function PWAInstallPrompt() {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [showInstallPrompt, setShowInstallPrompt] = useState(false);
   const [isInstalled, setIsInstalled] = useState(false);
+  const [isClient, setIsClient] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isClient || typeof window === 'undefined') return;
+
     // Check if app is already installed
-    if (window.matchMedia('(display-mode: standalone)').matches || 
+    if (window.matchMedia('(display-mode: standalone)').matches ||
         (window.navigator as any).standalone === true) {
       setIsInstalled(true);
     }
