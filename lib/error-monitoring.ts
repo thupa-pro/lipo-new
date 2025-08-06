@@ -118,10 +118,10 @@ class ErrorMonitor {
   }
 
   private getNetworkStatus() {
-    if (typeof navigator === 'undefined') return undefined;
+    if (!this.isClient || typeof navigator === 'undefined') return undefined;
 
-    const connection = (navigator as any).connection || 
-                      (navigator as any).mozConnection || 
+    const connection = (navigator as any).connection ||
+                      (navigator as any).mozConnection ||
                       (navigator as any).webkitConnection;
 
     return {
