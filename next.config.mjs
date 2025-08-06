@@ -6,6 +6,13 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  // Fix cross-origin request warnings
+  allowedDevOrigins: [
+    'de1d68d0397a441c9676416031d42332-293e7ca571d1473b94da9a605.fly.dev',
+    '*.fly.dev',
+    'localhost',
+    '127.0.0.1',
+  ],
   images: {
     unoptimized: false,
     formats: ["image/webp", "image/avif"],
