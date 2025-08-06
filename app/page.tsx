@@ -250,7 +250,7 @@ export default function HomePage() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button className="relative p-2 rounded-full hover:bg-white/10 transition-all duration-300 hover:scale-105" aria-label="View notifications">
-                  <Bell className="w-5 h-5 text-gray-300 transition-transform duration-300 hover:rotate-12" />
+                  <Bell className="w-5 h-5 text-gray-600 dark:text-gray-300 transition-transform duration-300 hover:rotate-12" />
                   {unreadCount > 0 && (
                     <Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full p-0 text-xs bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white border-2 border-[var(--dark-navy)] animate-pulse">
                       {unreadCount}
