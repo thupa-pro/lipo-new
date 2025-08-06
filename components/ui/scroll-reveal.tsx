@@ -23,9 +23,16 @@ export function ScrollReveal({
   triggerOnce = true,
 }: ScrollRevealProps) {
   const [isVisible, setIsVisible] = useState(false);
+  const [isClient, setIsClient] = useState(false);
   const elementRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isClient || typeof window === 'undefined') return;
+
     const element = elementRef.current;
     if (!element) return;
 
