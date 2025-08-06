@@ -143,16 +143,23 @@ export function ParallaxReveal({
   direction = 'vertical',
 }: ParallaxRevealProps) {
   const [offset, setOffset] = useState(0);
+  const [isClient, setIsClient] = useState(false);
   const elementRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isClient || typeof window === 'undefined') return;
+
     const handleScroll = () => {
       if (!elementRef.current) return;
-      
+
       const rect = elementRef.current.getBoundingClientRect();
       const scrolled = window.pageYOffset;
       const rate = scrolled * -speed;
-      
+
       if (direction === 'vertical') {
         setOffset(rate);
       }
@@ -160,7 +167,7 @@ export function ParallaxReveal({
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [speed, direction]);
+  }, [isClient, speed, direction]);
 
   return (
     <div
