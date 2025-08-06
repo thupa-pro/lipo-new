@@ -51,6 +51,9 @@ const CheckoutForm = ({
   useEffect(() => {
     // Create payment intent when component mounts
     const createPaymentIntent = async () => {
+      const abortController = new AbortController();
+      const timeoutId = setTimeout(() => abortController.abort(), 30000); // 30 second timeout
+
       try {
         const response = await fetch('/api/stripe/payment-intent', {
           method: 'POST',
@@ -63,7 +66,10 @@ const CheckoutForm = ({
             bookingId,
             providerId,
           }),
+          signal: abortController.signal,
         });
+
+        clearTimeout(timeoutId);
 
         const data = await response.json();
         
@@ -73,9 +79,28 @@ const CheckoutForm = ({
 
         setClientSecret(data.clientSecret);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to initialize payment');
-        onError?.(err instanceof Error ? err.message : 'Failed to initialize payment');
+        clearTimeout(timeoutId);
+
+        if (err instanceof Error) {
+          if (err.name === 'AbortError') {
+            const abortMessage = 'Payment initialization was cancelled or timed out. Please try again.';
+            setError(abortMessage);
+            onError?.(abortMessage);
+          } else {
+            setError(err.message);
+            onError?.(err.message);
+          }
+        } else {
+          const fallbackMessage = 'Failed to initialize payment';
+          setError(fallbackMessage);
+          onError?.(fallbackMessage);
+        }
       }
+
+      return () => {
+        clearTimeout(timeoutId);
+        abortController.abort();
+      };
     };
 
     createPaymentIntent();

@@ -1,462 +1,281 @@
 "use client";
 
-import { useState, useEffect, useCallback, useMemo } from "react";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { 
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandItem,
-  CommandList,
-  CommandInput,
-  CommandSeparator,
-} from "@/components/ui/command";
-import { 
-  Search,
-  Zap,
-  DollarSign,
-  Share2,
-  MessageSquare,
-  Calendar,
-  Map,
-  Star,
-  Settings,
-  User,
-  CreditCard,
-  Bell,
-  HelpCircle,
-  Bookmark,
-  History,
-  TrendingUp,
-  Shield,
-  Gift,
-  Users,
-  FileText,
-  Phone,
-  Mail,
-  MapPin,
-  Clock,
-  Hash,
-  Command as CommandIcon
-} from "lucide-react";
-import { cn } from "@/lib/utils";
+import { useState, useEffect, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { Search, ArrowRight, Sparkles, User, Settings, Home, Briefcase, HelpCircle, Zap } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
-interface SlashCommand {
+interface Command {
   id: string;
-  name: string;
+  title: string;
   description: string;
   icon: React.ComponentType<{ className?: string }>;
-  keywords: string[];
-  category: 'actions' | 'navigation' | 'tools' | 'social' | 'admin';
+  action: () => void;
   shortcut?: string;
-  premium?: boolean;
-  action: () => void | Promise<void>;
-  params?: {
-    name: string;
-    type: 'text' | 'number' | 'select';
-    options?: string[];
-    required?: boolean;
-  }[];
+  category: 'navigation' | 'search' | 'actions' | 'ai';
 }
 
 interface CommandPaletteProps {
   isOpen: boolean;
   onClose: () => void;
-  onCommand?: (command: SlashCommand, params?: Record<string, any>) => void;
 }
 
-const SLASH_COMMANDS: SlashCommand[] = [
-  // Quick Actions
-  {
-    id: 'tip',
-    name: 'Tip Provider',
-    description: 'Send a tip to a service provider',
-    icon: DollarSign,
-    keywords: ['tip', 'money', 'gratuity', 'payment'],
-    category: 'actions',
-    shortcut: 'Ctrl+T',
-    action: () => console.log('Opening tip modal'),
-    params: [
-      { name: 'amount', type: 'number', required: true },
-      { name: 'message', type: 'text', required: false }
-    ]
-  },
-  {
-    id: 'boost',
-    name: 'Boost Gig',
-    description: 'Boost your service listing for more visibility',
-    icon: Zap,
-    keywords: ['boost', 'promote', 'visibility', 'featured'],
-    category: 'actions',
-    shortcut: 'Ctrl+B',
-    premium: true,
-    action: () => console.log('Opening boost modal'),
-    params: [
-      { name: 'duration', type: 'select', options: ['1 day', '3 days', '1 week'], required: true },
-      { name: 'budget', type: 'number', required: true }
-    ]
-  },
-  {
-    id: 'refer',
-    name: 'Refer Friend',
-    description: 'Invite friends and earn rewards',
-    icon: Share2,
-    keywords: ['refer', 'invite', 'share', 'friend', 'reward'],
-    category: 'social',
-    shortcut: 'Ctrl+R',
-    action: () => console.log('Opening referral modal'),
-    params: [
-      { name: 'email', type: 'text', required: true },
-      { name: 'message', type: 'text', required: false }
-    ]
-  },
+export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
+  const [query, setQuery] = useState('');
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const router = useRouter();
 
-  // Navigation
-  {
-    id: 'browse',
-    name: 'Browse Services',
-    description: 'Explore available services in your area',
-    icon: Search,
-    keywords: ['browse', 'services', 'search', 'find'],
-    category: 'navigation',
-    action: () => window.location.href = '/browse'
-  },
-  {
-    id: 'map',
-    name: 'Open Gig Map',
-    description: 'View real-time gigs on interactive map',
-    icon: Map,
-    keywords: ['map', 'location', 'gigs', 'nearby'],
-    category: 'navigation',
-    action: () => window.location.href = '/gig-map'
-  },
-  {
-    id: 'messages',
-    name: 'Open Messages',
-    description: 'View your conversations',
-    icon: MessageSquare,
-    keywords: ['messages', 'chat', 'conversations'],
-    category: 'navigation',
-    action: () => window.location.href = '/messages'
-  },
-  {
-    id: 'bookings',
-    name: 'My Bookings',
-    description: 'View your upcoming appointments',
-    icon: Calendar,
-    keywords: ['bookings', 'appointments', 'schedule'],
-    category: 'navigation',
-    action: () => window.location.href = '/my-bookings'
-  },
+  const commands: Command[] = [
+    {
+      id: 'home',
+      title: 'Go to Homepage',
+      description: 'Navigate to the main dashboard',
+      icon: Home,
+      action: () => router.push('/'),
+      shortcut: 'G H',
+      category: 'navigation',
+    },
+    {
+      id: 'search',
+      title: 'Find Services',
+      description: 'Search for local service providers',
+      icon: Search,
+      action: () => router.push('/browse'),
+      shortcut: '/',
+      category: 'search',
+    },
+    {
+      id: 'book',
+      title: 'Book a Service',
+      description: 'Quick book a service with AI assistance',
+      icon: Zap,
+      action: () => router.push('/post-job'),
+      shortcut: 'B',
+      category: 'actions',
+    },
+    {
+      id: 'provider',
+      title: 'Become a Provider',
+      description: 'Start earning with Loconomy',
+      icon: Briefcase,
+      action: () => router.push('/become-provider'),
+      shortcut: 'P',
+      category: 'actions',
+    },
+    {
+      id: 'profile',
+      title: 'View Profile',
+      description: 'Manage your account settings',
+      icon: User,
+      action: () => router.push('/profile'),
+      shortcut: 'G P',
+      category: 'navigation',
+    },
+    {
+      id: 'settings',
+      title: 'Settings',
+      description: 'Configure your preferences',
+      icon: Settings,
+      action: () => router.push('/settings'),
+      shortcut: 'G S',
+      category: 'navigation',
+    },
+    {
+      id: 'help',
+      title: 'Help Center',
+      description: 'Get support and documentation',
+      icon: HelpCircle,
+      action: () => router.push('/help'),
+      shortcut: '?',
+      category: 'navigation',
+    },
+    {
+      id: 'ai-search',
+      title: 'AI-Powered Search',
+      description: 'Let AI find the perfect service for you',
+      icon: Sparkles,
+      action: () => {
+        // Implement AI search functionality
+        router.push('/browse?ai=true');
+      },
+      shortcut: 'A I',
+      category: 'ai',
+    },
+  ];
 
-  // Tools
-  {
-    id: 'schedule',
-    name: 'Schedule Service',
-    description: 'Book a new service appointment',
-    icon: Calendar,
-    keywords: ['schedule', 'book', 'appointment', 'service'],
-    category: 'tools',
-    action: () => console.log('Opening booking wizard'),
-    params: [
-      { name: 'service', type: 'text', required: true },
-      { name: 'date', type: 'text', required: true },
-      { name: 'time', type: 'text', required: true }
-    ]
-  },
-  {
-    id: 'rate',
-    name: 'Rate Provider',
-    description: 'Leave a review for a service provider',
-    icon: Star,
-    keywords: ['rate', 'review', 'feedback', 'rating'],
-    category: 'tools',
-    action: () => console.log('Opening rating modal'),
-    params: [
-      { name: 'provider', type: 'text', required: true },
-      { name: 'rating', type: 'select', options: ['1', '2', '3', '4', '5'], required: true },
-      { name: 'review', type: 'text', required: false }
-    ]
-  },
-  {
-    id: 'support',
-    name: 'Contact Support',
-    description: 'Get help from our support team',
-    icon: HelpCircle,
-    keywords: ['support', 'help', 'contact', 'assistance'],
-    category: 'tools',
-    action: () => window.location.href = '/customer-support'
-  },
-  {
-    id: 'optimize',
-    name: 'Optimize Service',
-    description: 'AI-powered tip and boost optimization',
-    icon: TrendingUp,
-    keywords: ['optimize', 'boost', 'tip', 'ai', 'enhance', 'visibility'],
-    category: 'tools',
-    action: () => window.location.href = '/optimize-service'
-  },
+  const filteredCommands = commands.filter(
+    command =>
+      command.title.toLowerCase().includes(query.toLowerCase()) ||
+      command.description.toLowerCase().includes(query.toLowerCase())
+  );
 
-  // Social
-  {
-    id: 'save',
-    name: 'Save Provider',
-    description: 'Bookmark a provider for later',
-    icon: Bookmark,
-    keywords: ['save', 'bookmark', 'favorite', 'later'],
-    category: 'social',
-    action: () => console.log('Saving provider'),
-    params: [
-      { name: 'provider', type: 'text', required: true }
-    ]
-  },
-  {
-    id: 'share-service',
-    name: 'Share Service',
-    description: 'Share a service with friends',
-    icon: Share2,
-    keywords: ['share', 'send', 'recommend'],
-    category: 'social',
-    action: () => console.log('Sharing service'),
-    params: [
-      { name: 'service_id', type: 'text', required: true },
-      { name: 'platform', type: 'select', options: ['Email', 'SMS', 'WhatsApp', 'Copy Link'], required: true }
-    ]
-  },
-
-  // Admin (if user has permissions)
-  {
-    id: 'analytics',
-    name: 'View Analytics',
-    description: 'Check platform performance metrics',
-    icon: TrendingUp,
-    keywords: ['analytics', 'metrics', 'performance', 'stats'],
-    category: 'admin',
-    action: () => window.location.href = '/admin/reports'
-  },
-  {
-    id: 'verify-provider',
-    name: 'Verify Provider',
-    description: 'Verify a service provider account',
-    icon: Shield,
-    keywords: ['verify', 'approve', 'validate'],
-    category: 'admin',
-    action: () => console.log('Opening verification panel'),
-    params: [
-      { name: 'provider_id', type: 'text', required: true }
-    ]
-  }
-];
-
-export function CommandPalette({ isOpen, onClose, onCommand }: CommandPaletteProps) {
-  const [searchValue, setSearchValue] = useState("");
-  const [selectedCommand, setSelectedCommand] = useState<SlashCommand | null>(null);
-  const [commandParams, setCommandParams] = useState<Record<string, any>>({});
-
-  // Filter commands based on search
-  const filteredCommands = useMemo(() => {
-    if (!searchValue) return SLASH_COMMANDS;
-    
-    const query = searchValue.toLowerCase();
-    return SLASH_COMMANDS.filter(command => 
-      command.name.toLowerCase().includes(query) ||
-      command.description.toLowerCase().includes(query) ||
-      command.keywords.some(keyword => keyword.includes(query))
-    );
-  }, [searchValue]);
-
-  // Group commands by category
-  const groupedCommands = useMemo(() => {
-    const groups: Record<string, SlashCommand[]> = {};
-    filteredCommands.forEach(command => {
-      if (!groups[command.category]) {
-        groups[command.category] = [];
-      }
-      groups[command.category].push(command);
-    });
-    return groups;
-  }, [filteredCommands]);
-
-  const categoryLabels = {
-    actions: 'Quick Actions',
-    navigation: 'Navigation',
-    tools: 'Tools',
-    social: 'Social',
-    admin: 'Admin'
-  };
-
-  const handleCommandSelect = useCallback((command: SlashCommand) => {
-    if (command.params && command.params.length > 0) {
-      setSelectedCommand(command);
-      setCommandParams({});
-    } else {
-      command.action();
-      onCommand?.(command);
-      onClose();
-      setSearchValue("");
-    }
-  }, [onCommand, onClose]);
-
-  const handleParameterSubmit = useCallback(() => {
-    if (!selectedCommand) return;
-
-    // Validate required parameters
-    const missingParams = selectedCommand.params?.filter(param => 
-      param.required && !commandParams[param.name]
-    ) || [];
-
-    if (missingParams.length > 0) {
-      return; // Show validation error
-    }
-
-    selectedCommand.action();
-    onCommand?.(selectedCommand, commandParams);
-    setSelectedCommand(null);
-    setCommandParams({});
+  const executeCommand = useCallback((command: Command) => {
+    command.action();
     onClose();
-    setSearchValue("");
-  }, [selectedCommand, commandParams, onCommand, onClose]);
-
-  const handleClose = useCallback(() => {
-    onClose();
-    setSearchValue("");
-    setSelectedCommand(null);
-    setCommandParams({});
+    setQuery('');
+    setSelectedIndex(0);
   }, [onClose]);
 
-  // Reset state when dialog closes
-  useEffect(() => {
-    if (!isOpen) {
-      setSelectedCommand(null);
-      setCommandParams({});
-      setSearchValue("");
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setSelectedIndex(prev => (prev + 1) % filteredCommands.length);
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setSelectedIndex(prev => (prev - 1 + filteredCommands.length) % filteredCommands.length);
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      if (filteredCommands[selectedIndex]) {
+        executeCommand(filteredCommands[selectedIndex]);
+      }
+    } else if (e.key === 'Escape') {
+      onClose();
     }
-  }, [isOpen]);
+  }, [filteredCommands, selectedIndex, executeCommand, onClose]);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.addEventListener('keydown', handleKeyDown);
+      return () => document.removeEventListener('keydown', handleKeyDown);
+    }
+  }, [isOpen, handleKeyDown]);
+
+  useEffect(() => {
+    setSelectedIndex(0);
+  }, [query]);
+
+  const getCategoryColor = (category: string) => {
+    switch (category) {
+      case 'navigation': return 'text-blue-400';
+      case 'search': return 'text-purple-400';
+      case 'actions': return 'text-green-400';
+      case 'ai': return 'text-fuchsia-400';
+      default: return 'text-gray-400';
+    }
+  };
 
   return (
-    <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="p-0 max-w-2xl">
-        <Command className="rounded-lg border-0">
-          <div className="flex items-center border-b px-3">
-            <CommandIcon className="mr-2 h-4 w-4 shrink-0 opacity-50" />
-            <CommandInput
-              placeholder={selectedCommand ? `Parameters for ${selectedCommand.name}` : "Type a command or search..."}
-              value={searchValue}
-              onValueChange={setSearchValue}
-              className="border-0 focus:ring-0"
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="sm:max-w-2xl p-0 bg-gray-900/95 backdrop-blur-xl border-gray-700/50 shadow-2xl">
+        <div className="command-palette-container">
+          {/* Search Input */}
+          <div className="flex items-center px-6 py-4 border-b border-gray-700/50">
+            <Search className="w-5 h-5 text-gray-400 mr-3" />
+            <input
+              type="text"
+              placeholder="Type a command or search..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              className="flex-1 bg-transparent text-white placeholder-gray-400 outline-none font-ui text-lg"
+              autoFocus
             />
-            <Badge variant="secondary" className="ml-auto text-xs">
-              ⌘K
-            </Badge>
+            <div className="flex items-center gap-1 text-xs text-gray-500 font-ui">
+              <kbd className="px-2 py-1 bg-gray-800 rounded text-gray-300">⌘</kbd>
+              <kbd className="px-2 py-1 bg-gray-800 rounded text-gray-300">K</kbd>
+            </div>
           </div>
 
-          {selectedCommand ? (
-            // Parameter input form
-            <div className="p-4 space-y-4">
-              <div className="flex items-center gap-3 mb-4">
-                <selectedCommand.icon className="w-5 h-5" />
-                <div>
-                  <h3 className="font-medium">{selectedCommand.name}</h3>
-                  <p className="text-sm text-muted-foreground">{selectedCommand.description}</p>
-                </div>
+          {/* Commands List */}
+          <div className="max-h-96 overflow-y-auto">
+            {filteredCommands.length === 0 ? (
+              <div className="px-6 py-8 text-center text-gray-400 font-body">
+                <Sparkles className="w-8 h-8 mx-auto mb-3 opacity-50" />
+                <p>No commands found</p>
+                <p className="text-sm mt-1">Try typing something else</p>
               </div>
-
-              <div className="space-y-3">
-                {selectedCommand.params?.map((param) => (
-                  <div key={param.name} className="space-y-1">
-                    <label className="text-sm font-medium capitalize">
-                      {param.name.replace('_', ' ')}
-                      {param.required && <span className="text-red-500 ml-1">*</span>}
-                    </label>
-                    
-                    {param.type === 'select' ? (
-                      <select 
-                        className="w-full p-2 border rounded-md"
-                        value={commandParams[param.name] || ''}
-                        onChange={(e) => setCommandParams(prev => ({
-                          ...prev,
-                          [param.name]: e.target.value
-                        }))}
-                      >
-                        <option value="">Select {param.name}</option>
-                        {param.options?.map(option => (
-                          <option key={option} value={option}>{option}</option>
-                        ))}
-                      </select>
-                    ) : (
-                      <Input
-                        type={param.type}
-                        placeholder={`Enter ${param.name}`}
-                        value={commandParams[param.name] || ''}
-                        onChange={(e) => setCommandParams(prev => ({
-                          ...prev,
-                          [param.name]: e.target.value
-                        }))}
-                      />
-                    )}
-                  </div>
-                ))}
+            ) : (
+              <div className="py-2">
+                {filteredCommands.map((command, index) => {
+                  const Icon = command.icon;
+                  const isSelected = index === selectedIndex;
+                  
+                  return (
+                    <button
+                      key={command.id}
+                      onClick={() => executeCommand(command)}
+                      className={cn(
+                        "w-full flex items-center justify-between px-6 py-3 text-left transition-all duration-200",
+                        isSelected 
+                          ? "bg-purple-600/20 border-l-2 border-purple-500" 
+                          : "hover:bg-gray-800/50"
+                      )}
+                    >
+                      <div className="flex items-center space-x-3">
+                        <div className={cn(
+                          "p-2 rounded-lg transition-colors",
+                          isSelected ? "bg-purple-500/20" : "bg-gray-800"
+                        )}>
+                          <Icon className={cn(
+                            "w-4 h-4",
+                            isSelected ? "text-purple-400" : getCategoryColor(command.category)
+                          )} />
+                        </div>
+                        <div>
+                          <p className={cn(
+                            "font-ui font-medium",
+                            isSelected ? "text-white" : "text-gray-200"
+                          )}>
+                            {command.title}
+                          </p>
+                          <p className={cn(
+                            "text-sm font-body",
+                            isSelected ? "text-gray-300" : "text-gray-400"
+                          )}>
+                            {command.description}
+                          </p>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-center space-x-2">
+                        {command.shortcut && (
+                          <div className="flex items-center space-x-1">
+                            {command.shortcut.split(' ').map((key, i) => (
+                              <kbd 
+                                key={i} 
+                                className="px-2 py-1 text-xs bg-gray-800 text-gray-300 rounded font-ui"
+                              >
+                                {key}
+                              </kbd>
+                            ))}
+                          </div>
+                        )}
+                        <ArrowRight className={cn(
+                          "w-4 h-4 transition-transform",
+                          isSelected ? "text-purple-400 translate-x-1" : "text-gray-500"
+                        )} />
+                      </div>
+                    </button>
+                  );
+                })}
               </div>
+            )}
+          </div>
 
-              <div className="flex gap-2 pt-4">
-                <button
-                  onClick={handleParameterSubmit}
-                  className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
-                >
-                  Execute Command
-                </button>
-                <button
-                  onClick={() => setSelectedCommand(null)}
-                  className="px-4 py-2 border rounded-md hover:bg-gray-50 transition-colors"
-                >
-                  Back
-                </button>
+          {/* Footer */}
+          <div className="px-6 py-3 border-t border-gray-700/50 bg-gray-900/50">
+            <div className="flex items-center justify-between text-xs text-gray-500 font-ui">
+              <div className="flex items-center space-x-4">
+                <span className="flex items-center gap-1">
+                  <kbd className="px-1.5 py-0.5 bg-gray-800 rounded">↑↓</kbd>
+                  Navigate
+                </span>
+                <span className="flex items-center gap-1">
+                  <kbd className="px-1.5 py-0.5 bg-gray-800 rounded">⏎</kbd>
+                  Select
+                </span>
+                <span className="flex items-center gap-1">
+                  <kbd className="px-1.5 py-0.5 bg-gray-800 rounded">ESC</kbd>
+                  Close
+                </span>
+              </div>
+              <div className="flex items-center gap-1">
+                <Sparkles className="w-3 h-3 text-purple-400" />
+                <span className="text-purple-400">AI-Powered</span>
               </div>
             </div>
-          ) : (
-            // Command list
-            <CommandList>
-              <CommandEmpty>No commands found.</CommandEmpty>
-              
-              {Object.entries(groupedCommands).map(([category, commands]) => (
-                <div key={category}>
-                  <CommandGroup heading={categoryLabels[category as keyof typeof categoryLabels]}>
-                    {commands.map((command) => (
-                      <CommandItem
-                        key={command.id}
-                        value={`${command.name} ${command.description} ${command.keywords.join(' ')}`}
-                        onSelect={() => handleCommandSelect(command)}
-                        className="flex items-center gap-3 px-3 py-2"
-                      >
-                        <command.icon className="w-4 h-4" />
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2">
-                            <span className="font-medium">{command.name}</span>
-                            {command.premium && (
-                              <Badge variant="secondary" className="text-xs">Pro</Badge>
-                            )}
-                          </div>
-                          <p className="text-sm text-muted-foreground">{command.description}</p>
-                        </div>
-                        {command.shortcut && (
-                          <Badge variant="outline" className="text-xs">
-                            {command.shortcut}
-                          </Badge>
-                        )}
-                      </CommandItem>
-                    ))}
-                  </CommandGroup>
-                  {Object.keys(groupedCommands).indexOf(category) < Object.keys(groupedCommands).length - 1 && (
-                    <CommandSeparator />
-                  )}
-                </div>
-              ))}
-            </CommandList>
-          )}
-        </Command>
+          </div>
+        </div>
       </DialogContent>
     </Dialog>
   );
