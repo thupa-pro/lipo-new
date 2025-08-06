@@ -913,12 +913,30 @@
     transform: translateY(-1px);
   }
 
-  /* Light mode - ensure all gradient background buttons have white text */
+  /* Light mode - ensure all gradient and colored background buttons have white text */
   .light button[class*="bg-gradient"],
   .light .bg-gradient-to-r,
   .light .bg-gradient-to-l,
   .light .bg-gradient-to-t,
-  .light .bg-gradient-to-b {
+  .light .bg-gradient-to-b,
+  .light button[class*="bg-purple"],
+  .light button[class*="bg-blue"],
+  .light button[class*="bg-indigo"],
+  .light button[class*="bg-pink"],
+  .light button[class*="bg-fuchsia"],
+  .light button[class*="bg-violet"],
+  .light .bg-purple-500,
+  .light .bg-purple-600,
+  .light .bg-blue-500,
+  .light .bg-blue-600,
+  .light .bg-indigo-500,
+  .light .bg-indigo-600,
+  .light .bg-pink-500,
+  .light .bg-pink-600,
+  .light .bg-fuchsia-500,
+  .light .bg-fuchsia-600,
+  .light .bg-violet-500,
+  .light .bg-violet-600 {
     color: #FFFFFF !important;
   }
 
@@ -926,7 +944,13 @@
   .light .bg-gradient-to-r:hover,
   .light .bg-gradient-to-l:hover,
   .light .bg-gradient-to-t:hover,
-  .light .bg-gradient-to-b:hover {
+  .light .bg-gradient-to-b:hover,
+  .light button[class*="bg-purple"]:hover,
+  .light button[class*="bg-blue"]:hover,
+  .light button[class*="bg-indigo"]:hover,
+  .light button[class*="bg-pink"]:hover,
+  .light button[class*="bg-fuchsia"]:hover,
+  .light button[class*="bg-violet"]:hover {
     color: #FFFFFF !important;
   }
 
