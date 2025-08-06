@@ -407,20 +407,9 @@
     animation: blob-float 20s ease-in-out infinite;
   }
 
-  /* Light mode premium mesh gradient overlay */
+  /* Light mode clean - no overlay */
   .light::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background:
-      radial-gradient(circle at 20% 80%, rgba(124, 58, 237, 0.08) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.06) 0%, transparent 50%),
-      radial-gradient(circle at 40% 40%, rgba(192, 38, 211, 0.05) 0%, transparent 50%);
-    pointer-events: none;
-    z-index: -1;
+    display: none;
   }
 
   /* Animation Delays */
