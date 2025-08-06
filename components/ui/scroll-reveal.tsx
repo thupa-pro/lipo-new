@@ -88,8 +88,8 @@ export function ScrollReveal({
       ref={elementRef}
       className={cn('transition-all ease-out', className)}
       style={{
-        transform: getTransform(),
-        opacity: isVisible ? 1 : 0,
+        transform: isClient ? getTransform() : 'translate3d(0, 40px, 0) scale(0.95)',
+        opacity: isClient && isVisible ? 1 : 0,
         transitionDuration: `${duration}ms`,
         transitionDelay: `${delay}ms`,
         willChange: 'transform, opacity',
