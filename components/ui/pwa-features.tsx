@@ -449,6 +449,8 @@ export function AppGestures({ children }: { children: React.ReactNode }) {
 
 export function AppHaptics() {
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
     // Add haptic feedback to buttons
     const addHapticFeedback = (element: Element) => {
       element.addEventListener('click', () => {
