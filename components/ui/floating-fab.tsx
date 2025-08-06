@@ -55,9 +55,15 @@ export function FloatingFAB() {
   ];
 
   useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isClient || typeof window === 'undefined') return;
+
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      
+
       // Hide FAB when scrolling down, show when scrolling up
       if (currentScrollY > lastScrollY && currentScrollY > 100) {
         setIsVisible(false);
@@ -65,13 +71,13 @@ export function FloatingFAB() {
       } else {
         setIsVisible(true);
       }
-      
+
       setLastScrollY(currentScrollY);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
+  }, [isClient, lastScrollY]);
 
   const handleActionClick = (action: FABAction) => {
     action.action();
