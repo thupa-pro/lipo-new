@@ -1057,6 +1057,37 @@
     text-shadow: 0 2px 4px rgba(124, 58, 237, 0.2);
   }
 
+  /* Fix hamburger menu and mobile menu colors in light mode */
+  .light .mobile-menu-text,
+  .light [data-mobile-menu] {
+    color: #111827 !important;
+    font-weight: 600;
+  }
+
+  .light .mobile-menu-text:hover,
+  .light [data-mobile-menu]:hover {
+    color: #7C3AED !important;
+  }
+
+  /* Fix sheet content colors in light mode */
+  .light [data-sheet-content] {
+    background: rgba(255, 255, 255, 0.95) !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    backdrop-filter: blur(20px);
+  }
+
+  .light [data-sheet-content] .text-white {
+    color: #111827 !important;
+  }
+
+  .light [data-sheet-content] .text-foreground {
+    color: #111827 !important;
+  }
+
+  .light [data-sheet-content] .text-muted-foreground {
+    color: #6B7280 !important;
+  }
+
   /* Enhanced Text Contrast for Light Mode */
   .light h1,
   .light h2,
