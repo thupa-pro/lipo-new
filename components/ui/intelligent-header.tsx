@@ -390,7 +390,7 @@ export function IntelligentHeader({ onCommandPaletteOpen }: IntelligentHeaderPro
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${
-        isScrolled
+        isClient && isScrolled
           ? 'py-3 px-4 sm:px-6 lg:px-8 bg-glass/95 backdrop-blur-xl border-b border-white/20 shadow-lg shadow-purple-500/10'
           : 'py-6 px-4 sm:px-6 lg:px-8 bg-transparent border-b border-transparent'
       }`}
