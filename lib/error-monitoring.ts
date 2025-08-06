@@ -138,6 +138,8 @@ class ErrorMonitor {
   }
 
   public reportError(errorData: Partial<ErrorReport>) {
+    if (!this.isClient) return;
+
     const error: ErrorReport = {
       id: `error_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
       type: errorData.type || 'javascript',
@@ -146,7 +148,7 @@ class ErrorMonitor {
       status: errorData.status,
       method: errorData.method,
       timestamp: new Date(),
-      userAgent: navigator.userAgent,
+      userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : 'SSR',
       userId: this.userId,
       sessionId: this.sessionId,
       stack: errorData.stack,
