@@ -55,6 +55,9 @@ export default function QuickBookingPage() {
   const code = params.code as string;
 
   useEffect(() => {
+    // Set minimum datetime for booking (client-side only to avoid hydration mismatch)
+    setMinDateTime(new Date().toISOString().slice(0, 16));
+
     if (code) {
       // In a real implementation, you would validate the QR code and get provider info
       setProviderInfo({
