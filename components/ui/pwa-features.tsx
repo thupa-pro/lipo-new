@@ -480,7 +480,15 @@ export function AppHaptics() {
 
 // Combined PWA Provider Component
 export function PWAProvider({ children }: { children: React.ReactNode }) {
+  const [isClient, setIsClient] = useState(false);
+
   useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isClient || typeof window === 'undefined') return;
+
     // Register service worker
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/sw.js')
@@ -496,7 +504,7 @@ export function PWAProvider({ children }: { children: React.ReactNode }) {
     if ('performance' in window && 'mark' in performance) {
       performance.mark('app-start');
     }
-  }, []);
+  }, [isClient]);
 
   return (
     <AppGestures>
