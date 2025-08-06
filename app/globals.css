@@ -867,24 +867,16 @@
     transform: translateY(-2px) scale(1.02);
   }
 
-  /* Light mode premium button styles */
+  /* Light mode clean button styles */
   .light .btn-primary {
-    background: linear-gradient(135deg, #7C3AED 0%, #C026D3 50%, #3B82F6 100%);
-    box-shadow:
-      0 8px 24px rgba(124, 58, 237, 0.3),
-      0 4px 12px rgba(192, 38, 211, 0.2),
-      0 2px 4px rgba(0, 0, 0, 0.1),
-      inset 0 1px 0 rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: linear-gradient(135deg, #C026D3 0%, #8B5CF6 100%);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    border: none;
   }
 
   .light .btn-primary:hover {
-    box-shadow:
-      0 12px 36px rgba(124, 58, 237, 0.4),
-      0 8px 20px rgba(192, 38, 211, 0.25),
-      0 4px 8px rgba(0, 0, 0, 0.15),
-      inset 0 1px 0 rgba(255, 255, 255, 0.9);
-    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    transform: translateY(-2px);
   }
 
   .btn-secondary {
