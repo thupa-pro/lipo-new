@@ -177,12 +177,33 @@ export default function CategoryPage() {
   useEffect(() => {
     const fetchCategoryData = async () => {
       setLoading(true);
+
+      // Create abort controller for this request
+      const abortController = new AbortController();
+      const timeoutId = setTimeout(() => {
+        abortController.abort();
+      }, 45000); // 45 second timeout for category data fetching
+
       try {
         // Get user location if available
         let lat = 0, lng = 0;
         if (navigator.geolocation) {
           const position = await new Promise<GeolocationPosition>((resolve, reject) => {
-            navigator.geolocation.getCurrentPosition(resolve, reject);
+            const locationTimeout = setTimeout(() => {
+              reject(new Error('Geolocation timeout'));
+            }, 10000); // 10 second timeout for geolocation
+
+            navigator.geolocation.getCurrentPosition(
+              (pos) => {
+                clearTimeout(locationTimeout);
+                resolve(pos);
+              },
+              (err) => {
+                clearTimeout(locationTimeout);
+                reject(err);
+              },
+              { timeout: 10000 }
+            );
           }).catch(() => null);
 
           if (position) {
@@ -200,18 +221,38 @@ export default function CategoryPage() {
           ...(lat && lng ? { lat: lat.toString(), lng: lng.toString() } : {}),
         });
 
-        const response = await fetch(`/api/categories/${slug}?${params}`);
+        const response = await fetch(`/api/categories/${slug}?${params}`, {
+          signal: abortController.signal,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        clearTimeout(timeoutId);
 
         if (!response.ok) {
-          throw new Error('Failed to fetch category data');
+          throw new Error(`Failed to fetch category data: ${response.status} ${response.statusText}`);
         }
 
         const data = await response.json();
         setCategory(data.category);
         setProviders(data.providers || []);
       } catch (error) {
-        console.error('Error fetching category data:', error);
-        // Fallback to mock data
+        clearTimeout(timeoutId);
+
+        if (error instanceof Error) {
+          if (error.name === 'AbortError') {
+            console.warn('Category data request was cancelled or timed out');
+            // Don't show fallback data for user-initiated aborts, just keep loading state
+            return;
+          } else {
+            console.error('Error fetching category data:', error.message);
+          }
+        } else {
+          console.error('Unknown error fetching category data:', error);
+        }
+
+        // Fallback to mock data for real errors (not aborts)
         const foundCategory = MOCK_CATEGORIES[slug];
         setCategory(foundCategory || null);
 
@@ -224,9 +265,24 @@ export default function CategoryPage() {
       } finally {
         setLoading(false);
       }
+
+      // Cleanup function
+      return () => {
+        clearTimeout(timeoutId);
+        abortController.abort();
+      };
     };
 
-    fetchCategoryData();
+    const cleanup = fetchCategoryData();
+    return () => {
+      if (cleanup && typeof cleanup.then === 'function') {
+        cleanup.then((cleanupFn) => {
+          if (typeof cleanupFn === 'function') {
+            cleanupFn();
+          }
+        });
+      }
+    };
   }, [slug, searchQuery, priceRange, selectedDistance, sortBy]);
 
   const filteredProviders = useMemo(() => {
