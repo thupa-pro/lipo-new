@@ -67,8 +67,10 @@ export default function HomePage() {
       }
     };
 
-    document.addEventListener('keydown', handleKeyboard);
-    return () => document.removeEventListener('keydown', handleKeyboard);
+    if (typeof document !== 'undefined') {
+      document.addEventListener('keydown', handleKeyboard);
+      return () => document.removeEventListener('keydown', handleKeyboard);
+    }
   }, [router, isCommandPaletteOpen]);
 
   const handleSearch = () => {
