@@ -18,18 +18,6 @@ export const metadata: Metadata = {
   applicationName: "Loconomy",
   generator: "Next.js",
   referrer: "origin-when-cross-origin",
-  colorScheme: "dark light",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#8B5CF6" },
-    { media: "(prefers-color-scheme: dark)", color: "#0A091A" },
-  ],
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-    viewportFit: "cover",
-  },
   robots: {
     index: true,
     follow: true,
