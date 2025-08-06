@@ -273,25 +273,30 @@ export function AppShortcuts() {
 export function PushNotificationManager() {
   const [permission, setPermission] = useState<NotificationPermission>('default');
   const [showPrompt, setShowPrompt] = useState(false);
+  const [isClient, setIsClient] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
-    if ('Notification' in window) {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (isClient && typeof window !== 'undefined' && 'Notification' in window) {
       setPermission(Notification.permission);
-      
+
       // Show prompt after 30 seconds if not already granted/denied
       if (Notification.permission === 'default') {
         const timer = setTimeout(() => {
           setShowPrompt(true);
         }, 30000);
-        
+
         return () => clearTimeout(timer);
       }
     }
-  }, []);
+  }, [isClient]);
 
   const requestPermission = async () => {
-    if (!('Notification' in window)) {
+    if (typeof window === 'undefined' || !('Notification' in window)) {
       toast({
         title: "Notifications not supported",
         description: "Your browser doesn't support notifications",
@@ -323,7 +328,7 @@ export function PushNotificationManager() {
     }
   };
 
-  if (!('Notification' in window) || permission === 'granted' || !showPrompt) {
+  if (!isClient || typeof window === 'undefined' || !('Notification' in window) || permission === 'granted' || !showPrompt) {
     return null;
   }
 
