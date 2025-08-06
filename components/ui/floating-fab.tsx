@@ -101,7 +101,7 @@ export function FloatingFAB() {
       {/* FAB Container */}
       <div className={cn(
         "fixed bottom-6 right-6 z-50 flex flex-col items-end space-y-3 transition-all duration-500 ease-out",
-        isVisible ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
+        (isClient && isVisible) ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
       )}>
         {/* Action Buttons */}
         {actions.map((action, index) => {
