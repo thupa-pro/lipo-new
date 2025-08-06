@@ -310,22 +310,44 @@ export default function AnalyticsDashboard() {
   };
 
   const loadRealtimeData = async () => {
+    // Create abort controller for realtime data request
+    const abortController = new AbortController();
+    const timeoutId = setTimeout(() => {
+      abortController.abort();
+    }, 10000); // 10 second timeout for realtime data
+
     try {
-      const response = await fetch('/api/analytics?action=realtime');
+      const response = await fetch('/api/analytics?action=realtime', {
+        signal: abortController.signal,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      clearTimeout(timeoutId);
+
       if (response.ok) {
         const realtime = await response.json();
         setRealtimeData(realtime);
       } else {
-        // Mock real-time data
-        setRealtimeData({
-          activeUsers: Math.floor(Math.random() * 500) + 200,
-          ongoingBookings: Math.floor(Math.random() * 50) + 10,
-          recentSignups: Math.floor(Math.random() * 20) + 5,
-          systemLoad: Math.random() * 100
-        });
+        throw new Error(`Realtime data request failed: ${response.status}`);
       }
     } catch (error) {
-      console.error('Error loading real-time data:', error);
+      clearTimeout(timeoutId);
+
+      if (error instanceof Error && error.name === 'AbortError') {
+        console.warn('Realtime data request was cancelled or timed out');
+      } else {
+        console.error('Error loading real-time data:', error);
+      }
+
+      // Always provide mock real-time data as fallback
+      setRealtimeData({
+        activeUsers: Math.floor(Math.random() * 500) + 200,
+        ongoingBookings: Math.floor(Math.random() * 50) + 10,
+        recentSignups: Math.floor(Math.random() * 20) + 5,
+        systemLoad: Math.random() * 100
+      });
     }
   };
 
