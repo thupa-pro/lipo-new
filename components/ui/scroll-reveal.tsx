@@ -60,7 +60,7 @@ export function ScrollReveal({
     return () => {
       observer.unobserve(element);
     };
-  }, [threshold, triggerOnce]);
+  }, [isClient, threshold, triggerOnce]);
 
   const getTransform = () => {
     if (isVisible) return 'translate3d(0, 0, 0) scale(1)';
