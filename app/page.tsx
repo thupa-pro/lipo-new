@@ -389,7 +389,7 @@ export default function HomePage() {
                   aria-label="Open mobile menu"
                   aria-expanded={mobileMenuOpen}
                 >
-                  <Menu className="w-5 h-5 text-gray-300" />
+                  <Menu className="w-5 h-5 text-gray-600 dark:text-gray-300" />
                 </button>
               </SheetTrigger>
               <SheetContent side="right" className="w-80 glass border-white/10">
