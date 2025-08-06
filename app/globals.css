@@ -1689,4 +1689,579 @@
     width: 300px;
     height: 300px;
   }
+
+  /* ============= COMPREHENSIVE RESPONSIVE DESIGN SYSTEM ============= */
+
+  /* Responsive Container System */
+  .responsive-container {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  /* Ultra Small Devices (320px-375px) - Galaxy Fold, iPhone SE */
+  @media (max-width: 375px) {
+    .responsive-container {
+      padding: 0 0.75rem;
+    }
+
+    .hero-section {
+      padding-top: 2rem !important;
+      padding-bottom: 3rem !important;
+    }
+
+    .hero-title-gradient,
+    .hero-title-dark {
+      font-size: 1.5rem !important;
+      line-height: 1.8rem !important;
+    }
+
+    .hero-description {
+      font-size: 0.875rem !important;
+      line-height: 1.4rem !important;
+      margin-bottom: 1.5rem !important;
+    }
+
+    .search-card {
+      margin: 0 0.5rem !important;
+      padding: 1rem !important;
+    }
+
+    .search-input-container {
+      padding: 0.375rem !important;
+    }
+
+    .btn-glow,
+    .btn-primary {
+      font-size: 0.875rem !important;
+      padding: 0.75rem 1.25rem !important;
+    }
+
+    .works-number-circle {
+      width: 3rem !important;
+      height: 3rem !important;
+    }
+
+    .works-step-title {
+      font-size: 1rem !important;
+    }
+
+    .works-step-description {
+      font-size: 0.8rem !important;
+    }
+
+    .stats-card {
+      padding: 1.5rem !important;
+    }
+
+    .stats-number {
+      font-size: 2rem !important;
+    }
+
+    .category-card {
+      padding: 1.5rem !important;
+    }
+
+    .category-title {
+      font-size: 1.25rem !important;
+    }
+  }
+
+  /* Small Mobile Devices (376px-480px) - iPhone 12/13/14, Pixel */
+  @media (min-width: 376px) and (max-width: 480px) {
+    .responsive-container {
+      padding: 0 1rem;
+    }
+
+    .hero-title-gradient,
+    .hero-title-dark {
+      font-size: 1.75rem !important;
+      line-height: 2rem !important;
+    }
+
+    .search-card {
+      margin: 0 0.75rem !important;
+      padding: 1.25rem !important;
+    }
+
+    .stats-card {
+      padding: 1.75rem !important;
+    }
+
+    .category-card {
+      padding: 1.75rem !important;
+    }
+  }
+
+  /* Mobile Devices (481px-768px) - Large phones, small tablets */
+  @media (min-width: 481px) and (max-width: 768px) {
+    .responsive-container {
+      padding: 0 1.25rem;
+    }
+
+    .hero-section {
+      padding-top: 3rem !important;
+      padding-bottom: 3.5rem !important;
+    }
+
+    .search-card {
+      margin: 0 1rem !important;
+      padding: 1.5rem !important;
+    }
+
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 1rem !important;
+    }
+
+    .category-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 1rem !important;
+    }
+  }
+
+  /* ============= TABLET RESPONSIVE DESIGN ============= */
+
+  /* Tablet Portrait (769px-1024px) */
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .responsive-container {
+      padding: 0 2rem;
+    }
+
+    .hero-section {
+      padding-top: 4rem !important;
+      padding-bottom: 4rem !important;
+    }
+
+    .hero-title-gradient,
+    .hero-title-dark {
+      font-size: 3rem !important;
+      line-height: 3.5rem !important;
+    }
+
+    .hero-description {
+      font-size: 1.125rem !important;
+      line-height: 1.75rem !important;
+    }
+
+    .search-card {
+      padding: 2rem !important;
+      margin: 0 1rem !important;
+    }
+
+    .search-input-container {
+      padding: 0.75rem !important;
+    }
+
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 1.5rem !important;
+    }
+
+    .category-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 1.5rem !important;
+    }
+
+    .works-grid {
+      grid-template-columns: repeat(3, 1fr) !important;
+      gap: 2rem !important;
+    }
+
+    .btn-glow,
+    .btn-primary {
+      font-size: 1.125rem !important;
+      padding: 1rem 2rem !important;
+    }
+  }
+
+  /* Tablet Landscape (1025px-1200px) */
+  @media (min-width: 1025px) and (max-width: 1200px) {
+    .responsive-container {
+      padding: 0 2.5rem;
+    }
+
+    .hero-title-gradient,
+    .hero-title-dark {
+      font-size: 4rem !important;
+      line-height: 4.5rem !important;
+    }
+
+    .stats-grid {
+      grid-template-columns: repeat(4, 1fr) !important;
+      gap: 1.5rem !important;
+    }
+
+    .category-grid {
+      grid-template-columns: repeat(3, 1fr) !important;
+      gap: 1.5rem !important;
+    }
+  }
+
+  /* ============= DESKTOP RESPONSIVE DESIGN ============= */
+
+  /* Small Desktop (1201px-1440px) */
+  @media (min-width: 1201px) and (max-width: 1440px) {
+    .responsive-container {
+      padding: 0 3rem;
+    }
+
+    .hero-section {
+      padding-top: 5rem !important;
+      padding-bottom: 5rem !important;
+    }
+
+    .hero-title-gradient,
+    .hero-title-dark {
+      font-size: 5rem !important;
+      line-height: 5.5rem !important;
+    }
+
+    .category-grid {
+      grid-template-columns: repeat(3, 1fr) !important;
+      gap: 2rem !important;
+    }
+  }
+
+  /* Large Desktop (1441px-1920px) */
+  @media (min-width: 1441px) and (max-width: 1920px) {
+    .responsive-container {
+      padding: 0 4rem;
+    }
+
+    .hero-title-gradient,
+    .hero-title-dark {
+      font-size: 6rem !important;
+      line-height: 6.5rem !important;
+    }
+
+    .search-card {
+      padding: 3rem !important;
+    }
+
+    .stats-grid {
+      gap: 2.5rem !important;
+    }
+
+    .category-grid {
+      gap: 2.5rem !important;
+    }
+  }
+
+  /* Ultra-Wide Desktop (1921px+) */
+  @media (min-width: 1921px) {
+    .responsive-container {
+      max-width: 2400px;
+      padding: 0 5rem;
+    }
+
+    .hero-title-gradient,
+    .hero-title-dark {
+      font-size: 7rem !important;
+      line-height: 7.5rem !important;
+    }
+
+    .hero-description {
+      font-size: 1.5rem !important;
+      line-height: 2rem !important;
+    }
+
+    .search-card {
+      padding: 4rem !important;
+    }
+
+    .stats-grid {
+      gap: 3rem !important;
+    }
+
+    .category-grid {
+      gap: 3rem !important;
+    }
+  }
+
+  /* ============= FOLDABLE DEVICE SUPPORT ============= */
+
+  /* Galaxy Fold Unfolded (280px width when folded) */
+  @media (max-width: 280px) {
+    .responsive-container {
+      padding: 0 0.5rem;
+    }
+
+    .hero-title-gradient,
+    .hero-title-dark {
+      font-size: 1.25rem !important;
+      line-height: 1.5rem !important;
+    }
+
+    .hero-description {
+      font-size: 0.75rem !important;
+      line-height: 1.2rem !important;
+    }
+
+    .search-card {
+      margin: 0 0.25rem !important;
+      padding: 0.75rem !important;
+    }
+
+    .btn-glow,
+    .btn-primary {
+      font-size: 0.75rem !important;
+      padding: 0.5rem 1rem !important;
+    }
+  }
+
+  /* Surface Duo Portrait (540px) */
+  @media (min-width: 540px) and (max-width: 720px) and (orientation: portrait) {
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .category-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .dual-screen-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+  }
+
+  /* Surface Duo Landscape (720px x 540px) */
+  @media (min-width: 720px) and (max-width: 1080px) and (orientation: landscape) {
+    .hero-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .dual-screen-hero {
+      text-align: left;
+    }
+
+    .dual-screen-search {
+      text-align: center;
+    }
+  }
+
+  /* ============= ORIENTATION-SPECIFIC STYLES ============= */
+
+  /* Portrait Orientation */
+  @media (orientation: portrait) {
+    .portrait-stack {
+      flex-direction: column;
+    }
+
+    .portrait-full-width {
+      width: 100%;
+    }
+
+    .mobile-nav-portrait {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+    }
+  }
+
+  /* Landscape Orientation */
+  @media (orientation: landscape) and (max-height: 600px) {
+    .hero-section {
+      padding-top: 2rem !important;
+      padding-bottom: 2rem !important;
+    }
+
+    .landscape-compact {
+      padding: 1rem 0;
+    }
+
+    .landscape-horizontal {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    /* Reduce vertical spacing in landscape */
+    section {
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+    }
+  }
+
+  /* ============= HIGH-DPI AND RETINA DISPLAY SUPPORT ============= */
+
+  @media (-webkit-min-device-pixel-ratio: 2),
+         (min-resolution: 192dpi),
+         (min-resolution: 2dppx) {
+    .high-dpi-image {
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+    }
+
+    .retina-border {
+      border-width: 0.5px;
+    }
+
+    .retina-text {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+  }
+
+  /* ============= TOUCH AND HOVER INTERACTION OPTIMIZATION ============= */
+
+  /* Touch Devices */
+  @media (hover: none) and (pointer: coarse) {
+    .touch-target {
+      min-height: 44px;
+      min-width: 44px;
+      padding: 12px;
+    }
+
+    .touch-friendly {
+      padding: 1rem;
+      margin: 0.5rem;
+    }
+
+    .hover-effect:hover {
+      transform: none;
+    }
+
+    .touch-feedback:active {
+      transform: scale(0.95);
+      transition: transform 0.1s ease;
+    }
+  }
+
+  /* Hover-Capable Devices */
+  @media (hover: hover) and (pointer: fine) {
+    .hover-enhance {
+      transition: all 0.3s ease;
+    }
+
+    .hover-enhance:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  /* ============= RESPONSIVE UTILITY CLASSES ============= */
+
+  .resp-hidden-mobile {
+    display: block;
+  }
+
+  @media (max-width: 768px) {
+    .resp-hidden-mobile {
+      display: none;
+    }
+  }
+
+  .resp-hidden-desktop {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .resp-hidden-desktop {
+      display: block;
+    }
+  }
+
+  .resp-text-xs { font-size: 0.75rem; }
+  .resp-text-sm { font-size: 0.875rem; }
+  .resp-text-base { font-size: 1rem; }
+  .resp-text-lg { font-size: 1.125rem; }
+  .resp-text-xl { font-size: 1.25rem; }
+  .resp-text-2xl { font-size: 1.5rem; }
+  .resp-text-3xl { font-size: 1.875rem; }
+
+  @media (min-width: 768px) {
+    .resp-text-xs { font-size: 0.875rem; }
+    .resp-text-sm { font-size: 1rem; }
+    .resp-text-base { font-size: 1.125rem; }
+    .resp-text-lg { font-size: 1.25rem; }
+    .resp-text-xl { font-size: 1.5rem; }
+    .resp-text-2xl { font-size: 1.875rem; }
+    .resp-text-3xl { font-size: 2.25rem; }
+  }
+
+  @media (min-width: 1024px) {
+    .resp-text-xs { font-size: 1rem; }
+    .resp-text-sm { font-size: 1.125rem; }
+    .resp-text-base { font-size: 1.25rem; }
+    .resp-text-lg { font-size: 1.5rem; }
+    .resp-text-xl { font-size: 1.875rem; }
+    .resp-text-2xl { font-size: 2.25rem; }
+    .resp-text-3xl { font-size: 3rem; }
+  }
+
+  /* Responsive Spacing */
+  .resp-p-2 { padding: 0.5rem; }
+  .resp-p-4 { padding: 1rem; }
+  .resp-p-6 { padding: 1.5rem; }
+  .resp-p-8 { padding: 2rem; }
+
+  @media (min-width: 768px) {
+    .resp-p-2 { padding: 1rem; }
+    .resp-p-4 { padding: 1.5rem; }
+    .resp-p-6 { padding: 2rem; }
+    .resp-p-8 { padding: 3rem; }
+  }
+
+  @media (min-width: 1024px) {
+    .resp-p-2 { padding: 1.5rem; }
+    .resp-p-4 { padding: 2rem; }
+    .resp-p-6 { padding: 3rem; }
+    .resp-p-8 { padding: 4rem; }
+  }
+
+  /* Responsive Flexbox */
+  .resp-flex-col {
+    flex-direction: column;
+  }
+
+  @media (min-width: 768px) {
+    .resp-flex-col {
+      flex-direction: row;
+    }
+  }
+
+  .resp-flex-wrap {
+    flex-wrap: wrap;
+  }
+
+  .resp-justify-center {
+    justify-content: center;
+  }
+
+  @media (min-width: 768px) {
+    .resp-justify-center {
+      justify-content: space-between;
+    }
+  }
+
+  /* Responsive Grid */
+  .resp-grid-1 {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  @media (min-width: 640px) {
+    .resp-grid-1 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .resp-grid-1 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .resp-grid-1 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
 }
