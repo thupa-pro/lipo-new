@@ -70,7 +70,7 @@ export default function QuickBookingPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!formData.name || !formData.phone || !formData.preferredTime) {
       toast({
         title: "Missing Information",
@@ -82,16 +82,32 @@ export default function QuickBookingPage() {
 
     setSubmitting(true);
 
+    // Create abort controller for booking request
+    const abortController = new AbortController();
+    const timeoutId = setTimeout(() => {
+      abortController.abort();
+    }, 60000); // 60 second timeout for booking submission
+
     try {
       const response = await fetch('/api/offline/sms', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
         body: JSON.stringify({
           action: 'process_qr_booking',
           quickBookingCode: code,
           customerData: formData
-        })
+        }),
+        signal: abortController.signal
       });
+
+      clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        throw new Error(`Booking request failed: ${response.status} ${response.statusText}`);
+      }
 
       const result = await response.json();
 
@@ -109,12 +125,33 @@ export default function QuickBookingPage() {
         throw new Error(result.error || 'Booking failed');
       }
     } catch (error) {
-      console.error('Booking error:', error);
-      toast({
-        title: "Booking Failed",
-        description: "There was an error processing your booking. Please try again.",
-        variant: "destructive"
-      });
+      clearTimeout(timeoutId);
+
+      if (error instanceof Error) {
+        if (error.name === 'AbortError') {
+          toast({
+            title: "Request Timeout",
+            description: "Your booking request timed out. Please check your connection and try again.",
+            variant: "destructive"
+          });
+        } else {
+          console.error('Booking error:', error.message);
+          toast({
+            title: "Booking Failed",
+            description: error.message.includes('fetch')
+              ? "Network error. Please check your connection and try again."
+              : "There was an error processing your booking. Please try again.",
+            variant: "destructive"
+          });
+        }
+      } else {
+        console.error('Unknown booking error:', error);
+        toast({
+          title: "Booking Failed",
+          description: "An unexpected error occurred. Please try again.",
+          variant: "destructive"
+        });
+      }
     } finally {
       setSubmitting(false);
     }
