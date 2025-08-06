@@ -1485,6 +1485,28 @@
     color: #5B21B6 !important;
   }
 
+  /* Service Category Cards Light Mode */
+  .light .category-card {
+    background: #FFFFFF !important;
+    border: 1px solid #E5E7EB !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  .light .category-card:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    border-color: #D1D5DB;
+  }
+
+  .light .category-title {
+    color: #111827 !important;
+    font-weight: 700 !important;
+  }
+
+  .light .category-description {
+    color: #374151 !important;
+    font-weight: 400 !important;
+  }
+
   /* Enhanced Premium Gradients for Light Mode */
   .light .premium-gradient-bg {
     background:
