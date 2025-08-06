@@ -520,6 +520,7 @@ export default function ModernAdminDashboard() {
                       {[
                         { label: "User Mgmt", href: "/admin/users", icon: Users, color: "blue" },
                         { label: "Analytics", href: "/admin/analytics", icon: BarChart3, color: "green" },
+                        { label: "Error Monitor", href: "/admin/error-monitoring", icon: AlertTriangle, color: "red" },
                         { label: "Providers", href: "/admin/providers", icon: UserCheck, color: "purple" },
                         { label: "Settings", href: "/admin/settings", icon: Settings, color: "gray" },
                       ].map((action, idx) => (
