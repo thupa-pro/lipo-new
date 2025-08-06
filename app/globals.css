@@ -936,7 +936,9 @@
   .light .bg-fuchsia-500,
   .light .bg-fuchsia-600,
   .light .bg-violet-500,
-  .light .bg-violet-600 {
+  .light .bg-violet-600,
+  .light .btn-elite,
+  .light .btn-glow {
     color: #FFFFFF !important;
   }
 
@@ -950,8 +952,39 @@
   .light button[class*="bg-indigo"]:hover,
   .light button[class*="bg-pink"]:hover,
   .light button[class*="bg-fuchsia"]:hover,
-  .light button[class*="bg-violet"]:hover {
+  .light button[class*="bg-violet"]:hover,
+  .light .btn-elite:hover,
+  .light .btn-glow:hover {
     color: #FFFFFF !important;
+  }
+
+  /* Fix any purple text on purple background */
+  .light .text-purple-500,
+  .light .text-purple-600,
+  .light .text-purple-400,
+  .light .text-fuchsia-500,
+  .light .text-violet-500 {
+    color: #7C3AED !important;
+  }
+
+  /* Ensure proper contrast for colored backgrounds */
+  .light .bg-purple-100,
+  .light .bg-purple-50,
+  .light .bg-violet-100,
+  .light .bg-fuchsia-100 {
+    color: #5B21B6 !important;
+  }
+
+  /* Fix dropdown and badge colors */
+  .light .dropdown-item,
+  .light [role="menuitem"] {
+    color: #111827 !important;
+  }
+
+  .light .dropdown-item:hover,
+  .light [role="menuitem"]:hover {
+    color: #7C3AED !important;
+    background: rgba(124, 58, 237, 0.1) !important;
   }
 
   /* Enhanced Input Styles */
