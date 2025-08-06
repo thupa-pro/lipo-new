@@ -42,6 +42,7 @@ export default function QuickBookingPage() {
   const [submitting, setSubmitting] = useState(false);
   const [providerInfo, setProviderInfo] = useState<ProviderInfo | null>(null);
   const [estimatedCost, setEstimatedCost] = useState<number | null>(null);
+  const [minDateTime, setMinDateTime] = useState('');
 
   const [formData, setFormData] = useState({
     name: "",
