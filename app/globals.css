@@ -790,6 +790,15 @@
     border-color: rgba(255, 255, 255, 0.2);
   }
 
+  /* Light mode elite button text */
+  .light .btn-elite {
+    color: #FFFFFF !important;
+  }
+
+  .light .btn-elite:hover {
+    color: #FFFFFF !important;
+  }
+
   .animate-shimmer {
     animation: elite-shimmer 2.5s ease-in-out infinite;
     background: linear-gradient(
