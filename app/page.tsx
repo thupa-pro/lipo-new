@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ThemeToggle } from '@/components/ui/theme-toggle';
+import { IntelligentHeader } from '@/components/ui/intelligent-header';
+import { PWAProvider } from '@/components/ui/pwa-features';
 import { ModernFooter } from '@/components/modern-footer';
 import { CommandPaletteHint } from '@/components/ui/command-palette-hint';
 import { CommandPalette } from '@/components/ui/command-palette';
@@ -12,28 +13,7 @@ import { FloatingFAB, MobileBottomNav } from '@/components/ui/floating-fab';
 import { useToast } from '@/components/ui/use-toast';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import {
-  Menu,
-  Bell,
-  User,
-  Settings,
-  Home,
-  Briefcase,
-  CreditCard,
-  HelpCircle,
-  LogOut,
-  Activity,
-  X,
   Search,
   UserPlus,
   CheckCircle,
@@ -43,21 +23,19 @@ import {
   Shield,
   Star,
   ArrowRight,
-  Play,
   Users,
   Clock,
   Wrench,
   HomeIcon,
   GraduationCap,
   Car,
-  Music,
   Brain,
   HeadphonesIcon,
-  Timer,
   Dumbbell,
   PartyPopper,
   Bot,
   Monitor,
+  Briefcase,
 } from 'lucide-react';
 
 interface Notification {
