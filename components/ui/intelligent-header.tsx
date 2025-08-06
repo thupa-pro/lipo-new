@@ -72,6 +72,7 @@ export function IntelligentHeader({ onCommandPaletteOpen }: IntelligentHeaderPro
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
   const router = useRouter();
   const { toast } = useToast();
