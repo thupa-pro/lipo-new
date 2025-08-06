@@ -5,7 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "next-themes";
 import { CommandPaletteProvider } from "@/components/providers/command-palette-provider";
 import { AuthProvider } from "@/components/auth/auth-provider";
-// import { NetworkProvider } from "@/components/network/network-status";
+import { NetworkProvider } from "@/components/network/network-status";
 
 const inter = Inter({ subsets: ["latin"] });
 
