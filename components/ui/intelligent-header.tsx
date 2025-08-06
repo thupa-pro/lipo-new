@@ -206,16 +206,23 @@ export function IntelligentHeader({ onCommandPaletteOpen }: IntelligentHeaderPro
   }, [user, userRole, isCustomer, isProvider, isAdmin, isSuperAdmin]);
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isClient || typeof window === 'undefined') return;
 
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       setIsScrolled(scrollPosition > 50);
     };
 
+    // Set initial scroll state
+    handleScroll();
+
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isClient]);
 
   const handleNotificationClick = (notificationId: string) => {
     setNotifications(prev =>
