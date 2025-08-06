@@ -323,7 +323,7 @@ export default function QuickBookingPage() {
                     value={formData.preferredTime}
                     onChange={(e) => setFormData({ ...formData, preferredTime: e.target.value })}
                     className="pl-10"
-                    min={new Date().toISOString().slice(0, 16)}
+                    min={minDateTime}
                     required
                   />
                 </div>
