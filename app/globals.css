@@ -1368,12 +1368,14 @@
   }
 
   .light .search-input {
-    color: #0F172A !important;
+    color: #111827 !important;
     background: transparent !important;
+    font-weight: 500 !important;
   }
 
   .light .search-input::placeholder {
-    color: #64748B !important;
+    color: #6B7280 !important;
+    font-weight: 400 !important;
   }
 
   .light .search-tag {
