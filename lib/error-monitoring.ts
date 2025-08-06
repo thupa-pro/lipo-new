@@ -236,7 +236,7 @@ class ErrorMonitor {
   }
 
   private startBatchReporting() {
-    if (typeof window === 'undefined') return;
+    if (!this.isClient || typeof window === 'undefined') return;
 
     setInterval(() => {
       if (this.pendingReports.length > 0) {
