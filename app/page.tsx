@@ -233,7 +233,7 @@ export default function HomePage() {
                 <Sparkles className="w-6 h-6 md:w-8 md:h-8 text-purple-400 opacity-20" />
               </div>
             </div>
-            <span className="text-xl md:text-3xl font-display text-white tracking-tight" role="img" aria-label="Loconomy Logo">Loconomy</span>
+            <span className="text-xl md:text-3xl font-display text-gray-900 dark:text-white tracking-tight" role="img" aria-label="Loconomy Logo">Loconomy</span>
           </div>
           
           <nav className="hidden lg:flex items-center space-x-8 text-sm font-medium text-gray-300" role="navigation" aria-label="Primary navigation">
