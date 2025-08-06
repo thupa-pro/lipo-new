@@ -510,20 +510,22 @@ export default function HomePage() {
           </ScrollReveal>
           
           <ScrollReveal delay={800} direction="up">
-            <div className="flex flex-col sm:flex-row justify-center items-center gap-4 md:gap-6 px-4">
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-4 md:gap-6 px-2 sm:px-4 resp-flex-col">
               <Link
                 href="/browse"
-                className="w-full sm:w-auto flex items-center justify-center gap-2 md:gap-3 px-6 md:px-10 py-4 md:py-5 btn-elite text-white font-ui font-semibold rounded-full text-base md:text-lg group"
+                className="w-full sm:w-auto flex items-center justify-center gap-2 md:gap-3 resp-p-4 btn-elite text-white font-ui font-semibold rounded-full resp-text-sm md:text-lg group touch-target hover-enhance"
               >
-                <Search className="w-5 h-5 md:w-6 md:h-6 transition-transform duration-300 group-hover:scale-110" />
-                Find Services Now
+                <Search className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 transition-transform duration-300 group-hover:scale-110" />
+                <span className="hidden xs:inline">Find Services Now</span>
+                <span className="xs:hidden">Find Services</span>
               </Link>
               <Link
                 href="/become-provider"
-                className="w-full sm:w-auto flex items-center justify-center gap-2 md:gap-3 px-6 md:px-10 py-4 md:py-5 bg-white/10 text-white font-ui font-semibold rounded-full text-base md:text-lg hover:bg-white/20 transition-all duration-300 border border-transparent hover:border-white/30 backdrop-blur-sm group"
+                className="w-full sm:w-auto flex items-center justify-center gap-2 md:gap-3 resp-p-4 bg-white/10 text-white font-ui font-semibold rounded-full resp-text-sm md:text-lg hover:bg-white/20 transition-all duration-300 border border-transparent hover:border-white/30 backdrop-blur-sm group touch-target hover-enhance"
               >
-                <UserPlus className="w-5 h-5 md:w-6 md:h-6 transition-transform duration-300 group-hover:scale-110" />
-                Become a Provider
+                <UserPlus className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 transition-transform duration-300 group-hover:scale-110" />
+                <span className="hidden xs:inline">Become a Provider</span>
+                <span className="xs:hidden">Be a Provider</span>
               </Link>
             </div>
           </ScrollReveal>
