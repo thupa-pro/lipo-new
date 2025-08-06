@@ -479,7 +479,7 @@ export default function HomePage() {
       <div className="h-20 md:h-24"></div>
 
       {/* Main Content */}
-      <main id="main-content" className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8" role="main">
+      <main id="main-content" className="relative z-10 responsive-container" role="main">
         {/* Hero Section */}
         <section className="hero-section text-center py-16 md:py-40" role="main" aria-labelledby="hero-title">
           <ScrollReveal delay={200} direction="scale">
