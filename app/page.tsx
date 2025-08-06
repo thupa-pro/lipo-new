@@ -495,9 +495,10 @@ export default function HomePage() {
           </ScrollReveal>
 
           <ScrollReveal delay={400} direction="up">
-            <h1 id="hero-title" className="text-3xl md:text-7xl lg:text-8xl font-display mb-6 leading-tight px-4">
+            <h1 id="hero-title" className="resp-text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-display mb-4 md:mb-6 leading-tight px-2 sm:px-4">
               <span className="gradient-text">Connect with Local</span>
-              <br />
+              <br className="hidden sm:block" />
+              <span className="sm:hidden"> </span>
               <span className="text-gray-900 dark:text-white font-display">Service Professionals You Trust</span>
             </h1>
           </ScrollReveal>
