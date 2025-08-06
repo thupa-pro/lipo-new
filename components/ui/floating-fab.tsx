@@ -17,6 +17,7 @@ export function FloatingFAB() {
   const [isOpen, setIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [isClient, setIsClient] = useState(false);
   const router = useRouter();
 
   const actions: FABAction[] = [
