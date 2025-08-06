@@ -444,19 +444,35 @@ export async function monitoredFetch(
 // Hook for React components to access error monitoring
 export function useErrorMonitoring() {
   const reportError = (error: Partial<ErrorReport>) => {
-    errorMonitor.reportError(error);
+    if (typeof window !== 'undefined') {
+      errorMonitor.reportError(error);
+    }
   };
 
   const reportFetchError = (url: string, error: Error, options: any = {}) => {
-    errorMonitor.reportFetchError(url, error, options);
+    if (typeof window !== 'undefined') {
+      errorMonitor.reportFetchError(url, error, options);
+    }
   };
 
   const getStats = () => {
-    return errorMonitor.getStats();
+    if (typeof window !== 'undefined') {
+      return errorMonitor.getStats();
+    }
+    return {
+      total: 0,
+      byType: {},
+      byUrl: {},
+      byStatus: {},
+      recentErrors: [],
+      patterns: [],
+    };
   };
 
   const clearErrors = () => {
-    errorMonitor.clearErrors();
+    if (typeof window !== 'undefined') {
+      errorMonitor.clearErrors();
+    }
   };
 
   return {
