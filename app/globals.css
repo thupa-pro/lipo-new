@@ -1402,12 +1402,13 @@
   }
 
   .light .works-step-title {
-    color: #0F172A !important;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    color: #111827 !important;
+    font-weight: 700 !important;
   }
 
   .light .works-step-description {
-    color: #475569 !important;
+    color: #374151 !important;
+    font-weight: 400 !important;
   }
 
   .light .works-connecting-line {
