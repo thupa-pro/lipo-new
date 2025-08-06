@@ -157,8 +157,15 @@ export function PWAInstallPrompt() {
 export function OfflineIndicator() {
   const [isOnline, setIsOnline] = useState(true);
   const [showOfflineBanner, setShowOfflineBanner] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isClient || typeof window === 'undefined') return;
+
     const handleOnline = () => {
       setIsOnline(true);
       setShowOfflineBanner(false);
@@ -179,7 +186,7 @@ export function OfflineIndicator() {
       window.removeEventListener('online', handleOnline);
       window.removeEventListener('offline', handleOffline);
     };
-  }, []);
+  }, [isClient]);
 
   if (!showOfflineBanner) return null;
 
