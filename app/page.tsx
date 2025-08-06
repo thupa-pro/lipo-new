@@ -498,7 +498,7 @@ export default function HomePage() {
             <h1 id="hero-title" className="text-3xl md:text-7xl lg:text-8xl font-display mb-6 leading-tight px-4">
               <span className="gradient-text">Connect with Local</span>
               <br />
-              <span className="text-white font-display">Service Professionals You Trust</span>
+              <span className="text-gray-900 dark:text-white font-display">Service Professionals You Trust</span>
             </h1>
           </ScrollReveal>
 
