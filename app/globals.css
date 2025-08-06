@@ -138,9 +138,9 @@
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
   }
 
-  /* Light mode body with premium gradient background */
+  /* Light mode body with clean white background */
   .light body {
-    background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 50%, #EFF6FF 100%);
+    background: #FFFFFF;
     color: var(--text-primary);
   }
 
