@@ -1394,14 +1394,11 @@
     transform: translateY(-1px);
   }
 
-  /* How It Works Section Premium Styling */
+  /* How It Works Section Clean Styling */
   .light .works-number-circle {
-    background: rgba(255, 255, 255, 0.95) !important;
-    border: 2px solid rgba(124, 58, 237, 0.3) !important;
-    box-shadow:
-      0 12px 24px rgba(124, 58, 237, 0.15),
-      0 4px 8px rgba(0, 0, 0, 0.08),
-      inset 0 1px 0 rgba(255, 255, 255, 1);
+    background: #FFFFFF !important;
+    border: 2px solid #8B5CF6 !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }
 
   .light .works-step-title {
