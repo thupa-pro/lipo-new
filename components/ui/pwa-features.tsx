@@ -510,6 +510,10 @@ export function PWAProvider({ children }: { children: React.ReactNode }) {
     }
   }, [isClient]);
 
+  if (!isClient) {
+    return <>{children}</>;
+  }
+
   return (
     <AppGestures>
       <AppHaptics />
