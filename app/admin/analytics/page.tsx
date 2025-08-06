@@ -132,10 +132,17 @@ export default function AnalyticsDashboard() {
 
   const loadAnalyticsData = async () => {
     setLoading(true);
+
+    // Create abort controller for analytics data request
+    const abortController = new AbortController();
+    const timeoutId = setTimeout(() => {
+      abortController.abort();
+    }, 30000); // 30 second timeout for analytics data
+
     try {
       const endDate = new Date();
       const startDate = new Date();
-      
+
       switch (dateRange) {
         case '7d':
           startDate.setDate(endDate.getDate() - 7);
@@ -162,24 +169,52 @@ export default function AnalyticsDashboard() {
 
       const response = await fetch('/api/analytics', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'dashboard', query })
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({ action: 'dashboard', query }),
+        signal: abortController.signal
       });
 
+      clearTimeout(timeoutId);
+
       if (!response.ok) {
-        throw new Error('Failed to load analytics data');
+        throw new Error(`Failed to load analytics data: ${response.status} ${response.statusText}`);
       }
 
       const analyticsData = await response.json();
       setData(analyticsData);
     } catch (error) {
-      console.error('Error loading analytics:', error);
-      toast({
-        title: "Error",
-        description: "Failed to load analytics data",
-        variant: "destructive"
-      });
-      
+      clearTimeout(timeoutId);
+
+      if (error instanceof Error) {
+        if (error.name === 'AbortError') {
+          console.warn('Analytics data request was cancelled or timed out');
+          toast({
+            title: "Request Timeout",
+            description: "Analytics data request timed out. Please try again.",
+            variant: "destructive"
+          });
+        } else {
+          console.error('Error loading analytics:', error.message);
+          toast({
+            title: "Error",
+            description: error.message.includes('fetch')
+              ? "Network error loading analytics. Please check your connection."
+              : "Failed to load analytics data. Using demo data.",
+            variant: "destructive"
+          });
+        }
+      } else {
+        console.error('Unknown analytics error:', error);
+        toast({
+          title: "Error",
+          description: "Failed to load analytics data. Using demo data.",
+          variant: "destructive"
+        });
+      }
+
       // Mock data for demonstration
       setData({
         overview: [
