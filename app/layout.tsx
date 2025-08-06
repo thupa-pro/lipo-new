@@ -103,12 +103,45 @@ export default function RootLayout({
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
-        <meta name="theme-color" content="#0A091A" />
+
+        {/* PWA and App-like Meta Tags */}
+        <meta name="theme-color" content="#8B5CF6" />
+        <meta name="theme-color" media="(prefers-color-scheme: light)" content="#8B5CF6" />
+        <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0A091A" />
+
+        {/* iOS PWA Support */}
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="Loconomy" />
+
+        {/* Android PWA Support */}
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="application-name" content="Loconomy" />
+
+        {/* Windows PWA Support */}
+        <meta name="msapplication-TileColor" content="#8B5CF6" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <meta name="msapplication-starturl" content="/" />
+
+        {/* App-like Features */}
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="format-detection" content="address=no" />
+        <meta name="format-detection" content="email=no" />
+
+        {/* Performance and Optimization */}
+        <meta name="referrer" content="origin-when-cross-origin" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="HandheldFriendly" content="true" />
+
+        {/* Icons and Manifest */}
         <link rel="icon" href="/icon.svg" type="image/svg+xml" />
         <link rel="manifest" href="/manifest.json" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+        {/* Fonts */}
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className={inter.className} suppressHydrationWarning>
         <ThemeProvider
