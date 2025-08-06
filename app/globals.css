@@ -1379,17 +1379,19 @@
   }
 
   .light .search-tag {
-    background: #FFFFFF !important;
+    background: #F3F4F6 !important;
     border: 1px solid #D1D5DB !important;
     color: #374151 !important;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    font-weight: 500 !important;
   }
 
   .light .search-tag:hover {
-    background: #F9FAFB !important;
+    background: #E5E7EB !important;
     border-color: #9CA3AF !important;
     color: #111827 !important;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transform: translateY(-1px);
   }
 
   /* How It Works Section Premium Styling */
