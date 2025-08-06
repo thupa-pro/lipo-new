@@ -493,9 +493,9 @@ export function PWAProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (!isClient || typeof window === 'undefined') return;
 
-    // Register service worker
+    // Register enhanced service worker
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js')
+      navigator.serviceWorker.register('/sw-enhanced.js')
         .then((registration) => {
           console.log('SW registered:', registration);
         })
