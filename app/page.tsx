@@ -9,7 +9,7 @@ import { ModernFooter } from '@/components/modern-footer';
 import { CommandPaletteHint } from '@/components/ui/command-palette-hint';
 import { FloatingFAB, MobileBottomNav } from '@/components/ui/floating-fab';
 import { Badge } from '@/components/ui/badge';
-import { ModernHero } from '@/components/ui/modern-hero';
+import { SimpleHero } from '@/components/ui/simple-hero';
 import {
   Search,
   UserPlus,
