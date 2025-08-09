@@ -39,7 +39,7 @@ interface ModernHeroProps {
   }
 }
 
-function ModernHero({ stats }: ModernHeroProps) {
+export function ModernHero({ stats }: ModernHeroProps) {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedLocation, setSelectedLocation] = useState('Your Location')
   const [isLoading, setIsLoading] = useState(false)
