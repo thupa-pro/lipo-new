@@ -253,7 +253,6 @@ export default function AboutPage() {
           {/* Company Stats with Enhanced Glassmorphism */}
           <section className="py-16 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
             <div className="container">
-              <ScrollReveal>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                   {companyStats.map((stat, index) => (
                     <Card key={stat.label} className="text-center glass border-white/20 hover:border-white/40 transition-all duration-300 hover:-translate-y-2 group">
@@ -267,7 +266,6 @@ export default function AboutPage() {
                     </Card>
                   ))}
                 </div>
-              </ScrollReveal>
             </div>
           </section>
 
