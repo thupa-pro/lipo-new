@@ -251,7 +251,6 @@ export default async function HomePage() {
           <main id="main-content" className="relative z-10 responsive-container" role="main">
             {/* Hero Section - Server Rendered */}
             <section className="hero-section text-center py-8 sm:py-12 md:py-16 lg:py-20 xl:py-24 landscape-compact" role="main" aria-labelledby="hero-title">
-              <ScrollReveal delay={200} direction="scale">
                 <div className="hero-badge floating-element glow-pulse mb-6 flex justify-center items-center gap-3 text-xs md:text-sm font-ui px-4 md:px-6 py-2 md:py-3 rounded-full inline-flex">
                   <div className="relative">
                     <Shield className="w-4 h-4 md:w-5 md:h-5 text-emerald-400 animate-pulse" />
@@ -261,7 +260,6 @@ export default async function HomePage() {
                   </div>
                   <span>Trusted by {(stats.userCount / 1000000).toFixed(1)}M+ Users Worldwide</span>
                 </div>
-              </ScrollReveal>
 
               <ScrollReveal delay={400} direction="up">
                 <h1 id="hero-title" className="resp-text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-display mb-4 md:mb-6 leading-tight px-2 sm:px-4">
