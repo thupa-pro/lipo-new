@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import Link from 'next/link';
 import { createSupabaseServerComponent } from '@/lib/supabase/server';
+import { isSupabaseConfigured } from '@/lib/env-check';
 import { IntelligentHeader } from '@/components/ui/intelligent-header';
 import { PWAProvider } from '@/components/ui/pwa-features';
 import { ModernFooter } from '@/components/modern-footer';
