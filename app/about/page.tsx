@@ -11,6 +11,8 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ModernFooter } from "@/components/modern-footer";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
+import { IntelligentHeader } from "@/components/ui/intelligent-header";
+import { PWAProvider } from "@/components/ui/pwa-features";
 
 import {
   MapPin,
@@ -33,7 +35,8 @@ import {
   CheckCircle,
   Phone,
   Mail,
-  Calendar
+  Calendar,
+  Search
 } from "lucide-react";
 
 // Static generation configuration
