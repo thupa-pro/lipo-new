@@ -35,67 +35,30 @@ export class AuthService {
         return { error: { message: 'Password must be at least 8 characters long', field: 'password' } }
       }
 
-      // Sign up user with Supabase Auth
-      const { data: authData, error: authError } = await this.supabase.auth.signUp({
-        email: data.email,
-        password: data.password,
-        options: {
-          data: {
-            first_name: data.firstName,
-            last_name: data.lastName,
-            display_name: `${data.firstName} ${data.lastName}`,
-            role: data.userType,
-            agree_to_terms: data.agreeToTerms,
-            agree_to_marketing: data.agreeToMarketing,
-          }
-        }
+      // Create user with Clerk API
+      const response = await fetch('/api/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: data.email,
+          password: data.password,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          userType: data.userType,
+          agreeToTerms: data.agreeToTerms,
+          agreeToMarketing: data.agreeToMarketing,
+        }),
       })
 
-      if (authError) {
-        return { error: { message: authError.message } }
+      const result = await response.json()
+
+      if (!response.ok) {
+        return { error: { message: result.error || 'Failed to create account' } }
       }
 
-      if (!authData.user) {
-        return { error: { message: 'Failed to create user account' } }
-      }
-
-      // Create user profile in our database
-      const { error: profileError } = await this.supabase
-        .from('users')
-        .insert({
-          id: authData.user.id,
-          email: data.email,
-          display_name: `${data.firstName} ${data.lastName}`,
-          role: data.userType,
-          is_verified: false,
-        })
-
-      if (profileError) {
-        console.error('Profile creation error:', profileError)
-        // Don't fail signup if profile creation fails, user can complete it later
-      }
-
-      // If user type is provider, create provider profile
-      if (data.userType === 'provider') {
-        const { error: providerError } = await this.supabase
-          .from('providers')
-          .insert({
-            user_id: authData.user.id,
-            business_name: `${data.firstName} ${data.lastName}`,
-            rating_average: 0,
-            rating_count: 0,
-            is_active: true,
-          })
-
-        if (providerError) {
-          console.error('Provider profile creation error:', providerError)
-        }
-      }
-
-      // Check if email confirmation is required
-      const needsVerification = !authData.session
-
-      return { error: null, needsVerification }
+      return { error: null, needsVerification: result.needsVerification || false }
     } catch (error) {
       console.error('Sign up error:', error)
       return { error: { message: 'An unexpected error occurred during sign up' } }
@@ -104,21 +67,25 @@ export class AuthService {
 
   async signIn(data: SignInData): Promise<{ error: AuthError | null }> {
     try {
-      const { error } = await this.supabase.auth.signInWithPassword({
-        email: data.email,
-        password: data.password,
+      const response = await fetch('/api/auth/signin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: data.email,
+          password: data.password,
+          rememberMe: data.rememberMe,
+        }),
       })
 
-      if (error) {
-        if (error.message.includes('Invalid login credentials')) {
-          return { error: { message: 'Invalid email or password' } }
-        }
-        if (error.message.includes('Email not confirmed')) {
-          return { error: { message: 'Please check your email and click the confirmation link before signing in' } }
-        }
-        return { error: { message: error.message } }
+      const result = await response.json()
+
+      if (!response.ok) {
+        return { error: { message: result.error || 'Failed to sign in' } }
       }
 
+      // If successful, the session will be handled by Clerk's cookies
       return { error: null }
     } catch (error) {
       console.error('Sign in error:', error)
