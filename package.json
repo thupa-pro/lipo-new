@@ -103,9 +103,20 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "analyze": "ANALYZE=true npm run build",
-    "analyze:server": "ANALYZE=true BUNDLE_ANALYZE=server npm run build",
-    "analyze:browser": "ANALYZE=true BUNDLE_ANALYZE=browser npm run build"
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest",
+    "test:unit": "vitest run --reporter=verbose",
+    "test:integration": "vitest run --config vitest.integration.config.ts",
+    "test:e2e": "playwright test",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest watch",
+    "analyze": "ANALYZE=true pnpm run build",
+    "analyze:server": "ANALYZE=true BUNDLE_ANALYZE=server pnpm run build",
+    "analyze:browser": "ANALYZE=true BUNDLE_ANALYZE=browser pnpm run build"
   },
   "packageManager": "pnpm@10.13.1"
 }
