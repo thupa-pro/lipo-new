@@ -217,12 +217,10 @@ export default function AboutPage() {
 
             <div className="container relative z-10">
               <div className="max-w-4xl mx-auto text-center">
-                <ScrollReveal>
                   <Badge variant="secondary" className="mb-6 px-4 py-2 text-sm font-medium bg-white/60 dark:bg-gray-800/60 backdrop-blur-md border border-white/20">
                     <Sparkles className="w-4 h-4 mr-2" />
                     About Our Mission
                   </Badge>
-                </ScrollReveal>
 
                 <ScrollReveal delay={200}>
                   <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-purple-600 via-pink-600 to-cyan-600 bg-clip-text text-transparent leading-tight">
