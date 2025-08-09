@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useAuth } from "@/components/auth/clerk-auth-provider";
+import { useAuth } from "@/components/auth/auth-provider";
 import { ProtectedRoute } from "@/components/auth/protected-route";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -37,8 +37,8 @@ function DashboardContent() {
     setIsLoaded(true);
   }, []);
 
-  const displayName = userProfile?.display_name || user?.fullName || user?.emailAddresses?.[0]?.emailAddress?.split('@')[0] || 'User';
-  const userEmail = user?.emailAddresses?.[0]?.emailAddress || '';
+  const displayName = userProfile?.display_name || user?.email?.split('@')[0] || 'User';
+  const userEmail = user?.email || '';
   const userRole = userProfile?.role || 'customer';
 
   const stats = [

@@ -32,8 +32,8 @@ export function ProtectedRoute({
         return
       }
 
-      // Check email verification if required (Clerk handles this automatically)
-      if (requireEmailVerification && !user.emailAddresses?.[0]?.verification?.status === 'verified') {
+      // Check email verification if required
+      if (requireEmailVerification && !user.email_confirmed_at) {
         router.push('/auth/verify-email')
         return
       }
@@ -72,7 +72,7 @@ export function ProtectedRoute({
   }
 
   // Don't render if email verification required but not verified
-  if (requireEmailVerification && !user.emailAddresses?.[0]?.verification?.status === 'verified') {
+  if (requireEmailVerification && !user.email_confirmed_at) {
     return null
   }
 
