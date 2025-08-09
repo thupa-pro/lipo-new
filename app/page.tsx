@@ -88,9 +88,28 @@ export const metadata = {
 
 // Server-side data fetching
 async function getHomePageStats() {
-  const supabase = createSupabaseServerComponent();
-  
+  // Return fallback data for development when Supabase is not properly configured
+  const fallbackStats = {
+    userCount: 2400000,
+    providerCount: 45000,
+    bookingCount: 1200000,
+    averageRating: 4.9,
+    responseTime: "< 2hrs",
+    successRate: "98.7%"
+  };
+
+  // Check if Supabase is properly configured
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL ||
+      process.env.NEXT_PUBLIC_SUPABASE_URL.includes('your-project-ref') ||
+      !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY.includes('dummy')) {
+    console.log('Using fallback stats - Supabase not configured for production');
+    return fallbackStats;
+  }
+
   try {
+    const supabase = createSupabaseServerComponent();
+
     const [usersResult, providersResult, bookingsResult] = await Promise.all([
       supabase.from('users').select('id', { count: 'exact', head: true }),
       supabase.from('providers').select('id', { count: 'exact', head: true }),
@@ -98,23 +117,16 @@ async function getHomePageStats() {
     ]);
 
     return {
-      userCount: usersResult.count || 2400000,
-      providerCount: providersResult.count || 45000,
-      bookingCount: bookingsResult.count || 1200000,
+      userCount: usersResult.count || fallbackStats.userCount,
+      providerCount: providersResult.count || fallbackStats.providerCount,
+      bookingCount: bookingsResult.count || fallbackStats.bookingCount,
       averageRating: 4.9,
       responseTime: "< 2hrs",
       successRate: "98.7%"
     };
   } catch (error) {
-    console.error('Error fetching homepage stats:', error);
-    return {
-      userCount: 2400000,
-      providerCount: 45000,
-      bookingCount: 1200000,
-      averageRating: 4.9,
-      responseTime: "< 2hrs",
-      successRate: "98.7%"
-    };
+    console.error('Error fetching homepage stats, using fallback data:', error);
+    return fallbackStats;
   }
 }
 
