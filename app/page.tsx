@@ -355,7 +355,6 @@ export default async function HomePage() {
                     </div>
                 </div>
 
-                <ScrollReveal delay={800}>
                   <div className="text-center">
                     <div className="inline-flex items-center gap-4 sm:gap-6 resp-flex-wrap justify-center">
                       <div className="flex items-center gap-2">
@@ -372,7 +371,6 @@ export default async function HomePage() {
                       </div>
                     </div>
                   </div>
-                </ScrollReveal>
               </div>
             </section>
 
