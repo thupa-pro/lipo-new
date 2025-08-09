@@ -56,11 +56,33 @@ export function ClerkAuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (isLoaded && user) {
-      fetchUserProfile(user.id).then(setUserProfile)
+      // Sync user with backend database
+      syncUserToDatabase(user).then(() => {
+        fetchUserProfile(user.id).then(setUserProfile)
+      })
     } else if (isLoaded && !user) {
       setUserProfile(null)
     }
   }, [user, isLoaded])
+
+  const syncUserToDatabase = async (clerkUser: any) => {
+    try {
+      await fetch('/api/users/sync', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: clerkUser.emailAddresses[0]?.emailAddress,
+          firstName: clerkUser.firstName,
+          lastName: clerkUser.lastName,
+          imageUrl: clerkUser.imageUrl,
+        }),
+      })
+    } catch (error) {
+      console.error('Error syncing user to database:', error)
+    }
+  }
 
   const signOut = async () => {
     await clerkSignOut()
