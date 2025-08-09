@@ -268,11 +268,9 @@ export default async function HomePage() {
                   <span className="text-gray-900 dark:text-white font-display">Service Professionals You Trust</span>
                 </h1>
 
-              <ScrollReveal delay={600} direction="up">
                 <p className="hero-description max-w-2xl lg:max-w-3xl xl:max-w-4xl mx-auto resp-text-sm md:text-lg lg:text-xl mb-6 md:mb-8 lg:mb-12 font-body px-2 sm:px-4">
                   Loconomy is the premium marketplace connecting you with verified local service providers. From home repairs to personal training - find trusted professionals in your area with our AI-powered matching system.
                 </p>
-              </ScrollReveal>
               
               <ScrollReveal delay={800} direction="up">
                 <div className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-4 md:gap-6 px-2 sm:px-4 resp-flex-col">
