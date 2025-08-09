@@ -300,6 +300,89 @@ export default async function HomePage() {
               </ScrollReveal>
             </section>
 
+            {/* Welcome Section - Enhanced Introduction */}
+            <section className="py-12 sm:py-16 md:py-20 lg:py-24 px-2 sm:px-4 landscape-compact" role="region" aria-labelledby="welcome-title">
+              <div className="max-w-6xl mx-auto">
+                <ScrollReveal direction="up">
+                  <div className="text-center mb-8 sm:mb-12 md:mb-16">
+                    <Badge variant="secondary" className="mb-4 px-4 py-2 text-sm font-medium bg-white/60 dark:bg-gray-800/60 backdrop-blur-md border border-white/20">
+                      <Heart className="w-4 h-4 mr-2 text-red-500" />
+                      Welcome to Loconomy
+                    </Badge>
+                    <h2 id="welcome-title" className="section-title resp-text-2xl md:text-4xl lg:text-5xl font-heading text-center mb-4 sm:mb-6">
+                      Your Gateway to Trusted Local Services
+                    </h2>
+                    <p className="section-subtitle resp-text-sm md:text-lg lg:text-xl text-center mb-6 sm:mb-8 max-w-3xl mx-auto font-body leading-relaxed">
+                      Experience the future of local services with our AI-powered platform that connects you with verified, trusted professionals in your community. From emergency repairs to scheduled maintenance, we've got you covered.
+                    </p>
+                  </div>
+                </ScrollReveal>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10 mb-8 sm:mb-12">
+                  <ScrollReveal delay={200}>
+                    <div className="welcome-feature-card card-elite resp-p-4 md:p-6 lg:p-8 text-center group magnetic-hover hover-enhance touch-friendly">
+                      <div className="welcome-icon-wrapper mb-4 sm:mb-6">
+                        <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                          <Shield className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
+                        </div>
+                      </div>
+                      <h3 className="welcome-feature-title resp-text-lg md:text-xl lg:text-2xl font-heading mb-3 sm:mb-4">Verified & Trusted</h3>
+                      <p className="welcome-feature-description resp-text-sm md:text-base font-body leading-relaxed">
+                        Every service provider is thoroughly background-checked, verified, and insured. Your safety and satisfaction are our top priorities.
+                      </p>
+                    </div>
+                  </ScrollReveal>
+
+                  <ScrollReveal delay={400}>
+                    <div className="welcome-feature-card card-elite resp-p-4 md:p-6 lg:p-8 text-center group magnetic-hover hover-enhance touch-friendly">
+                      <div className="welcome-icon-wrapper mb-4 sm:mb-6">
+                        <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                          <Brain className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
+                        </div>
+                      </div>
+                      <h3 className="welcome-feature-title resp-text-lg md:text-xl lg:text-2xl font-heading mb-3 sm:mb-4">AI-Powered Matching</h3>
+                      <p className="welcome-feature-description resp-text-sm md:text-base font-body leading-relaxed">
+                        Our intelligent algorithm learns your preferences and matches you with the perfect professionals for your specific needs and location.
+                      </p>
+                    </div>
+                  </ScrollReveal>
+
+                  <ScrollReveal delay={600}>
+                    <div className="welcome-feature-card card-elite resp-p-4 md:p-6 lg:p-8 text-center group magnetic-hover hover-enhance touch-friendly">
+                      <div className="welcome-icon-wrapper mb-4 sm:mb-6">
+                        <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full bg-gradient-to-r from-green-500 to-teal-500 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                          <Zap className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
+                        </div>
+                      </div>
+                      <h3 className="welcome-feature-title resp-text-lg md:text-xl lg:text-2xl font-heading mb-3 sm:mb-4">Instant Connection</h3>
+                      <p className="welcome-feature-description resp-text-sm md:text-base font-body leading-relaxed">
+                        Connect with available professionals in real-time. Get quotes, schedule services, and track progress all in one seamless experience.
+                      </p>
+                    </div>
+                  </ScrollReveal>
+                </div>
+
+                <ScrollReveal delay={800}>
+                  <div className="text-center">
+                    <div className="inline-flex items-center gap-4 sm:gap-6 resp-flex-wrap justify-center">
+                      <div className="flex items-center gap-2">
+                        <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse"></div>
+                        <span className="resp-text-sm md:text-base font-medium text-green-600 dark:text-green-400">
+                          Live Support Available 24/7
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Star className="w-4 h-4 text-yellow-500 fill-current" />
+                        <span className="resp-text-sm md:text-base font-medium">
+                          {stats.averageRating}/5 Average Rating
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </ScrollReveal>
+              </div>
+            </section>
+
             {/* Search Section - Client Component for Interactivity */}
             <Suspense fallback={<div className="h-96 animate-pulse bg-gray-200 dark:bg-gray-700 rounded-3xl mx-4"></div>}>
               <HomePageClient />
