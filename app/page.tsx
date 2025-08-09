@@ -261,14 +261,12 @@ export default async function HomePage() {
                   <span>Trusted by {(stats.userCount / 1000000).toFixed(1)}M+ Users Worldwide</span>
                 </div>
 
-              <ScrollReveal delay={400} direction="up">
                 <h1 id="hero-title" className="resp-text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-display mb-4 md:mb-6 leading-tight px-2 sm:px-4">
                   <span className="gradient-text">Connect with Local</span>
                   <br className="hidden sm:block" />
                   <span className="sm:hidden"> </span>
                   <span className="text-gray-900 dark:text-white font-display">Service Professionals You Trust</span>
                 </h1>
-              </ScrollReveal>
 
               <ScrollReveal delay={600} direction="up">
                 <p className="hero-description max-w-2xl lg:max-w-3xl xl:max-w-4xl mx-auto resp-text-sm md:text-lg lg:text-xl mb-6 md:mb-8 lg:mb-12 font-body px-2 sm:px-4">
