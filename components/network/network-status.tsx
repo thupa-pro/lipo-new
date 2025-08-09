@@ -84,7 +84,7 @@ export function NetworkProvider({ children }: { children: React.ReactNode }) {
     // Auto-remove error after 10 seconds for non-critical errors
     if (error.type !== 'network') {
       setTimeout(() => {
-        removeError(newError.id);
+        setErrors(prev => prev.filter(err => err.id !== newError.id));
       }, 10000);
     }
   }, []);
