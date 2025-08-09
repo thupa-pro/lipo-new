@@ -222,21 +222,16 @@ export default function AboutPage() {
                     About Our Mission
                   </Badge>
 
-                <ScrollReveal delay={200}>
                   <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-purple-600 via-pink-600 to-cyan-600 bg-clip-text text-transparent leading-tight">
                     Connecting Communities Through Trust & Innovation
                   </h1>
-                </ScrollReveal>
 
-                <ScrollReveal delay={400}>
                   <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
-                    We're building the future of local services by combining cutting-edge AI technology 
-                    with human-centered design to create meaningful connections between communities and 
+                    We're building the future of local services by combining cutting-edge AI technology
+                    with human-centered design to create meaningful connections between communities and
                     trusted professionals.
                   </p>
-                </ScrollReveal>
 
-                <ScrollReveal delay={600}>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <Link href="/browse">
                       <Button size="lg" className="btn-elite px-8 py-4 text-lg">
@@ -251,7 +246,6 @@ export default function AboutPage() {
                       </Button>
                     </Link>
                   </div>
-                </ScrollReveal>
               </div>
             </div>
           </section>
