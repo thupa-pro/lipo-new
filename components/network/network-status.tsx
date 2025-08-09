@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, createContext, useContext } from "react";
+import { useState, useEffect, createContext, useContext, useCallback } from "react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -68,6 +68,31 @@ export function NetworkProvider({ children }: { children: React.ReactNode }) {
   
   const [errors, setErrors] = useState<NetworkError[]>([]);
 
+  const addError = useCallback((error: Omit<NetworkError, 'id' | 'timestamp'>) => {
+    const newError: NetworkError = {
+      ...error,
+      id: `error-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+      timestamp: new Date(),
+    };
+
+    setErrors(prev => {
+      // Limit to 5 most recent errors
+      const filtered = prev.slice(-4);
+      return [...filtered, newError];
+    });
+
+    // Auto-remove error after 10 seconds for non-critical errors
+    if (error.type !== 'network') {
+      setTimeout(() => {
+        removeError(newError.id);
+      }, 10000);
+    }
+  }, []);
+
+  const removeError = useCallback((id: string) => {
+    setErrors(prev => prev.filter(error => error.id !== id));
+  }, []);
+
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
@@ -122,32 +147,8 @@ export function NetworkProvider({ children }: { children: React.ReactNode }) {
         connection.removeEventListener('change', handleConnectionChange);
       }
     };
-  }, []);
+  }, [addError]);
 
-  const addError = (error: Omit<NetworkError, 'id' | 'timestamp'>) => {
-    const newError: NetworkError = {
-      ...error,
-      id: `error-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-      timestamp: new Date(),
-    };
-    
-    setErrors(prev => {
-      // Limit to 5 most recent errors
-      const filtered = prev.slice(-4);
-      return [...filtered, newError];
-    });
-
-    // Auto-remove error after 10 seconds for non-critical errors
-    if (error.type !== 'network') {
-      setTimeout(() => {
-        removeError(newError.id);
-      }, 10000);
-    }
-  };
-
-  const removeError = (id: string) => {
-    setErrors(prev => prev.filter(error => error.id !== id));
-  };
 
   const clearErrors = () => {
     setErrors([]);
