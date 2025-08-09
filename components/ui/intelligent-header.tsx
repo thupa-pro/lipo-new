@@ -513,9 +513,9 @@ export function IntelligentHeader({ onCommandPaletteOpen }: IntelligentHeaderPro
                 <DropdownMenuTrigger asChild>
                   <button className="relative p-2 rounded-full hover:bg-white/10 transition-colors">
                     <Avatar className="h-8 w-8 border-2 border-purple-500/50">
-                      <AvatarImage src={userProfile?.avatar || user?.user_metadata?.avatar_url} alt={userProfile?.name || user?.email} />
+                      <AvatarImage src={userProfile?.avatar_url || user?.imageUrl} alt={userProfile?.display_name || user?.fullName} />
                       <AvatarFallback className={`${getRoleBadgeColor()} text-white text-sm font-bold`}>
-                        {(userProfile?.name || user?.email || 'U').charAt(0).toUpperCase()}
+                        {(userProfile?.display_name || user?.fullName || 'U').charAt(0).toUpperCase()}
                       </AvatarFallback>
                     </Avatar>
                     <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-cyan-400 rounded-full border-2 border-[var(--bg-primary)]" />
@@ -526,9 +526,9 @@ export function IntelligentHeader({ onCommandPaletteOpen }: IntelligentHeaderPro
                     <div className="flex flex-col space-y-2">
                       <div className="flex items-center gap-3">
                         <Avatar className="h-10 w-10 border-2 border-purple-500/50">
-                          <AvatarImage src={userProfile?.avatar || user?.user_metadata?.avatar_url} alt={userProfile?.name || user?.email} />
+                          <AvatarImage src={userProfile?.avatar_url || user?.imageUrl} alt={userProfile?.display_name || user?.fullName} />
                           <AvatarFallback className={`${getRoleBadgeColor()} text-white font-bold`}>
-                            {(userProfile?.name || user?.email || 'U').charAt(0).toUpperCase()}
+                            {(userProfile?.display_name || user?.fullName || 'U').charAt(0).toUpperCase()}
                           </AvatarFallback>
                         </Avatar>
                         <div>
@@ -584,13 +584,13 @@ export function IntelligentHeader({ onCommandPaletteOpen }: IntelligentHeaderPro
                 {user && (
                   <div className="flex items-center space-x-3 pb-6 border-b border-white/10">
                     <Avatar className="h-12 w-12 border-2 border-purple-500/50">
-                      <AvatarImage src={userProfile?.avatar || user?.user_metadata?.avatar_url} alt={userProfile?.name || user?.email} />
+                      <AvatarImage src={userProfile?.avatar_url || user?.imageUrl} alt={userProfile?.display_name || user?.fullName} />
                       <AvatarFallback className={`${getRoleBadgeColor()} text-white font-bold`}>
-                        {(userProfile?.name || user?.email || 'U').charAt(0).toUpperCase()}
+                        {(userProfile?.display_name || user?.fullName || 'U').charAt(0).toUpperCase()}
                       </AvatarFallback>
                     </Avatar>
                     <div>
-                      <p className="font-semibold text-foreground">{userProfile?.name || user?.email?.split('@')[0]}</p>
+                      <p className="font-semibold text-foreground">{userProfile?.display_name || user?.fullName?.split('@')[0]}</p>
                       <Badge className={`${getRoleBadgeColor()} text-white text-xs flex items-center gap-1 w-fit`}>
                         <RoleIcon className="w-3 h-3" />
                         {userRole?.charAt(0).toUpperCase() + userRole?.slice(1) || 'User'}
