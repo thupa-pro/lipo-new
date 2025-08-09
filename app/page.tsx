@@ -5,7 +5,6 @@ import { IntelligentHeader } from '@/components/ui/intelligent-header';
 import { PWAProvider } from '@/components/ui/pwa-features';
 import { ModernFooter } from '@/components/modern-footer';
 import { CommandPaletteHint } from '@/components/ui/command-palette-hint';
-import { ScrollReveal, StaggeredReveal, ParallaxReveal } from '@/components/ui/scroll-reveal';
 import { FloatingFAB, MobileBottomNav } from '@/components/ui/floating-fab';
 import { Badge } from '@/components/ui/badge';
 import {
