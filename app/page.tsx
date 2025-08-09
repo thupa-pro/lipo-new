@@ -130,10 +130,7 @@ async function getHomePageStats() {
 
 async function getPopularCategories() {
   // Check if Supabase is properly configured
-  if (!process.env.NEXT_PUBLIC_SUPABASE_URL ||
-      process.env.NEXT_PUBLIC_SUPABASE_URL.includes('your-project-ref') ||
-      !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY.includes('dummy')) {
+  if (!isSupabaseConfigured()) {
     console.log('Using default categories - Supabase not configured for production');
     return defaultCategories;
   }
