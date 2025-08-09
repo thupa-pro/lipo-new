@@ -4,8 +4,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "next-themes";
 import { CommandPaletteProvider } from "@/components/providers/command-palette-provider";
-import { ClerkProvider } from '@clerk/nextjs'
-import { ClerkAuthProvider } from "@/components/auth/clerk-auth-provider";
+import { AuthProvider } from "@/components/auth/auth-provider";
 import { NetworkProvider } from "@/components/network/network-status";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -147,25 +146,21 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className={inter.className} suppressHydrationWarning>
-        <ClerkProvider
-          publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY!}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
         >
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <NetworkProvider>
-              <ClerkAuthProvider>
-                <CommandPaletteProvider>
-                  <main className="min-h-screen">{children}</main>
-                  <Toaster />
-                </CommandPaletteProvider>
-              </ClerkAuthProvider>
-            </NetworkProvider>
-          </ThemeProvider>
-        </ClerkProvider>
+          <NetworkProvider>
+            <AuthProvider>
+              <CommandPaletteProvider>
+                <main className="min-h-screen">{children}</main>
+                <Toaster />
+              </CommandPaletteProvider>
+            </AuthProvider>
+          </NetworkProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
