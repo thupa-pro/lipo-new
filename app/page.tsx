@@ -131,9 +131,18 @@ async function getHomePageStats() {
 }
 
 async function getPopularCategories() {
-  const supabase = createSupabaseServerComponent();
-  
+  // Check if Supabase is properly configured
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL ||
+      process.env.NEXT_PUBLIC_SUPABASE_URL.includes('your-project-ref') ||
+      !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY.includes('dummy')) {
+    console.log('Using default categories - Supabase not configured for production');
+    return defaultCategories;
+  }
+
   try {
+    const supabase = createSupabaseServerComponent();
+
     const { data: categories } = await supabase
       .from('categories')
       .select('id, name, slug, description, icon_name')
@@ -143,7 +152,7 @@ async function getPopularCategories() {
 
     return categories || defaultCategories;
   } catch (error) {
-    console.error('Error fetching categories:', error);
+    console.error('Error fetching categories, using default data:', error);
     return defaultCategories;
   }
 }
