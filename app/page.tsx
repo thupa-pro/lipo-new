@@ -31,6 +31,7 @@ import {
   Bot,
   Monitor,
   Briefcase,
+  Heart,
 } from 'lucide-react';
 
 // Interactive components
