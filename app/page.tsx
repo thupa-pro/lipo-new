@@ -318,7 +318,6 @@ export default async function HomePage() {
                   </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10 mb-8 sm:mb-12">
-                  <ScrollReveal delay={200}>
                     <div className="welcome-feature-card card-elite resp-p-4 md:p-6 lg:p-8 text-center group magnetic-hover hover-enhance touch-friendly">
                       <div className="welcome-icon-wrapper mb-4 sm:mb-6">
                         <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
@@ -330,9 +329,7 @@ export default async function HomePage() {
                         Every service provider is thoroughly background-checked, verified, and insured. Your safety and satisfaction are our top priorities.
                       </p>
                     </div>
-                  </ScrollReveal>
 
-                  <ScrollReveal delay={400}>
                     <div className="welcome-feature-card card-elite resp-p-4 md:p-6 lg:p-8 text-center group magnetic-hover hover-enhance touch-friendly">
                       <div className="welcome-icon-wrapper mb-4 sm:mb-6">
                         <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
@@ -344,9 +341,7 @@ export default async function HomePage() {
                         Our intelligent algorithm learns your preferences and matches you with the perfect professionals for your specific needs and location.
                       </p>
                     </div>
-                  </ScrollReveal>
 
-                  <ScrollReveal delay={600}>
                     <div className="welcome-feature-card card-elite resp-p-4 md:p-6 lg:p-8 text-center group magnetic-hover hover-enhance touch-friendly">
                       <div className="welcome-icon-wrapper mb-4 sm:mb-6">
                         <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full bg-gradient-to-r from-green-500 to-teal-500 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
@@ -358,7 +353,6 @@ export default async function HomePage() {
                         Connect with available professionals in real-time. Get quotes, schedule services, and track progress all in one seamless experience.
                       </p>
                     </div>
-                  </ScrollReveal>
                 </div>
 
                 <ScrollReveal delay={800}>
