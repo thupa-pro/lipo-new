@@ -1,6 +1,6 @@
 'use client'
 
-import { useAuth } from '@/components/auth/auth-provider'
+import { useAuth } from '@/components/auth/clerk-auth-provider'
 import { useRouter } from 'next/navigation'
 import { useEffect, ReactNode } from 'react'
 import { Card, CardContent } from '@/components/ui/card'
@@ -32,8 +32,8 @@ export function ProtectedRoute({
         return
       }
 
-      // Check email verification if required
-      if (requireEmailVerification && !user.email_confirmed_at) {
+      // Check email verification if required (Clerk handles this automatically)
+      if (requireEmailVerification && !user.emailAddresses?.[0]?.verification?.status === 'verified') {
         router.push('/auth/verify-email')
         return
       }
@@ -72,7 +72,7 @@ export function ProtectedRoute({
   }
 
   // Don't render if email verification required but not verified
-  if (requireEmailVerification && !user.email_confirmed_at) {
+  if (requireEmailVerification && !user.emailAddresses?.[0]?.verification?.status === 'verified') {
     return null
   }
 
