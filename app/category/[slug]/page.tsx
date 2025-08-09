@@ -40,19 +40,17 @@ interface CategoryPageProps {
 
 // Generate static params for known categories
 export async function generateStaticParams() {
-  const supabase = createSupabaseServerComponent();
-  
-  try {
-    const { data: categories } = await supabase
-      .from('categories')
-      .select('slug')
-      .eq('parent_id', null)
-      .limit(20);
-
-    return categories?.map(cat => ({ slug: cat.slug })) || [];
-  } catch (error) {
-    return []; // Fallback to empty array
-  }
+  // Return common category slugs without database call to avoid cookies issue
+  return [
+    { slug: 'home-services' },
+    { slug: 'wellness-fitness' },
+    { slug: 'education-tutoring' },
+    { slug: 'tech-repair' },
+    { slug: 'automotive' },
+    { slug: 'entertainment' },
+    { slug: 'business-services' },
+    { slug: 'pet-care' },
+  ];
 }
 
 // Generate metadata for each category
