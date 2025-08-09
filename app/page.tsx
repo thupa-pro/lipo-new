@@ -410,9 +410,7 @@ export default async function HomePage() {
 
             {/* Stats Section - Server Rendered with Real Data */}
             <section className="py-12 sm:py-16 md:py-20 landscape-compact" role="region" aria-labelledby="stats-title">
-              <ScrollReveal direction="up">
                 <h2 id="stats-title" className="section-title resp-text-xl md:text-3xl lg:text-4xl font-heading text-center mb-8 sm:mb-12">Trusted Platform Performance</h2>
-              </ScrollReveal>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 stats-grid">
                 <div className="stats-card card-elite resp-p-4 md:p-6 lg:p-8 text-center magnetic-hover animate-elite-float hover-enhance touch-friendly">
                   <div className="flex justify-center items-center mb-4">
