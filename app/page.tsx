@@ -304,7 +304,6 @@ export default async function HomePage() {
             {/* Welcome Section - Enhanced Introduction */}
             <section className="py-12 sm:py-16 md:py-20 lg:py-24 px-2 sm:px-4 landscape-compact" role="region" aria-labelledby="welcome-title">
               <div className="max-w-6xl mx-auto">
-                <ScrollReveal direction="up">
                   <div className="text-center mb-8 sm:mb-12 md:mb-16">
                     <Badge variant="secondary" className="mb-4 px-4 py-2 text-sm font-medium bg-white/60 dark:bg-gray-800/60 backdrop-blur-md border border-white/20">
                       <Heart className="w-4 h-4 mr-2 text-red-500" />
@@ -317,7 +316,6 @@ export default async function HomePage() {
                       Experience the future of local services with our AI-powered platform that connects you with verified, trusted professionals in your community. From emergency repairs to scheduled maintenance, we've got you covered.
                     </p>
                   </div>
-                </ScrollReveal>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10 mb-8 sm:mb-12">
                   <ScrollReveal delay={200}>
