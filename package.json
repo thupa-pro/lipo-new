@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@clerk/nextjs": "^6.30.0",
     "@edge-runtime/vm": "^4.0.0",
     "@google/generative-ai": "^0.24.1",
     "@hookform/resolvers": "^3.9.1",
