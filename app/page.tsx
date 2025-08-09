@@ -272,7 +272,7 @@ export default async function HomePage() {
           <main id="main-content" className="relative z-10" role="main">
             {/* Modern Hero Section */}
             <ModuleErrorBoundary fallback={ModuleFallback}>
-              <ModernHero stats={stats} />
+              <SimpleHero stats={stats} />
             </ModuleErrorBoundary>
 
             {/* Welcome Section - Enhanced Introduction */}
