@@ -1,35 +1,46 @@
-"use client";
-
-import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { 
+  ArrowLeft, 
+  Shield, 
+  Zap, 
+  Users, 
+  Eye, 
+  EyeOff,
+  Mail,
+  Lock,
+  Chrome,
+  Github
+} from "lucide-react";
 
-export default function SignInPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [rememberMe, setRememberMe] = useState(false);
+// Client component for interactive form
+import { SignInForm } from "./components/signin-form";
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setError("");
-    
-    // Simulate API call
-    setTimeout(() => {
-      setIsLoading(false);
-      // Handle sign in logic here
-    }, 1000);
+// Enhanced metadata for SEO
+export const metadata = {
+  title: "Sign In | Loconomy - Access Your Account",
+  description: "Sign in to your Loconomy account to access local service providers, manage bookings, and more. Secure authentication with multiple options.",
+  keywords: ["sign in", "login", "account access", "authentication", "local services"],
+  robots: {
+    index: false, // Don't index auth pages
+    follow: false,
+  },
+};
+
+interface SignInPageProps {
+  searchParams: {
+    redirectTo?: string;
+    error?: string;
+    message?: string;
   };
+}
 
+export default function SignInPage({ searchParams }: SignInPageProps) {
   return (
-    <div className="relative min-h-screen overflow-hidden flex items-center justify-center">
+    <div className="relative min-h-screen overflow-hidden flex items-center justify-center bg-gradient-to-br from-purple-50 via-white to-cyan-50 dark:from-purple-950/20 dark:via-background dark:to-cyan-950/20">
       {/* Grid Background */}
       <div className="absolute inset-0 bg-grid-white/[0.04] [mask-image:radial-gradient(ellipse_at_center,white_20%,transparent_70%)]"></div>
       
@@ -38,139 +49,131 @@ export default function SignInPage() {
       <div className="absolute bottom-[-30%] right-[-20%] w-[900px] h-[900px] bg-cyan-700/30 rounded-full blur-[200px] animate-pulse animation-delay-4000"></div>
       <div className="absolute top-[30%] right-[10%] w-[500px] h-[500px] bg-fuchsia-700/20 rounded-full blur-[150px] animate-pulse animation-delay-2000"></div>
 
-      {/* Back to Home */}
-      <Link href="/" className="absolute top-6 left-6 z-20 flex items-center space-x-2 text-[var(--mid-gray)] hover:text-white transition-colors">
-        <span className="material-icons">arrow_back</span>
-        <span>Back to Home</span>
-      </Link>
-
-      {/* Main Content */}
       <div className="relative z-10 w-full max-w-md mx-auto p-6">
-        <div className="bg-glass rounded-3xl p-8 card-glow">
-          {/* Header */}
-          <div className="text-center mb-8">
-            <div className="flex items-center justify-center space-x-3 mb-4">
-              <span className="material-icons text-purple-400 text-4xl">hub</span>
-              <span className="text-2xl font-bold text-white tracking-wider">Loconomy</span>
+        {/* Back to Home */}
+        <div className="mb-8">
+          <Link 
+            href="/" 
+            className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back to Home
+          </Link>
+        </div>
+
+        {/* Main Card with Glassmorphism */}
+        <Card className="backdrop-blur-xl bg-white/80 dark:bg-gray-900/80 border border-white/20 shadow-2xl">
+          <CardHeader className="text-center space-y-4">
+            <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-r from-purple-500 to-cyan-500 flex items-center justify-center">
+              <Shield className="w-8 h-8 text-white" />
             </div>
-            <h1 className="text-3xl font-bold text-white mb-2">Welcome Back</h1>
-            <p className="text-[var(--mid-gray)]">Sign in to your account to continue</p>
-          </div>
-
-          {/* Error Alert */}
-          {error && (
-            <Alert className="mb-6 bg-red-500/10 border-red-500/50 text-red-400">
-              <span className="material-icons text-sm">error</span>
-              <AlertDescription>{error}</AlertDescription>
-            </Alert>
-          )}
-
-          {/* Social Sign In */}
-          <div className="space-y-3 mb-6">
-            <button className="w-full flex items-center justify-center space-x-3 bg-white/10 hover:bg-white/20 text-white py-3 px-4 rounded-full transition-colors border border-white/10 hover:border-white/30">
-              <span className="material-icons text-xl">login</span>
-              <span>Continue with Google</span>
-            </button>
-            <button className="w-full flex items-center justify-center space-x-3 bg-white/10 hover:bg-white/20 text-white py-3 px-4 rounded-full transition-colors border border-white/10 hover:border-white/30">
-              <span className="material-icons text-xl">facebook</span>
-              <span>Continue with Facebook</span>
-            </button>
-          </div>
-
-          {/* Divider */}
-          <div className="flex items-center space-x-4 mb-6">
-            <div className="flex-1 h-px bg-white/10"></div>
-            <span className="text-[var(--mid-gray)] text-sm">or</span>
-            <div className="flex-1 h-px bg-white/10"></div>
-          </div>
-
-          {/* Sign In Form */}
-          <form onSubmit={handleSubmit} className="space-y-6">
+            
             <div>
-              <Label htmlFor="email" className="text-white mb-2 block">Email</Label>
-              <div className="relative">
-                <span className="material-icons absolute left-3 top-1/2 transform -translate-y-1/2 text-[var(--mid-gray)]">mail</span>
-                <Input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email"
-                  className="bg-black/20 border-white/10 text-white placeholder-[var(--mid-gray)] pl-12 py-3 rounded-xl focus:border-purple-500 focus:ring-purple-500"
-                  required
-                />
+              <CardTitle className="text-2xl font-bold">Welcome Back</CardTitle>
+              <CardDescription className="text-base mt-2">
+                Sign in to your Loconomy account to continue
+              </CardDescription>
+            </div>
+
+            {/* Trust Indicators */}
+            <div className="flex justify-center gap-2">
+              <Badge variant="outline" className="text-xs bg-white/60 dark:bg-gray-800/60">
+                <Shield className="w-3 h-3 mr-1" />
+                Secure
+              </Badge>
+              <Badge variant="outline" className="text-xs bg-white/60 dark:bg-gray-800/60">
+                <Zap className="w-3 h-3 mr-1" />
+                Fast
+              </Badge>
+              <Badge variant="outline" className="text-xs bg-white/60 dark:bg-gray-800/60">
+                <Users className="w-3 h-3 mr-1" />
+                2.4M+ Users
+              </Badge>
+            </div>
+
+            {/* Server-side error/message display */}
+            {searchParams.error && (
+              <div className="p-3 rounded-lg bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-800">
+                <p className="text-sm text-red-600 dark:text-red-400">
+                  {searchParams.error === 'CredentialsSignin' 
+                    ? 'Invalid email or password. Please try again.'
+                    : 'An error occurred during sign in. Please try again.'
+                  }
+                </p>
+              </div>
+            )}
+
+            {searchParams.message && (
+              <div className="p-3 rounded-lg bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800">
+                <p className="text-sm text-blue-600 dark:text-blue-400">
+                  {searchParams.message}
+                </p>
+              </div>
+            )}
+          </CardHeader>
+
+          <CardContent className="space-y-6">
+            {/* Social Sign In Options */}
+            <div className="space-y-3">
+              <Button 
+                variant="outline" 
+                className="w-full h-12 bg-white/60 dark:bg-gray-800/60 backdrop-blur-md hover:bg-white/80 dark:hover:bg-gray-800/80 transition-all duration-300"
+              >
+                <Chrome className="w-5 h-5 mr-3" />
+                Continue with Google
+              </Button>
+              
+              <Button 
+                variant="outline" 
+                className="w-full h-12 bg-white/60 dark:bg-gray-800/60 backdrop-blur-md hover:bg-white/80 dark:hover:bg-gray-800/80 transition-all duration-300"
+              >
+                <Github className="w-5 h-5 mr-3" />
+                Continue with GitHub
+              </Button>
+            </div>
+
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <Separator />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-white dark:bg-gray-900 px-2 text-muted-foreground">
+                  Or continue with email
+                </span>
               </div>
             </div>
 
-            <div>
-              <Label htmlFor="password" className="text-white mb-2 block">Password</Label>
-              <div className="relative">
-                <span className="material-icons absolute left-3 top-1/2 transform -translate-y-1/2 text-[var(--mid-gray)]">lock</span>
-                <Input
-                  id="password"
-                  type={showPassword ? "text" : "password"}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter your password"
-                  className="bg-black/20 border-white/10 text-white placeholder-[var(--mid-gray)] pl-12 pr-12 py-3 rounded-xl focus:border-purple-500 focus:ring-purple-500"
-                  required
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[var(--mid-gray)] hover:text-white transition-colors"
-                >
-                  <span className="material-icons">{showPassword ? "visibility_off" : "visibility"}</span>
-                </button>
-              </div>
-            </div>
+            {/* Email/Password Form - Client Component */}
+            <SignInForm redirectTo={searchParams.redirectTo} />
+          </CardContent>
+        </Card>
 
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  id="remember"
-                  checked={rememberMe}
-                  onCheckedChange={setRememberMe}
-                  className="border-white/20 data-[state=checked]:bg-purple-500 data-[state=checked]:border-purple-500"
-                />
-                <Label htmlFor="remember" className="text-[var(--mid-gray)] text-sm">Remember me</Label>
-              </div>
-              <Link href="/auth/forgot-password" className="text-purple-400 hover:text-purple-300 text-sm transition-colors">
-                Forgot password?
-              </Link>
-            </div>
-
-            <Button
-              type="submit"
-              disabled={isLoading}
-              className="w-full bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white py-3 rounded-full btn-glow transition-transform transform hover:scale-105 disabled:opacity-50 disabled:transform-none"
+        {/* Sign Up Link */}
+        <div className="mt-6 text-center">
+          <p className="text-sm text-muted-foreground">
+            Don't have an account?{" "}
+            <Link 
+              href="/auth/signup" 
+              className="font-medium text-purple-600 hover:text-purple-500 transition-colors"
             >
-              {isLoading ? (
-                <div className="flex items-center space-x-2">
-                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                  <span>Signing in...</span>
-                </div>
-              ) : (
-                "Sign In"
-              )}
-            </Button>
-          </form>
+              Sign up for free
+            </Link>
+          </p>
+        </div>
 
-          {/* Footer */}
-          <div className="text-center mt-8">
-            <p className="text-[var(--mid-gray)]">
-              Don't have an account?{" "}
-              <Link href="/auth/signup" className="text-purple-400 hover:text-purple-300 font-medium transition-colors">
-                Sign up
-              </Link>
-            </p>
-          </div>
-
-          {/* Security Badge */}
-          <div className="flex items-center justify-center space-x-2 mt-6 text-[var(--mid-gray)] text-xs">
-            <span className="material-icons text-sm">security</span>
-            <span>Your data is protected with end-to-end encryption</span>
-          </div>
+        {/* Additional Links */}
+        <div className="mt-4 flex justify-center gap-4 text-xs text-muted-foreground">
+          <Link href="/privacy" className="hover:text-foreground transition-colors">
+            Privacy Policy
+          </Link>
+          <span>•</span>
+          <Link href="/terms" className="hover:text-foreground transition-colors">
+            Terms of Service
+          </Link>
+          <span>•</span>
+          <Link href="/help" className="hover:text-foreground transition-colors">
+            Get Help
+          </Link>
         </div>
       </div>
     </div>

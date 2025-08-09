@@ -1,324 +1,362 @@
-"use client";
-
-import { useState } from "react";
+import { Suspense } from 'react';
+import { createSupabaseServerComponent } from '@/lib/supabase/server';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ModernFooter } from "@/components/modern-footer";
 import { CommandPaletteHint } from "@/components/ui/command-palette-hint";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import Link from "next/link";
+import { Star, Clock, CheckCircle, MapPin, Filter, Search } from 'lucide-react';
 
-const providers = [
+// Client components for interactivity
+import { BrowseFilters } from "./components/browse-filters";
+
+// Enhanced metadata for SEO
+export const metadata = {
+  title: "Browse Local Service Providers | Loconomy - Find Trusted Professionals",
+  description: "Discover and book trusted local service providers near you. From home services to personal training, find verified professionals with real reviews and instant booking.",
+  keywords: ["local services", "service providers", "home repair", "personal training", "tutoring", "professional services"],
+  openGraph: {
+    title: "Browse Local Service Providers | Loconomy",
+    description: "Discover and book trusted local service providers near you",
+    url: "https://loconomy.com/browse",
+    type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
+// Server-side data fetching for providers
+async function getProviders(searchParams: { q?: string; location?: string; category?: string }) {
+  const supabase = createSupabaseServerComponent();
+  
+  try {
+    let query = supabase
+      .from('providers')
+      .select(`
+        *,
+        users (display_name, avatar_url),
+        categories (name, slug),
+        reviews (rating)
+      `)
+      .eq('is_active', true);
+
+    // Apply filters if provided
+    if (searchParams.category) {
+      query = query.eq('categories.slug', searchParams.category);
+    }
+
+    // For now, limit results for performance
+    const { data: providers, error } = await query
+      .order('rating_average', { ascending: false })
+      .limit(12);
+
+    if (error) {
+      console.error('Error fetching providers:', error);
+      return mockProviders; // Fallback to mock data
+    }
+
+    return providers || mockProviders;
+  } catch (error) {
+    console.error('Error in getProviders:', error);
+    return mockProviders;
+  }
+}
+
+// Server-side category fetching
+async function getCategories() {
+  const supabase = createSupabaseServerComponent();
+  
+  try {
+    const { data: categories } = await supabase
+      .from('categories')
+      .select('id, name, slug')
+      .eq('parent_id', null)
+      .order('sort_order');
+
+    return categories || mockCategories;
+  } catch (error) {
+    console.error('Error fetching categories:', error);
+    return mockCategories;
+  }
+}
+
+// Mock data fallback
+const mockProviders = [
   {
-    id: 1,
-    name: "Sarah Mitchell",
-    profession: "House Cleaning Specialist",
+    id: '1',
+    business_name: "Sarah's Cleaning Service",
+    bio: "Professional house cleaning with eco-friendly products",
+    rating_average: 4.9,
+    rating_count: 127,
+    response_time_minutes: 120,
+    users: {
+      display_name: "Sarah Mitchell",
+      avatar_url: null
+    },
+    categories: {
+      name: "House Cleaning",
+      slug: "house-cleaning"
+    },
     location: "2.3 miles away",
-    rating: 4.9,
-    reviews: 127,
     hourlyRate: 35,
     tags: ["Eco-Friendly", "Pet-Safe", "Same-Day"],
     verified: true,
-    responseTime: "2 hours",
     completedJobs: 245,
-    avatar: "SM",
     specialty: "Deep Cleaning",
     badge: "Elite Provider"
   },
   {
-    id: 2,
-    name: "Michael Rodriguez",
-    profession: "Handyman & Repairs",
+    id: '2',
+    business_name: "Rodriguez Handyman Services",
+    bio: "Licensed handyman for all your home repair needs",
+    rating_average: 4.8,
+    rating_count: 89,
+    response_time_minutes: 60,
+    users: {
+      display_name: "Michael Rodriguez",
+      avatar_url: null
+    },
+    categories: {
+      name: "Home Repair",
+      slug: "home-repair"
+    },
     location: "1.8 miles away",
-    rating: 4.8,
-    reviews: 89,
     hourlyRate: 45,
     tags: ["Licensed", "Insured", "Emergency"],
     verified: true,
-    responseTime: "1 hour",
     completedJobs: 156,
-    avatar: "MR",
     specialty: "Electrical Work",
     badge: "Top Rated"
   },
   {
-    id: 3,
-    name: "Jessica Chen",
-    profession: "Personal Trainer",
+    id: '3',
+    business_name: "FitLife Personal Training",
+    bio: "Certified personal trainer specializing in weight loss and strength training",
+    rating_average: 4.9,
+    rating_count: 203,
+    response_time_minutes: 90,
+    users: {
+      display_name: "Jessica Chen",
+      avatar_url: null
+    },
+    categories: {
+      name: "Personal Training",
+      slug: "personal-training"
+    },
     location: "0.9 miles away",
-    rating: 5.0,
-    reviews: 203,
     hourlyRate: 65,
-    tags: ["Certified", "Nutrition", "Home Visits"],
+    tags: ["Certified", "Nutrition", "Flexible"],
     verified: true,
-    responseTime: "30 mins",
-    completedJobs: 320,
-    avatar: "JC",
+    completedJobs: 312,
     specialty: "Weight Loss",
-    badge: "Expert"
+    badge: "Featured"
   }
 ];
 
-const categories = [
-  { name: "All Services", count: "2,400+", active: true },
-  { name: "Home Services", count: "850+", active: false },
-  { name: "Wellness", count: "320+", active: false },
-  { name: "Education", count: "290+", active: false },
-  { name: "Tech Support", count: "180+", active: false },
-  { name: "Automotive", count: "140+", active: false },
+const mockCategories = [
+  { id: '1', name: 'Home Services', slug: 'home-services' },
+  { id: '2', name: 'Fitness & Wellness', slug: 'fitness-wellness' },
+  { id: '3', name: 'Education', slug: 'education' },
+  { id: '4', name: 'Tech Support', slug: 'tech-support' }
 ];
 
-export default function BrowsePage() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [locationQuery, setLocationQuery] = useState("");
-  const [viewMode, setViewMode] = useState("grid");
+// Structured data for SEO
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Loconomy Service Providers",
+  "description": "Browse and book local service providers",
+  "url": "https://loconomy.com/browse"
+};
+
+interface BrowsePageProps {
+  searchParams: {
+    q?: string;
+    location?: string;
+    category?: string;
+  };
+}
+
+export default async function BrowsePage({ searchParams }: BrowsePageProps) {
+  // Server-side data fetching
+  const [providers, categories] = await Promise.all([
+    getProviders(searchParams),
+    getCategories()
+  ]);
 
   return (
-    <div className="relative min-h-screen overflow-hidden">
-      {/* Grid Background */}
-      <div className="absolute inset-0 bg-grid-white/[0.04] [mask-image:radial-gradient(ellipse_at_center,white_20%,transparent_70%)]"></div>
+    <>
+      {/* Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       
-      {/* Animated Background Blobs */}
-      <div className="absolute top-[-20%] left-[-10%] w-[800px] h-[800px] bg-purple-900/30 rounded-full blur-[200px] animate-pulse"></div>
-      <div className="absolute bottom-[-30%] right-[-20%] w-[900px] h-[900px] bg-cyan-700/30 rounded-full blur-[200px] animate-pulse animation-delay-4000"></div>
-      <div className="absolute top-[30%] right-[10%] w-[500px] h-[500px] bg-fuchsia-700/20 rounded-full blur-[150px] animate-pulse animation-delay-2000"></div>
-
-      {/* Header */}
-      <header className="relative z-10 py-6 px-4 sm:px-6 lg:px-8 bg-glass/80 border-b border-white/10 sticky top-0">
-        <div className="container mx-auto flex justify-between items-center">
-          <Link href="/" className="flex items-center space-x-3">
-            <span className="material-icons text-purple-400 text-4xl">hub</span>
-            <span className="text-3xl font-bold text-white tracking-wider">Loconomy</span>
-          </Link>
-          
-          <nav className="hidden lg:flex items-center space-x-8 text-sm font-medium text-gray-300">
-            <Link href="/browse" className="text-white font-semibold">Find Services</Link>
-            <Link href="/how-it-works" className="hover:text-white transition-colors duration-300">How It Works</Link>
-            <Link href="/become-provider" className="hover:text-white transition-colors duration-300">Become a Provider</Link>
-            <Link href="/blog" className="hover:text-white transition-colors duration-300">Blog</Link>
-          </nav>
-          
-          <div className="flex items-center space-x-4">
-            <ThemeToggle />
-            <button className="p-2 rounded-full hover:bg-white/10 transition-colors">
-              <span className="material-icons text-gray-300">notifications_none</span>
-            </button>
-            <button className="p-2 rounded-full hover:bg-white/10 transition-colors">
-              <span className="material-icons text-gray-300">person_outline</span>
-            </button>
+      <div className="min-h-screen bg-background">
+        {/* Header */}
+        <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
+          <div className="container flex h-14 items-center justify-between">
+            <Link href="/" className="flex items-center space-x-2">
+              <span className="text-xl font-bold gradient-text">Loconomy</span>
+            </Link>
+            <div className="flex items-center space-x-4">
+              <ThemeToggle />
+              <Link href="/auth/signin">
+                <Button variant="outline" size="sm">Sign In</Button>
+              </Link>
+            </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-      <main className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Hero Search Section */}
-        <section className="mb-12">
-          <div className="text-center mb-8">
-            <h1 className="text-4xl md:text-6xl font-black mb-4 leading-tight">
-              <span className="gradient-text">Find Local</span>
-              <br />
-              <span className="text-white">Service Professionals</span>
-            </h1>
-            <p className="text-lg text-[var(--mid-gray)] max-w-2xl mx-auto">
-              Browse thousands of verified professionals in your area. From home repairs to personal training.
+        <main className="container py-8">
+          {/* Page Header */}
+          <div className="mb-8">
+            <h1 className="text-3xl font-bold mb-2">Find Local Service Providers</h1>
+            <p className="text-muted-foreground mb-4">
+              Browse {providers.length}+ verified professionals in your area
             </p>
           </div>
 
-          {/* Search Bar */}
-          <div className="bg-glass rounded-3xl p-6 card-glow max-w-4xl mx-auto">
-            <div className="flex flex-col md:flex-row items-center bg-black/20 p-3 rounded-full shadow-inner shadow-black/30 border border-white/10">
-              <div className="flex-grow w-full flex items-center pl-4 pr-2">
-                <span className="material-icons text-[var(--mid-gray)] mr-3">work_outline</span>
-                <input 
-                  className="bg-transparent w-full text-white placeholder-[var(--mid-gray)] focus:outline-none py-3 text-lg" 
-                  placeholder="What service do you need?" 
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            {/* Filters Sidebar - Client Component */}
+            <div className="lg:col-span-1">
+              <Suspense fallback={<div className="h-96 animate-pulse bg-gray-200 dark:bg-gray-700 rounded-lg"></div>}>
+                <BrowseFilters 
+                  categories={categories}
+                  currentSearch={searchParams.q || ''}
+                  currentLocation={searchParams.location || ''}
+                  currentCategory={searchParams.category || ''}
                 />
-              </div>
-              <div className="w-full md:w-auto flex items-center pl-4 pr-2 border-t md:border-t-0 md:border-l border-white/10 mt-3 md:mt-0 pt-3 md:pt-0">
-                <span className="material-icons text-[var(--mid-gray)] mr-3">location_on</span>
-                <input 
-                  className="bg-transparent w-full text-white placeholder-[var(--mid-gray)] focus:outline-none py-3 text-lg" 
-                  placeholder="Your Location" 
-                  type="text"
-                  value={locationQuery}
-                  onChange={(e) => setLocationQuery(e.target.value)}
-                />
-              </div>
-              <button className="w-full mt-4 md:mt-0 md:w-auto px-8 py-4 bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white font-semibold rounded-full btn-glow transition-transform transform hover:scale-105 flex-shrink-0">
-                Search
-              </button>
+              </Suspense>
             </div>
-          </div>
-        </section>
 
-        {/* Filters and Categories */}
-        <section className="mb-8">
-          <div className="flex flex-wrap items-center justify-between mb-6">
-            <div className="flex flex-wrap gap-3 mb-4 lg:mb-0">
-              {categories.map((category) => (
-                <button
-                  key={category.name}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                    category.active
-                      ? 'bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white btn-glow'
-                      : 'bg-white/10 text-gray-300 hover:bg-white/20 border border-transparent hover:border-purple-400/50'
-                  }`}
-                >
-                  {category.name}
-                  <span className="ml-2 text-xs opacity-75">{category.count}</span>
-                </button>
-              ))}
-            </div>
-            
-            <div className="flex items-center space-x-4">
-              <button className="flex items-center space-x-2 bg-white/10 text-gray-300 px-4 py-2 rounded-full hover:bg-white/20 transition-colors">
-                <span className="material-icons text-sm">tune</span>
-                <span>Filters</span>
-              </button>
-              
-              <div className="flex bg-white/10 rounded-full p-1">
-                <button
-                  onClick={() => setViewMode('grid')}
-                  className={`p-2 rounded-full transition-colors ${
-                    viewMode === 'grid' ? 'bg-purple-500 text-white' : 'text-gray-300 hover:text-white'
-                  }`}
-                >
-                  <span className="material-icons text-sm">grid_view</span>
-                </button>
-                <button
-                  onClick={() => setViewMode('list')}
-                  className={`p-2 rounded-full transition-colors ${
-                    viewMode === 'list' ? 'bg-purple-500 text-white' : 'text-gray-300 hover:text-white'
-                  }`}
-                >
-                  <span className="material-icons text-sm">view_list</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Results */}
-        <section>
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-white">
-              2,400+ Professionals Available
-            </h2>
-            <div className="flex items-center space-x-4">
-              <select className="bg-glass border border-white/10 text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
-                <option>Sort by: Best Match</option>
-                <option>Highest Rated</option>
-                <option>Lowest Price</option>
-                <option>Nearest</option>
-              </select>
-            </div>
-          </div>
-
-          <div className={`grid gap-6 ${viewMode === 'grid' ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}>
-            {providers.map((provider) => (
-              <div key={provider.id} className="bg-glass rounded-3xl p-6 card-glow overflow-hidden relative group">
-                <div className="absolute inset-0 bg-gradient-to-t from-purple-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                
-                <div className="relative z-10">
-                  {/* Provider Header */}
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
-                        <span className="text-white font-bold">{provider.avatar}</span>
-                      </div>
-                      <div>
-                        <h3 className="text-lg font-bold text-white">{provider.name}</h3>
-                        <p className="text-[var(--mid-gray)] text-sm">{provider.profession}</p>
-                      </div>
-                    </div>
-                    <button className="p-2 rounded-full hover:bg-white/10 transition-colors">
-                      <span className="material-icons text-gray-300">favorite_border</span>
-                    </button>
-                  </div>
-
-                  {/* Badge and Verification */}
-                  <div className="flex items-center space-x-2 mb-3">
-                    {provider.verified && (
-                      <div className="flex items-center space-x-1 bg-green-500/20 text-green-400 px-2 py-1 rounded-full text-xs">
-                        <span className="material-icons text-xs">verified</span>
-                        <span>Verified</span>
-                      </div>
-                    )}
-                    <div className="bg-purple-500/20 text-purple-400 px-2 py-1 rounded-full text-xs">
-                      {provider.badge}
-                    </div>
-                  </div>
-
-                  {/* Rating and Stats */}
-                  <div className="flex items-center space-x-4 mb-3">
-                    <div className="flex items-center space-x-1">
-                      <span className="material-icons text-yellow-400 text-sm">star</span>
-                      <span className="text-white font-semibold">{provider.rating}</span>
-                      <span className="text-[var(--mid-gray)] text-sm">({provider.reviews})</span>
-                    </div>
-                    <div className="text-[var(--mid-gray)] text-sm">
-                      {provider.completedJobs} jobs completed
-                    </div>
-                  </div>
-
-                  {/* Location and Response Time */}
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center space-x-1 text-[var(--mid-gray)] text-sm">
-                      <span className="material-icons text-xs">location_on</span>
-                      <span>{provider.location}</span>
-                    </div>
-                    <div className="flex items-center space-x-1 text-[var(--mid-gray)] text-sm">
-                      <span className="material-icons text-xs">schedule</span>
-                      <span>Responds in {provider.responseTime}</span>
-                    </div>
-                  </div>
-
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {provider.tags.map((tag) => (
-                      <span key={tag} className="bg-white/10 text-gray-300 px-2 py-1 rounded-full text-xs">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Price and CTA */}
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="text-2xl font-bold text-white">${provider.hourlyRate}</div>
-                      <div className="text-[var(--mid-gray)] text-sm">per hour</div>
-                    </div>
-                    <div className="flex space-x-2">
-                      <button className="bg-white/10 text-white px-4 py-2 rounded-full hover:bg-white/20 transition-colors text-sm">
-                        Message
-                      </button>
-                      <button className="bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white px-4 py-2 rounded-full btn-glow transition-transform transform hover:scale-105 text-sm">
-                        Book Now
-                      </button>
-                    </div>
-                  </div>
+            {/* Results Grid - Server Rendered */}
+            <div className="lg:col-span-3">
+              <div className="flex justify-between items-center mb-6">
+                <p className="text-sm text-muted-foreground">
+                  Showing {providers.length} results
+                  {searchParams.q && (
+                    <span> for "{searchParams.q}"</span>
+                  )}
+                </p>
+                <div className="flex gap-2">
+                  <Button variant="outline" size="sm">
+                    <Filter className="w-4 h-4 mr-2" />
+                    Sort
+                  </Button>
                 </div>
               </div>
-            ))}
-          </div>
 
-          {/* Load More */}
-          <div className="text-center mt-12">
-            <button className="bg-glass text-white px-8 py-3 rounded-full font-medium hover:bg-white/10 transition-all duration-300 border border-white/10 hover:border-purple-400/50">
-              Load More Professionals
-            </button>
-          </div>
-        </section>
-      </main>
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                {providers.map((provider) => (
+                  <Card key={provider.id} className="card-glow hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                    <CardHeader className="pb-4">
+                      <div className="flex items-start justify-between">
+                        <div className="flex items-center gap-3">
+                          <Avatar className="h-12 w-12">
+                            <AvatarImage src={provider.users?.avatar_url || undefined} />
+                            <AvatarFallback className="bg-gradient-to-r from-purple-500 to-pink-500 text-white">
+                              {provider.users?.display_name?.split(' ').map(n => n[0]).join('') || 'P'}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div>
+                            <CardTitle className="text-lg">{provider.users?.display_name || provider.business_name}</CardTitle>
+                            <p className="text-sm text-muted-foreground">{provider.categories?.name}</p>
+                          </div>
+                        </div>
+                        {provider.verified && (
+                          <Badge variant="secondary" className="bg-green-100 text-green-800">
+                            <CheckCircle className="w-3 h-3 mr-1" />
+                            Verified
+                          </Badge>
+                        )}
+                      </div>
+                    </CardHeader>
 
-      <ModernFooter />
-      <CommandPaletteHint />
-    </div>
+                    <CardContent className="space-y-4">
+                      <p className="text-sm text-muted-foreground line-clamp-2">
+                        {provider.bio}
+                      </p>
+
+                      <div className="flex items-center gap-4 text-sm">
+                        <div className="flex items-center gap-1">
+                          <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                          <span className="font-medium">{provider.rating_average}</span>
+                          <span className="text-muted-foreground">({provider.rating_count})</span>
+                        </div>
+                        <div className="flex items-center gap-1 text-muted-foreground">
+                          <Clock className="w-4 h-4" />
+                          <span>{provider.response_time_minutes ? `${Math.floor(provider.response_time_minutes / 60)}h` : '2h'} response</span>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                        <MapPin className="w-4 h-4" />
+                        <span>{provider.location || 'Local area'}</span>
+                      </div>
+
+                      <div className="flex flex-wrap gap-1">
+                        {provider.tags?.slice(0, 3).map((tag: string) => (
+                          <Badge key={tag} variant="outline" className="text-xs">
+                            {tag}
+                          </Badge>
+                        ))}
+                      </div>
+
+                      <div className="flex items-center justify-between pt-4">
+                        <div>
+                          <span className="text-lg font-bold">${provider.hourlyRate || 50}</span>
+                          <span className="text-sm text-muted-foreground">/hour</span>
+                        </div>
+                        <div className="flex gap-2">
+                          <Button variant="outline" size="sm">
+                            View Profile
+                          </Button>
+                          <Button size="sm" className="btn-glow">
+                            Book Now
+                          </Button>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+
+              {providers.length === 0 && (
+                <div className="text-center py-16">
+                  <div className="w-16 h-16 mx-auto mb-4 bg-muted rounded-full flex items-center justify-center">
+                    <Search className="w-8 h-8 text-muted-foreground" />
+                  </div>
+                  <h3 className="text-lg font-medium mb-2">No providers found</h3>
+                  <p className="text-muted-foreground mb-4">
+                    Try adjusting your search criteria or browse different categories
+                  </p>
+                  <Link href="/browse">
+                    <Button>Browse All Categories</Button>
+                  </Link>
+                </div>
+              )}
+
+              {/* Load More - for future pagination */}
+              {providers.length > 0 && (
+                <div className="text-center mt-12">
+                  <Button variant="outline" size="lg">
+                    Load More Providers
+                  </Button>
+                </div>
+              )}
+            </div>
+          </div>
+        </main>
+
+        <ModernFooter />
+        <CommandPaletteHint />
+      </div>
+    </>
   );
 }
