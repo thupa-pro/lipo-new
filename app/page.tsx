@@ -272,7 +272,6 @@ export default async function HomePage() {
                   Loconomy is the premium marketplace connecting you with verified local service providers. From home repairs to personal training - find trusted professionals in your area with our AI-powered matching system.
                 </p>
               
-              <ScrollReveal delay={800} direction="up">
                 <div className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-4 md:gap-6 px-2 sm:px-4 resp-flex-col">
                   <Link
                     href="/browse"
@@ -291,7 +290,6 @@ export default async function HomePage() {
                     <span className="xs:hidden">Be a Provider</span>
                   </Link>
                 </div>
-              </ScrollReveal>
             </section>
 
             {/* Welcome Section - Enhanced Introduction */}
