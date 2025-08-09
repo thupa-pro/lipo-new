@@ -2,12 +2,12 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useSignIn } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/components/ui/use-toast";
-import { authService } from "@/lib/auth/auth-utils";
 import { Eye, EyeOff, Mail, Lock, Loader2 } from "lucide-react";
 import Link from "next/link";
 
@@ -24,38 +24,76 @@ export function SignInForm({ redirectTo }: SignInFormProps) {
 
   const router = useRouter();
   const { toast } = useToast();
+  const { isLoaded, signIn, setActive } = useSignIn();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!isLoaded) {
+      return;
+    }
+
     setIsLoading(true);
 
     try {
-      const { error } = await authService.signIn({
-        email,
-        password,
-        rememberMe
+      const result = await signIn.create({
+        identifier: email,
+        password: password,
       });
 
-      if (error) {
+      if (result.status === "complete") {
+        await setActive({ session: result.createdSessionId });
+
+        // Sync user data to Supabase
+        await fetch('/api/users/sync', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: email,
+            firstName: result.createdUserId, // Will be updated with real data
+            lastName: '',
+            imageUrl: '',
+          }),
+        });
+
+        toast({
+          title: "Welcome back!",
+          description: "You have been signed in successfully.",
+        });
+
+        // Redirect to intended page or dashboard
+        router.push(redirectTo || "/dashboard");
+      } else {
+        console.error("Sign in incomplete", result);
         toast({
           title: "Sign In Failed",
-          description: error.message,
+          description: "Unable to complete sign in. Please try again.",
           variant: "destructive",
         });
-        return;
+      }
+    } catch (err: any) {
+      console.error("Sign in error:", err);
+
+      let errorMessage = "An unexpected error occurred. Please try again.";
+
+      if (err.errors) {
+        const clerkError = err.errors[0];
+        if (clerkError.code === "form_identifier_not_found") {
+          errorMessage = "No account found with this email address.";
+        } else if (clerkError.code === "form_password_incorrect") {
+          errorMessage = "Incorrect password. Please try again.";
+        } else if (clerkError.code === "form_identifier_exists") {
+          errorMessage = "Please verify your email address before signing in.";
+        } else {
+          errorMessage = clerkError.longMessage || clerkError.message || errorMessage;
+        }
       }
 
       toast({
-        title: "Welcome back!",
-        description: "You have been signed in successfully.",
-      });
-
-      // Redirect to intended page or dashboard
-      router.push(redirectTo || "/dashboard");
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "An unexpected error occurred. Please try again.",
+        title: "Sign In Failed",
+        description: errorMessage,
         variant: "destructive",
       });
     } finally {
