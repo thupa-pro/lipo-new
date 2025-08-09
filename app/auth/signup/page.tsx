@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useSignUp } from "@clerk/nextjs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,7 +10,6 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/components/ui/use-toast";
-import { authService } from "@/lib/auth/auth-utils";
 import { Eye, EyeOff, Mail, Lock, User, Sparkles, Shield, Zap, Users, Github, Loader2 } from "lucide-react";
 import Link from "next/link";
 
@@ -31,10 +31,15 @@ export default function SignUpPage() {
   
   const router = useRouter();
   const { toast } = useToast();
+  const { isLoaded, signUp, setActive } = useSignUp();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
+    if (!isLoaded) {
+      return;
+    }
+
     if (formData.password !== formData.confirmPassword) {
       toast({
         title: "Password Mismatch",
@@ -56,42 +61,75 @@ export default function SignUpPage() {
     setIsLoading(true);
 
     try {
-      const { error, needsVerification } = await authService.signUp({
-        email: formData.email,
+      const result = await signUp.create({
+        emailAddress: formData.email,
         password: formData.password,
         firstName: formData.firstName,
         lastName: formData.lastName,
-        userType: formData.userType,
-        agreeToTerms: formData.agreeToTerms,
-        agreeToMarketing: formData.agreeToMarketing,
       });
 
-      if (error) {
-        toast({
-          title: "Sign Up Failed",
-          description: error.message,
-          variant: "destructive",
-        });
-        return;
-      }
+      // Update the user with additional metadata
+      await signUp.update({
+        publicMetadata: {
+          role: formData.userType,
+          agreeToTerms: formData.agreeToTerms,
+          agreeToMarketing: formData.agreeToMarketing,
+        }
+      });
 
-      if (needsVerification) {
-        toast({
-          title: "Check Your Email",
-          description: "We've sent you a verification link. Please check your email and click the link to verify your account.",
+      if (result.status === "complete") {
+        await setActive({ session: result.createdSessionId });
+
+        // Sync user to Supabase
+        await fetch('/api/auth/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: formData.email,
+            password: formData.password,
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            userType: formData.userType,
+            agreeToTerms: formData.agreeToTerms,
+            agreeToMarketing: formData.agreeToMarketing,
+          }),
         });
-        router.push("/auth/verify-email");
-      } else {
+
         toast({
           title: "Welcome to Loconomy!",
           description: "Your account has been created successfully.",
         });
         router.push("/dashboard");
+      } else if (result.status === "missing_requirements") {
+        toast({
+          title: "Email Verification Required",
+          description: "Please check your email and verify your account.",
+        });
+        router.push("/auth/verify-email");
       }
-    } catch (error) {
+    } catch (err: any) {
+      console.error("Sign up error:", err);
+
+      let errorMessage = "An unexpected error occurred. Please try again.";
+
+      if (err.errors) {
+        const clerkError = err.errors[0];
+        if (clerkError.code === "form_identifier_exists") {
+          errorMessage = "An account with this email already exists.";
+        } else if (clerkError.code === "form_password_pwned") {
+          errorMessage = "This password has been compromised. Please choose a different password.";
+        } else if (clerkError.code === "form_password_length_too_short") {
+          errorMessage = "Password must be at least 8 characters long.";
+        } else {
+          errorMessage = clerkError.longMessage || clerkError.message || errorMessage;
+        }
+      }
+
       toast({
-        title: "Error",
-        description: "An unexpected error occurred. Please try again.",
+        title: "Sign Up Failed",
+        description: errorMessage,
         variant: "destructive",
       });
     } finally {
