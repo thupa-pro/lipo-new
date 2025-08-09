@@ -1,17 +1,12 @@
-"use client";
-
-import { useState, useEffect } from 'react';
+import { Suspense } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { createSupabaseServerComponent } from '@/lib/supabase/server';
 import { IntelligentHeader } from '@/components/ui/intelligent-header';
 import { PWAProvider } from '@/components/ui/pwa-features';
 import { ModernFooter } from '@/components/modern-footer';
 import { CommandPaletteHint } from '@/components/ui/command-palette-hint';
-import { CommandPalette } from '@/components/ui/command-palette';
 import { ScrollReveal, StaggeredReveal, ParallaxReveal } from '@/components/ui/scroll-reveal';
 import { FloatingFAB, MobileBottomNav } from '@/components/ui/floating-fab';
-import { useToast } from '@/components/ui/use-toast';
-import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import {
   Search,
@@ -38,62 +33,190 @@ import {
   Briefcase,
 } from 'lucide-react';
 
-export default function HomePage() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [locationQuery, setLocationQuery] = useState('');
-  const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
+// Interactive components
+import { HomePageClient } from './components/home-page-client';
 
-  const router = useRouter();
-  const { toast } = useToast();
+// Configure ISR - revalidate every hour for fresh stats
+export const revalidate = 3600;
 
-  useEffect(() => {
-    const handleKeyboard = (e: KeyboardEvent) => {
-      // Command palette shortcut (Cmd/Ctrl + K)
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-        e.preventDefault();
-        setIsCommandPaletteOpen(true);
-      }
+// Enhanced metadata for SEO
+export const metadata = {
+  title: "Loconomy - AI-Powered Local Services Platform | Find Trusted Professionals",
+  description: "Connect with verified local service professionals through our intelligent platform. From home repairs to personal training - find trusted providers with AI-powered matching, real-time chat, and smart recommendations.",
+  keywords: ["local services", "AI marketplace", "service providers", "home repair", "professional services", "artificial intelligence", "smart matching"],
+  openGraph: {
+    title: "Loconomy - AI-Powered Local Services Platform",
+    description: "Connect with trusted local service professionals through our intelligent platform",
+    url: "https://loconomy.com",
+    siteName: "Loconomy",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Loconomy - AI-Powered Local Services",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Loconomy - AI-Powered Local Services Platform",
+    description: "Connect with trusted local service professionals through our intelligent platform",
+    creator: "@loconomy",
+    images: ["/twitter-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  alternates: {
+    canonical: "https://loconomy.com",
+  },
+};
 
-      // Slash command for search
-      if (e.key === '/' && !isCommandPaletteOpen) {
-        e.preventDefault();
-        router.push('/browse');
-      }
+// Server-side data fetching
+async function getHomePageStats() {
+  const supabase = createSupabaseServerComponent();
 
-      // Question mark for help
-      if (e.key === '?' && !isCommandPaletteOpen) {
-        e.preventDefault();
-        router.push('/help');
-      }
+  try {
+    const [usersResult, providersResult, bookingsResult] = await Promise.all([
+      supabase.from('users').select('id', { count: 'exact', head: true }),
+      supabase.from('providers').select('id', { count: 'exact', head: true }),
+      supabase.from('bookings').select('id', { count: 'exact', head: true })
+    ]);
+
+    return {
+      userCount: usersResult.count || 2400000,
+      providerCount: providersResult.count || 45000,
+      bookingCount: bookingsResult.count || 1200000,
+      averageRating: 4.9,
+      responseTime: "< 2hrs",
+      successRate: "98.7%"
     };
+  } catch (error) {
+    console.error('Error fetching homepage stats:', error);
+    return {
+      userCount: 2400000,
+      providerCount: 45000,
+      bookingCount: 1200000,
+      averageRating: 4.9,
+      responseTime: "< 2hrs",
+      successRate: "98.7%"
+    };
+  }
+}
 
-    if (typeof document !== 'undefined') {
-      document.addEventListener('keydown', handleKeyboard);
-      return () => document.removeEventListener('keydown', handleKeyboard);
-    }
-  }, [router, isCommandPaletteOpen]);
+async function getPopularCategories() {
+  const supabase = createSupabaseServerComponent();
 
-  const handleSearch = () => {
-    if (searchQuery.trim() || locationQuery.trim()) {
-      const params = new URLSearchParams();
-      if (searchQuery.trim()) params.set('q', searchQuery.trim());
-      if (locationQuery.trim()) params.set('location', locationQuery.trim());
-      router.push(`/browse?${params.toString()}`);
-    } else {
-      toast({
-        title: "Search Query Required",
-        description: "Please enter a service or location to search",
-        variant: "destructive",
-      });
-    }
-  };
+  try {
+    const { data: categories } = await supabase
+      .from('categories')
+      .select('id, name, slug, description, icon_name')
+      .eq('parent_id', null)
+      .order('sort_order')
+      .limit(6);
 
-  const handleQuickSearch = (tag: string) => {
-    setSearchQuery(tag);
-    const params = new URLSearchParams();
-    params.set('q', tag);
-    router.push(`/browse?${params.toString()}`);
-  };
+    return categories || defaultCategories;
+  } catch (error) {
+    console.error('Error fetching categories:', error);
+    return defaultCategories;
+  }
+}
+
+const defaultCategories = [
+  {
+    id: '1',
+    name: 'Home Services',
+    slug: 'home-services',
+    description: 'Plumbing, electrical, cleaning, and more. All your home needs covered.',
+    icon_name: 'home'
+  },
+  {
+    id: '2',
+    name: 'Wellness & Fitness',
+    slug: 'wellness-fitness',
+    description: 'Personal trainers, yoga instructors, and nutritionists to achieve your goals.',
+    icon_name: 'dumbbell'
+  },
+  {
+    id: '3',
+    name: 'Education & Tutoring',
+    slug: 'education-tutoring',
+    description: 'Find expert tutors for any subject, from math and science to music lessons.',
+    icon_name: 'graduation-cap'
+  },
+  {
+    id: '4',
+    name: 'Tech & Repair',
+    slug: 'tech-repair',
+    description: 'Computer, phone, appliance repair and technical support services.',
+    icon_name: 'monitor'
+  },
+  {
+    id: '5',
+    name: 'Automotive',
+    slug: 'automotive',
+    description: 'Car repair, maintenance, detailing and automotive services.',
+    icon_name: 'car'
+  },
+  {
+    id: '6',
+    name: 'Entertainment',
+    slug: 'entertainment',
+    description: 'Events, photography, music and entertainment services.',
+    icon_name: 'party-popper'
+  }
+];
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Loconomy",
+  "description": "AI-Powered Local Services Platform connecting customers with verified service professionals",
+  "url": "https://loconomy.com",
+  "logo": "https://loconomy.com/logo.png",
+  "serviceType": "Local Services Marketplace",
+  "areaServed": "Worldwide",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Local Services",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Home Services"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Wellness & Fitness"
+        }
+      }
+    ]
+  }
+};
+
+export default async function HomePage() {
+  // Server-side data fetching
+  const [stats, categories] = await Promise.all([
+    getHomePageStats(),
+    getPopularCategories()
+  ]);
 
   return (
     <PWAProvider>
@@ -170,62 +293,10 @@ export default function HomePage() {
             </ScrollReveal>
           </section>
 
-          {/* Search Section */}
-          <section className="py-8 sm:py-12 md:py-16 lg:py-20 landscape-compact" id="find-service" role="search" aria-labelledby="search-title">
-            <div className="search-card card-elite resp-p-6 hover-scale mx-2 sm:mx-4 md:mx-0 animate-elite-float">
-              <h2 id="search-title" className="section-title resp-text-xl md:text-3xl lg:text-4xl font-heading text-center mb-2">Start Your Search</h2>
-              <p className="section-subtitle text-center mb-4 sm:mb-6 md:mb-10 font-body resp-text-sm">Get matched with the perfect professional in seconds.</p>
-
-              <div className="max-w-4xl mx-auto">
-                <div className="search-input-container flex flex-col sm:flex-row items-center p-2 md:p-3 rounded-full">
-                  <div className="flex-grow w-full flex items-center pl-2 sm:pl-3 md:pl-4 pr-2">
-                    <Briefcase className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-[var(--mid-gray)] mr-2 md:mr-3" />
-                    <input
-                      className="search-input w-full focus:outline-none py-2 md:py-3 resp-text-sm md:text-lg"
-                      placeholder="What service do you need?"
-                      type="text"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      aria-label="Service type"
-                      id="service-input"
-                    />
-                  </div>
-                  <div className="w-full sm:w-auto flex items-center pl-2 sm:pl-3 md:pl-4 pr-2 border-t sm:border-t-0 sm:border-l border-gray-200 dark:border-white/10 mt-2 sm:mt-0 pt-2 sm:pt-0">
-                    <MapPin className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-gray-500 dark:text-[var(--mid-gray)] mr-2 md:mr-3" />
-                    <input
-                      className="search-input w-full focus:outline-none py-2 md:py-3 resp-text-sm md:text-lg"
-                      placeholder="Your Location"
-                      type="text"
-                      value={locationQuery}
-                      onChange={(e) => setLocationQuery(e.target.value)}
-                      aria-label="Service location"
-                      id="location-input"
-                    />
-                  </div>
-                  <button
-                    onClick={handleSearch}
-                    className="w-full mt-3 sm:mt-0 sm:w-auto px-4 sm:px-6 md:px-10 py-3 md:py-4 bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white font-ui font-semibold rounded-full btn-glow transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex-shrink-0 touch-target resp-text-sm"
-                    aria-label="Search for services"
-                  >
-                    <span className="hidden sm:inline">Search</span>
-                    <Search className="w-4 h-4 sm:hidden" />
-                  </button>
-                </div>
-                
-                <div className="flex flex-wrap justify-center gap-2 md:gap-3 mt-4 sm:mt-6 md:mt-8 resp-text-xs">
-                  {['House Cleaning', 'Plumber', 'Electrician', 'Personal Trainer', 'Math Tutor'].map((tag) => (
-                    <button
-                      key={tag}
-                      onClick={() => handleQuickSearch(tag)}
-                      className="search-tag interactive-element px-2 sm:px-3 md:px-4 py-1 sm:py-1.5 md:py-2 rounded-full transition-all duration-300 touch-target"
-                    >
-                      {tag}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </section>
+          {/* Search Section - Client Component for Interactivity */}
+          <Suspense fallback={<div className="h-96 animate-pulse bg-gray-200 dark:bg-gray-700 rounded-3xl mx-4"></div>}>
+            <HomePageClient />
+          </Suspense>
 
           {/* How It Works Section */}
           <section className="py-12 sm:py-16 md:py-20 lg:py-24 px-2 sm:px-4 landscape-compact" id="how-it-works" role="region" aria-labelledby="how-it-works-title">
@@ -277,18 +348,18 @@ export default function HomePage() {
                     <Users className="w-8 h-8 text-purple-500" />
                   </div>
                 </div>
-                <p className="stats-number resp-text-2xl lg:text-4xl xl:text-5xl font-bold mb-2">2.4M+</p>
+                <p className="stats-number resp-text-2xl lg:text-4xl xl:text-5xl font-bold mb-2">{(stats.userCount / 1000000).toFixed(1)}M+</p>
                 <p className="stats-label mb-2 sm:mb-4 resp-text-sm">Active Users</p>
                 <span className="stats-growth font-semibold resp-text-xs">+23.5% vs last month</span>
               </div>
-              
+
               <div className="stats-card card-elite resp-p-4 md:p-6 lg:p-8 text-center magnetic-hover animate-elite-float hover-enhance touch-friendly" style={{animationDelay: '0.2s'}}>
                 <div className="flex justify-center items-center mb-4">
                   <div className="stats-icon-bg p-4 rounded-full">
                     <Clock className="w-8 h-8 text-cyan-500" />
                   </div>
                 </div>
-                <p className="stats-number resp-text-2xl lg:text-4xl xl:text-5xl font-bold mb-2">&lt; 2hrs</p>
+                <p className="stats-number resp-text-2xl lg:text-4xl xl:text-5xl font-bold mb-2">{stats.responseTime}</p>
                 <p className="stats-label mb-2 sm:mb-4 resp-text-sm">Average Response</p>
                 <span className="stats-growth font-semibold resp-text-xs">+15.2% vs last month</span>
               </div>
@@ -299,7 +370,7 @@ export default function HomePage() {
                     <CheckCircle className="w-8 h-8 text-green-500" />
                   </div>
                 </div>
-                <p className="stats-number resp-text-2xl lg:text-4xl xl:text-5xl font-bold mb-2">98.7%</p>
+                <p className="stats-number resp-text-2xl lg:text-4xl xl:text-5xl font-bold mb-2">{stats.successRate}</p>
                 <p className="stats-label mb-2 sm:mb-4 resp-text-sm">Job Success Rate</p>
                 <span className="stats-growth font-semibold resp-text-xs">+2.1% vs last month</span>
               </div>
@@ -310,7 +381,7 @@ export default function HomePage() {
                     <Star className="w-8 h-8 text-pink-500 fill-current" />
                   </div>
                 </div>
-                <p className="stats-number resp-text-2xl lg:text-4xl xl:text-5xl font-bold mb-2">4.9/5</p>
+                <p className="stats-number resp-text-2xl lg:text-4xl xl:text-5xl font-bold mb-2">{stats.averageRating}/5</p>
                 <p className="stats-label mb-2 sm:mb-4 resp-text-sm">Average Rating</p>
                 <span className="stats-growth font-semibold resp-text-xs">+1.8% vs last month</span>
               </div>
@@ -323,83 +394,43 @@ export default function HomePage() {
             <p className="section-subtitle resp-text-sm md:text-lg text-center mb-8 sm:mb-12 max-w-xl md:max-w-2xl mx-auto">Explore thousands of verified service providers across all major categories.</p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 category-grid">
-              <div className="category-card card-elite resp-p-4 md:p-6 lg:p-8 overflow-hidden relative group magnetic-hover hover-enhance touch-friendly">
-                <div className="absolute inset-0 bg-gradient-to-t from-purple-100/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="relative z-10 flex flex-col h-full">
-                  <HomeIcon className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-purple-500 mb-3 sm:mb-4" />
-                  <h3 className="category-title resp-text-lg md:text-xl lg:text-2xl font-bold mb-2">Home Services</h3>
-                  <p className="category-description resp-text-xs md:text-sm lg:text-base mb-4 sm:mb-6 flex-grow">Plumbing, electrical, cleaning, and more. All your home needs covered.</p>
-                  <Link href="/category/home-services" className="category-link font-semibold flex items-center group-hover:text-purple-600 dark:group-hover:text-white transition-colors">
-                    Explore
-                    <ArrowRight className="w-5 h-5 ml-1 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </div>
-              </div>
+              {categories.map((category, index) => {
+                // Icon mapping
+                const IconComponent = {
+                  'home': HomeIcon,
+                  'dumbbell': Dumbbell,
+                  'graduation-cap': GraduationCap,
+                  'monitor': Monitor,
+                  'car': Car,
+                  'party-popper': PartyPopper
+                }[category.icon_name] || HomeIcon;
 
-              <div className="card-elite resp-p-4 md:p-6 lg:p-8 overflow-hidden relative group magnetic-hover hover-enhance touch-friendly">
-                <div className="absolute inset-0 bg-gradient-to-t from-cyan-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="relative z-10 flex flex-col h-full">
-                  <Dumbbell className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-cyan-400 mb-3 sm:mb-4" />
-                  <h3 className="resp-text-lg md:text-xl lg:text-2xl font-bold text-white mb-2">Wellness & Fitness</h3>
-                  <p className="text-[var(--mid-gray)] resp-text-xs md:text-sm lg:text-base mb-4 sm:mb-6 flex-grow">Personal trainers, yoga instructors, and nutritionists to achieve your goals.</p>
-                  <Link href="/category/wellness-fitness" className="font-semibold text-cyan-300 flex items-center group-hover:text-white transition-colors">
-                    Explore
-                    <ArrowRight className="w-5 h-5 ml-1 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </div>
-              </div>
+                // Color mapping
+                const colors = [
+                  { bg: 'from-purple-100/20', icon: 'text-purple-500', text: 'text-purple-600' },
+                  { bg: 'from-cyan-900/60', icon: 'text-cyan-400', text: 'text-cyan-300' },
+                  { bg: 'from-fuchsia-900/60', icon: 'text-fuchsia-400', text: 'text-fuchsia-300' },
+                  { bg: 'from-green-900/60', icon: 'text-green-400', text: 'text-green-300' },
+                  { bg: 'from-orange-900/60', icon: 'text-orange-400', text: 'text-orange-300' },
+                  { bg: 'from-pink-900/60', icon: 'text-pink-400', text: 'text-pink-300' }
+                ];
+                const colorScheme = colors[index % colors.length];
 
-              <div className="card-elite resp-p-4 md:p-6 lg:p-8 overflow-hidden relative group magnetic-hover hover-enhance touch-friendly">
-                <div className="absolute inset-0 bg-gradient-to-t from-fuchsia-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="relative z-10 flex flex-col h-full">
-                  <GraduationCap className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-fuchsia-400 mb-3 sm:mb-4" />
-                  <h3 className="resp-text-lg md:text-xl lg:text-2xl font-bold text-white mb-2">Education & Tutoring</h3>
-                  <p className="text-[var(--mid-gray)] resp-text-xs md:text-sm lg:text-base mb-4 sm:mb-6 flex-grow">Find expert tutors for any subject, from math and science to music lessons.</p>
-                  <Link href="/category/education-tutoring" className="font-semibold text-fuchsia-300 flex items-center group-hover:text-white transition-colors">
-                    Explore
-                    <ArrowRight className="w-5 h-5 ml-1 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </div>
-              </div>
-
-              <div className="card-elite resp-p-4 md:p-6 lg:p-8 overflow-hidden relative group magnetic-hover hover-enhance touch-friendly">
-                <div className="absolute inset-0 bg-gradient-to-t from-green-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="relative z-10 flex flex-col h-full">
-                  <Monitor className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-green-400 mb-3 sm:mb-4" />
-                  <h3 className="resp-text-lg md:text-xl lg:text-2xl font-bold text-white mb-2">Tech & Repair</h3>
-                  <p className="text-[var(--mid-gray)] resp-text-xs md:text-sm lg:text-base mb-4 sm:mb-6 flex-grow">Computer, phone, appliance repair and technical support services.</p>
-                  <Link href="/category/tech-repair" className="font-semibold text-green-300 flex items-center group-hover:text-white transition-colors">
-                    Explore
-                    <ArrowRight className="w-5 h-5 ml-1 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </div>
-              </div>
-
-              <div className="card-elite resp-p-4 md:p-6 lg:p-8 overflow-hidden relative group magnetic-hover hover-enhance touch-friendly">
-                <div className="absolute inset-0 bg-gradient-to-t from-orange-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="relative z-10 flex flex-col h-full">
-                  <Car className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-orange-400 mb-3 sm:mb-4" />
-                  <h3 className="resp-text-lg md:text-xl lg:text-2xl font-bold text-white mb-2">Automotive</h3>
-                  <p className="text-[var(--mid-gray)] resp-text-xs md:text-sm lg:text-base mb-4 sm:mb-6 flex-grow">Car repair, maintenance, detailing and automotive services.</p>
-                  <Link href="/category/automotive" className="font-semibold text-orange-300 flex items-center group-hover:text-white transition-colors">
-                    Explore
-                    <ArrowRight className="w-5 h-5 ml-1 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </div>
-              </div>
-
-              <div className="card-elite resp-p-4 md:p-6 lg:p-8 overflow-hidden relative group magnetic-hover hover-enhance touch-friendly">
-                <div className="absolute inset-0 bg-gradient-to-t from-pink-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="relative z-10 flex flex-col h-full">
-                  <PartyPopper className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-pink-400 mb-3 sm:mb-4" />
-                  <h3 className="resp-text-lg md:text-xl lg:text-2xl font-bold text-white mb-2">Entertainment</h3>
-                  <p className="text-[var(--mid-gray)] resp-text-xs md:text-sm lg:text-base mb-4 sm:mb-6 flex-grow">Events, photography, music and entertainment services.</p>
-                  <Link href="/category/entertainment" className="font-semibold text-pink-300 flex items-center group-hover:text-white transition-colors">
-                    Explore
-                    <ArrowRight className="w-5 h-5 ml-1 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </div>
-              </div>
+                return (
+                  <div key={category.id} className="category-card card-elite resp-p-4 md:p-6 lg:p-8 overflow-hidden relative group magnetic-hover hover-enhance touch-friendly">
+                    <div className={`absolute inset-0 bg-gradient-to-t ${colorScheme.bg} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
+                    <div className="relative z-10 flex flex-col h-full">
+                      <IconComponent className={`w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 ${colorScheme.icon} mb-3 sm:mb-4`} />
+                      <h3 className="category-title resp-text-lg md:text-xl lg:text-2xl font-bold mb-2">{category.name}</h3>
+                      <p className="category-description resp-text-xs md:text-sm lg:text-base mb-4 sm:mb-6 flex-grow">{category.description}</p>
+                      <Link href={`/category/${category.slug}`} className={`category-link font-semibold flex items-center ${colorScheme.text} group-hover:text-purple-600 dark:group-hover:text-white transition-colors`}>
+                        Explore
+                        <ArrowRight className="w-5 h-5 ml-1 group-hover:translate-x-1 transition-transform" />
+                      </Link>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </section>
 
