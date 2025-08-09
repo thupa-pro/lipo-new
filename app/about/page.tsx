@@ -203,10 +203,7 @@ export default function AboutPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
-      <PWAProvider>
-        <div className="min-h-screen bg-background">
-          <IntelligentHeader />
-          <div className="h-20 md:h-24"></div>
+      <div className="min-h-screen bg-background">
 
         <main>
           {/* Hero Section with Modern Glassmorphism */}
@@ -477,9 +474,8 @@ export default function AboutPage() {
           </section>
         </main>
 
-          <ModernFooter />
-        </div>
-      </PWAProvider>
+        <ModernFooter />
+      </div>
     </>
   );
 }
