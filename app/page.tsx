@@ -2,12 +2,8 @@ import { Suspense } from 'react';
 import Link from 'next/link';
 import { createSupabaseServerComponent } from '@/lib/supabase/server';
 import { isSupabaseConfigured } from '@/lib/env-check';
-import { IntelligentHeader } from '@/components/ui/intelligent-header';
-import { ModuleErrorBoundary, ModuleFallback } from '@/components/error-boundaries/module-error-boundary';
-import { PWAProvider } from '@/components/ui/pwa-features';
+import { HomeClientComponents } from '@/components/client-wrappers/home-client-components';
 import { ModernFooter } from '@/components/modern-footer';
-import { CommandPaletteHint } from '@/components/ui/command-palette-hint';
-import { FloatingFAB, MobileBottomNav } from '@/components/ui/floating-fab';
 import { Badge } from '@/components/ui/badge';
 import { ModernHeroServer } from '@/components/ui/modern-hero-server';
 import {
