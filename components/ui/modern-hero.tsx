@@ -334,5 +334,3 @@ export function ModernHero({ stats }: ModernHeroProps) {
     </section>
   )
 }
-
-export default ModernHero;
