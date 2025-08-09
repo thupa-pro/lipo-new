@@ -271,7 +271,9 @@ export default async function HomePage() {
           {/* Main Content */}
           <main id="main-content" className="relative z-10" role="main">
             {/* Modern Hero Section */}
-            <ModernHero stats={stats} />
+            <ModuleErrorBoundary fallback={ModuleFallback}>
+              <ModernHero stats={stats} />
+            </ModuleErrorBoundary>
 
             {/* Welcome Section - Enhanced Introduction */}
             <section className="py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 lg:px-8" role="region" aria-labelledby="welcome-title">
