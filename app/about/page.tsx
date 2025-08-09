@@ -10,8 +10,6 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ModernFooter } from "@/components/modern-footer";
-import { IntelligentHeader } from "@/components/ui/intelligent-header";
-import { PWAProvider } from "@/components/ui/pwa-features";
 
 import {
   MapPin,
@@ -203,7 +201,6 @@ export default function AboutPage() {
       />
 
       <div className="min-h-screen bg-background">
-
         <main>
           {/* Hero Section with Modern Glassmorphism */}
           <section className="py-24 bg-gradient-to-br from-purple-50 via-white to-cyan-50 dark:from-purple-950/20 dark:via-background dark:to-cyan-950/20 relative overflow-hidden">
@@ -226,8 +223,8 @@ export default function AboutPage() {
                   </h1>
 
                   <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
-                    We're building the future of local services by combining cutting-edge AI technology
-                    with human-centered design to create meaningful connections between communities and
+                    We're building the future of local services by combining cutting-edge AI technology 
+                    with human-centered design to create meaningful connections between communities and 
                     trusted professionals.
                   </p>
 
@@ -272,7 +269,6 @@ export default function AboutPage() {
           <section className="py-24">
             <div className="container">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <ScrollReveal direction="left">
                   <div>
                     <h2 className="text-4xl font-bold mb-6">Our Story</h2>
                     <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
@@ -294,9 +290,7 @@ export default function AboutPage() {
                       </p>
                     </div>
                   </div>
-                </ScrollReveal>
 
-                <ScrollReveal direction="right">
                   <div className="relative">
                     <div className="aspect-square rounded-3xl bg-gradient-to-br from-purple-500 via-pink-500 to-cyan-500 p-1">
                       <div className="w-full h-full rounded-3xl bg-background p-8 flex items-center justify-center">
@@ -310,7 +304,6 @@ export default function AboutPage() {
                       </div>
                     </div>
                   </div>
-                </ScrollReveal>
               </div>
             </div>
           </section>
@@ -318,19 +311,16 @@ export default function AboutPage() {
           {/* Core Values with Advanced Cards */}
           <section className="py-24 bg-gradient-to-br from-purple-50/50 via-white to-cyan-50/50 dark:from-purple-950/10 dark:via-background dark:to-cyan-950/10">
             <div className="container">
-              <ScrollReveal>
                 <div className="text-center mb-16">
                   <h2 className="text-4xl font-bold mb-4">Our Core Values</h2>
                   <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
                     The principles that guide everything we do and drive our mission forward.
                   </p>
                 </div>
-              </ScrollReveal>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {coreValues.map((value, index) => (
-                  <ScrollReveal key={value.title} delay={index * 200}>
-                    <Card className="card-elite p-8 group hover:-translate-y-4 transition-all duration-500">
+                    <Card key={value.title} className="card-elite p-8 group hover:-translate-y-4 transition-all duration-500">
                       <div className="flex items-start gap-6">
                         <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${value.gradient} flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
                           <value.icon className="w-8 h-8 text-white" />
@@ -345,7 +335,6 @@ export default function AboutPage() {
                         </div>
                       </div>
                     </Card>
-                  </ScrollReveal>
                 ))}
               </div>
             </div>
@@ -354,19 +343,16 @@ export default function AboutPage() {
           {/* Team Section with Modern Cards */}
           <section className="py-24">
             <div className="container">
-              <ScrollReveal>
                 <div className="text-center mb-16">
                   <h2 className="text-4xl font-bold mb-4">Meet Our Team</h2>
                   <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
                     The passionate individuals building the future of local services.
                   </p>
                 </div>
-              </ScrollReveal>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 {teamMembers.map((member, index) => (
-                  <ScrollReveal key={member.name} delay={index * 150}>
-                    <Card className="text-center group hover:-translate-y-2 transition-all duration-300 card-glow">
+                    <Card key={member.name} className="text-center group hover:-translate-y-2 transition-all duration-300 card-glow">
                       <CardContent className="pt-8">
                         <Avatar className="w-24 h-24 mx-auto mb-4">
                           <AvatarImage src={`/team/${member.name.toLowerCase().replace(' ', '-')}.jpg`} />
@@ -385,7 +371,6 @@ export default function AboutPage() {
                         </p>
                       </CardContent>
                     </Card>
-                  </ScrollReveal>
                 ))}
               </div>
             </div>
@@ -394,19 +379,16 @@ export default function AboutPage() {
           {/* Timeline Section */}
           <section className="py-24 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
             <div className="container">
-              <ScrollReveal>
                 <div className="text-center mb-16">
                   <h2 className="text-4xl font-bold mb-4">Our Journey</h2>
                   <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
                     Key milestones in our mission to revolutionize local services.
                   </p>
                 </div>
-              </ScrollReveal>
 
               <div className="max-w-4xl mx-auto">
                 {milestones.map((milestone, index) => (
-                  <ScrollReveal key={milestone.year} delay={index * 100}>
-                    <div className="flex items-center gap-8 mb-12 group">
+                    <div key={milestone.year} className="flex items-center gap-8 mb-12 group">
                       <div className="flex-shrink-0">
                         <div className="w-16 h-16 rounded-full bg-gradient-to-r from-purple-500 to-cyan-500 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                           <milestone.icon className="w-8 h-8 text-white" />
@@ -424,7 +406,6 @@ export default function AboutPage() {
                         </div>
                       </div>
                     </div>
-                  </ScrollReveal>
                 ))}
               </div>
             </div>
@@ -434,7 +415,6 @@ export default function AboutPage() {
           <section className="py-24 bg-gradient-to-br from-purple-600 via-pink-600 to-cyan-600 text-white relative overflow-hidden">
             <div className="absolute inset-0 bg-black/20"></div>
             <div className="container relative z-10">
-              <ScrollReveal>
                 <div className="text-center max-w-3xl mx-auto">
                   <h2 className="text-4xl md:text-5xl font-bold mb-6">
                     Ready to Experience the Future of Local Services?
@@ -458,7 +438,6 @@ export default function AboutPage() {
                     </Link>
                   </div>
                 </div>
-              </ScrollReveal>
             </div>
           </section>
         </main>
