@@ -48,8 +48,7 @@ import {
   Gavel,
   AlertTriangle,
 } from 'lucide-react';
-import { useAuth } from '@/hooks/use-auth';
-import { useUserRole } from '@/hooks/use-auth';
+import { useAuth } from '@/components/auth/clerk-auth-provider';
 import { useToast } from '@/components/ui/use-toast';
 
 interface Notification {
@@ -76,8 +75,14 @@ export function IntelligentHeader({ onCommandPaletteOpen }: IntelligentHeaderPro
 
   const router = useRouter();
   const { toast } = useToast();
-  const { user, userProfile, loading } = useAuth();
-  const { userRole, isCustomer, isProvider, isAdmin, isSuperAdmin } = useUserRole();
+  const { user, userProfile, loading, signOut } = useAuth();
+
+  // Extract user role from Clerk user metadata or profile
+  const userRole = userProfile?.role || 'customer';
+  const isCustomer = () => userRole === 'customer';
+  const isProvider = () => userRole === 'provider';
+  const isAdmin = () => userRole === 'admin';
+  const isSuperAdmin = () => userRole === 'super_admin';
 
   // Intelligent notification system based on user role
   const generateRoleBasedNotifications = () => {
@@ -248,13 +253,12 @@ export function IntelligentHeader({ onCommandPaletteOpen }: IntelligentHeaderPro
 
   const handleLogout = async () => {
     try {
-      // Use the auth context signOut method if available
-      // For now, we'll simulate logout
+      await signOut();
       toast({
         title: "Signed Out",
         description: "You have been successfully signed out.",
       });
-      router.push("/auth/signin");
+      router.push("/");
     } catch (error) {
       console.error('Logout error:', error);
       toast({
@@ -528,14 +532,14 @@ export function IntelligentHeader({ onCommandPaletteOpen }: IntelligentHeaderPro
                           </AvatarFallback>
                         </Avatar>
                         <div>
-                          <p className="text-sm font-semibold text-foreground">{userProfile?.name || user?.email?.split('@')[0]}</p>
+                          <p className="text-sm font-semibold text-foreground">{userProfile?.display_name || user?.fullName || user?.emailAddresses?.[0]?.emailAddress?.split('@')[0]}</p>
                           <Badge className={`${getRoleBadgeColor()} text-white text-xs flex items-center gap-1`}>
                             <RoleIcon className="w-3 h-3" />
                             {userRole?.charAt(0).toUpperCase() + userRole?.slice(1) || 'User'}
                           </Badge>
                         </div>
                       </div>
-                      <p className="text-xs text-muted-foreground">{user?.email}</p>
+                      <p className="text-xs text-muted-foreground">{user?.emailAddresses?.[0]?.emailAddress}</p>
                     </div>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator className="bg-white/10" />
