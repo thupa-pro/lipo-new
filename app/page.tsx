@@ -240,16 +240,16 @@ export default async function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
       
-      <PWAProvider>
+      <HomeClientComponents>
         <div className="relative min-h-screen overflow-hidden bg-gray-50 dark:bg-gray-900">
           {/* Skip Links for Accessibility */}
           <a href="#main-content" className="skip-link">Skip to main content</a>
           <a href="#find-service" className="skip-link">Skip to search</a>
           <a href="#how-it-works" className="skip-link">Skip to how it works</a>
-          
+
           {/* Beautiful Background Elements */}
           <div className="absolute inset-0 bg-grid-white/[0.04] dark:bg-grid-white/[0.04] [mask-image:radial-gradient(ellipse_at_center,white_20%,transparent_70%)]"></div>
-          
+
           {/* Animated Background Blobs - Only visible in dark mode */}
           <div className="hidden dark:block absolute top-[-20%] left-[-10%] w-[800px] h-[800px] bg-purple-900/30 rounded-full blur-[200px] animate-pulse"></div>
           <div className="hidden dark:block absolute bottom-[-30%] right-[-20%] w-[900px] h-[900px] bg-cyan-700/30 rounded-full blur-[200px] animate-pulse animation-delay-4000"></div>
@@ -258,18 +258,13 @@ export default async function HomePage() {
           {/* Light mode subtle background pattern */}
           <div className="block dark:hidden absolute inset-0 bg-gradient-to-br from-blue-50/30 via-purple-50/20 to-pink-50/30"></div>
 
-          {/* Intelligent Header */}
-          <IntelligentHeader />
-
           {/* Header Compensation */}
           <div className="h-20 md:h-24"></div>
 
           {/* Main Content */}
           <main id="main-content" className="relative z-10" role="main">
             {/* Modern Hero Section */}
-            <ModuleErrorBoundary fallback={ModuleFallback}>
-              <ModernHeroServer stats={stats} />
-            </ModuleErrorBoundary>
+            <ModernHeroServer stats={stats} />
 
             {/* Welcome Section - Enhanced Introduction */}
             <section className="py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 lg:px-8" role="region" aria-labelledby="welcome-title">
@@ -529,14 +524,11 @@ export default async function HomePage() {
           </main>
 
           <ModernFooter />
-          <CommandPaletteHint />
-          <FloatingFAB />
-          <MobileBottomNav currentPath="/" />
 
           {/* Mobile Bottom Spacing */}
           <div className="h-20 md:h-0"></div>
         </div>
-      </PWAProvider>
+      </HomeClientComponents>
     </>
   );
 }
