@@ -533,32 +533,6 @@ export default function PricingPage() {
 
         <ModernFooter />
       </div>
-
-      <style jsx global>{`
-        .neumorphic-card {
-          background: #ffffff;
-          box-shadow: 
-            20px 20px 60px #d1d1d1,
-            -20px -20px 60px #ffffff;
-          border: none;
-        }
-        .dark .neumorphic-card {
-          background: #1a1a1a;
-          box-shadow: 
-            20px 20px 60px #151515,
-            -20px -20px 60px #1f1f1f;
-        }
-        .neumorphic-card:hover {
-          box-shadow: 
-            25px 25px 75px #d1d1d1,
-            -25px -25px 75px #ffffff;
-        }
-        .dark .neumorphic-card:hover {
-          box-shadow: 
-            25px 25px 75px #151515,
-            -25px -25px 75px #1f1f1f;
-        }
-      `}</style>
     </>
   );
 }
