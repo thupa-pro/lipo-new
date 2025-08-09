@@ -1,645 +1,465 @@
-"use client";
-
-import { useState, useEffect, useMemo } from "react";
-import { useParams, useSearchParams, useRouter } from "next/navigation";
+import { Suspense } from 'react';
+import { notFound } from 'next/navigation';
+import { createSupabaseServerComponent } from '@/lib/supabase/server';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Slider } from "@/components/ui/slider";
-import { Separator } from "@/components/ui/separator";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { ModernFooter } from "@/components/modern-footer";
+import { CommandPaletteHint } from "@/components/ui/command-palette-hint";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
+import Link from "next/link";
 import { 
-  Search, 
-  MapPin, 
   Star, 
-  Filter, 
-  SlidersHorizontal,
-  Grid,
-  List,
-  Heart,
-  Share2,
-  Verified,
-  Clock,
-  DollarSign,
+  Clock, 
+  MapPin, 
+  Users, 
   TrendingUp,
-  Users,
-  Award
+  CheckCircle,
+  Award,
+  Verified
 } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { BrowseFilters } from "@/components/browse/BrowseFilters";
-import { ProviderCard } from "@/components/browse/ProviderCard";
 
-interface Category {
-  id: string;
-  name: string;
-  slug: string;
-  description: string;
-  icon_name: string;
-  sort_order: number;
-}
+// Client components
+import { CategoryFilters } from "./components/category-filters";
 
-interface Provider {
-  id: string;
-  business_name: string;
-  bio: string;
-  cover_photo_url?: string;
-  rating_average: number;
-  rating_count: number;
-  response_time_minutes: number;
-  is_verified: boolean;
-  location: {
-    lat: number;
-    lng: number;
-    address: string;
+// Configure ISR - revalidate every 30 minutes for category pages
+export const revalidate = 1800;
+
+interface CategoryPageProps {
+  params: {
+    slug: string;
   };
-  services: {
-    id: string;
-    name: string;
-    price: number;
-    duration_minutes: number;
-  }[];
-  category: Category;
-  distance?: number;
+  searchParams: {
+    sort?: string;
+    price_min?: string;
+    price_max?: string;
+    rating?: string;
+  };
 }
 
-const MOCK_CATEGORIES: Record<string, Category> = {
-  "home-services": {
-    id: "1",
-    name: "Home Services",
-    slug: "home-services",
-    description: "Professional home maintenance and repair services",
-    icon_name: "home",
-    sort_order: 1,
-  },
-  "personal-care": {
-    id: "2", 
-    name: "Personal Care",
-    slug: "personal-care",
-    description: "Beauty, wellness, and personal care services",
-    icon_name: "user",
-    sort_order: 2,
-  },
-  "transportation": {
-    id: "3",
-    name: "Transportation", 
-    slug: "transportation",
-    description: "Moving, delivery, and transportation services",
-    icon_name: "truck",
-    sort_order: 3,
-  },
-};
-
-const MOCK_PROVIDERS: Provider[] = [
-  {
-    id: "1",
-    business_name: "SparkleClean Pro",
-    bio: "Professional house cleaning with eco-friendly products. 10+ years of experience serving the community.",
-    cover_photo_url: "/placeholder.svg",
-    rating_average: 4.9,
-    rating_count: 127,
-    response_time_minutes: 15,
-    is_verified: true,
-    location: {
-      lat: 37.7749,
-      lng: -122.4194,
-      address: "San Francisco, CA"
-    },
-    services: [
-      { id: "1", name: "Deep House Cleaning", price: 125, duration_minutes: 180 },
-      { id: "2", name: "Regular Cleaning", price: 85, duration_minutes: 120 },
-    ],
-    category: MOCK_CATEGORIES["home-services"],
-    distance: 0.8,
-  },
-  {
-    id: "2", 
-    business_name: "FreshCuts Studio",
-    bio: "Modern barbershop with skilled stylists. Walk-ins welcome, appointments preferred.",
-    cover_photo_url: "/placeholder.svg",
-    rating_average: 4.7,
-    rating_count: 89,
-    response_time_minutes: 30,
-    is_verified: true,
-    location: {
-      lat: 37.7849,
-      lng: -122.4094,
-      address: "San Francisco, CA"
-    },
-    services: [
-      { id: "3", name: "Haircut & Style", price: 45, duration_minutes: 45 },
-      { id: "4", name: "Beard Trim", price: 25, duration_minutes: 20 },
-    ],
-    category: MOCK_CATEGORIES["personal-care"],
-    distance: 1.2,
-  },
-  {
-    id: "3",
-    business_name: "QuickMove Logistics", 
-    bio: "Reliable moving and delivery services. Fully insured with professional equipment.",
-    cover_photo_url: "/placeholder.svg",
-    rating_average: 4.6,
-    rating_count: 234,
-    response_time_minutes: 45,
-    is_verified: false,
-    location: {
-      lat: 37.7649,
-      lng: -122.4294,
-      address: "San Francisco, CA"
-    },
-    services: [
-      { id: "5", name: "Local Moving", price: 200, duration_minutes: 240 },
-      { id: "6", name: "Furniture Delivery", price: 75, duration_minutes: 60 },
-    ],
-    category: MOCK_CATEGORIES["transportation"],
-    distance: 2.1,
-  }
-];
-
-export default function CategoryPage() {
-  const params = useParams();
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const slug = params.slug as string;
-
-  const [category, setCategory] = useState<Category | null>(null);
-  const [providers, setProviders] = useState<Provider[]>([]);
-  const [loading, setLoading] = useState(true);
+// Generate static params for known categories
+export async function generateStaticParams() {
+  const supabase = createSupabaseServerComponent();
   
-  // Filter states
-  const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || "");
-  const [priceRange, setPriceRange] = useState([0, 500]);
-  const [sortBy, setSortBy] = useState("rating");
-  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
-  const [showFilters, setShowFilters] = useState(false);
-  const [selectedDistance, setSelectedDistance] = useState("25");
+  try {
+    const { data: categories } = await supabase
+      .from('categories')
+      .select('slug')
+      .eq('parent_id', null)
+      .limit(20);
 
-  useEffect(() => {
-    const fetchCategoryData = async () => {
-      setLoading(true);
-
-      // Create abort controller for this request
-      const abortController = new AbortController();
-      const timeoutId = setTimeout(() => {
-        abortController.abort();
-      }, 45000); // 45 second timeout for category data fetching
-
-      try {
-        // Get user location if available
-        let lat = 0, lng = 0;
-        if (navigator.geolocation) {
-          const position = await new Promise<GeolocationPosition>((resolve, reject) => {
-            const locationTimeout = setTimeout(() => {
-              reject(new Error('Geolocation timeout'));
-            }, 10000); // 10 second timeout for geolocation
-
-            navigator.geolocation.getCurrentPosition(
-              (pos) => {
-                clearTimeout(locationTimeout);
-                resolve(pos);
-              },
-              (err) => {
-                clearTimeout(locationTimeout);
-                reject(err);
-              },
-              { timeout: 10000 }
-            );
-          }).catch(() => null);
-
-          if (position) {
-            lat = position.coords.latitude;
-            lng = position.coords.longitude;
-          }
-        }
-
-        const params = new URLSearchParams({
-          q: searchQuery,
-          minPrice: priceRange[0].toString(),
-          maxPrice: priceRange[1].toString(),
-          distance: selectedDistance,
-          sortBy,
-          ...(lat && lng ? { lat: lat.toString(), lng: lng.toString() } : {}),
-        });
-
-        const response = await fetch(`/api/categories/${slug}?${params}`, {
-          signal: abortController.signal,
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-
-        clearTimeout(timeoutId);
-
-        if (!response.ok) {
-          throw new Error(`Failed to fetch category data: ${response.status} ${response.statusText}`);
-        }
-
-        const data = await response.json();
-        setCategory(data.category);
-        setProviders(data.providers || []);
-      } catch (error) {
-        clearTimeout(timeoutId);
-
-        if (error instanceof Error) {
-          if (error.name === 'AbortError') {
-            console.warn('Category data request was cancelled or timed out');
-            // Don't show fallback data for user-initiated aborts, just keep loading state
-            return;
-          } else {
-            console.error('Error fetching category data:', error.message);
-          }
-        } else {
-          console.error('Unknown error fetching category data:', error);
-        }
-
-        // Fallback to mock data for real errors (not aborts)
-        const foundCategory = MOCK_CATEGORIES[slug];
-        setCategory(foundCategory || null);
-
-        if (foundCategory) {
-          const categoryProviders = MOCK_PROVIDERS.filter(
-            p => p.category.slug === foundCategory.slug
-          );
-          setProviders(categoryProviders);
-        }
-      } finally {
-        setLoading(false);
-      }
-
-      // Cleanup function
-      return () => {
-        clearTimeout(timeoutId);
-        abortController.abort();
-      };
-    };
-
-    const cleanup = fetchCategoryData();
-    return () => {
-      if (cleanup && typeof cleanup.then === 'function') {
-        cleanup.then((cleanupFn) => {
-          if (typeof cleanupFn === 'function') {
-            cleanupFn();
-          }
-        });
-      }
-    };
-  }, [slug, searchQuery, priceRange, selectedDistance, sortBy]);
-
-  const filteredProviders = useMemo(() => {
-    let filtered = [...providers];
-    
-    // Search filter
-    if (searchQuery) {
-      filtered = filtered.filter(p =>
-        p.business_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        p.bio.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        p.services.some(s => s.name.toLowerCase().includes(searchQuery.toLowerCase()))
-      );
-    }
-    
-    // Price filter
-    filtered = filtered.filter(p => {
-      const minPrice = Math.min(...p.services.map(s => s.price));
-      return minPrice >= priceRange[0] && minPrice <= priceRange[1];
-    });
-    
-    // Distance filter
-    const maxDistance = parseInt(selectedDistance);
-    filtered = filtered.filter(p => (p.distance || 0) <= maxDistance);
-    
-    // Sort
-    switch (sortBy) {
-      case "rating":
-        filtered.sort((a, b) => b.rating_average - a.rating_average);
-        break;
-      case "price_low":
-        filtered.sort((a, b) => 
-          Math.min(...a.services.map(s => s.price)) - Math.min(...b.services.map(s => s.price))
-        );
-        break;
-      case "price_high":
-        filtered.sort((a, b) => 
-          Math.min(...b.services.map(s => s.price)) - Math.min(...a.services.map(s => s.price))
-        );
-        break;
-      case "distance":
-        filtered.sort((a, b) => (a.distance || 0) - (b.distance || 0));
-        break;
-      case "response_time":
-        filtered.sort((a, b) => a.response_time_minutes - b.response_time_minutes);
-        break;
-    }
-    
-    return filtered;
-  }, [providers, searchQuery, priceRange, selectedDistance, sortBy]);
-
-  const updateSearchParams = (key: string, value: string) => {
-    const params = new URLSearchParams(searchParams);
-    if (value) {
-      params.set(key, value);
-    } else {
-      params.delete(key);
-    }
-    router.push(`/category/${slug}?${params.toString()}`);
-  };
-
-  if (loading) {
-    return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="animate-pulse space-y-6">
-          <div className="h-8 bg-gray-200 rounded w-64"></div>
-          <div className="h-4 bg-gray-200 rounded w-96"></div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="h-80 bg-gray-200 rounded-lg"></div>
-            ))}
-          </div>
-        </div>
-      </div>
-    );
+    return categories?.map(cat => ({ slug: cat.slug })) || [];
+  } catch (error) {
+    return []; // Fallback to empty array
   }
+}
 
+// Generate metadata for each category
+export async function generateMetadata({ params }: CategoryPageProps) {
+  const category = await getCategoryBySlug(params.slug);
+  
   if (!category) {
-    return (
-      <div className="container mx-auto px-4 py-16 text-center">
-        <h1 className="text-3xl font-bold mb-4">Category Not Found</h1>
-        <p className="text-muted-foreground mb-8">
-          The category you're looking for doesn't exist.
-        </p>
-        <Button onClick={() => router.push("/browse")}>
-          Browse All Services
-        </Button>
-      </div>
-    );
+    return {
+      title: "Category Not Found | Loconomy",
+      description: "The requested category could not be found."
+    };
   }
+
+  return {
+    title: `${category.name} Services | Loconomy - Find Local ${category.name} Professionals`,
+    description: `Find trusted ${category.name.toLowerCase()} professionals in your area. ${category.description || `Book verified ${category.name.toLowerCase()} services with instant quotes and real reviews.`}`,
+    keywords: [category.name.toLowerCase(), "local services", "professional services", "booking", "reviews"],
+    openGraph: {
+      title: `${category.name} Services | Loconomy`,
+      description: `Find trusted ${category.name.toLowerCase()} professionals in your area`,
+      url: `https://loconomy.com/category/${category.slug}`,
+      type: "website",
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+    alternates: {
+      canonical: `https://loconomy.com/category/${category.slug}`,
+    },
+  };
+}
+
+// Server-side data fetching functions
+async function getCategoryBySlug(slug: string) {
+  const supabase = createSupabaseServerComponent();
+  
+  try {
+    const { data: category } = await supabase
+      .from('categories')
+      .select('*')
+      .eq('slug', slug)
+      .single();
+
+    return category;
+  } catch (error) {
+    console.error('Error fetching category:', error);
+    return null;
+  }
+}
+
+async function getProvidersByCategory(categorySlug: string, searchParams: any) {
+  const supabase = createSupabaseServerComponent();
+  
+  try {
+    let query = supabase
+      .from('providers')
+      .select(`
+        *,
+        users (display_name, avatar_url),
+        categories!inner (name, slug),
+        services (name, price)
+      `)
+      .eq('categories.slug', categorySlug)
+      .eq('is_active', true);
+
+    // Apply sorting
+    switch (searchParams.sort) {
+      case 'rating':
+        query = query.order('rating_average', { ascending: false });
+        break;
+      case 'price_low':
+        query = query.order('services.price', { ascending: true });
+        break;
+      case 'price_high':
+        query = query.order('services.price', { ascending: false });
+        break;
+      case 'response_time':
+        query = query.order('response_time_minutes', { ascending: true });
+        break;
+      default:
+        query = query.order('rating_average', { ascending: false });
+    }
+
+    const { data: providers, error } = await query.limit(20);
+
+    if (error) {
+      console.error('Error fetching providers:', error);
+      return getMockProviders(categorySlug);
+    }
+
+    return providers || getMockProviders(categorySlug);
+  } catch (error) {
+    console.error('Error in getProvidersByCategory:', error);
+    return getMockProviders(categorySlug);
+  }
+}
+
+async function getCategoryStats(categorySlug: string) {
+  const supabase = createSupabaseServerComponent();
+  
+  try {
+    const [providersResult, avgRatingResult] = await Promise.all([
+      supabase
+        .from('providers')
+        .select('id', { count: 'exact', head: true })
+        .eq('categories.slug', categorySlug)
+        .eq('is_active', true),
+      supabase
+        .from('providers')
+        .select('rating_average')
+        .eq('categories.slug', categorySlug)
+        .eq('is_active', true)
+    ]);
+
+    const avgRating = avgRatingResult.data?.reduce((acc, p) => acc + p.rating_average, 0) / (avgRatingResult.data?.length || 1);
+
+    return {
+      totalProviders: providersResult.count || 0,
+      averageRating: Number(avgRating?.toFixed(1)) || 4.8,
+      totalReviews: Math.floor((providersResult.count || 0) * 15), // Estimated
+      avgResponseTime: '2 hours'
+    };
+  } catch (error) {
+    return {
+      totalProviders: 25,
+      averageRating: 4.8,
+      totalReviews: 375,
+      avgResponseTime: '2 hours'
+    };
+  }
+}
+
+// Mock data for fallback
+function getMockProviders(categorySlug: string) {
+  const baseProviders = [
+    {
+      id: '1',
+      business_name: "Professional Service Co.",
+      bio: "Experienced professional providing quality services",
+      rating_average: 4.9,
+      rating_count: 127,
+      response_time_minutes: 120,
+      users: { display_name: "Alex Johnson", avatar_url: null },
+      services: [{ name: "Standard Service", price: 50 }],
+      verified: true,
+      location: "2.3 miles away"
+    },
+    {
+      id: '2',
+      business_name: "Expert Solutions",
+      bio: "Licensed expert with years of experience",
+      rating_average: 4.8,
+      rating_count: 89,
+      response_time_minutes: 60,
+      users: { display_name: "Sarah Wilson", avatar_url: null },
+      services: [{ name: "Premium Service", price: 75 }],
+      verified: true,
+      location: "1.8 miles away"
+    }
+  ];
+
+  return baseProviders;
+}
+
+// Structured data for category pages
+function generateStructuredData(category: any, providers: any[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": `${category.name} Services`,
+    "description": category.description,
+    "url": `https://loconomy.com/category/${category.slug}`,
+    "numberOfItems": providers.length,
+    "itemListElement": providers.slice(0, 5).map((provider, index) => ({
+      "@type": "LocalBusiness",
+      "position": index + 1,
+      "name": provider.business_name,
+      "description": provider.bio,
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": provider.rating_average,
+        "reviewCount": provider.rating_count
+      }
+    }))
+  };
+}
+
+export default async function CategoryPage({ params, searchParams }: CategoryPageProps) {
+  // Server-side data fetching
+  const [category, providers, stats] = await Promise.all([
+    getCategoryBySlug(params.slug),
+    getProvidersByCategory(params.slug, searchParams),
+    getCategoryStats(params.slug)
+  ]);
+
+  // Return 404 if category doesn't exist
+  if (!category) {
+    notFound();
+  }
+
+  const structuredData = generateStructuredData(category, providers);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-      {/* Header */}
-      <div className="bg-white dark:bg-gray-900 border-b">
-        <div className="container mx-auto px-4 py-8">
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-                {category.name}
-              </h1>
-              <p className="text-lg text-muted-foreground mt-2">
-                {category.description}
-              </p>
-              <div className="flex items-center gap-4 mt-4 text-sm text-muted-foreground">
-                <span className="flex items-center gap-1">
-                  <Users className="w-4 h-4" />
-                  {filteredProviders.length} providers
-                </span>
-                <span className="flex items-center gap-1">
-                  <MapPin className="w-4 h-4" />
-                  San Francisco Bay Area
-                </span>
-                <span className="flex items-center gap-1">
-                  <TrendingUp className="w-4 h-4" />
-                  Trending category
-                </span>
-              </div>
-            </div>
-            
-            <div className="flex items-center gap-3">
-              <Button variant="outline" size="sm">
-                <Heart className="w-4 h-4 mr-2" />
-                Save Search
-              </Button>
-              <Button variant="outline" size="sm">
-                <Share2 className="w-4 h-4 mr-2" />
-                Share
-              </Button>
+    <>
+      {/* Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      
+      <div className="min-h-screen bg-background">
+        {/* Header */}
+        <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
+          <div className="container flex h-14 items-center justify-between">
+            <Link href="/" className="flex items-center space-x-2">
+              <span className="text-xl font-bold gradient-text">Loconomy</span>
+            </Link>
+            <div className="flex items-center space-x-4">
+              <ThemeToggle />
+              <Link href="/auth/signin">
+                <Button variant="outline" size="sm">Sign In</Button>
+              </Link>
             </div>
           </div>
+        </header>
 
-          {/* Search and Quick Filters */}
-          <div className="flex flex-col md:flex-row gap-4">
-            <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <Input
-                placeholder={`Search ${category.name.toLowerCase()}...`}
-                value={searchQuery}
-                onChange={(e) => {
-                  setSearchQuery(e.target.value);
-                  updateSearchParams("q", e.target.value);
-                }}
-                className="pl-10"
-              />
-            </div>
-            
-            <div className="flex gap-2">
-              <Select value={sortBy} onValueChange={setSortBy}>
-                <SelectTrigger className="w-40">
-                  <SelectValue placeholder="Sort by" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="rating">Highest Rated</SelectItem>
-                  <SelectItem value="price_low">Price: Low to High</SelectItem>
-                  <SelectItem value="price_high">Price: High to Low</SelectItem>
-                  <SelectItem value="distance">Nearest</SelectItem>
-                  <SelectItem value="response_time">Fastest Response</SelectItem>
-                </SelectContent>
-              </Select>
-              
-              <Button
-                variant="outline"
-                onClick={() => setShowFilters(!showFilters)}
-                className={cn(showFilters && "bg-blue-50 dark:bg-blue-950/20")}
-              >
-                <SlidersHorizontal className="w-4 h-4 mr-2" />
-                Filters
-              </Button>
-              
-              <div className="border rounded-lg p-1 flex">
-                <Button
-                  variant={viewMode === "grid" ? "default" : "ghost"}
-                  size="sm"
-                  onClick={() => setViewMode("grid")}
-                  className="px-2"
-                >
-                  <Grid className="w-4 h-4" />
-                </Button>
-                <Button
-                  variant={viewMode === "list" ? "default" : "ghost"}
-                  size="sm"
-                  onClick={() => setViewMode("list")}
-                  className="px-2"
-                >
-                  <List className="w-4 h-4" />
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+        <main className="container py-8">
+          {/* Breadcrumb */}
+          <nav className="mb-6">
+            <ol className="flex items-center space-x-2 text-sm text-muted-foreground">
+              <li><Link href="/" className="hover:text-foreground">Home</Link></li>
+              <li>/</li>
+              <li><Link href="/browse" className="hover:text-foreground">Browse</Link></li>
+              <li>/</li>
+              <li className="text-foreground font-medium">{category.name}</li>
+            </ol>
+          </nav>
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex flex-col lg:flex-row gap-8">
-          {/* Filters Sidebar */}
-          {showFilters && (
-            <div className="lg:w-80">
+          {/* Category Header */}
+          <div className="mb-8">
+            <h1 className="text-4xl font-bold mb-4">{category.name} Services</h1>
+            <p className="text-lg text-muted-foreground mb-6">
+              {category.description || `Find trusted ${category.name.toLowerCase()} professionals in your area`}
+            </p>
+
+            {/* Category Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Filter className="w-5 h-5" />
-                    Filters
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  {/* Distance Filter */}
+                <CardContent className="flex items-center justify-between p-4">
                   <div>
-                    <label className="text-sm font-medium mb-3 block">
-                      Distance
-                    </label>
-                    <Select value={selectedDistance} onValueChange={setSelectedDistance}>
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="5">Within 5 miles</SelectItem>
-                        <SelectItem value="10">Within 10 miles</SelectItem>
-                        <SelectItem value="25">Within 25 miles</SelectItem>
-                        <SelectItem value="50">Within 50 miles</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <p className="text-2xl font-bold">{stats.totalProviders}+</p>
+                    <p className="text-sm text-muted-foreground">Providers</p>
                   </div>
-
-                  <Separator />
-
-                  {/* Price Range */}
+                  <Users className="h-8 w-8 text-muted-foreground" />
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardContent className="flex items-center justify-between p-4">
                   <div>
-                    <label className="text-sm font-medium mb-3 block">
-                      Price Range
-                    </label>
-                    <div className="px-3">
-                      <Slider
-                        value={priceRange}
-                        onValueChange={setPriceRange}
-                        max={500}
-                        min={0}
-                        step={25}
-                        className="mb-4"
-                      />
-                      <div className="flex justify-between text-sm text-muted-foreground">
-                        <span>${priceRange[0]}</span>
-                        <span>${priceRange[1]}+</span>
-                      </div>
-                    </div>
+                    <p className="text-2xl font-bold">{stats.averageRating}</p>
+                    <p className="text-sm text-muted-foreground">Avg Rating</p>
                   </div>
-
-                  <Separator />
-
-                  {/* Provider Features */}
+                  <Star className="h-8 w-8 text-yellow-400 fill-current" />
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardContent className="flex items-center justify-between p-4">
                   <div>
-                    <label className="text-sm font-medium mb-3 block">
-                      Provider Features
-                    </label>
-                    <div className="space-y-2">
-                      <label className="flex items-center gap-2">
-                        <input type="checkbox" className="rounded" />
-                        <Verified className="w-4 h-4 text-blue-500" />
-                        <span className="text-sm">Verified providers only</span>
-                      </label>
-                      <label className="flex items-center gap-2">
-                        <input type="checkbox" className="rounded" />
-                        <Clock className="w-4 h-4 text-green-500" />
-                        <span className="text-sm">Quick response (&lt;30 min)</span>
-                      </label>
-                      <label className="flex items-center gap-2">
-                        <input type="checkbox" className="rounded" />
-                        <Award className="w-4 h-4 text-yellow-500" />
-                        <span className="text-sm">Top-rated (4.5+ stars)</span>
-                      </label>
-                    </div>
+                    <p className="text-2xl font-bold">{stats.totalReviews}+</p>
+                    <p className="text-sm text-muted-foreground">Reviews</p>
                   </div>
+                  <Award className="h-8 w-8 text-muted-foreground" />
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardContent className="flex items-center justify-between p-4">
+                  <div>
+                    <p className="text-2xl font-bold">{stats.avgResponseTime}</p>
+                    <p className="text-sm text-muted-foreground">Avg Response</p>
+                  </div>
+                  <Clock className="h-8 w-8 text-muted-foreground" />
                 </CardContent>
               </Card>
             </div>
-          )}
+          </div>
 
-          {/* Results */}
-          <div className="flex-1">
-            {/* Results Header */}
-            <div className="flex items-center justify-between mb-6">
-              <div>
-                <h2 className="text-xl font-semibold">
-                  {filteredProviders.length} {category.name} Providers
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            {/* Filters Sidebar - Client Component */}
+            <div className="lg:col-span-1">
+              <Suspense fallback={<div className="h-96 animate-pulse bg-gray-200 dark:bg-gray-700 rounded-lg"></div>}>
+                <CategoryFilters 
+                  currentSort={searchParams.sort || 'rating'}
+                  currentPriceMin={parseInt(searchParams.price_min || '0')}
+                  currentPriceMax={parseInt(searchParams.price_max || '200')}
+                  currentRating={parseFloat(searchParams.rating || '0')}
+                />
+              </Suspense>
+            </div>
+
+            {/* Providers Grid - Server Rendered */}
+            <div className="lg:col-span-3">
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-2xl font-semibold">
+                  {providers.length} {category.name} Professionals
                 </h2>
-                <p className="text-sm text-muted-foreground">
-                  Showing results in San Francisco Bay Area
-                </p>
               </div>
-              
-              {filteredProviders.length > 0 && (
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <span>Avg. price:</span>
-                  <span className="font-medium text-foreground">
-                    ${Math.round(
-                      filteredProviders.reduce((acc, p) => 
-                        acc + Math.min(...p.services.map(s => s.price)), 0
-                      ) / filteredProviders.length
-                    )}
-                  </span>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {providers.map((provider) => (
+                  <Card key={provider.id} className="card-glow hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                    <CardHeader className="pb-4">
+                      <div className="flex items-start justify-between">
+                        <div className="flex items-center gap-3">
+                          <Avatar className="h-12 w-12">
+                            <AvatarImage src={provider.users?.avatar_url || undefined} />
+                            <AvatarFallback className="bg-gradient-to-r from-purple-500 to-pink-500 text-white">
+                              {provider.users?.display_name?.split(' ').map(n => n[0]).join('') || 'P'}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div>
+                            <CardTitle className="text-lg">{provider.users?.display_name || provider.business_name}</CardTitle>
+                            <p className="text-sm text-muted-foreground">{category.name}</p>
+                          </div>
+                        </div>
+                        {provider.verified && (
+                          <Badge variant="secondary" className="bg-green-100 text-green-800">
+                            <CheckCircle className="w-3 h-3 mr-1" />
+                            Verified
+                          </Badge>
+                        )}
+                      </div>
+                    </CardHeader>
+
+                    <CardContent className="space-y-4">
+                      <p className="text-sm text-muted-foreground line-clamp-2">
+                        {provider.bio}
+                      </p>
+
+                      <div className="flex items-center gap-4 text-sm">
+                        <div className="flex items-center gap-1">
+                          <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                          <span className="font-medium">{provider.rating_average}</span>
+                          <span className="text-muted-foreground">({provider.rating_count})</span>
+                        </div>
+                        <div className="flex items-center gap-1 text-muted-foreground">
+                          <Clock className="w-4 h-4" />
+                          <span>{provider.response_time_minutes ? `${Math.floor(provider.response_time_minutes / 60)}h` : '2h'} response</span>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                        <MapPin className="w-4 h-4" />
+                        <span>{provider.location || 'Local area'}</span>
+                      </div>
+
+                      <div className="flex items-center justify-between pt-4">
+                        <div>
+                          <span className="text-lg font-bold">
+                            ${provider.services?.[0]?.price || 50}
+                          </span>
+                          <span className="text-sm text-muted-foreground">/hour</span>
+                        </div>
+                        <div className="flex gap-2">
+                          <Button variant="outline" size="sm">
+                            View Profile
+                          </Button>
+                          <Button size="sm" className="btn-glow">
+                            Book Now
+                          </Button>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+
+              {providers.length === 0 && (
+                <div className="text-center py-16">
+                  <h3 className="text-lg font-medium mb-2">No providers found</h3>
+                  <p className="text-muted-foreground mb-4">
+                    Try adjusting your filters or browse other categories
+                  </p>
+                  <Link href="/browse">
+                    <Button>Browse All Categories</Button>
+                  </Link>
+                </div>
+              )}
+
+              {/* Load More */}
+              {providers.length > 0 && (
+                <div className="text-center mt-12">
+                  <Button variant="outline" size="lg">
+                    Load More Providers
+                  </Button>
                 </div>
               )}
             </div>
-
-            {/* Provider Grid/List */}
-            {filteredProviders.length === 0 ? (
-              <Card className="p-16 text-center">
-                <div className="w-16 h-16 mx-auto mb-4 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center">
-                  <Search className="w-8 h-8 text-muted-foreground" />
-                </div>
-                <h3 className="text-xl font-semibold mb-2">No providers found</h3>
-                <p className="text-muted-foreground mb-6">
-                  Try adjusting your filters or search terms
-                </p>
-                <Button
-                  onClick={() => {
-                    setSearchQuery("");
-                    setPriceRange([0, 500]);
-                    setSelectedDistance("25");
-                    updateSearchParams("q", "");
-                  }}
-                >
-                  Clear Filters
-                </Button>
-              </Card>
-            ) : (
-              <div className={cn(
-                viewMode === "grid" 
-                  ? "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
-                  : "space-y-4"
-              )}>
-                {filteredProviders.map((provider) => (
-                  <ProviderCard
-                    key={provider.id}
-                    provider={{
-                      id: provider.id,
-                      business_name: provider.business_name,
-                      bio: provider.bio,
-                      cover_photo_url: provider.cover_photo_url,
-                      rating_average: provider.rating_average,
-                      rating_count: provider.rating_count,
-                      response_time_minutes: provider.response_time_minutes,
-                      is_verified: provider.is_verified,
-                      location: provider.location.address,
-                      starting_price: Math.min(...provider.services.map(s => s.price)),
-                      service_count: provider.services.length,
-                      distance: provider.distance
-                    }}
-                    className={cn(
-                      viewMode === "list" && "max-w-none"
-                    )}
-                  />
-                ))}
-              </div>
-            )}
           </div>
-        </div>
+        </main>
+
+        <ModernFooter />
+        <CommandPaletteHint />
       </div>
-    </div>
+    </>
   );
 }
