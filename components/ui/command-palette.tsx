@@ -22,7 +22,7 @@ interface CommandPaletteProps {
   onCommand?: (command: any, params?: Record<string, any>) => void;
 }
 
-export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
+export function CommandPalette({ isOpen, onClose, onCommand }: CommandPaletteProps) {
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
   const router = useRouter();
