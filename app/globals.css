@@ -336,6 +336,10 @@
     animation-name: slideInFromBottom4;
   }
 
+  .slide-in-from-top-2 {
+    animation-name: slideInFromTop2;
+  }
+
   /* Custom animations */
   @keyframes fadeIn {
     from {
