@@ -710,24 +710,12 @@ export default async function HomePage() {
                   ))}
                 </div>
 
-                {/* Live Provider Status - Simplified version */}
-                <div className="flex justify-center">
-                  <div className="flex items-center gap-6 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border border-gray-200/50 dark:border-gray-700/50 rounded-full px-6 py-3 shadow-lg">
-                    <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse"></div>
-                      <span className="text-sm font-medium text-green-600 dark:text-green-400">
-                        {stats.liveProviders.toLocaleString()}+ Professionals Online
-                      </span>
-                    </div>
-                    <div className="w-px h-4 bg-gray-300 dark:bg-gray-600"></div>
-                    <div className="flex items-center gap-2">
-                      <Clock className="w-4 h-4 text-blue-500" />
-                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                        Response: {stats.responseTime}
-                      </span>
-                    </div>
-                  </div>
-                </div>
+                {/* Live Provider Status */}
+                <Suspense fallback={
+                  <div className="h-16 bg-gray-200 dark:bg-gray-700 rounded-full max-w-md mx-auto animate-pulse"></div>
+                }>
+                  <LiveProviderStatus liveCount={stats.liveProviders} />
+                </Suspense>
               </div>
             </section>
 
