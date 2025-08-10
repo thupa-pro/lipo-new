@@ -1,11 +1,11 @@
-'use client';
+'use client'
 
-import { ReactNode } from 'react';
+import { ReactNode } from 'react'
 
 interface PWAProviderProps {
-  children: ReactNode;
+  children: ReactNode
 }
 
 export function PWAProvider({ children }: PWAProviderProps) {
-  return <>{children}</>;
+  return <>{children}</>
 }

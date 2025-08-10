@@ -1,58 +1,50 @@
-'use client';
+'use client'
 
-import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { 
-  Command, 
-  X,
-  Keyboard,
-  Sparkles
-} from "lucide-react";
-import { cn } from "@/lib/utils";
+import { useState, useEffect } from 'react'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { Command, X, Keyboard, Sparkles } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 interface CommandPaletteHintProps {
-  className?: string;
-  showTrigger?: boolean;
+  className?: string
+  showTrigger?: boolean
 }
 
-export function CommandPaletteHint({ 
+export function CommandPaletteHint({
   className,
-  showTrigger = true 
+  showTrigger = true,
 }: CommandPaletteHintProps = {}) {
-  const [isVisible, setIsVisible] = useState(false);
-  const [hasInteracted, setHasInteracted] = useState(false);
+  const [isVisible, setIsVisible] = useState(false)
+  const [hasInteracted, setHasInteracted] = useState(false)
 
   useEffect(() => {
     // Show hint after a delay for first-time users
-    const hasSeenHint = localStorage.getItem('commandPaletteHintSeen');
+    const hasSeenHint = localStorage.getItem('commandPaletteHintSeen')
     if (!hasSeenHint && showTrigger) {
       const timer = setTimeout(() => {
-        setIsVisible(true);
-      }, 3000);
-      return () => clearTimeout(timer);
+        setIsVisible(true)
+      }, 3000)
+      return () => clearTimeout(timer)
     }
-  }, [showTrigger]);
+  }, [showTrigger])
 
   const handleDismiss = () => {
-    setIsVisible(false);
-    localStorage.setItem('commandPaletteHintSeen', 'true');
-  };
+    setIsVisible(false)
+    localStorage.setItem('commandPaletteHintSeen', 'true')
+  }
 
   const handleOpenPalette = () => {
     // Simple keyboard shortcut hint
-    setHasInteracted(true);
-    handleDismiss();
-  };
+    setHasInteracted(true)
+    handleDismiss()
+  }
 
-  if (!isVisible || hasInteracted) return null;
+  if (!isVisible || hasInteracted) return null
 
   return (
-    <div className={cn(
-      "fixed bottom-6 right-6 z-50 max-w-sm",
-      className
-    )}>
+    <div className={cn('fixed bottom-6 right-6 z-50 max-w-sm', className)}>
       <Card className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border border-gray-200/50 dark:border-gray-700/50 shadow-xl">
         <CardContent className="p-6">
           <div className="flex items-start justify-between mb-4">
@@ -81,12 +73,12 @@ export function CommandPaletteHint({
           </div>
 
           <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-            Press{" "}
+            Press{' '}
             <Badge variant="outline" className="mx-1 text-xs font-mono">
               <Keyboard className="w-3 h-3 mr-1" />
               Cmd+K
-            </Badge>
-            {" "}to access the command palette for quick actions.
+            </Badge>{' '}
+            to access the command palette for quick actions.
           </p>
 
           <Button
@@ -98,5 +90,5 @@ export function CommandPaletteHint({
         </CardContent>
       </Card>
     </div>
-  );
+  )
 }
