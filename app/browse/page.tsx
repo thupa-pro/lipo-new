@@ -1,14 +1,15 @@
 import { Suspense } from 'react';
 import { createSupabaseServerComponent } from '@/lib/supabase/server';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { EnhancedCard, EnhancedCardContent, EnhancedCardHeader, EnhancedCardTitle } from "@/components/ui/enhanced-card";
+import { EnhancedButton, IconButton } from "@/components/ui/enhanced-button";
+import { SkeletonLoader, ListSkeleton } from "@/components/ui/skeleton-loader";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ModernFooter } from "@/components/modern-footer";
 import { CommandPaletteHint } from "@/components/ui/command-palette-hint";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import Link from "next/link";
-import { Star, Clock, CheckCircle, MapPin, Filter, Search } from 'lucide-react';
+import { Star, Clock, CheckCircle, MapPin, Filter, Search, Heart, MessageCircle, ArrowRight, TrendingUp, Users } from 'lucide-react';
 
 // Client components for interactivity
 import { BrowseFilters } from "./components/browse-filters";
