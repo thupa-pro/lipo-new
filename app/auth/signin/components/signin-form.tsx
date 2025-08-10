@@ -31,8 +31,23 @@ export function SignInForm({ redirectTo }: SignInFormProps) {
     setIsLoading(true);
 
     try {
+      // Check if Supabase is configured
+      const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+      const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+      if (!supabaseUrl || !supabaseAnonKey ||
+          supabaseUrl.includes('placeholder') ||
+          supabaseAnonKey.includes('placeholder')) {
+        toast({
+          title: "Authentication Not Configured",
+          description: "Authentication service is not yet configured. Please contact support.",
+          variant: "destructive",
+        });
+        return;
+      }
+
       const supabase = createSupabaseClient();
-      
+
       const { data, error } = await supabase.auth.signInWithPassword({
         email: email.trim(),
         password: password,
