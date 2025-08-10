@@ -3,7 +3,6 @@
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
-import { motion } from "framer-motion";
 import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -37,15 +36,6 @@ const buttonVariants = cva(
   }
 );
 
-const buttonMotionVariants = {
-  tap: { scale: 0.95 },
-  hover: { scale: 1.02, y: -2 },
-  loading: {
-    opacity: [1, 0.7, 1],
-    transition: { duration: 1.5, repeat: Infinity }
-  }
-};
-
 export interface EnhancedButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
@@ -55,7 +45,6 @@ export interface EnhancedButtonProps
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   pulse?: boolean;
-  animate?: boolean;
 }
 
 const EnhancedButton = React.forwardRef<HTMLButtonElement, EnhancedButtonProps>(
@@ -69,7 +58,6 @@ const EnhancedButton = React.forwardRef<HTMLButtonElement, EnhancedButtonProps>(
     leftIcon,
     rightIcon,
     pulse = false,
-    animate = true,
     children,
     disabled,
     ...props 
@@ -107,7 +95,7 @@ const EnhancedButton = React.forwardRef<HTMLButtonElement, EnhancedButtonProps>(
       </>
     );
 
-    const buttonElement = (
+    return (
       <Comp
         className={cn(buttonVariants({ variant, size, className }), "group")}
         ref={ref}
@@ -118,22 +106,6 @@ const EnhancedButton = React.forwardRef<HTMLButtonElement, EnhancedButtonProps>(
         {buttonContent}
       </Comp>
     );
-
-    if (animate && !isDisabled) {
-      return (
-        <motion.div
-          whileTap="tap"
-          whileHover="hover"
-          variants={buttonMotionVariants}
-          animate={loading ? "loading" : ""}
-          transition={{ type: "spring", stiffness: 400, damping: 17 }}
-        >
-          {buttonElement}
-        </motion.div>
-      );
-    }
-
-    return buttonElement;
   }
 );
 EnhancedButton.displayName = "EnhancedButton";
