@@ -164,11 +164,6 @@
 }
 
 @layer components {
-  /* Skip links for accessibility */
-  .skip-link {
-    @apply absolute -top-40 left-6 z-50 bg-blue-600 text-white px-4 py-2 rounded-md font-medium transition-all duration-200;
-    @apply focus:top-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
-  }
 
   /* Enhanced gradient backgrounds */
   .bg-gradient-neural {
