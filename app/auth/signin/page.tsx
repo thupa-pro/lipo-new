@@ -1,12 +1,15 @@
 "use client";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { EnhancedCard, EnhancedCardContent, EnhancedCardDescription, EnhancedCardHeader, EnhancedCardTitle } from "@/components/ui/enhanced-card";
+import { EnhancedButton, IconButton } from "@/components/ui/enhanced-button";
+import { SkeletonLoader } from "@/components/ui/skeleton-loader";
 import { Badge } from "@/components/ui/badge";
 import { SignInForm } from "./components/signin-form";
-import { Sparkles, Shield, Zap, Users, Github } from "lucide-react";
+import { Sparkles, Shield, Zap, Users, Github, ArrowRight, CheckCircle } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { motion } from "framer-motion";
+import { Suspense } from "react";
 
 export default function SignInPage() {
   const searchParams = useSearchParams();
