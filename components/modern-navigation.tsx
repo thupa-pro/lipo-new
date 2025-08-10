@@ -48,17 +48,17 @@ export function ModernNavigation({ currentPath, user }: ModernNavigationProps) {
           </Link>
           
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-6">
+          <div className="hidden lg:flex items-center space-x-4">
             {navigationItems.map((item) => {
               const isActive = currentPath === item.href;
               return (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`flex items-center space-x-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${
-                    isActive 
-                      ? 'bg-gradient-neural text-white shadow-glow-neural' 
-                      : 'text-muted-foreground hover:text-neural-600 hover:bg-neural-50'
+                  className={`flex items-center space-x-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${
+                    isActive
+                      ? 'ai-gradient text-white shadow-lg border border-white/20'
+                      : 'text-foreground/80 hover:text-foreground hover:bg-background/50 border border-transparent hover:border-border/50'
                   }`}
                 >
                   <item.icon className="w-4 h-4" />
