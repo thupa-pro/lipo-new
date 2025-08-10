@@ -31,7 +31,7 @@ export async function GET() {
     // Check external services
     const checks = {
       database: {
-        status: "healthy",
+        status: dbStatus,
         latency: dbLatency,
         timestamp: new Date().toISOString(),
       },
