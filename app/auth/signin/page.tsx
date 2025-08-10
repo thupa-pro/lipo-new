@@ -8,22 +8,7 @@ import { SignInForm } from "./components/signin-form";
 import { Sparkles, Shield, Zap, Users, Github, ArrowRight, CheckCircle } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { motion } from "framer-motion";
 import { Suspense } from "react";
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 }
-};
-
-const staggerContainer = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.1
-    }
-  }
-};
 
 function SignInPageContent() {
   const searchParams = useSearchParams();
@@ -38,59 +23,37 @@ function SignInPageContent() {
       <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-purple-300/20 rounded-full blur-3xl animate-pulse"></div>
       <div className="absolute bottom-1/4 right-1/4 w-48 h-48 bg-blue-300/20 rounded-full blur-2xl animate-pulse animation-delay-2000"></div>
 
-      <motion.div
-        className="w-full max-w-md relative z-10"
-        variants={staggerContainer}
-        initial="hidden"
-        animate="visible"
-      >
+      <div className="w-full max-w-md relative z-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
         {/* Enhanced Header */}
-        <motion.div className="text-center mb-8" variants={fadeInUp}>
+        <div className="text-center mb-8">
           <div className="flex items-center justify-center mb-6">
-            <motion.div
-              className="relative"
-              animate={{
-                rotate: [0, 360],
-                scale: [1, 1.1, 1]
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            >
-              <div className="w-16 h-16 bg-gradient-to-br from-purple-600 to-blue-600 rounded-2xl flex items-center justify-center shadow-xl">
+            <div className="relative">
+              <div className="w-16 h-16 bg-gradient-to-br from-purple-600 to-blue-600 rounded-2xl flex items-center justify-center shadow-xl animate-pulse">
                 <Sparkles className="w-8 h-8 text-white" />
               </div>
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-purple-600 to-blue-600 animate-ping opacity-20"></div>
-            </motion.div>
+            </div>
           </div>
 
-          <motion.h1
-            className="text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent mb-3"
-            variants={fadeInUp}
-          >
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent mb-3">
             Welcome Back
-          </motion.h1>
+          </h1>
 
-          <motion.p
-            className="text-lg text-gray-600 dark:text-gray-300"
-            variants={fadeInUp}
-          >
+          <p className="text-lg text-gray-600 dark:text-gray-300">
             Sign in to your Loconomy account
-          </motion.p>
+          </p>
 
           {/* Trust badge */}
-          <motion.div variants={fadeInUp} className="mt-4">
+          <div className="mt-4">
             <Badge variant="secondary" className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-purple-200 dark:border-purple-800">
               <CheckCircle className="w-3 h-3 mr-1 text-green-500" />
               Trusted by 2.4M+ users
             </Badge>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
 
         {/* Enhanced Sign In Card */}
-        <motion.div variants={fadeInUp}>
+        <div>
           <EnhancedCard
             variant="glass"
             className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border-white/20 dark:border-gray-700/20 shadow-2xl"
@@ -164,23 +127,18 @@ function SignInPageContent() {
               </div>
             </EnhancedCardContent>
           </EnhancedCard>
-        </motion.div>
+        </div>
 
         {/* Enhanced Trust Indicators */}
-        <motion.div
-          className="mt-8 grid grid-cols-3 gap-6"
-          variants={fadeInUp}
-        >
+        <div className="mt-8 grid grid-cols-3 gap-6">
           {[
             { icon: Shield, label: "Bank-Level Security", color: "text-green-500" },
             { icon: Zap, label: "Lightning Fast", color: "text-yellow-500" },
             { icon: Users, label: "2.4M+ Users", color: "text-purple-500" }
           ].map((item, index) => (
-            <motion.div
+            <div
               key={index}
-              className="flex flex-col items-center group cursor-pointer"
-              whileHover={{ scale: 1.05, y: -2 }}
-              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              className="flex flex-col items-center group cursor-pointer hover:scale-105 hover:-translate-y-0.5 transition-transform duration-200"
             >
               <div className="p-3 rounded-xl bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border border-white/20 dark:border-gray-700/20 mb-2 group-hover:shadow-lg transition-shadow">
                 <item.icon className={`w-6 h-6 ${item.color}`} />
@@ -188,10 +146,10 @@ function SignInPageContent() {
               <span className="text-xs font-medium text-gray-600 dark:text-gray-400 text-center leading-tight">
                 {item.label}
               </span>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </div>
   );
 }
