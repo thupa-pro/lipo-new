@@ -6,7 +6,7 @@ import { HomeClientComponents } from '@/components/client-wrappers/home-client-c
 import { ModernFooter } from '@/components/modern-footer';
 import { Badge } from '@/components/ui/badge';
 import { ModernHeroServer } from '@/components/ui/modern-hero-server';
-import { EnhancedCard, EnhancedCardContent, EnhancedCardDescription, EnhancedCardHeader, EnhancedCardTitle } from '@/components/ui/enhanced-card';
+import { EnhancedCard, EnhancedCardContent, EnhancedCardDescription, EnhancedCardHeader, EnhancedCardTitle } from '@/components/ui/enhanced-card-simple';
 import { EnhancedButton } from '@/components/ui/enhanced-button-simple';
 import {
   Search,
