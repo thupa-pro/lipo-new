@@ -1,6 +1,9 @@
 'use client';
 
-import { SimpleHeader } from '@/components/ui/simple-header';
+import { IntelligentHeader } from '@/components/ui/intelligent-header';
+import { PWAProvider } from '@/components/ui/pwa-features';
+import { CommandPaletteHint } from '@/components/ui/command-palette-hint';
+import { FloatingFAB, MobileBottomNav } from '@/components/ui/floating-fab';
 
 interface HomeClientComponentsProps {
   children: React.ReactNode;
@@ -9,9 +12,12 @@ interface HomeClientComponentsProps {
 
 export function HomeClientComponents({ children, currentPath = "/" }: HomeClientComponentsProps) {
   return (
-    <>
-      <SimpleHeader />
+    <PWAProvider>
+      <IntelligentHeader />
       {children}
-    </>
+      <CommandPaletteHint />
+      <FloatingFAB />
+      <MobileBottomNav currentPath={currentPath} />
+    </PWAProvider>
   );
 }
