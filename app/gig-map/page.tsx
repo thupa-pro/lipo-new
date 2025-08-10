@@ -16,7 +16,7 @@ import {
   Users,
   Zap
 } from "lucide-react";
-import { InteractiveGigMap } from "@/components/map/interactive-gig-map";
+// import { InteractiveGigMap } from "@/components/map/interactive-gig-map";
 import { ProviderCard } from "@/components/browse/ProviderCard";
 
 interface GigJob {
