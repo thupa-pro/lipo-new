@@ -1,20 +1,32 @@
 import { NextResponse } from "next/server"
-import { createSupabaseAdminClient } from "@/lib/supabase/client"
+import { isSupabaseConfigured } from "@/lib/env-check"
 
 export async function GET() {
   const startTime = Date.now()
 
   try {
-    // Check database connectivity
-    const supabase = createSupabaseAdminClient()
-    const { data, error } = await supabase.from("health_check").select("*").limit(1)
+    // Check if Supabase is configured
+    let dbStatus = "healthy"
+    let dbLatency = 0
 
-    if (error && error.code !== "PGRST116") {
-      // PGRST116 = table doesn't exist, which is fine
-      throw error
+    if (isSupabaseConfigured()) {
+      try {
+        const { createSupabaseAdminClient } = await import("@/lib/supabase/client")
+        const supabase = createSupabaseAdminClient()
+        const { data, error } = await supabase.from("health_check").select("*").limit(1)
+
+        if (error && error.code !== "PGRST116") {
+          dbStatus = "unavailable"
+        }
+        dbLatency = Date.now() - startTime
+      } catch (error) {
+        dbStatus = "not_configured"
+        dbLatency = Date.now() - startTime
+      }
+    } else {
+      dbStatus = "not_configured"
+      dbLatency = Date.now() - startTime
     }
-
-    const dbLatency = Date.now() - startTime
 
     // Check external services
     const checks = {
