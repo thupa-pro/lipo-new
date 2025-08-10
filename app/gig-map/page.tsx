@@ -161,12 +161,27 @@ export default function GigMapPage() {
           {/* Map/List View */}
           <div className="lg:col-span-3">
             {viewMode === 'map' ? (
-              <InteractiveGigMap
-                onJobSelect={handleJobSelect}
-                height="700px"
-                className="w-full"
-                showFilters={true}
-              />
+              <Card>
+                <CardContent className="p-0">
+                  <div
+                    className="w-full bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/20 dark:to-purple-900/20 flex items-center justify-center border rounded-lg"
+                    style={{ height: '700px' }}
+                  >
+                    <div className="text-center">
+                      <MapPin className="w-16 h-16 mx-auto mb-4 text-blue-500" />
+                      <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                        Interactive Gig Map
+                      </h3>
+                      <p className="text-gray-600 dark:text-gray-400 mb-4">
+                        Real-time map view of available gigs in your area
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        Map functionality will be available soon
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             ) : (
               <Card>
                 <CardHeader>
