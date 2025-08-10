@@ -61,9 +61,6 @@ import {
 
 // Interactive components
 import { HomePageClient } from './components/home-page-client';
-import { AIInsightsSection } from '@/components/ai/ai-insights-section';
-import { LiveProviderStatus } from '@/components/providers/live-provider-status';
-import { SmartMatchPreview } from '@/components/ai/smart-match-preview';
 
 // Configure ISR with optimal revalidation
 export const revalidate = 1800; // 30 minutes
