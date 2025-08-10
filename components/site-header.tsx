@@ -20,14 +20,14 @@ export function SiteHeader() {
   const { openCommandPalette } = useCommandPalette();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b border-border/20 bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center space-x-3">
-          <Link href="/" className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+          <Link href="/" className="flex items-center space-x-3 group">
+            <div className="w-8 h-8 ai-gradient rounded-lg flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
               <Sparkles className="w-5 h-5 text-white" />
             </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <span className="text-xl font-bold gradient-text">
               Loconomy
             </span>
           </Link>
