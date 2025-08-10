@@ -121,7 +121,7 @@ export default function RootLayout({
         <meta name="application-name" content="Loconomy" />
 
         {/* Windows PWA Support */}
-        <meta name="msapplication-TileColor" content="#8B5CF6" />
+        <meta name="msapplication-TileColor" content="#7C3AED" />
         <meta name="msapplication-tap-highlight" content="no" />
         <meta name="msapplication-starturl" content="/" />
 
