@@ -4,7 +4,9 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSignUp } from "@clerk/nextjs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { EnhancedCard, EnhancedCardContent, EnhancedCardDescription, EnhancedCardHeader, EnhancedCardTitle } from "@/components/ui/enhanced-card";
 import { Button } from "@/components/ui/button";
+import { EnhancedButton } from "@/components/ui/enhanced-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -146,39 +148,47 @@ export default function SignUpPage() {
     formData.agreeToTerms;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 dark:from-slate-900 dark:via-blue-900 dark:to-purple-900 flex items-center justify-center p-4">
-      {/* Background Effects */}
-      <div className="absolute inset-0 bg-grid-white/[0.02] [mask-image:radial-gradient(ellipse_at_center,white_20%,transparent_70%)]"></div>
+    <div className="min-h-screen bg-gradient-to-br from-stratosphere via-cirrus to-white dark:from-gray-900 dark:via-gray-800 dark:to-black transition-colors duration-300 flex items-center justify-center p-4">
+      {/* Neural Background Pattern */}
+      <div className="absolute inset-0 opacity-[0.03]">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `radial-gradient(circle at 25px 25px, hsl(var(--neural-500)) 2px, transparent 0),
+                           radial-gradient(circle at 75px 75px, hsl(var(--quantum-500)) 1px, transparent 0)`,
+          backgroundSize: '100px 100px'
+        }} />
+      </div>
       
       <div className="w-full max-w-md relative z-10">
         {/* Header */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center mb-4">
             <div className="relative">
-              <Sparkles className="w-12 h-12 text-purple-600 animate-pulse" />
+              <div className="w-12 h-12 bg-gradient-neural rounded-2xl flex items-center justify-center">
+                <Sparkles className="w-6 h-6 text-white" />
+              </div>
               <div className="absolute inset-0 animate-ping">
-                <Sparkles className="w-12 h-12 text-purple-600 opacity-20" />
+                <div className="w-12 h-12 bg-gradient-neural/20 rounded-2xl"></div>
               </div>
             </div>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+          <h1 className="text-3xl font-bold text-gradient-neural mb-2">
             Join Loconomy
           </h1>
-          <p className="text-gray-600 dark:text-gray-300">
+          <p className="text-muted-foreground">
             Create your account to get started
           </p>
         </div>
 
         {/* Sign Up Card */}
-        <Card className="bg-white/60 dark:bg-gray-800/60 backdrop-blur-md border-white/20 shadow-2xl">
-          <CardHeader className="text-center pb-4">
-            <CardTitle className="text-xl font-semibold">Create Account</CardTitle>
-            <CardDescription>
+        <EnhancedCard variant="glass" className="hover:scale-[1.02] transition-all duration-500">
+          <EnhancedCardHeader className="text-center pb-4">
+            <EnhancedCardTitle className="text-xl font-semibold text-gradient-quantum">Create Account</EnhancedCardTitle>
+            <EnhancedCardDescription>
               Fill in your details to create your account
-            </CardDescription>
-          </CardHeader>
+            </EnhancedCardDescription>
+          </EnhancedCardHeader>
           
-          <CardContent>
+          <EnhancedCardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               {/* Name Fields */}
               <div className="grid grid-cols-2 gap-3">
@@ -192,7 +202,7 @@ export default function SignUpPage() {
                     placeholder="John"
                     value={formData.firstName}
                     onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                    className="h-10 bg-white/60 dark:bg-gray-800/60 backdrop-blur-md border-white/20 focus:border-purple-500 transition-all duration-300"
+                    className="h-10 glass border-white/20 focus:border-neural-500 transition-all duration-300"
                     required
                     disabled={isLoading}
                   />
@@ -207,7 +217,7 @@ export default function SignUpPage() {
                     placeholder="Doe"
                     value={formData.lastName}
                     onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                    className="h-10 bg-white/60 dark:bg-gray-800/60 backdrop-blur-md border-white/20 focus:border-purple-500 transition-all duration-300"
+                    className="h-10 glass border-white/20 focus:border-neural-500 transition-all duration-300"
                     required
                     disabled={isLoading}
                   />
@@ -246,7 +256,7 @@ export default function SignUpPage() {
                   }
                   disabled={isLoading}
                 >
-                  <SelectTrigger className="h-10 bg-white/60 dark:bg-gray-800/60 backdrop-blur-md border-white/20 focus:border-purple-500">
+                  <SelectTrigger className="h-10 glass border-white/20 focus:border-neural-500">
                     <SelectValue placeholder="Select account type" />
                   </SelectTrigger>
                   <SelectContent>
@@ -353,20 +363,16 @@ export default function SignUpPage() {
               </div>
 
               {/* Submit Button */}
-              <Button
+              <EnhancedButton
                 type="submit"
-                className="w-full h-10 btn-elite text-sm font-medium"
+                variant="premium"
+                className="w-full h-10 text-sm font-medium hover:shadow-glow-neural"
                 disabled={!isFormValid || isLoading}
+                loading={isLoading}
+                loadingText="Creating Account..."
               >
-                {isLoading ? (
-                  <>
-                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    Creating Account...
-                  </>
-                ) : (
-                  "Create Account"
-                )}
-              </Button>
+                Create Account
+              </EnhancedButton>
             </form>
 
             {/* Divider */}
@@ -375,7 +381,7 @@ export default function SignUpPage() {
                 <span className="w-full border-t border-gray-300 dark:border-gray-600" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white/60 dark:bg-gray-800/60 text-gray-500 dark:text-gray-400">
+                <span className="px-2 glass text-muted-foreground">
                   Or continue with
                 </span>
               </div>
@@ -383,9 +389,9 @@ export default function SignUpPage() {
 
             {/* Social Login */}
             <div className="grid grid-cols-2 gap-3 mt-4">
-              <Button
-                variant="outline"
-                className="bg-white/40 dark:bg-gray-700/40 hover:bg-white/60 dark:hover:bg-gray-700/60 transition-colors"
+              <EnhancedButton
+                variant="glass"
+                className="hover:bg-white/10 transition-colors"
                 onClick={() => {
                   console.log("Google signup");
                 }}
@@ -397,48 +403,54 @@ export default function SignUpPage() {
                   <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
                 </svg>
                 Google
-              </Button>
-              
-              <Button
-                variant="outline"
-                className="bg-white/40 dark:bg-gray-700/40 hover:bg-white/60 dark:hover:bg-gray-700/60 transition-colors"
+              </EnhancedButton>
+
+              <EnhancedButton
+                variant="glass"
+                className="hover:bg-white/10 transition-colors"
                 onClick={() => {
                   console.log("GitHub signup");
                 }}
               >
                 <Github className="w-4 h-4 mr-2" />
                 GitHub
-              </Button>
+              </EnhancedButton>
             </div>
 
             {/* Sign In Link */}
             <div className="text-center mt-6">
-              <p className="text-sm text-gray-600 dark:text-gray-400">
+              <p className="text-sm text-muted-foreground">
                 Already have an account?{" "}
-                <Link 
-                  href="/auth/signin" 
-                  className="font-medium text-purple-600 hover:text-purple-500 transition-colors"
+                <Link
+                  href="/auth/signin"
+                  className="font-medium text-gradient-neural hover:opacity-80 transition-colors"
                 >
                   Sign in
                 </Link>
               </p>
             </div>
-          </CardContent>
-        </Card>
+          </EnhancedCardContent>
+        </EnhancedCard>
 
         {/* Trust Indicators */}
         <div className="mt-8 grid grid-cols-3 gap-4 text-center">
-          <div className="flex flex-col items-center">
-            <Shield className="w-6 h-6 text-green-500 mb-2" />
-            <span className="text-xs text-gray-600 dark:text-gray-400">Secure</span>
+          <div className="flex flex-col items-center group">
+            <div className="w-8 h-8 bg-gradient-trust rounded-xl flex items-center justify-center mb-2 group-hover:scale-110 transition-transform duration-300">
+              <Shield className="w-4 h-4 text-white" />
+            </div>
+            <span className="text-xs text-muted-foreground">Secure</span>
           </div>
-          <div className="flex flex-col items-center">
-            <Zap className="w-6 h-6 text-yellow-500 mb-2" />
-            <span className="text-xs text-gray-600 dark:text-gray-400">Fast</span>
+          <div className="flex flex-col items-center group">
+            <div className="w-8 h-8 bg-gradient-quantum rounded-xl flex items-center justify-center mb-2 group-hover:scale-110 transition-transform duration-300">
+              <Zap className="w-4 h-4 text-white" />
+            </div>
+            <span className="text-xs text-muted-foreground">Fast</span>
           </div>
-          <div className="flex flex-col items-center">
-            <Users className="w-6 h-6 text-purple-500 mb-2" />
-            <span className="text-xs text-gray-600 dark:text-gray-400">Trusted</span>
+          <div className="flex flex-col items-center group">
+            <div className="w-8 h-8 bg-gradient-neural rounded-xl flex items-center justify-center mb-2 group-hover:scale-110 transition-transform duration-300">
+              <Users className="w-4 h-4 text-white" />
+            </div>
+            <span className="text-xs text-muted-foreground">Trusted</span>
           </div>
         </div>
       </div>
