@@ -359,9 +359,9 @@ export function IntelligentHeader({ onCommandPaletteOpen }: IntelligentHeaderPro
   };
 
   const getRoleIcon = () => {
-    if (userRole === 'super_admin') return Crown;
-    if (isAdmin) return Shield;
-    if (isProvider) return Briefcase;
+    if (isSuperAdmin()) return Crown;
+    if (isAdmin()) return Shield;
+    if (isProvider()) return Briefcase;
     return Star;
   };
 
