@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useSignIn } from "@clerk/nextjs";
+import { createSupabaseClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -24,40 +24,44 @@ export function SignInForm({ redirectTo }: SignInFormProps) {
 
   const router = useRouter();
   const { toast } = useToast();
-  const { isLoaded, signIn, setActive } = useSignIn();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!isLoaded) {
-      return;
-    }
-
     setIsLoading(true);
 
     try {
-      const result = await signIn.create({
-        identifier: email,
+      const supabase = createSupabaseClient();
+      
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: email.trim(),
         password: password,
       });
 
-      if (result.status === "complete") {
-        await setActive({ session: result.createdSessionId });
+      if (error) {
+        console.error("Sign in error:", error);
+        
+        let errorMessage = "An unexpected error occurred. Please try again.";
+        
+        if (error.message === "Invalid login credentials") {
+          errorMessage = "Invalid email or password. Please check your credentials and try again.";
+        } else if (error.message === "Email not confirmed") {
+          errorMessage = "Please verify your email address before signing in.";
+        } else if (error.message === "Too many requests") {
+          errorMessage = "Too many login attempts. Please wait a moment and try again.";
+        } else {
+          errorMessage = error.message;
+        }
 
-        // Sync user data to Supabase
-        await fetch('/api/users/sync', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            email: email,
-            firstName: result.createdUserId, // Will be updated with real data
-            lastName: '',
-            imageUrl: '',
-          }),
+        toast({
+          title: "Sign In Failed",
+          description: errorMessage,
+          variant: "destructive",
         });
+        return;
+      }
 
+      if (data.user) {
         toast({
           title: "Welcome back!",
           description: "You have been signed in successfully.",
@@ -65,35 +69,14 @@ export function SignInForm({ redirectTo }: SignInFormProps) {
 
         // Redirect to intended page or dashboard
         router.push(redirectTo || "/dashboard");
-      } else {
-        console.error("Sign in incomplete", result);
-        toast({
-          title: "Sign In Failed",
-          description: "Unable to complete sign in. Please try again.",
-          variant: "destructive",
-        });
+        router.refresh(); // Refresh to update auth state
       }
     } catch (err: any) {
-      console.error("Sign in error:", err);
-
-      let errorMessage = "An unexpected error occurred. Please try again.";
-
-      if (err.errors) {
-        const clerkError = err.errors[0];
-        if (clerkError.code === "form_identifier_not_found") {
-          errorMessage = "No account found with this email address.";
-        } else if (clerkError.code === "form_password_incorrect") {
-          errorMessage = "Incorrect password. Please try again.";
-        } else if (clerkError.code === "form_identifier_exists") {
-          errorMessage = "Please verify your email address before signing in.";
-        } else {
-          errorMessage = clerkError.longMessage || clerkError.message || errorMessage;
-        }
-      }
-
+      console.error("Unexpected sign in error:", err);
+      
       toast({
         title: "Sign In Failed",
-        description: errorMessage,
+        description: "An unexpected error occurred. Please try again.",
         variant: "destructive",
       });
     } finally {
