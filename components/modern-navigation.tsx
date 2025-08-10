@@ -36,15 +36,15 @@ export function ModernNavigation({ currentPath, user }: ModernNavigationProps) {
   ];
 
   return (
-    <nav className="relative z-50 p-6">
+    <nav className="relative z-50 p-4 md:p-6">
       <div className="max-w-7xl mx-auto">
-        <div className="glass rounded-3xl px-8 py-4 flex items-center justify-between">
+        <div className="card-glow rounded-3xl px-6 md:px-8 py-4 flex items-center justify-between backdrop-blur-xl">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-neural rounded-2xl flex items-center justify-center">
+          <Link href="/" className="flex items-center space-x-3 group">
+            <div className="w-10 h-10 ai-gradient rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
               <Sparkles className="w-6 h-6 text-white" />
             </div>
-            <span className="text-xl font-bold text-gradient-neural">Loconomy</span>
+            <span className="text-xl font-bold gradient-text">Loconomy</span>
           </Link>
           
           {/* Desktop Navigation */}
