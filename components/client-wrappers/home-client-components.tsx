@@ -1,7 +1,7 @@
 'use client';
 
 import { IntelligentHeader } from '@/components/ui/intelligent-header';
-import { PWAProvider } from '@/components/ui/pwa-features';
+import { PWAProvider } from '@/components/ui/pwa-features-simple';
 import { CommandPaletteHint } from '@/components/ui/command-palette-hint-simple';
 import { FloatingFAB, MobileBottomNav } from '@/components/ui/floating-fab';
 
