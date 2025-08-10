@@ -50,83 +50,121 @@ export default function NotFound() {
           </div>
         </div>
 
-        <Card className="shadow-lg mb-8">
-          <CardHeader>
-            <CardTitle className="flex items-center justify-center">
-              <MapPin className="w-6 h-6 mr-2 text-blue-600" />
+        {/* Enhanced Navigation Card */}
+        <EnhancedCard variant="glass" className="mb-12 shadow-2xl">
+          <EnhancedCardHeader>
+            <EnhancedCardTitle className="flex items-center justify-center text-2xl">
+              <Compass className="w-7 h-7 mr-3 text-purple-600 dark:text-purple-400" />
               Let's Get You Back on Track
-            </CardTitle>
-            <CardDescription>
+            </EnhancedCardTitle>
+            <EnhancedCardDescription className="text-lg">
               Here are some helpful ways to find what you're looking for
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid md:grid-cols-2 gap-4">
-              <Button asChild variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2">
-                <Link href="/">
-                  <Home className="w-6 h-6 text-blue-600" />
-                  <span className="font-medium">Go Home</span>
-                  <span className="text-sm text-gray-500">Back to the main page</span>
-                </Link>
-              </Button>
+            </EnhancedCardDescription>
+          </EnhancedCardHeader>
 
-              <Button asChild variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2">
-                <Link href="/browse">
-                  <Search className="w-6 h-6 text-green-600" />
-                  <span className="font-medium">Browse Services</span>
-                  <span className="text-sm text-gray-500">Find what you need</span>
+          <EnhancedCardContent className="space-y-6">
+            <div className="grid md:grid-cols-2 gap-6">
+              {[
+                {
+                  href: "/",
+                  icon: Home,
+                  title: "Go Home",
+                  description: "Back to the main page",
+                  color: "text-blue-600 dark:text-blue-400",
+                  bgColor: "bg-blue-50 dark:bg-blue-900/20"
+                },
+                {
+                  href: "/browse",
+                  icon: Search,
+                  title: "Browse Services",
+                  description: "Find what you need",
+                  color: "text-green-600 dark:text-green-400",
+                  bgColor: "bg-green-50 dark:bg-green-900/20"
+                },
+                {
+                  href: "/help",
+                  icon: HelpCircle,
+                  title: "Get Help",
+                  description: "Visit our help center",
+                  color: "text-purple-600 dark:text-purple-400",
+                  bgColor: "bg-purple-50 dark:bg-purple-900/20"
+                },
+                {
+                  href: "/contact",
+                  icon: MapPin,
+                  title: "Contact Us",
+                  description: "We're here to help",
+                  color: "text-orange-600 dark:text-orange-400",
+                  bgColor: "bg-orange-50 dark:bg-orange-900/20"
+                }
+              ].map((item, index) => (
+                <Link href={item.href} key={index}>
+                  <EnhancedCard
+                    variant="interactive"
+                    className="h-full p-6 group cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-xl"
+                    hover={true}
+                  >
+                    <div className="flex flex-col items-center text-center space-y-3">
+                      <div className={`p-4 rounded-xl ${item.bgColor} group-hover:scale-110 transition-transform duration-300`}>
+                        <item.icon className={`w-8 h-8 ${item.color}`} />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-lg text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                          {item.title}
+                        </h3>
+                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                          {item.description}
+                        </p>
+                      </div>
+                    </div>
+                  </EnhancedCard>
                 </Link>
-              </Button>
-
-              <Button asChild variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2">
-                <Link href="/help">
-                  <HelpCircle className="w-6 h-6 text-purple-600" />
-                  <span className="font-medium">Get Help</span>
-                  <span className="text-sm text-gray-500">Visit our help center</span>
-                </Link>
-              </Button>
-
-              <Button asChild variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2">
-                <Link href="/contact">
-                  <MapPin className="w-6 h-6 text-orange-600" />
-                  <span className="font-medium">Contact Us</span>
-                  <span className="text-sm text-gray-500">We're here to help</span>
-                </Link>
-              </Button>
+              ))}
             </div>
-          </CardContent>
-        </Card>
+          </EnhancedCardContent>
+        </EnhancedCard>
 
-        <div className="space-y-4">
-          <p className="text-gray-600">
-            Looking for something specific? Try using our search or browse our popular pages:
-          </p>
-          <div className="flex flex-wrap justify-center gap-2">
-            <Button asChild variant="ghost" size="sm">
-              <Link href="/about">About</Link>
-            </Button>
-            <Button asChild variant="ghost" size="sm">
-              <Link href="/pricing">Pricing</Link>
-            </Button>
-            <Button asChild variant="ghost" size="sm">
-              <Link href="/careers">Careers</Link>
-            </Button>
-            <Button asChild variant="ghost" size="sm">
-              <Link href="/become-provider">Become a Provider</Link>
-            </Button>
-            <Button asChild variant="ghost" size="sm">
-              <Link href="/safety">Safety</Link>
-            </Button>
+        {/* Popular Destinations */}
+        <div className="space-y-6 mb-12">
+          <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+            Popular Destinations
+          </h3>
+          <div className="flex flex-wrap justify-center gap-3">
+            {[
+              "About", "Pricing", "Careers", "Become a Provider", "Safety", "Help", "AI Demo", "Features"
+            ].map((page, index) => (
+              <Link href={`/${page.toLowerCase().replace(/\s+/g, '-')}`} key={index}>
+                <EnhancedButton
+                  variant="ghost"
+                  size="sm"
+                  className="bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border border-white/20 dark:border-gray-700/20 hover:bg-white/80 dark:hover:bg-gray-800/80 transition-all duration-300"
+                >
+                  {page}
+                </EnhancedButton>
+              </Link>
+            ))}
           </div>
         </div>
 
-        <div className="mt-8">
-          <Button asChild size="lg" className="shadow-md">
-            <Link href="/">
-              <ArrowLeft className="w-4 h-4 mr-2" />
+        {/* Enhanced CTA */}
+        <div className="space-y-4">
+          <Link href="/">
+            <EnhancedButton
+              variant="premium"
+              size="lg"
+              className="shadow-2xl"
+              leftIcon={<ArrowLeft className="w-5 h-5" />}
+            >
               Take Me Home
+            </EnhancedButton>
+          </Link>
+
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            Still can't find what you're looking for?
+            <Link href="/contact" className="text-purple-600 dark:text-purple-400 hover:underline ml-1">
+              Contact our support team
             </Link>
-          </Button>
+          </p>
         </div>
       </div>
     </div>
