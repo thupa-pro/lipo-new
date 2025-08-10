@@ -76,11 +76,7 @@ export function IntelligentHeader({ onCommandPaletteOpen }: IntelligentHeaderPro
   const router = useRouter();
   const { toast } = useToast();
   const { user, userProfile, loading } = useAuth();
-
-  // Simple role checks without additional hooks
-  const userRole = userProfile?.role || null;
-  const isProvider = userRole === 'provider';
-  const isAdmin = userRole === 'admin' || userRole === 'super_admin';
+  const { userRole, isCustomer, isProvider, isAdmin, isSuperAdmin } = useUserRole();
 
   // Intelligent notification system based on user role
   const generateRoleBasedNotifications = () => {
