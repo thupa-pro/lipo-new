@@ -620,12 +620,14 @@ export default async function HomePage() {
                   </Card>
                 </div>
 
-                {/* AI Insights Dashboard */}
-                <Suspense fallback={
-                  <div className="h-48 bg-gray-200 dark:bg-gray-700 rounded-3xl max-w-5xl mx-auto mb-16 animate-pulse"></div>
-                }>
-                  <AIInsightsSection stats={stats} />
-                </Suspense>
+                {/* AI Insights Dashboard - Temporarily disabled due to module loading issues */}
+                <div className="h-48 bg-gray-100 dark:bg-gray-800 rounded-3xl max-w-5xl mx-auto mb-16 flex items-center justify-center border-2 border-dashed border-gray-300 dark:border-gray-600">
+                  <div className="text-center">
+                    <Brain className="w-12 h-12 mx-auto mb-4 text-gray-400" />
+                    <h3 className="text-lg font-semibold text-gray-600 dark:text-gray-400 mb-2">AI Insights Dashboard</h3>
+                    <p className="text-sm text-gray-500 dark:text-gray-500">Coming Soon - Advanced market analytics and trends</p>
+                  </div>
+                </div>
 
                 {/* Quick Action Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-16">
