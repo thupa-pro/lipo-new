@@ -225,15 +225,17 @@
       inset 0 1px 0 rgba(255, 255, 255, 1);
   }
 
-  /* Enhanced Card Glow Effects with Sophisticated Physics */
+  /* Enhanced Card Glow Effects - HyperLocalOS Style */
   .card-glow {
+    background: var(--bg-glass);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     box-shadow:
-      0 4px 25px var(--shadow-primary),
-      0 8px 50px var(--shadow-secondary),
-      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      0 8px 32px var(--shadow-primary),
+      0 4px 16px var(--shadow-secondary),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15);
     transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
     position: relative;
     overflow: hidden;
   }
@@ -254,12 +256,14 @@
   }
 
   .card-glow:hover {
-    transform: translateY(-12px) scale(1.03);
+    transform: translateY(-8px) scale(1.02);
+    background: var(--bg-glass-strong);
+    border-color: rgba(255, 255, 255, 0.2);
     box-shadow:
-      0 16px 48px var(--shadow-primary),
-      0 32px 120px var(--shadow-secondary),
+      0 20px 60px var(--shadow-primary),
+      0 8px 32px var(--shadow-secondary),
       inset 0 1px 0 rgba(255, 255, 255, 0.25),
-      0 0 0 1px rgba(255, 255, 255, 0.05);
+      0 0 0 1px rgba(255, 255, 255, 0.08);
   }
 
   /* Ultra-Premium Card Variants */
@@ -310,16 +314,26 @@
       inset 0 1px 0 rgba(255, 255, 255, 0.15);
   }
 
-  /* Light mode clean card styling */
+  /* Light mode premium card styling */
   .light .card-glow {
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    background: #FFFFFF;
-    border: 1px solid #E5E7EB;
+    background: var(--bg-glass);
+    border: 1px solid rgba(124, 58, 237, 0.08);
+    box-shadow:
+      0 8px 24px rgba(124, 58, 237, 0.08),
+      0 4px 12px rgba(0, 0, 0, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
   }
 
   .light .card-glow:hover {
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    border-color: #D1D5DB;
+    background: var(--bg-glass-strong);
+    border-color: rgba(124, 58, 237, 0.15);
+    box-shadow:
+      0 16px 48px rgba(124, 58, 237, 0.12),
+      0 8px 24px rgba(0, 0, 0, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 1);
+    transform: translateY(-4px) scale(1.01);
   }
 
   /* Beautiful Glass Morphism */
