@@ -6,6 +6,8 @@ import { HomeClientComponents } from '@/components/client-wrappers/home-client-c
 import { ModernFooter } from '@/components/modern-footer';
 import { Badge } from '@/components/ui/badge';
 import { ModernHeroServer } from '@/components/ui/modern-hero-server';
+import { EnhancedCard, EnhancedCardContent, EnhancedCardDescription, EnhancedCardHeader, EnhancedCardTitle } from '@/components/ui/enhanced-card';
+import { EnhancedButton } from '@/components/ui/enhanced-button';
 import {
   Search,
   UserPlus,
@@ -241,22 +243,25 @@ export default async function HomePage() {
       />
       
       <HomeClientComponents>
-        <div className="relative min-h-screen overflow-hidden bg-gray-50 dark:bg-gray-900">
+        <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-stratosphere via-cirrus to-white dark:from-gray-900 dark:via-gray-800 dark:to-black transition-colors duration-300">
           {/* Skip Links for Accessibility */}
           <a href="#main-content" className="skip-link">Skip to main content</a>
           <a href="#find-service" className="skip-link">Skip to search</a>
           <a href="#how-it-works" className="skip-link">Skip to how it works</a>
 
-          {/* Beautiful Background Elements */}
-          <div className="absolute inset-0 bg-grid-white/[0.04] dark:bg-grid-white/[0.04] [mask-image:radial-gradient(ellipse_at_center,white_20%,transparent_70%)]"></div>
+          {/* Neural Background Pattern */}
+          <div className="absolute inset-0 opacity-[0.03]">
+            <div className="absolute inset-0" style={{
+              backgroundImage: `radial-gradient(circle at 25px 25px, hsl(var(--neural-500)) 2px, transparent 0),
+                               radial-gradient(circle at 75px 75px, hsl(var(--quantum-500)) 1px, transparent 0)`,
+              backgroundSize: '100px 100px'
+            }} />
+          </div>
 
-          {/* Animated Background Blobs - Only visible in dark mode */}
-          <div className="hidden dark:block absolute top-[-20%] left-[-10%] w-[800px] h-[800px] bg-purple-900/30 rounded-full blur-[200px] animate-pulse"></div>
-          <div className="hidden dark:block absolute bottom-[-30%] right-[-20%] w-[900px] h-[900px] bg-cyan-700/30 rounded-full blur-[200px] animate-pulse animation-delay-4000"></div>
-          <div className="hidden dark:block absolute top-[30%] right-[10%] w-[500px] h-[500px] bg-fuchsia-700/20 rounded-full blur-[150px] animate-pulse animation-delay-2000"></div>
-
-          {/* Light mode subtle background pattern */}
-          <div className="block dark:hidden absolute inset-0 bg-gradient-to-br from-blue-50/30 via-purple-50/20 to-pink-50/30"></div>
+          {/* Animated Background Blobs - Enhanced with modern gradients */}
+          <div className="absolute top-[-20%] left-[-10%] w-[800px] h-[800px] bg-gradient-neural/20 rounded-full blur-[200px] animate-float"></div>
+          <div className="absolute bottom-[-30%] right-[-20%] w-[900px] h-[900px] bg-gradient-quantum/20 rounded-full blur-[200px] animate-float animation-delay-4000"></div>
+          <div className="absolute top-[30%] right-[10%] w-[500px] h-[500px] bg-gradient-plasma/10 rounded-full blur-[150px] animate-float animation-delay-2000"></div>
 
           {/* Header Compensation */}
           <div className="h-20 md:h-24"></div>
@@ -283,41 +288,47 @@ export default async function HomePage() {
                   </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10 mb-8 sm:mb-12">
-                    <div className="group bg-white dark:bg-gray-800/50 rounded-2xl p-6 md:p-8 text-center border border-gray-200 dark:border-gray-700/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 backdrop-blur-sm">
-                      <div className="mb-4 sm:mb-6">
-                        <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                          <Shield className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
+                    <EnhancedCard variant="glass" className="text-center hover:scale-105 transition-all duration-500 group">
+                      <EnhancedCardContent>
+                        <div className="mb-4 sm:mb-6">
+                          <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full bg-gradient-trust flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                            <Shield className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
+                          </div>
                         </div>
-                      </div>
-                      <h3 className="text-xl md:text-2xl font-bold mb-3 sm:mb-4 text-gray-900 dark:text-white">Verified & Trusted</h3>
-                      <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                        Every service provider is thoroughly background-checked, verified, and insured. Your safety and satisfaction are our top priorities.
-                      </p>
-                    </div>
+                        <h3 className="text-xl md:text-2xl font-bold mb-3 sm:mb-4 text-gradient-trust">Verified & Trusted</h3>
+                        <p className="text-muted-foreground leading-relaxed">
+                          Every service provider is thoroughly background-checked, verified, and insured. Your safety and satisfaction are our top priorities.
+                        </p>
+                      </EnhancedCardContent>
+                    </EnhancedCard>
 
-                    <div className="group bg-white dark:bg-gray-800/50 rounded-2xl p-6 md:p-8 text-center border border-gray-200 dark:border-gray-700/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 backdrop-blur-sm">
-                      <div className="mb-4 sm:mb-6">
-                        <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                          <Brain className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
+                    <EnhancedCard variant="glass" className="text-center hover:scale-105 transition-all duration-500 group">
+                      <EnhancedCardContent>
+                        <div className="mb-4 sm:mb-6">
+                          <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full bg-gradient-neural flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                            <Brain className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
+                          </div>
                         </div>
-                      </div>
-                      <h3 className="text-xl md:text-2xl font-bold mb-3 sm:mb-4 text-gray-900 dark:text-white">AI-Powered Matching</h3>
-                      <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                        Our intelligent algorithm learns your preferences and matches you with the perfect professionals for your specific needs and location.
-                      </p>
-                    </div>
+                        <h3 className="text-xl md:text-2xl font-bold mb-3 sm:mb-4 text-gradient-neural">AI-Powered Matching</h3>
+                        <p className="text-muted-foreground leading-relaxed">
+                          Our intelligent algorithm learns your preferences and matches you with the perfect professionals for your specific needs and location.
+                        </p>
+                      </EnhancedCardContent>
+                    </EnhancedCard>
 
-                    <div className="group bg-white dark:bg-gray-800/50 rounded-2xl p-6 md:p-8 text-center border border-gray-200 dark:border-gray-700/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 backdrop-blur-sm">
-                      <div className="mb-4 sm:mb-6">
-                        <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full bg-gradient-to-r from-green-500 to-teal-500 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                          <Zap className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
+                    <EnhancedCard variant="glass" className="text-center hover:scale-105 transition-all duration-500 group">
+                      <EnhancedCardContent>
+                        <div className="mb-4 sm:mb-6">
+                          <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full bg-gradient-quantum flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                            <Zap className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
+                          </div>
                         </div>
-                      </div>
-                      <h3 className="text-xl md:text-2xl font-bold mb-3 sm:mb-4 text-gray-900 dark:text-white">Instant Connection</h3>
-                      <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                        Connect with available professionals in real-time. Get quotes, schedule services, and track progress all in one seamless experience.
-                      </p>
-                    </div>
+                        <h3 className="text-xl md:text-2xl font-bold mb-3 sm:mb-4 text-gradient-quantum">Instant Connection</h3>
+                        <p className="text-muted-foreground leading-relaxed">
+                          Connect with available professionals in real-time. Get quotes, schedule services, and track progress all in one seamless experience.
+                        </p>
+                      </EnhancedCardContent>
+                    </EnhancedCard>
                 </div>
 
                   <div className="text-center">
@@ -395,31 +406,33 @@ export default async function HomePage() {
                     'party-popper': PartyPopper
                   }[category.icon_name] || HomeIcon;
 
-                  // Color mapping
-                  const colors = [
-                    { gradient: 'from-purple-500 to-pink-500', bg: 'bg-purple-50 dark:bg-purple-900/20' },
-                    { gradient: 'from-cyan-500 to-blue-500', bg: 'bg-cyan-50 dark:bg-cyan-900/20' },
-                    { gradient: 'from-green-500 to-teal-500', bg: 'bg-green-50 dark:bg-green-900/20' },
-                    { gradient: 'from-orange-500 to-red-500', bg: 'bg-orange-50 dark:bg-orange-900/20' },
-                    { gradient: 'from-indigo-500 to-purple-500', bg: 'bg-indigo-50 dark:bg-indigo-900/20' },
-                    { gradient: 'from-pink-500 to-rose-500', bg: 'bg-pink-50 dark:bg-pink-900/20' }
+                  // Enhanced gradient mapping with modern colors
+                  const gradients = [
+                    'gradient-neural',
+                    'gradient-quantum',
+                    'gradient-trust',
+                    'gradient-plasma',
+                    'gradient-ai',
+                    'gradient-glow'
                   ];
-                  const colorScheme = colors[index % colors.length];
+                  const gradientClass = gradients[index % gradients.length];
 
                   return (
                     <div key={category.id} className="group">
                       <Link href={`/category/${category.slug}`} className="block">
-                        <div className={`${colorScheme.bg} rounded-2xl p-6 md:p-8 border border-gray-200 dark:border-gray-700/50 hover:shadow-xl transition-all duration-300 hover:scale-105 backdrop-blur-sm`}>
-                          <div className={`w-12 h-12 md:w-16 md:h-16 bg-gradient-to-r ${colorScheme.gradient} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                            <IconComponent className="w-6 h-6 md:w-8 md:h-8 text-white" />
-                          </div>
-                          <h3 className="text-xl md:text-2xl font-bold mb-2 text-gray-900 dark:text-white">{category.name}</h3>
-                          <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">{category.description}</p>
-                          <div className="flex items-center text-purple-600 dark:text-purple-400 font-semibold group-hover:text-purple-700 dark:group-hover:text-purple-300 transition-colors">
-                            Explore
-                            <ArrowRight className="w-5 h-5 ml-1 group-hover:translate-x-1 transition-transform" />
-                          </div>
-                        </div>
+                        <EnhancedCard variant="interactive" className="hover:scale-105 transition-all duration-500 h-full">
+                          <EnhancedCardContent>
+                            <div className={`w-12 h-12 md:w-16 md:h-16 bg-${gradientClass} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                              <IconComponent className="w-6 h-6 md:w-8 md:h-8 text-white" />
+                            </div>
+                            <h3 className={`text-xl md:text-2xl font-bold mb-2 text-${gradientClass}`}>{category.name}</h3>
+                            <p className="text-muted-foreground mb-4 leading-relaxed">{category.description}</p>
+                            <div className={`flex items-center text-${gradientClass} font-semibold group-hover:text-opacity-80 transition-colors`}>
+                              Explore
+                              <ArrowRight className="w-5 h-5 ml-1 group-hover:translate-x-1 transition-transform" />
+                            </div>
+                          </EnhancedCardContent>
+                        </EnhancedCard>
                       </Link>
                     </div>
                   );
@@ -435,65 +448,71 @@ export default async function HomePage() {
               </p>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
-                <div className="bg-white dark:bg-gray-800/50 rounded-2xl p-6 md:p-8 border border-gray-200 dark:border-gray-700/50 shadow-lg backdrop-blur-sm">
-                  <div className="flex items-center mb-6">
-                    <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mr-4">
-                      <span className="text-white font-bold">SJ</span>
+                <EnhancedCard variant="glass" className="hover:scale-105 transition-all duration-500">
+                  <EnhancedCardContent>
+                    <div className="flex items-center mb-6">
+                      <div className="w-12 h-12 bg-gradient-neural rounded-full flex items-center justify-center mr-4">
+                        <span className="text-white font-bold">SJ</span>
+                      </div>
+                      <div>
+                        <h4 className="font-bold">Sarah Johnson</h4>
+                        <p className="text-sm text-muted-foreground">Homeowner</p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="font-bold text-gray-900 dark:text-white">Sarah Johnson</h4>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">Homeowner</p>
+                    <div className="flex mb-4">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                      ))}
                     </div>
-                  </div>
-                  <div className="flex mb-4">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
-                    ))}
-                  </div>
-                  <p className="text-gray-600 dark:text-gray-300 italic">
-                    "Found an amazing house cleaner through Loconomy in minutes. The booking process was seamless and the service quality exceeded my expectations!"
-                  </p>
-                </div>
+                    <p className="text-muted-foreground italic">
+                      "Found an amazing house cleaner through Loconomy in minutes. The booking process was seamless and the service quality exceeded my expectations!"
+                    </p>
+                  </EnhancedCardContent>
+                </EnhancedCard>
 
-                <div className="bg-white dark:bg-gray-800/50 rounded-2xl p-6 md:p-8 border border-gray-200 dark:border-gray-700/50 shadow-lg backdrop-blur-sm">
-                  <div className="flex items-center mb-6">
-                    <div className="w-12 h-12 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full flex items-center justify-center mr-4">
-                      <span className="text-white font-bold">MR</span>
+                <EnhancedCard variant="glass" className="hover:scale-105 transition-all duration-500">
+                  <EnhancedCardContent>
+                    <div className="flex items-center mb-6">
+                      <div className="w-12 h-12 bg-gradient-quantum rounded-full flex items-center justify-center mr-4">
+                        <span className="text-white font-bold">MR</span>
+                      </div>
+                      <div>
+                        <h4 className="font-bold">Mike Rodriguez</h4>
+                        <p className="text-sm text-muted-foreground">Business Owner</p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="font-bold text-gray-900 dark:text-white">Mike Rodriguez</h4>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">Business Owner</p>
+                    <div className="flex mb-4">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                      ))}
                     </div>
-                  </div>
-                  <div className="flex mb-4">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
-                    ))}
-                  </div>
-                  <p className="text-gray-600 dark:text-gray-300 italic">
-                    "As a provider, Loconomy has transformed my business. The AI matching brings me perfect clients and the platform handles everything seamlessly."
-                  </p>
-                </div>
+                    <p className="text-muted-foreground italic">
+                      "As a provider, Loconomy has transformed my business. The AI matching brings me perfect clients and the platform handles everything seamlessly."
+                    </p>
+                  </EnhancedCardContent>
+                </EnhancedCard>
 
-                <div className="bg-white dark:bg-gray-800/50 rounded-2xl p-6 md:p-8 border border-gray-200 dark:border-gray-700/50 shadow-lg backdrop-blur-sm">
-                  <div className="flex items-center mb-6">
-                    <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-teal-500 rounded-full flex items-center justify-center mr-4">
-                      <span className="text-white font-bold">ET</span>
+                <EnhancedCard variant="glass" className="hover:scale-105 transition-all duration-500">
+                  <EnhancedCardContent>
+                    <div className="flex items-center mb-6">
+                      <div className="w-12 h-12 bg-gradient-trust rounded-full flex items-center justify-center mr-4">
+                        <span className="text-white font-bold">ET</span>
+                      </div>
+                      <div>
+                        <h4 className="font-bold">Emma Thompson</h4>
+                        <p className="text-sm text-muted-foreground">Tech Professional</p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="font-bold text-gray-900 dark:text-white">Emma Thompson</h4>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">Tech Professional</p>
+                    <div className="flex mb-4">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                      ))}
                     </div>
-                  </div>
-                  <div className="flex mb-4">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
-                    ))}
-                  </div>
-                  <p className="text-gray-600 dark:text-gray-300 italic">
-                    "The AI recommendations are spot-on! Got my laptop fixed by a certified technician who arrived within 2 hours. Incredible service!"
-                  </p>
-                </div>
+                    <p className="text-muted-foreground italic">
+                      "The AI recommendations are spot-on! Got my laptop fixed by a certified technician who arrived within 2 hours. Incredible service!"
+                    </p>
+                  </EnhancedCardContent>
+                </EnhancedCard>
               </div>
             </section>
 
@@ -509,11 +528,17 @@ export default async function HomePage() {
                       Join millions of satisfied customers who have found their perfect service providers through our platform.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                      <Link href="/browse" className="bg-white text-gray-900 px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-                        Find Services Now
+                      <Link href="/browse">
+                        <EnhancedButton size="lg" className="bg-white text-gray-900 hover:bg-gray-100 shadow-xl hover:shadow-2xl px-8 py-4 text-lg">
+                          <Search className="w-5 h-5 mr-2" />
+                          Find Services Now
+                        </EnhancedButton>
                       </Link>
-                      <Link href="/become-provider" className="bg-white/20 text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white/30 transition-all duration-300 border border-white/30 hover:border-white/50 backdrop-blur-sm">
-                        Start Earning as Provider
+                      <Link href="/become-provider">
+                        <EnhancedButton variant="glass" size="lg" className="text-white border-white/30 hover:border-white/50 px-8 py-4 text-lg">
+                          <UserPlus className="w-5 h-5 mr-2" />
+                          Start Earning as Provider
+                        </EnhancedButton>
                       </Link>
                     </div>
                   </div>
