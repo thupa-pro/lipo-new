@@ -7,7 +7,7 @@
 
 @layer base {
   :root {
-    /* Light Mode Theme Colors - 10x More Beautiful */
+    /* Light Mode Theme Colors - Premium Clean Palette */
     --light-pearl: #FEFEFE;
     --light-snow: #F8FAFC;
     --light-cloud: #F1F5F9;
@@ -16,7 +16,7 @@
     --light-slate: #64748B;
     --light-charcoal: #334155;
     --light-midnight: #1E293B;
-    
+
     /* Enhanced Light Mode Gradients */
     --light-purple: #A855F7;
     --light-violet: #8B5CF6;
@@ -28,33 +28,38 @@
     --light-rose: #F43F5E;
     --light-pink: #EC4899;
     --light-fuchsia: #D946EF;
+
+    /* Dark Mode Theme Colors - Vibrant HyperLocalOS Inspired */
+    --dark-navy: #0A0B1E;
+    --dark-slate: #1A1B2E;
+    --dark-surface: #161728;
+    --purple-glow: #C026D3;
+    --magenta-glow: #E946F5;
+    --cyan-glow: #06B6D4;
+    --blue-glow: #3B82F6;
+    --teal-glow: #14B8A6;
+    --light-gray: #F1F5F9;
+    --mid-gray: #94A3B8;
+    --dark-gray: #475569;
     
-    /* Dark Mode Theme Colors (Existing) */
-    --dark-navy: #0A091A;
-    --purple-glow: #8A2BE2;
-    --magenta-glow: #FF00FF;
-    --cyan-glow: #00BFFF;
-    --light-gray: #E0E0E0;
-    --mid-gray: #a3a3a3;
-    --dark-gray: #4a4a4a;
-    
-    /* Dynamic Theme Variables */
+    /* Dynamic Theme Variables - HyperLocalOS Inspired */
     --bg-primary: var(--dark-navy);
-    --bg-secondary: rgba(22, 21, 45, 0.5);
-    --bg-glass: rgba(22, 21, 45, 0.5);
-    --bg-glass-strong: rgba(22, 21, 45, 0.8);
+    --bg-secondary: var(--dark-surface);
+    --bg-glass: rgba(22, 23, 40, 0.7);
+    --bg-glass-strong: rgba(22, 23, 40, 0.9);
     --text-primary: var(--light-gray);
     --text-secondary: var(--mid-gray);
-    --text-accent: var(--cyan-glow);
-    --border-primary: rgba(255, 255, 255, 0.1);
-    --border-secondary: rgba(255, 255, 255, 0.2);
-    --shadow-primary: rgba(138, 43, 226, 0.15);
-    --shadow-secondary: rgba(0, 191, 255, 0.15);
-    --gradient-primary: linear-gradient(90deg, var(--purple-glow) 0%, var(--magenta-glow) 50%, var(--cyan-glow) 100%);
-    --gradient-button: linear-gradient(to right, var(--purple-glow), var(--magenta-glow));
-    --blob-1: rgba(138, 43, 226, 0.3);
-    --blob-2: rgba(255, 0, 255, 0.2);
-    --blob-3: rgba(0, 191, 255, 0.2);
+    --text-accent: var(--purple-glow);
+    --border-primary: rgba(255, 255, 255, 0.12);
+    --border-secondary: rgba(255, 255, 255, 0.24);
+    --shadow-primary: rgba(192, 38, 211, 0.25);
+    --shadow-secondary: rgba(6, 182, 212, 0.20);
+    --gradient-primary: linear-gradient(135deg, var(--purple-glow) 0%, var(--blue-glow) 50%, var(--cyan-glow) 100%);
+    --gradient-button: linear-gradient(135deg, var(--purple-glow) 0%, var(--magenta-glow) 100%);
+    --gradient-ai: linear-gradient(135deg, #8B5CF6 0%, #06B6D4 50%, #14B8A6 100%);
+    --blob-1: rgba(192, 38, 211, 0.15);
+    --blob-2: rgba(139, 92, 246, 0.12);
+    --blob-3: rgba(6, 182, 212, 0.18);
     
     /* Base Variables for Compatibility */
     --background: 10 9 26; /* Dark navy in HSL */
@@ -79,28 +84,29 @@
     --radius: 1.5rem;
   }
 
-  /* Light Mode Theme Override - Clean & Professional */
+  /* Light Mode Theme Override - HyperLocalOS Clean Design */
   .light {
-    /* Clean Light Mode Color Palette */
+    /* Premium Light Mode Color Palette */
     --bg-primary: #FFFFFF;
-    --bg-secondary: #FFFFFF;
-    --bg-glass: #FFFFFF;
-    --bg-glass-strong: #FFFFFF;
-    --text-primary: #111827; /* Sharp dark text for maximum readability */
-    --text-secondary: #374151; /* Medium gray for secondary text */
-    --text-accent: #8B5CF6; /* Clean purple accent */
-    --text-muted: #6B7280; /* Muted gray text */
-    --text-nav: #111827; /* Strong navigation text */
-    --border-primary: #E5E7EB;
-    --border-secondary: #D1D5DB;
-    --shadow-primary: rgba(139, 92, 246, 0.1);
+    --bg-secondary: #FAFBFF;
+    --bg-glass: rgba(255, 255, 255, 0.85);
+    --bg-glass-strong: rgba(255, 255, 255, 0.95);
+    --text-primary: #0F172A; /* Deep slate for premium feel */
+    --text-secondary: #334155; /* Balanced secondary text */
+    --text-accent: #7C3AED; /* Vibrant purple accent */
+    --text-muted: #64748B; /* Professional muted text */
+    --text-nav: #0F172A; /* Strong navigation text */
+    --border-primary: #E2E8F0;
+    --border-secondary: #CBD5E1;
+    --shadow-primary: rgba(124, 58, 237, 0.12);
     --shadow-secondary: rgba(59, 130, 246, 0.08);
-    --gradient-primary: linear-gradient(135deg, #C026D3 0%, #8B5CF6 50%, #3B82F6 100%);
-    --gradient-button: linear-gradient(135deg, #C026D3 0%, #8B5CF6 100%);
-    --gradient-text: linear-gradient(135deg, #C026D3 0%, #8B5CF6 50%, #3B82F6 100%);
-    --blob-1: transparent;
-    --blob-2: transparent;
-    --blob-3: transparent;
+    --gradient-primary: linear-gradient(135deg, #7C3AED 0%, #3B82F6 50%, #06B6D4 100%);
+    --gradient-button: linear-gradient(135deg, #7C3AED 0%, #C026D3 100%);
+    --gradient-text: linear-gradient(135deg, #7C3AED 0%, #3B82F6 50%, #06B6D4 100%);
+    --gradient-ai: linear-gradient(135deg, #8B5CF6 0%, #06B6D4 50%, #14B8A6 100%);
+    --blob-1: rgba(124, 58, 237, 0.08);
+    --blob-2: rgba(59, 130, 246, 0.06);
+    --blob-3: rgba(6, 182, 212, 0.07);
 
     /* Enhanced light mode base variables */
     --background: 255 255 255;
