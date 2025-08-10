@@ -206,7 +206,7 @@ export function IntelligentHeader({ onCommandPaletteOpen }: IntelligentHeaderPro
       setNotifications([]);
       setUnreadCount(0);
     }
-  }, [user, userRole, isCustomer, isProvider, isAdmin, isSuperAdmin]);
+  }, [user, userRole, isProvider, isAdmin]);
 
   useEffect(() => {
     setIsClient(true);
