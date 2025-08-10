@@ -41,7 +41,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
   const isSupabaseConfigured = supabaseUrl && supabaseAnonKey &&
     !supabaseUrl.includes('your-project-ref') &&
-    !supabaseAnonKey.includes('your-anon-key')
+    !supabaseAnonKey.includes('your-anon-key') &&
+    !supabaseUrl.includes('placeholder') &&
+    !supabaseAnonKey.includes('placeholder')
 
   let supabase = null
 
