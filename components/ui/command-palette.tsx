@@ -19,6 +19,7 @@ interface Command {
 interface CommandPaletteProps {
   isOpen: boolean;
   onClose: () => void;
+  onCommand?: (command: any, params?: Record<string, any>) => void;
 }
 
 export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
