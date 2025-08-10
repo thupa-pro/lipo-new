@@ -191,21 +191,86 @@
     letter-spacing: -0.02em;
   }
 
-  /* Stunning Button Glow Effects */
+  /* AI-Inspired Gradient Elements */
+  .ai-gradient {
+    background: var(--gradient-ai);
+    background-size: 200% 200%;
+    animation: gradient-shift 4s ease infinite;
+  }
+
+  .ai-glow {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ai-glow::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: conic-gradient(from 0deg, var(--purple-glow), var(--blue-glow), var(--cyan-glow), var(--purple-glow));
+    border-radius: inherit;
+    padding: 1px;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    animation: spin 3s linear infinite;
+  }
+
+  .ai-pulse {
+    animation: ai-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes ai-pulse {
+    0%, 100% {
+      box-shadow:
+        0 0 20px var(--purple-glow),
+        0 0 40px var(--blue-glow),
+        0 0 60px var(--cyan-glow);
+    }
+    50% {
+      box-shadow:
+        0 0 30px var(--purple-glow),
+        0 0 60px var(--blue-glow),
+        0 0 90px var(--cyan-glow);
+    }
+  }
+
+  /* Enhanced Button Glow Effects - HyperLocalOS Style */
   .btn-glow {
-    box-shadow: 
-      0 4px 20px rgba(168, 85, 247, 0.25),
-      0 8px 40px rgba(139, 92, 246, 0.15),
+    background: var(--gradient-button);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow:
+      0 8px 24px rgba(192, 38, 211, 0.25),
+      0 4px 12px rgba(139, 92, 246, 0.15),
       inset 0 1px 0 rgba(255, 255, 255, 0.2);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-glow::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
 
   .btn-glow:hover {
-    box-shadow: 
-      0 8px 30px rgba(168, 85, 247, 0.4),
-      0 12px 60px rgba(139, 92, 246, 0.25),
+    background: var(--gradient-button);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow:
+      0 12px 36px rgba(192, 38, 211, 0.4),
+      0 8px 24px rgba(139, 92, 246, 0.25),
       inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    transform: translateY(-2px);
+    transform: translateY(-2px) scale(1.02);
+  }
+
+  .btn-glow:hover::before {
+    opacity: 1;
   }
 
   /* Light mode premium button glow */
