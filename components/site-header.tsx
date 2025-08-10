@@ -138,12 +138,12 @@ export function SiteHeader() {
           <ThemeToggle />
           <div className="hidden md:flex items-center space-x-2">
             <Link href="/auth/signin">
-              <Button variant="ghost" size="sm">
+              <Button variant="ghost" size="sm" className="hover:bg-background/50">
                 Sign In
               </Button>
             </Link>
             <Link href="/auth/signup">
-              <Button size="sm">
+              <Button size="sm" className="btn-glow text-white border-0">
                 Get Started
               </Button>
             </Link>
