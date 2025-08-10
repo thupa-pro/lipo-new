@@ -107,9 +107,9 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
 
         {/* PWA and App-like Meta Tags */}
-        <meta name="theme-color" content="#8B5CF6" />
-        <meta name="theme-color" media="(prefers-color-scheme: light)" content="#8B5CF6" />
-        <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0A091A" />
+        <meta name="theme-color" content="#7C3AED" />
+        <meta name="theme-color" media="(prefers-color-scheme: light)" content="#7C3AED" />
+        <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0A0B1E" />
 
         {/* iOS PWA Support */}
         <meta name="apple-mobile-web-app-capable" content="yes" />
