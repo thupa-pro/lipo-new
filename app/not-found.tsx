@@ -1,20 +1,53 @@
 "use client"
 
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Home, Search, ArrowLeft, MapPin, HelpCircle } from "lucide-react"
+import { EnhancedButton, IconButton } from "@/components/ui/enhanced-button"
+import { EnhancedCard, EnhancedCardContent, EnhancedCardDescription, EnhancedCardHeader, EnhancedCardTitle } from "@/components/ui/enhanced-card"
+import { Home, Search, ArrowLeft, MapPin, HelpCircle, Compass, Zap, Star, Users, TrendingUp } from "lucide-react"
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center p-4">
-      <div className="max-w-2xl mx-auto text-center">
-        <div className="mb-8">
-          <div className="text-8xl font-bold text-blue-200 mb-4">404</div>
-          <h1 className="text-3xl font-bold mb-2 text-gray-800">Oops! Page Not Found</h1>
-          <p className="text-xl text-gray-600 mb-8">
-            The page you're looking for seems to have taken a different route.
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-950 dark:via-purple-950 dark:to-blue-950 flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Enhanced background effects */}
+      <div className="absolute inset-0 bg-grid-white/[0.02] [mask-image:radial-gradient(ellipse_at_center,white_20%,transparent_70%)]"></div>
+      <div className="absolute top-1/4 left-1/3 w-64 h-64 bg-purple-300/10 rounded-full blur-3xl animate-pulse"></div>
+      <div className="absolute bottom-1/3 right-1/4 w-48 h-48 bg-blue-300/10 rounded-full blur-2xl animate-pulse animation-delay-2000"></div>
+
+      <div className="max-w-2xl mx-auto text-center relative z-10">
+        {/* Enhanced 404 Display */}
+        <div className="mb-12">
+          <div className="relative inline-block mb-6">
+            <div className="text-9xl font-black bg-gradient-to-br from-purple-600 via-blue-600 to-cyan-600 bg-clip-text text-transparent select-none">
+              404
+            </div>
+            <div className="absolute inset-0 text-9xl font-black text-purple-600/20 animate-pulse -z-10">
+              404
+            </div>
+          </div>
+
+          <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
+            Oops! Lost in Space
+          </h1>
+
+          <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-lg mx-auto leading-relaxed">
+            Don't worry! Even the best explorers sometimes take a wrong turn. Let's get you back on track.
           </p>
+
+          {/* Fun stats to lighten mood */}
+          <div className="grid grid-cols-3 gap-4 mb-8 max-w-md mx-auto">
+            <div className="text-center">
+              <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">2.4M+</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400">Happy Users</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">45K+</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400">Providers</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-green-600 dark:text-green-400">99.9%</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400">Uptime</div>
+            </div>
+          </div>
         </div>
 
         <Card className="shadow-lg mb-8">
