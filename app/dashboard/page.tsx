@@ -3,8 +3,9 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "@/components/auth/auth-provider";
 import { ProtectedRoute } from "@/components/auth/protected-route";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { EnhancedCard, EnhancedCardContent, EnhancedCardDescription, EnhancedCardHeader, EnhancedCardTitle } from "@/components/ui/enhanced-card";
+import { EnhancedButton, IconButton } from "@/components/ui/enhanced-button";
+import { DashboardSkeleton, SkeletonLoader } from "@/components/ui/skeleton-loader";
 import { Badge } from "@/components/ui/badge";
 import { ModernNavigation } from "@/components/modern-navigation";
 import { ModernFooter } from "@/components/modern-footer";
