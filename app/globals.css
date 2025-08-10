@@ -273,6 +273,42 @@
     opacity: 1;
   }
 
+  /* HyperLocalOS Status Indicators */
+  .status-online {
+    position: relative;
+  }
+
+  .status-online::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 8px;
+    height: 8px;
+    background: #10B981;
+    border: 2px solid #FFFFFF;
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
+  }
+
+  /* Interactive hover states for mobile */
+  @media (hover: hover) {
+    .interactive-card:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow:
+        0 20px 60px var(--shadow-primary),
+        0 8px 32px var(--shadow-secondary);
+    }
+  }
+
+  /* Mobile-optimized touch feedback */
+  @media (hover: none) {
+    .interactive-card:active {
+      transform: scale(0.98);
+      transition: transform 0.1s ease;
+    }
+  }
+
   /* Light mode premium button glow */
   .light .btn-glow {
     box-shadow:
