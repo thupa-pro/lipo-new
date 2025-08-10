@@ -48,7 +48,7 @@ import {
   Gavel,
   AlertTriangle,
 } from 'lucide-react';
-import { useAuth } from '@/components/auth/auth-provider';
+import { useAuth, useUserRole } from '@/hooks/use-auth';
 import { useToast } from '@/components/ui/use-toast';
 
 interface Notification {
