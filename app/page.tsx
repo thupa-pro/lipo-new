@@ -417,21 +417,6 @@ export default async function HomePage() {
       <HomeClientComponents>
         <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-black transition-colors duration-500">
           
-          {/* Skip Links for Enhanced Accessibility */}
-          <div className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-50">
-            <a 
-              href="#main-content" 
-              className="bg-blue-600 text-white px-4 py-2 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-            >
-              Skip to main content
-            </a>
-            <a 
-              href="#search-section" 
-              className="bg-blue-600 text-white px-4 py-2 rounded-md font-medium ml-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-            >
-              Skip to search
-            </a>
-          </div>
 
           {/* Advanced Background Effects */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
