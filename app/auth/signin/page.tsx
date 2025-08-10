@@ -75,7 +75,7 @@ function SignInPageContent() {
               {/* Enhanced Divider */}
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
-                  <span className="w-full border-t border-gradient-to-r from-transparent via-gray-300 to-transparent dark:via-gray-600" />
+                  <span className="w-full border-t border-gray-300 dark:border-gray-600" />
                 </div>
                 <div className="relative flex justify-center text-sm">
                   <span className="px-4 bg-white/80 dark:bg-gray-900/80 text-gray-500 dark:text-gray-400 font-medium">
