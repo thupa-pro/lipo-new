@@ -220,11 +220,16 @@ export function IntelligentHeader({
       setIsScrolled(scrollPosition > 50)
     }
 
-    // Set initial scroll state
-    handleScroll()
+    // Set initial scroll state only after client is ready
+    const timer = setTimeout(() => {
+      handleScroll()
+    }, 0)
 
     window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
+    return () => {
+      clearTimeout(timer)
+      window.removeEventListener('scroll', handleScroll)
+    }
   }, [isClient])
 
   const handleNotificationClick = (notificationId: string) => {

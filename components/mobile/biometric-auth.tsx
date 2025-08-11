@@ -77,8 +77,8 @@ export function BiometricAuth({
       // Simulate authentication delay
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
-      // Simulate random success/failure (90% success rate)
-      const success = Math.random() > 0.1;
+      // Simulate authentication success (using deterministic approach)
+      const success = true; // Set to true for demo - in real app would be actual biometric result
 
       if (success) {
         setAuthStatus("success");

@@ -24,20 +24,22 @@ function sendToAnalytics(metric: WebVitalsMetric) {
   }
 
   // Also send to our performance API
-  if (navigator.sendBeacon) {
+  if (typeof navigator !== 'undefined' && navigator.sendBeacon) {
     const data = JSON.stringify({
       name: metric.name,
       value: metric.value,
       rating: metric.rating,
       timestamp: Date.now(),
     })
-    
+
     navigator.sendBeacon('/api/performance/web-vitals', data)
   }
 }
 
 export default function WebVitals() {
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
     // Largest Contentful Paint
     getLCP((metric) => {
       sendToAnalytics(metric)
@@ -94,9 +96,11 @@ export function useImageOptimization() {
 
 export function useLazyLoading() {
   useEffect(() => {
+    if (typeof window === 'undefined' || typeof document === 'undefined') return;
+
     // Intersection Observer for lazy loading
     const images = document.querySelectorAll('img[data-src]')
-    
+
     if ('IntersectionObserver' in window) {
       const imageObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
@@ -164,7 +168,7 @@ export function PerformanceMonitor() {
               name: 'long-task',
               value: entry.duration,
               rating: entry.duration > 100 ? 'poor' : 'needs-improvement',
-              id: Math.random().toString(36).substr(2, 9),
+              id: `long-task-${Date.now()}-${crypto.randomUUID?.() || Math.random().toString(36).substr(2, 9)}`,
               delta: entry.duration,
             })
           }

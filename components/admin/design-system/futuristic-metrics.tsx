@@ -43,13 +43,13 @@ export function FuturisticMetrics({
   const [isAnimating, setIsAnimating] = useState(false)
 
   // Calculate trend
-  const trend = data.previousValue 
-    ? data.value > data.previousValue ? 'up' 
-    : data.value < data.previousValue ? 'down' 
+  const trend = data?.previousValue
+    ? data.value > data.previousValue ? 'up'
+    : data.value < data.previousValue ? 'down'
     : 'neutral'
     : 'neutral';
   
-  const changePercent = data.previousValue 
+  const changePercent = data?.previousValue
     ? Math.abs(((data.value - data.previousValue) / data.previousValue) * 100)
     : 0;
 

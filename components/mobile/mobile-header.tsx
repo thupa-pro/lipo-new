@@ -40,6 +40,7 @@ export function MobileHeader({
   const [isOnline, setIsOnline] = useState(true);
   const [batteryLevel, setBatteryLevel] = useState(85);
   const [signalStrength, setSignalStrength] = useState(4);
+  const [isClient, setIsClient] = useState(false);
   const router = useRouter();
   const isMobile = useIsMobile();
   const t = useTranslations("Mobile.header");
@@ -48,13 +49,25 @@ export function MobileHeader({
   const displayTitle = title || t("app_name");
 
   useEffect(() => {
-    // Simulate real-time updates
-    const interval = setInterval(() => {
-      setBatteryLevel((prev) => Math.max(20, prev - Math.random() * 2));
-      setSignalStrength(Math.floor(Math.random() * 5));
-    }, 30000);
+    setIsClient(true);
 
-    return () => clearInterval(interval);
+    if (typeof window === 'undefined') return;
+
+    // Initialize with actual values where possible
+    if (typeof navigator !== 'undefined' && 'onLine' in navigator) {
+      setIsOnline(navigator.onLine);
+
+      const handleOnline = () => setIsOnline(true);
+      const handleOffline = () => setIsOnline(false);
+
+      window.addEventListener('online', handleOnline);
+      window.addEventListener('offline', handleOffline);
+
+      return () => {
+        window.removeEventListener('online', handleOnline);
+        window.removeEventListener('offline', handleOffline);
+      };
+    }
   }, []);
 
   if (!isMobile) {
@@ -105,7 +118,13 @@ export function MobileHeader({
             <Battery className="w-3 h-3" />
             <span className="text-xs">{batteryLevel}%</span>
           </div>
-          <span className="text-xs">9:41 AM</span>
+          <span className="text-xs" suppressHydrationWarning>
+            {isClient ? new Date().toLocaleTimeString('en-US', {
+              hour: 'numeric',
+              minute: '2-digit',
+              hour12: true
+            }) : '9:41 AM'}
+          </span>
         </div>
       </div>
 

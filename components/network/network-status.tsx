@@ -65,13 +65,14 @@ export function NetworkProvider({ children }: { children: React.ReactNode }) {
     rtt: 0,
     saveData: false,
   });
-  
+  const [isClient, setIsClient] = useState(false);
+
   const [errors, setErrors] = useState<NetworkError[]>([]);
 
   const addError = useCallback((error: Omit<NetworkError, 'id' | 'timestamp'>) => {
     const newError: NetworkError = {
       ...error,
-      id: `error-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+      id: `error-${Date.now()}-${crypto.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`}`,
       timestamp: new Date(),
     };
 
@@ -94,11 +95,13 @@ export function NetworkProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    setIsClient(true);
+
+    if (typeof window === 'undefined' || typeof navigator === 'undefined') return;
 
     const updateNetworkStatus = () => {
-      const connection = (navigator as any).connection || 
-                        (navigator as any).mozConnection || 
+      const connection = (navigator as any).connection ||
+                        (navigator as any).mozConnection ||
                         (navigator as any).webkitConnection;
 
       setStatus({
@@ -175,8 +178,8 @@ export function NetworkProvider({ children }: { children: React.ReactNode }) {
   return (
     <NetworkContext.Provider value={value}>
       {children}
-      <NetworkStatusIndicator />
-      <NetworkErrorDisplay />
+      {isClient && <NetworkStatusIndicator />}
+      {isClient && <NetworkErrorDisplay />}
     </NetworkContext.Provider>
   );
 }
@@ -357,7 +360,7 @@ export function useNetworkAwareFetch() {
         url,
         retryable: true,
       });
-    } else if (!navigator.onLine) {
+    } else if (typeof navigator !== 'undefined' && !navigator.onLine) {
       addError({
         message: 'No internet connection available',
         type: 'network',
