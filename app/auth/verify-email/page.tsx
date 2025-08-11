@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import { VerifyEmailPageContent } from "./components/verify-email-page-content";
-import { SkeletonLoader } from "@/components/ui/skeleton-loader";
 
 // Enhanced metadata for SEO and sharing
 export const metadata: Metadata = {
