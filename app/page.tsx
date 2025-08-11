@@ -608,11 +608,11 @@ export default async function HomePage() {
                 </div>
 
                 {/* AI Insights Dashboard */}
-                <Suspense fallback={
+                {/* <Suspense fallback={
                   <div className="h-48 bg-gray-200 dark:bg-gray-700 rounded-3xl max-w-5xl mx-auto mb-16 animate-pulse"></div>
                 }>
                   <AIInsightsSection stats={stats} />
-                </Suspense>
+                </Suspense> */}
 
                 {/* Quick Action Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-16">
