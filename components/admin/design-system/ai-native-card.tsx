@@ -38,6 +38,10 @@ export function AICard({
   glowOnHover = true,
   ...props
 }: AICardProps) {
+  // Use confidence from aiInsight object if available
+  const displayConfidence = typeof aiInsight === 'object' && aiInsight?.confidence
+    ? aiInsight.confidence
+    : confidence;
   const cardRef = useRef<HTMLDivElement>(null)
   const [isHovered, setIsHovered] = useState(false)
   
@@ -194,19 +198,19 @@ export function AICard({
                   : aiInsight?.title || aiInsight?.description || 'No insight available'
                 }
               </p>
-              {confidence > 0 && (
+              {displayConfidence > 0 && (
                 <div className="flex items-center gap-2 mt-1">
                   <span className="text-xs text-white/50">Confidence:</span>
                   <div className="flex-1 h-1 bg-white/20 rounded-full overflow-hidden">
                     <motion.div
                       className="h-full bg-gradient-to-r from-purple-400 to-cyan-400"
                       initial={{ width: 0 }}
-                      animate={{ width: `${confidence}%` }}
+                      animate={{ width: `${displayConfidence}%` }}
                       transition={{ delay: 0.5, duration: 1, ease: "easeOut" }}
                     />
                   </div>
                   <span className="text-xs text-white/70 font-medium">
-                    {confidence}%
+                    {displayConfidence}%
                   </span>
                 </div>
               )}
