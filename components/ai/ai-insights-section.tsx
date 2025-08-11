@@ -165,8 +165,8 @@ export function AIInsightsSection({ stats }: AIInsightsSectionProps) {
                 key={index}
                 title={metric.title}
                 data={{
-                  value: parseFloat(metric.value.replace('%', '')),
-                  previousValue: parseFloat(metric.value.replace('%', '')) - metric.change,
+                  value: metric.value,
+                  previousValue: metric.value - metric.change,
                   unit: '%'
                 }}
                 icon={metric.icon}
