@@ -305,21 +305,17 @@ export default function AIInsightsDashboard({ platformData }: { platformData: an
               <FuturisticMetrics
                 key={index}
                 title={metric.name}
-                value={metric.value}
-                change={metric.change}
-                trend={metric.trend}
+                data={{
+                  value: metric.value,
+                  previousValue: metric.value * 0.9,
+                  unit: '',
+                  prefix: '',
+                  suffix: ''
+                }}
                 icon={index === 0 ? Users : index === 1 ? DollarSign : index === 2 ? Shield : Activity}
+                variant="quantum"
                 className="hover:scale-105 transition-transform duration-300"
-              >
-                <div className="mt-4 space-y-2">
-                  <div className="text-xs text-gray-600 font-medium">{metric.prediction}</div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs text-gray-500">AI Confidence</span>
-                    <span className="text-xs font-bold text-blue-600">{metric.confidence}%</span>
-                  </div>
-                  <Progress value={metric.confidence} className="h-1.5" />
-                </div>
-              </FuturisticMetrics>
+              />
             ))}
           </div>
         </CardContent>

@@ -294,33 +294,17 @@ export default function AIMonitoringHub({ platformData }: { platformData: any })
           <FuturisticMetrics
             key={index}
             title={metric.name}
-            value={typeof metric.value === 'number' ? 
-              metric.value.toFixed(metric.name === 'Error Rate' ? 2 : 0) + metric.unit : 
-              metric.value
-            }
-            change={Math.random() * 10 - 5} // Random change for demo
-            trend={metric.trend}
+            data={{
+              value: typeof metric.value === 'number' ? metric.value : 0,
+              previousValue: typeof metric.value === 'number' ? metric.value * 0.9 : 0,
+              unit: metric.unit || '',
+              prefix: '',
+              suffix: ''
+            }}
             icon={getMetricIcon(metric.name)}
-            className={`bg-gradient-to-br ${getStatusColor(metric.status)}/10 border-${getStatusColor(metric.status).split('-')[1]}-200 hover:shadow-2xl transition-all duration-500`}
-          >
-            <div className="mt-4 space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-medium text-gray-600">Status</span>
-                <Badge className={`bg-gradient-to-r ${getStatusColor(metric.status)} text-white text-xs`}>
-                  {metric.status.toUpperCase()}
-                </Badge>
-              </div>
-              {metric.aiOptimization && (
-                <div className="p-3 bg-white/60 backdrop-blur-sm rounded-lg border border-white/40">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Brain className="h-4 w-4 text-blue-600" />
-                    <span className="font-bold text-blue-600 text-xs">AGI Insight</span>
-                  </div>
-                  <p className="text-xs text-gray-700 leading-relaxed">{metric.aiOptimization}</p>
-                </div>
-              )}
-            </div>
-          </FuturisticMetrics>
+            variant="holographic"
+            className={`bg-gradient-to-br hover:shadow-2xl transition-all duration-500`}
+          />
         ))}
       </div>
 
