@@ -612,13 +612,14 @@ export default function AdminDashboard() {
         >
           <Tabs value={selectedTab} onValueChange={setSelectedTab} className="w-full">
             <GlassmorphicContainer variant="subtle" className="p-1 mb-6">
-              <TabsList className="grid w-full grid-cols-5 bg-transparent h-12">
+              <TabsList className="grid w-full grid-cols-6 bg-transparent h-12">
                 {[
                   { value: "overview", label: "Overview", icon: BarChart3 },
                   { value: "revenue", label: "Revenue", icon: DollarSign },
                   { value: "analytics", label: "Analytics", icon: TrendingUp },
                   { value: "users", label: "Users", icon: Users },
-                  { value: "system", label: "System", icon: Cpu }
+                  { value: "system", label: "System", icon: Cpu },
+                  { value: "ai-test", label: "AI Test", icon: Brain }
                 ].map((tab) => (
                   <TabsTrigger
                     key={tab.value}
