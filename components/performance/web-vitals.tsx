@@ -24,14 +24,14 @@ function sendToAnalytics(metric: WebVitalsMetric) {
   }
 
   // Also send to our performance API
-  if (navigator.sendBeacon) {
+  if (typeof navigator !== 'undefined' && navigator.sendBeacon) {
     const data = JSON.stringify({
       name: metric.name,
       value: metric.value,
       rating: metric.rating,
       timestamp: Date.now(),
     })
-    
+
     navigator.sendBeacon('/api/performance/web-vitals', data)
   }
 }
