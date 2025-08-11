@@ -5,11 +5,11 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { 
-  Wifi, 
-  WifiOff, 
-  AlertTriangle, 
-  RefreshCw, 
+import {
+  Wifi,
+  WifiOff,
+  AlertTriangle,
+  RefreshCw,
   Globe,
   Zap,
   CheckCircle,
@@ -17,6 +17,7 @@ import {
   XCircle
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { safeWindow, safeNavigator } from "@/lib/csr-safety";
 
 interface NetworkStatus {
   isOnline: boolean;
