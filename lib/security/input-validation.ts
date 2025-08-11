@@ -11,7 +11,7 @@ const SECURITY_CONFIG = {
   maxFileSize: 10 * 1024 * 1024, // 10MB
   sqlInjectionPatterns: [
     /(\b(SELECT|INSERT|UPDATE|DELETE|DROP|CREATE|ALTER|EXEC|UNION|SCRIPT)\b)/gi,
-    /('|(\\')|(;)|(\-\-)|(\#)|(\/*)|(\*/)|(\bOR\b)|(\bAND\b)/gi,
+    /('|(\\')|(;)|(\-\-)|(\#)|(\bOR\b)|(\bAND\b)/gi,
     /(\b(xp_|sp_|exec|execute)\b)/gi
   ],
   xssPatterns: [
@@ -151,17 +151,6 @@ class InputValidator {
       result.errors.push('Invalid number')
     }
 
-    // Range validation (if specified in options)
-    if ('min' in options && value < (options as any).min) {
-      result.isValid = false
-      result.errors.push(`Number is below minimum value of ${(options as any).min}`)
-    }
-
-    if ('max' in options && value > (options as any).max) {
-      result.isValid = false
-      result.errors.push(`Number exceeds maximum value of ${(options as any).max}`)
-    }
-
     return result
   }
 
@@ -241,7 +230,7 @@ class InputValidator {
       }
 
       // Validate the value
-      const valueResult = this.validate(val, options, depth + 1)
+      const valueResult = this.validate(val, options)
       if (!valueResult.isValid) {
         result.isValid = false
         result.errors.push(`Object property "${key}": ${valueResult.errors.join(', ')}`)
@@ -253,7 +242,7 @@ class InputValidator {
         )
       }
 
-      sanitizedObject[keyResult.sanitizedValue] = valueResult.sanitizedValue
+      sanitizedObject[keyResult.sanitizedValue || key] = valueResult.sanitizedValue
     }
 
     if (options.sanitize) {
@@ -338,40 +327,6 @@ class InputValidator {
     sanitized = sanitized.replace(/\s+/g, ' ').trim()
 
     return sanitized
-  }
-
-  // File validation
-  validateFile(file: File, options: { allowedTypes?: string[]; maxSize?: number } = {}): ValidationResult {
-    const result: ValidationResult = {
-      isValid: true,
-      errors: [],
-      sanitizedValue: file
-    }
-
-    const allowedTypes = options.allowedTypes || SECURITY_CONFIG.allowedFileTypes
-    const maxSize = options.maxSize || SECURITY_CONFIG.maxFileSize
-
-    // Check file type
-    if (!allowedTypes.includes(file.type)) {
-      result.isValid = false
-      result.errors.push(`File type ${file.type} not allowed`)
-    }
-
-    // Check file size
-    if (file.size > maxSize) {
-      result.isValid = false
-      result.errors.push(`File size ${file.size} exceeds maximum of ${maxSize}`)
-    }
-
-    // Check filename for security issues
-    const filenameCheck = this.checkSecurity(file.name)
-    if (filenameCheck.issues.length > 0) {
-      result.securityIssues = filenameCheck.issues
-      result.isValid = false
-      result.errors.push('Potentially malicious filename')
-    }
-
-    return result
   }
 
   // Email validation
@@ -469,94 +424,5 @@ export const secureUrl = z.string().refine((val) => {
   const result = inputValidator.validateURL(val)
   return result.isValid
 }, 'Invalid or insecure URL')
-
-// Form validation helpers
-export function validateForm<T>(data: T, schema: z.ZodSchema<T>): { success: boolean; data?: T; errors?: string[] } {
-  try {
-    const validatedData = schema.parse(data)
-    
-    // Additional security validation
-    const securityResult = inputValidator.validate(validatedData, { sanitize: true })
-    
-    if (!securityResult.isValid) {
-      return {
-        success: false,
-        errors: securityResult.errors.concat(securityResult.securityIssues || [])
-      }
-    }
-
-    return {
-      success: true,
-      data: securityResult.sanitizedValue
-    }
-  } catch (error) {
-    if (error instanceof z.ZodError) {
-      return {
-        success: false,
-        errors: error.errors.map(err => err.message)
-      }
-    }
-    
-    return {
-      success: false,
-      errors: ['Validation failed']
-    }
-  }
-}
-
-// API request validation middleware
-export function validateApiRequest(allowedMethods: string[] = ['GET', 'POST']) {
-  return function(req: any, res: any, next: any) {
-    // Method validation
-    if (!allowedMethods.includes(req.method)) {
-      return res.status(405).json({ error: 'Method not allowed' })
-    }
-
-    // Content-Type validation for POST/PUT requests
-    if (['POST', 'PUT', 'PATCH'].includes(req.method)) {
-      const contentType = req.headers['content-type']
-      if (!contentType || !contentType.includes('application/json')) {
-        return res.status(400).json({ error: 'Invalid content type' })
-      }
-    }
-
-    // Body validation
-    if (req.body) {
-      const result = inputValidator.validate(req.body, { sanitize: true })
-      
-      if (!result.isValid) {
-        return res.status(400).json({
-          error: 'Invalid request data',
-          details: result.errors
-        })
-      }
-
-      if (result.securityIssues && result.securityIssues.length > 0) {
-        console.warn('Security issues detected in request:', result.securityIssues)
-        
-        // Log but don't block (depending on your security policy)
-        // return res.status(400).json({ error: 'Security validation failed' })
-      }
-
-      req.body = result.sanitizedValue
-    }
-
-    // Query parameter validation
-    if (req.query) {
-      const queryResult = inputValidator.validate(req.query, { sanitize: true })
-      
-      if (!queryResult.isValid) {
-        return res.status(400).json({
-          error: 'Invalid query parameters',
-          details: queryResult.errors
-        })
-      }
-
-      req.query = queryResult.sanitizedValue
-    }
-
-    next()
-  }
-}
 
 export default inputValidator
