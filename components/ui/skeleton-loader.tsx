@@ -1,7 +1,6 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
 
 interface SkeletonLoaderProps {
   className?: string;
@@ -10,24 +9,15 @@ interface SkeletonLoaderProps {
   lines?: number;
 }
 
-const skeletonVariants = {
-  loading: {
-    opacity: [0.5, 1, 0.5],
-    transition: {
-      duration: 2,
-      repeat: Infinity,
-      ease: "easeInOut"
-    }
-  }
-};
-
 export function SkeletonLoader({ 
   className, 
   variant = "default", 
   animated = true, 
   lines = 3 
 }: SkeletonLoaderProps) {
-  const baseClasses = "bg-gradient-to-r from-muted/50 via-muted to-muted/50 rounded-md";
+  const baseClasses = animated 
+    ? "bg-gradient-to-r from-muted/50 via-muted to-muted/50 rounded-md animate-pulse" 
+    : "bg-gradient-to-r from-muted/50 via-muted to-muted/50 rounded-md";
   
   const variantClasses = {
     default: "h-4 w-full",
@@ -37,28 +27,13 @@ export function SkeletonLoader({
     button: "h-10 w-24 rounded-lg"
   };
 
-  const SkeletonElement = ({ className: elementClassName }: { className?: string }) => {
-    const element = (
-      <div 
-        className={cn(baseClasses, variantClasses[variant], elementClassName)}
-        aria-label="Loading content"
-        role="status"
-      />
-    );
-
-    if (animated) {
-      return (
-        <motion.div
-          variants={skeletonVariants}
-          animate="loading"
-        >
-          {element}
-        </motion.div>
-      );
-    }
-
-    return element;
-  };
+  const SkeletonElement = ({ className: elementClassName }: { className?: string }) => (
+    <div 
+      className={cn(baseClasses, variantClasses[variant], elementClassName)}
+      aria-label="Loading content"
+      role="status"
+    />
+  );
 
   if (variant === "text" && lines > 1) {
     return (
