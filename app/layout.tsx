@@ -18,6 +18,7 @@ import {
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'),
   title: "Loconomy - AI-Powered Local Services Platform",
   description: "Connect with trusted local service professionals through our intelligent platform. From home repairs to personal training - find verified providers with AI-powered matching, real-time chat, and smart recommendations.",
   keywords: ["local services", "AI marketplace", "service providers", "home repair", "professional services", "artificial intelligence", "smart matching"],
