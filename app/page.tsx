@@ -442,8 +442,14 @@ export default function HomePage() {
                                   Enter your city, zip code, or allow location access
                                 </div>
                               </div>
-                              <Button variant="ghost" size="sm" className="ml-2 text-xs">
-                                <Compass className="w-3 h-3 mr-1" />
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="ml-2 text-xs"
+                                aria-label="Use GPS to detect current location"
+                                type="button"
+                              >
+                                <Compass className="w-3 h-3 mr-1" aria-hidden="true" />
                                 GPS
                               </Button>
                             </div>
@@ -492,7 +498,11 @@ export default function HomePage() {
 
                 {/* Quick Action Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-16">
-                  <Link href="/post-job" className="group">
+                  <Link
+                    href="/post-job"
+                    className="group"
+                    aria-label="Post a job and get matched with professionals in minutes"
+                  >
                     <Card className="h-full bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 rounded-3xl overflow-hidden">
                       <CardContent className="p-8">
                         <div className="flex items-center gap-6">
@@ -513,7 +523,11 @@ export default function HomePage() {
                     </Card>
                   </Link>
 
-                  <Link href="/become-provider" className="group">
+                  <Link
+                    href="/become-provider"
+                    className="group"
+                    aria-label="Become a service provider and start earning money today"
+                  >
                     <Card className="h-full bg-gradient-to-r from-green-600 to-teal-600 text-white border-0 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 rounded-3xl overflow-hidden">
                       <CardContent className="p-8">
                         <div className="flex items-center gap-6">
@@ -1000,12 +1014,22 @@ export default function HomePage() {
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                   <span className="text-lg font-medium opacity-90">Download our app:</span>
                   <div className="flex gap-4">
-                    <Button variant="outline" className="text-white border-white/50 hover:border-white hover:bg-white/10">
-                      <Smartphone className="w-5 h-5 mr-2" />
+                    <Button
+                      variant="outline"
+                      className="text-white border-white/50 hover:border-white hover:bg-white/10"
+                      aria-label="Download Loconomy app from Apple App Store (coming soon)"
+                      disabled
+                    >
+                      <Smartphone className="w-5 h-5 mr-2" aria-hidden="true" />
                       App Store
                     </Button>
-                    <Button variant="outline" className="text-white border-white/50 hover:border-white hover:bg-white/10">
-                      <Play className="w-5 h-5 mr-2" />
+                    <Button
+                      variant="outline"
+                      className="text-white border-white/50 hover:border-white hover:bg-white/10"
+                      aria-label="Download Loconomy app from Google Play Store (coming soon)"
+                      disabled
+                    >
+                      <Play className="w-5 h-5 mr-2" aria-hidden="true" />
                       Google Play
                     </Button>
                   </div>
