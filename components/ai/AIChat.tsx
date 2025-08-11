@@ -4,11 +4,16 @@ import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
 import {
   USER_AI_AGENTS,
   userAIClient,
   type UserAIAgent,
 } from "@/lib/ai/user-ai-agents";
+import { GlassmorphicContainer } from "@/components/admin/design-system/glassmorphic-container";
+import { AICard } from "@/components/admin/design-system/ai-native-card";
+import { HolographicText } from "@/components/admin/design-system/holographic-text";
+import { NeuralLoading } from "@/components/admin/design-system/neural-loading";
 import {
   MessageCircle,
   Send,
@@ -19,6 +24,9 @@ import {
   Bot,
   User,
   Lightbulb,
+  Brain,
+  Network,
+  Zap,
 } from "lucide-react";
 
 interface Message {
@@ -173,7 +181,7 @@ export default function AIChat({
 
   const getAgentAvatar = (agentId: string) => {
     const agent = USER_AI_AGENTS.find((a) => a.id === agentId);
-    return agent?.avatar || "��";
+    return agent?.avatar || "🤖";
   };
 
   const getAgentName = (agentId: string) => {
@@ -183,17 +191,16 @@ export default function AIChat({
 
   const getThemeClasses = () => {
     const themes = {
-      light: "bg-white border-gray-200 text-gray-900",
-      dark: "bg-gray-900 border-gray-700 text-white",
-      brand:
-        "bg-gradient-to-br from-blue-50 to-purple-50 border-blue-200 text-gray-900",
+      light: "bg-white/90 backdrop-blur-md border-white/20 text-gray-900",
+      dark: "bg-gray-900/90 backdrop-blur-md border-gray-700/30 text-white",
+      brand: "bg-gradient-to-br from-blue-50/90 via-purple-50/90 to-pink-50/90 backdrop-blur-md border-blue-200/30 text-gray-900",
     };
     return themes[theme];
   };
 
   const getPositionClasses = () => {
     const positions = {
-      floating: "fixed bottom-4 right-4 z-50 w-80 max-h-96",
+      floating: "fixed bottom-6 right-6 z-50 w-80 max-h-[32rem]",
       embedded: "w-full max-w-md mx-auto",
       fullwidth: "w-full",
     };
@@ -207,26 +214,42 @@ export default function AIChat({
     return (
       <Button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-4 right-4 z-50 w-14 h-14 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-300"
+        className="fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 shadow-xl hover:shadow-2xl transition-all duration-500 group relative overflow-hidden"
         size="icon"
       >
-        <MessageCircle className="h-6 w-6" />
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+        <div className="relative z-10 flex items-center justify-center">
+          <MessageCircle className="h-7 w-7" />
+        </div>
+        <div className="absolute inset-0 bg-blue-400/30 rounded-full animate-ping" />
       </Button>
     );
   }
 
   return (
-    <Card
-      className={`${getPositionClasses()} ${getThemeClasses()} ${className} shadow-xl`}
+    <GlassmorphicContainer
+      variant="intense"
+      glow
+      animated
+      className={`${getPositionClasses()} ${className} shadow-2xl relative overflow-hidden`}
     >
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10" />
+      
       {/* Header */}
-      <CardHeader className="pb-3">
+      <CardHeader className="pb-3 relative">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="text-xl">{currentAgent.avatar}</div>
+            <div className="relative">
+              <div className="text-2xl relative z-10">{currentAgent.avatar}</div>
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-400/30 to-purple-400/30 rounded-full animate-pulse" />
+            </div>
             <div>
-              <h3 className="font-semibold text-sm">{currentAgent.name}</h3>
-              <p className="text-xs text-gray-500">{currentAgent.role}</p>
+              <HolographicText className="font-bold text-sm">{currentAgent.name}</HolographicText>
+              <p className="text-xs text-gray-600/80 font-medium">{currentAgent.role}</p>
+              <div className="flex items-center gap-1 mt-1">
+                <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
+                <span className="text-xs text-green-600 font-medium">AGI Online</span>
+              </div>
             </div>
           </div>
           <div className="flex gap-1">
@@ -236,6 +259,7 @@ export default function AIChat({
                   size="sm"
                   variant="ghost"
                   onClick={() => setIsMinimized(!isMinimized)}
+                  className="h-8 w-8 rounded-lg hover:bg-white/20"
                 >
                   {isMinimized ? (
                     <Maximize2 className="h-4 w-4" />
@@ -247,6 +271,7 @@ export default function AIChat({
                   size="sm"
                   variant="ghost"
                   onClick={() => setIsOpen(false)}
+                  className="h-8 w-8 rounded-lg hover:bg-white/20"
                 >
                   <X className="h-4 w-4" />
                 </Button>
@@ -258,33 +283,39 @@ export default function AIChat({
 
       {/* Messages */}
       {!isMinimized && (
-        <CardContent className="p-0">
-          <div className="h-64 overflow-y-auto px-4 space-y-3">
+        <CardContent className="p-0 relative">
+          <div className="h-64 overflow-y-auto px-4 space-y-4 bg-gradient-to-br from-gray-50/30 to-white/20 backdrop-blur-sm">
             {messages.map((message) => (
               <div
                 key={message.id}
                 className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
               >
                 <div
-                  className={`max-w-[85%] p-3 rounded-lg ${
+                  className={`max-w-[85%] p-4 rounded-xl backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] ${
                     message.role === "user"
-                      ? "bg-blue-600 text-white"
-                      : "bg-gray-100 text-gray-900"
+                      ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg"
+                      : "bg-white/80 border border-white/40 text-gray-900 shadow-md"
                   }`}
                 >
                   {message.role === "assistant" && (
-                    <div className="flex items-center gap-2 mb-1 text-xs text-gray-600">
-                      <span>{getAgentAvatar(message.agentId!)}</span>
-                      <span className="font-medium">
+                    <div className="flex items-center gap-2 mb-2 text-xs">
+                      <span className="text-lg relative">
+                        {getAgentAvatar(message.agentId!)}
+                        <div className="absolute inset-0 bg-blue-400/20 rounded-full animate-ping" />
+                      </span>
+                      <span className="font-semibold text-gray-600">
                         {getAgentName(message.agentId!)}
                       </span>
+                      <Badge className="bg-blue-100 text-blue-700 text-xs">
+                        AGI
+                      </Badge>
                     </div>
                   )}
-                  <div className="text-sm whitespace-pre-wrap">
+                  <div className="text-sm whitespace-pre-wrap leading-relaxed">
                     {message.content}
                   </div>
                   <div
-                    className={`text-xs mt-1 ${
+                    className={`text-xs mt-2 ${
                       message.role === "user"
                         ? "text-blue-100"
                         : "text-gray-500"
@@ -298,14 +329,20 @@ export default function AIChat({
 
             {isLoading && (
               <div className="flex justify-start">
-                <div className="bg-gray-100 p-3 rounded-lg max-w-[85%]">
-                  <div className="flex items-center gap-2 mb-1 text-xs text-gray-600">
-                    <span>{currentAgent.avatar}</span>
-                    <span className="font-medium">{currentAgent.name}</span>
+                <div className="bg-white/80 border border-white/40 p-4 rounded-xl backdrop-blur-sm shadow-md max-w-[85%]">
+                  <div className="flex items-center gap-2 mb-2 text-xs">
+                    <span className="text-lg relative">
+                      {currentAgent.avatar}
+                      <div className="absolute inset-0 bg-blue-400/20 rounded-full animate-ping" />
+                    </span>
+                    <span className="font-semibold text-gray-600">{currentAgent.name}</span>
+                    <Badge className="bg-blue-100 text-blue-700 text-xs animate-pulse">
+                      Processing
+                    </Badge>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
-                    <span className="text-sm text-gray-600">Thinking...</span>
+                  <div className="flex items-center gap-3">
+                    <NeuralLoading size="sm" />
+                    <span className="text-sm text-gray-700 font-medium">Neural networks thinking...</span>
                   </div>
                 </div>
               </div>
@@ -315,8 +352,8 @@ export default function AIChat({
           </div>
 
           {/* Input */}
-          <div className="p-4 border-t">
-            <div className="flex gap-2">
+          <div className="p-4 border-t border-white/20 relative">
+            <div className="flex gap-3">
               <Input
                 value={input}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -327,15 +364,15 @@ export default function AIChat({
                   e.key === "Enter" && handleSendMessage()
                 }
                 disabled={isLoading}
-                className="flex-1 text-sm"
+                className="flex-1 text-sm bg-white/80 backdrop-blur-sm border-white/40 focus:border-blue-400 focus:ring-blue-400/30 rounded-xl"
               />
               <Button
                 onClick={handleSendMessage}
                 disabled={isLoading || !input.trim()}
                 size="sm"
-                className="bg-blue-600 hover:bg-blue-700"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 rounded-xl px-4 shadow-lg hover:shadow-xl transition-all duration-300 group"
               >
-                <Send className="h-4 w-4" />
+                <Send className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Button>
             </div>
 
@@ -352,17 +389,21 @@ export default function AIChat({
                       onClick={() =>
                         setInput(`Help me with ${capability.toLowerCase()}`)
                       }
-                      className="text-xs"
+                      className="text-xs bg-white/30 backdrop-blur-sm border-white/40 hover:bg-white/40 rounded-lg group"
                     >
-                      <Lightbulb className="h-3 w-3 mr-1" />
+                      <div className="p-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded mr-2 group-hover:scale-110 transition-transform">
+                        <Lightbulb className="h-2.5 w-2.5 text-white" />
+                      </div>
                       {capability}
                     </Button>
                   ))}
               </div>
             )}
+            
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-400/5 to-purple-400/5 rounded-xl -z-10 blur-xl" />
           </div>
         </CardContent>
       )}
-    </Card>
+    </GlassmorphicContainer>
   );
 }
