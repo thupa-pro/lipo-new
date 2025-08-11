@@ -43,18 +43,18 @@ export function FuturisticMetrics({
   const [isAnimating, setIsAnimating] = useState(false)
 
   // Calculate trend
-  const trend = data.previousValue 
-    ? data.value > data.previousValue ? 'up' 
-    : data.value < data.previousValue ? 'down' 
+  const trend = data?.previousValue
+    ? data.value > data.previousValue ? 'up'
+    : data.value < data.previousValue ? 'down'
     : 'neutral'
     : 'neutral';
   
-  const changePercent = data.previousValue 
+  const changePercent = data?.previousValue
     ? Math.abs(((data.value - data.previousValue) / data.previousValue) * 100)
     : 0;
 
   // Calculate progress percentage
-  const progressPercent = data.target 
+  const progressPercent = data?.target
     ? Math.min((data.value / data.target) * 100, 100)
     : 0;
 
@@ -67,7 +67,7 @@ export function FuturisticMetrics({
 
     setIsAnimating(true)
     const start = displayValue
-    const end = data.value
+    const end = data?.value || 0
     const duration = 2000
     const startTime = Date.now()
 
@@ -90,7 +90,7 @@ export function FuturisticMetrics({
     }
     
     requestAnimationFrame(animate)
-  }, [data.value, animated, displayValue])
+  }, [data?.value, animated, displayValue])
 
   const variants = {
     neural: {
@@ -272,17 +272,17 @@ export function FuturisticMetrics({
           } : {}}
           transition={{ duration: 2, ease: "easeInOut" }}
         >
-          {data.prefix}
+          {data?.prefix}
           {Math.round(displayValue).toLocaleString()}
-          {data.unit}
-          {data.suffix}
+          {data?.unit}
+          {data?.suffix}
         </motion.div>
       </div>
 
       {/* Trend and Progress Section */}
       <div className="space-y-3">
         {/* Trend */}
-        {showTrend && data.previousValue && (
+        {showTrend && data?.previousValue && (
           <motion.div
             className="flex items-center gap-2"
             initial={{ opacity: 0, x: -20 }}
@@ -307,7 +307,7 @@ export function FuturisticMetrics({
         )}
 
         {/* Progress Bar */}
-        {showProgress && data.target && (
+        {showProgress && data?.target && (
           <div className="space-y-2">
             <div className="flex items-center justify-between">
               <span className={cn('text-white/60', sizeStyle.trend)}>
@@ -330,7 +330,7 @@ export function FuturisticMetrics({
             </div>
             <div className="flex items-center justify-between">
               <span className={cn('text-white/40', sizeStyle.trend)}>
-                Target: {data.target?.toLocaleString()}{data.unit}
+                Target: {data?.target?.toLocaleString()}{data?.unit}
               </span>
               {progressPercent >= 100 && (
                 <motion.div
