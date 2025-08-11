@@ -1,8 +1,8 @@
-import { Suspense } from 'react';
+'use client';
+
+import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { createSupabaseServerComponent } from '@/lib/supabase/server';
-import { isSupabaseConfigured } from '@/lib/env-check';
 import { HomeClientComponents } from '@/components/client-wrappers/home-client-components';
 import { ModernFooter } from '@/components/modern-footer';
 import { Badge } from '@/components/ui/badge';
@@ -64,228 +64,26 @@ import { HomePageClient } from './components/home-page-client';
 import { AIInsightsSection } from '@/components/ai/ai-insights-section';
 import { LiveProviderStatus } from '@/components/providers/live-provider-status';
 
-// Configure ISR with optimal revalidation
-export const revalidate = 1800; // 30 minutes
-
-// Enhanced metadata for production SEO
-export const metadata = {
-  title: "Loconomy - AI-Powered Local Services Platform | Find Trusted Professionals Instantly",
-  description: "Connect with verified local service professionals through our intelligent platform. From emergency repairs to wellness coaching - find trusted providers with AI-powered matching, real-time availability, and smart recommendations. 98.7% success rate.",
-  keywords: [
-    "local services", "AI marketplace", "service providers", "home repair", 
-    "professional services", "artificial intelligence", "smart matching",
-    "instant booking", "verified professionals", "emergency services",
-    "wellness coaches", "tutoring", "automotive services", "tech repair"
-  ],
-  authors: [{ name: "Loconomy", url: "https://loconomy.com" }],
-  creator: "Loconomy",
-  publisher: "Loconomy",
-  applicationName: "Loconomy",
-  generator: "Next.js 15",
-  referrer: "origin-when-cross-origin",
-  classification: "Business Directory",
-  category: "technology",
-  robots: {
-    index: true,
-    follow: true,
-    nocache: false,
-    googleBot: {
-      index: true,
-      follow: true,
-      noimageindex: false,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://loconomy.com",
-    siteName: "Loconomy",
-    title: "Loconomy - AI-Powered Local Services Platform",
-    description: "Connect with verified local service professionals through our intelligent platform. 98.7% success rate, instant matching, live support 24/7.",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Loconomy - AI-Powered Local Services Platform",
-        type: "image/png",
-      },
-      {
-        url: "/og-image-square.png", 
-        width: 1200,
-        height: 1200,
-        alt: "Loconomy - Find Local Services with AI",
-        type: "image/png",
-      },
-    ],
-    videos: [
-      {
-        url: "/demo-video.mp4",
-        width: 1280,
-        height: 720,
-        type: "video/mp4",
-      }
-    ]
-  },
-  twitter: {
-    card: "summary_large_image",
-    site: "@loconomy",
-    creator: "@loconomy",
-    title: "Loconomy - AI-Powered Local Services Platform",
-    description: "Connect with verified local service professionals through our intelligent platform. 98.7% success rate.",
-    images: ["/twitter-image.png"],
-  },
-  alternates: {
-    canonical: "https://loconomy.com",
-    languages: {
-      'en-US': 'https://loconomy.com',
-      'es-ES': 'https://loconomy.com/es',
-      'fr-FR': 'https://loconomy.com/fr',
-    },
-  },
-  verification: {
-    google: process.env.GOOGLE_SITE_VERIFICATION,
-    yandex: process.env.YANDEX_VERIFICATION,
-    yahoo: process.env.YAHOO_VERIFICATION,
-  },
-  other: {
-    'fb:app_id': process.env.FACEBOOK_APP_ID,
-    'apple-mobile-web-app-capable': 'yes',
-    'apple-mobile-web-app-status-bar-style': 'black-translucent',
-    'mobile-web-app-capable': 'yes',
-    'theme-color': '#7C3AED',
-  },
-};
-
-// Server-side data fetching with enhanced error handling
-async function getHomePageStats() {
-  const fallbackStats = {
-    userCount: 2400000,
-    providerCount: 45000,
-    bookingCount: 1200000,
-    averageRating: 4.9,
-    responseTime: "< 2hrs",
-    successRate: "98.7%",
-    liveProviders: 12000,
-    avgEarnings: "$3,200",
-    satisfactionRate: "99.2%"
-  };
-
-  if (!isSupabaseConfigured()) {
-    console.log('Using fallback stats - Supabase not configured for production');
-    return fallbackStats;
-  }
-
-  try {
-    const supabase = createSupabaseServerComponent();
-
-    const [usersResult, providersResult, bookingsResult, activeProvidersResult] = await Promise.all([
-      supabase.from('users').select('id', { count: 'exact', head: true }),
-      supabase.from('providers').select('id', { count: 'exact', head: true }),
-      supabase.from('bookings').select('id', { count: 'exact', head: true }),
-      supabase.from('providers').select('id', { count: 'exact', head: true }).eq('is_active', true)
-    ]);
-
-    return {
-      userCount: usersResult.count || fallbackStats.userCount,
-      providerCount: providersResult.count || fallbackStats.providerCount,
-      bookingCount: bookingsResult.count || fallbackStats.bookingCount,
-      liveProviders: activeProvidersResult.count || fallbackStats.liveProviders,
-      averageRating: 4.9,
-      responseTime: "< 2hrs",
-      successRate: "98.7%",
-      avgEarnings: "$3,200",
-      satisfactionRate: "99.2%"
-    };
-  } catch (error) {
-    console.error('Error fetching homepage stats:', error);
-    return fallbackStats;
-  }
+// Types
+interface HomePageStats {
+  userCount: number;
+  providerCount: number;
+  bookingCount: number;
+  averageRating: number;
+  responseTime: string;
+  successRate: string;
+  liveProviders: number;
+  avgEarnings: string;
+  satisfactionRate: string;
 }
 
-async function getPopularCategories() {
-  if (!isSupabaseConfigured()) {
-    return defaultCategories;
-  }
-
-  try {
-    const supabase = createSupabaseServerComponent();
-
-    const { data: categories } = await supabase
-      .from('categories')
-      .select('id, name, slug, description, icon_name')
-      .eq('parent_id', null)
-      .order('sort_order')
-      .limit(8);
-
-    return categories || defaultCategories;
-  } catch (error) {
-    console.error('Error fetching categories:', error);
-    return defaultCategories;
-  }
+interface Category {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  icon_name: string;
 }
-
-const defaultCategories = [
-  {
-    id: '1',
-    name: 'Home Services',
-    slug: 'home-services',
-    description: 'Plumbing, electrical, cleaning, and repairs. Professional home maintenance.',
-    icon_name: 'home'
-  },
-  {
-    id: '2', 
-    name: 'Wellness & Fitness',
-    slug: 'wellness-fitness',
-    description: 'Personal trainers, yoga, nutrition coaching, and wellness services.',
-    icon_name: 'dumbbell'
-  },
-  {
-    id: '3',
-    name: 'Education & Tutoring',
-    slug: 'education-tutoring',
-    description: 'Expert tutors for all subjects, test prep, and skill development.',
-    icon_name: 'graduation-cap'
-  },
-  {
-    id: '4',
-    name: 'Tech & Repair',
-    slug: 'tech-repair',
-    description: 'Device repair, IT support, and technical troubleshooting.',
-    icon_name: 'monitor'
-  },
-  {
-    id: '5',
-    name: 'Automotive',
-    slug: 'automotive',
-    description: 'Car repair, maintenance, detailing, and automotive expertise.',
-    icon_name: 'car'
-  },
-  {
-    id: '6',
-    name: 'Entertainment',
-    slug: 'entertainment',
-    description: 'Event planning, photography, music, and entertainment services.',
-    icon_name: 'party-popper'
-  },
-  {
-    id: '7',
-    name: 'Business Services',
-    slug: 'business-services',
-    description: 'Consulting, accounting, legal, and professional business support.',
-    icon_name: 'briefcase'
-  },
-  {
-    id: '8',
-    name: 'Creative Services',
-    slug: 'creative-services',
-    description: 'Design, writing, marketing, and creative professional services.',
-    icon_name: 'palette'
-  }
-];
 
 // Enhanced structured data for rich snippets
 const structuredData = {
@@ -397,12 +195,91 @@ function HomePageSkeleton() {
   );
 }
 
-export default async function HomePage() {
-  // Server-side data fetching with parallel requests
-  const [stats, categories] = await Promise.all([
-    getHomePageStats(),
-    getPopularCategories()
-  ]);
+export default function HomePage() {
+  const [stats, setStats] = useState<HomePageStats | null>(null);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        setIsLoading(true);
+        setError(null);
+
+        // Parallel fetch of stats and categories
+        const [statsResponse, categoriesResponse] = await Promise.all([
+          fetch('/api/homepage-stats'),
+          fetch('/api/popular-categories')
+        ]);
+
+        if (!statsResponse.ok || !categoriesResponse.ok) {
+          throw new Error('Failed to fetch data');
+        }
+
+        const [statsData, categoriesData] = await Promise.all([
+          statsResponse.json(),
+          categoriesResponse.json()
+        ]);
+
+        setStats(statsData);
+        setCategories(categoriesData);
+      } catch (err) {
+        console.error('Error fetching homepage data:', err);
+        setError('Failed to load data');
+        
+        // Fallback data in case of error
+        setStats({
+          userCount: 2400000,
+          providerCount: 45000,
+          bookingCount: 1200000,
+          averageRating: 4.9,
+          responseTime: "< 2hrs",
+          successRate: "98.7%",
+          liveProviders: 12000,
+          avgEarnings: "$3,200",
+          satisfactionRate: "99.2%"
+        });
+        setCategories([
+          {
+            id: '1',
+            name: 'Home Services',
+            slug: 'home-services',
+            description: 'Plumbing, electrical, cleaning, and repairs. Professional home maintenance.',
+            icon_name: 'home'
+          },
+          {
+            id: '2', 
+            name: 'Wellness & Fitness',
+            slug: 'wellness-fitness',
+            description: 'Personal trainers, yoga, nutrition coaching, and wellness services.',
+            icon_name: 'dumbbell'
+          }
+        ]);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  if (isLoading) {
+    return <HomePageSkeleton />;
+  }
+
+  if (!stats) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold mb-4">Unable to load page</h1>
+          <Button onClick={() => window.location.reload()}>
+            Try Again
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   const currentYear = new Date().getFullYear();
 
@@ -417,7 +294,6 @@ export default async function HomePage() {
       <HomeClientComponents>
         <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-black transition-colors duration-500">
           
-
           {/* Advanced Background Effects */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             {/* Mesh gradient overlay */}
