@@ -164,16 +164,15 @@ export function AIInsightsSection({ stats }: AIInsightsSectionProps) {
               <FuturisticMetrics
                 key={index}
                 title={metric.title}
-                value={metric.value}
-                change={metric.change}
-                trend={metric.trend}
+                data={{
+                  value: parseFloat(metric.value.replace('%', '')),
+                  previousValue: parseFloat(metric.value.replace('%', '')) - metric.change,
+                  unit: '%'
+                }}
                 icon={metric.icon}
+                variant="neural"
                 className="hover:scale-105 transition-all duration-300"
-              >
-                <p className="text-xs text-gray-600 mt-2 font-medium">
-                  {metric.description}
-                </p>
-              </FuturisticMetrics>
+              />
             ))}
           </div>
         </div>
