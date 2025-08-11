@@ -122,7 +122,11 @@
     "test:watch": "vitest watch",
     "analyze": "ANALYZE=true pnpm run build",
     "analyze:server": "ANALYZE=true BUNDLE_ANALYZE=server pnpm run build",
-    "analyze:browser": "ANALYZE=true BUNDLE_ANALYZE=browser pnpm run build"
+    "analyze:browser": "ANALYZE=true BUNDLE_ANALYZE=browser pnpm run build",
+    "analyze:bundle": "node scripts/analyze-bundle.js",
+    "perf:audit": "node scripts/analyze-performance.js",
+    "optimize": "pnpm run analyze:bundle && pnpm run perf:audit",
+    "perf:monitor": "next dev --experimental-web-vitals-attribution"
   },
   "packageManager": "pnpm@10.13.1"
 }
