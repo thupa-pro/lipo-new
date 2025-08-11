@@ -189,9 +189,17 @@ export function AICard({
             </motion.div>
             <div className="flex-1">
               <p className="text-sm text-white/80 font-medium">
-                AI Insight: {aiInsight}
+                {typeof aiInsight === 'string' ? (
+                  <>AI Insight: {aiInsight}</>
+                ) : (
+                  <>
+                    <span className="font-semibold">{aiInsight.title}</span>
+                    <br />
+                    <span className="text-xs text-white/60">{aiInsight.description}</span>
+                  </>
+                )}
               </p>
-              {confidence > 0 && (
+              {(confidence > 0 || (typeof aiInsight === 'object' && aiInsight.confidence > 0)) && (
                 <div className="flex items-center gap-2 mt-1">
                   <span className="text-xs text-white/50">Confidence:</span>
                   <div className="flex-1 h-1 bg-white/20 rounded-full overflow-hidden">
