@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import { ResetPasswordPageContent } from "./components/reset-password-page-content";
-import { SkeletonLoader } from "@/components/ui/skeleton-loader";
 
 // Enhanced metadata for SEO and sharing
 export const metadata: Metadata = {
