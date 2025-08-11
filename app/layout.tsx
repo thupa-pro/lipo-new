@@ -212,6 +212,10 @@ export default function RootLayout({
                   
                   {/* Toast notifications */}
                   <Toaster />
+
+                  {/* Performance optimization */}
+                  <PerformanceClient />
+                  <WebVitals />
                 </CommandPaletteProvider>
               </AuthProvider>
             </NetworkProvider>
