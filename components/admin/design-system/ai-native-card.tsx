@@ -206,12 +206,12 @@ export function AICard({
                     <motion.div
                       className="h-full bg-gradient-to-r from-purple-400 to-cyan-400"
                       initial={{ width: 0 }}
-                      animate={{ width: `${confidence}%` }}
+                      animate={{ width: `${typeof aiInsight === 'object' ? aiInsight.confidence : confidence}%` }}
                       transition={{ delay: 0.5, duration: 1, ease: "easeOut" }}
                     />
                   </div>
                   <span className="text-xs text-white/70 font-medium">
-                    {confidence}%
+                    {typeof aiInsight === 'object' ? aiInsight.confidence : confidence}%
                   </span>
                 </div>
               )}
