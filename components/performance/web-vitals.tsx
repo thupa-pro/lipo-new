@@ -168,7 +168,7 @@ export function PerformanceMonitor() {
               name: 'long-task',
               value: entry.duration,
               rating: entry.duration > 100 ? 'poor' : 'needs-improvement',
-              id: Math.random().toString(36).substr(2, 9),
+              id: `long-task-${Date.now()}-${crypto.randomUUID?.() || Math.random().toString(36).substr(2, 9)}`,
               delta: entry.duration,
             })
           }
