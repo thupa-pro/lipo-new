@@ -69,6 +69,11 @@ export async function GET() {
   try {
     const supabase = createSupabaseServerComponent();
 
+    // Handle case where Supabase is not configured
+    if (!supabase) {
+      return NextResponse.json(defaultCategories);
+    }
+
     const { data: categories } = await supabase
       .from('categories')
       .select('id, name, slug, description, icon_name')

@@ -23,6 +23,12 @@ export async function GET() {
   try {
     const supabase = createSupabaseServerComponent();
 
+    // Handle case where Supabase is not configured
+    if (!supabase) {
+      console.log('Using fallback stats - Supabase not configured');
+      return NextResponse.json(fallbackStats);
+    }
+
     const [usersResult, providersResult, bookingsResult, activeProvidersResult] = await Promise.all([
       supabase.from('users').select('id', { count: 'exact', head: true }),
       supabase.from('providers').select('id', { count: 'exact', head: true }),
