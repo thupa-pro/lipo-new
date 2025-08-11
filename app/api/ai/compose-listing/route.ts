@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { auth } from '@clerk/nextjs/server'
+// Using Supabase auth instead of Clerk
 import { llmClient } from '@/lib/ai/llm-client'
 import { createSupabaseAdminClient } from '@/lib/supabase/client'
 import { z } from 'zod'

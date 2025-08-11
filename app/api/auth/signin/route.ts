@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { auth, clerkClient } from '@clerk/nextjs/server'
+// Using Supabase auth instead of Clerk
 
 export async function POST(request: NextRequest) {
   try {
