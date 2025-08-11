@@ -5,12 +5,19 @@ import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import { Brain, Sparkles, Zap, TrendingUp } from 'lucide-react'
 
+interface AIInsight {
+  title: string
+  description: string
+  confidence: number
+  status: string
+}
+
 interface AICardProps {
   children: React.ReactNode
   className?: string
   title?: string
   subtitle?: string
-  aiInsight?: string
+  aiInsight?: string | AIInsight
   confidence?: number
   status?: 'learning' | 'active' | 'optimized' | 'predicting'
   variant?: 'neural' | 'quantum' | 'holographic' | 'biometric'
