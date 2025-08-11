@@ -49,17 +49,20 @@ export function AccessibilityProvider({ children }: { children: ReactNode }) {
 
   // Detect user preferences on mount
   useEffect(() => {
+    // SSR safety guard
+    if (typeof window === 'undefined') return;
+
     // Check for reduced motion preference
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
     setReducedMotion(mediaQuery.matches)
-    
+
     const handleChange = (e: MediaQueryListEvent) => setReducedMotion(e.matches)
     mediaQuery.addEventListener('change', handleChange)
 
     // Check for high contrast preference
     const contrastQuery = window.matchMedia('(prefers-contrast: high)')
     setHighContrast(contrastQuery.matches)
-    
+
     const handleContrastChange = (e: MediaQueryListEvent) => setHighContrast(e.matches)
     contrastQuery.addEventListener('change', handleContrastChange)
 
@@ -78,17 +81,17 @@ export function AccessibilityProvider({ children }: { children: ReactNode }) {
     document.addEventListener('keydown', handleKeyDown as any)
     document.addEventListener('mousedown', handleMouseDown)
 
-    // Load saved preferences
-    const savedPrefs = localStorage.getItem('accessibility-preferences')
-    if (savedPrefs) {
-      try {
+    // Load saved preferences with error handling
+    try {
+      const savedPrefs = localStorage.getItem('accessibility-preferences')
+      if (savedPrefs) {
         const prefs = JSON.parse(savedPrefs)
         setFontSize(prefs.fontSize || 'medium')
         setScreenReaderMode(prefs.screenReaderMode || false)
         setColorBlindMode(prefs.colorBlindMode || 'none')
-      } catch (error) {
-        console.error('Failed to load accessibility preferences:', error)
       }
+    } catch (error) {
+      console.error('Failed to load accessibility preferences:', error)
     }
 
     return () => {
