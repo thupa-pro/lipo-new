@@ -253,7 +253,7 @@ export default function SmartRecommendations({
 
     setRecommendations(mockRecommendations.slice(0, maxRecommendations));
 
-    // Generate AI insight
+    // Generate AI insight - stable based on user preferences
     const insights = [
       "Based on your booking history, I've prioritized eco-friendly and highly-rated providers in your area.",
       "I noticed you prefer quick response times, so I've highlighted providers who respond within hours.",
@@ -261,7 +261,12 @@ export default function SmartRecommendations({
       "Since you often book last-minute, I've included providers with same-day availability.",
     ];
 
-    setAIInsight(insights[Math.floor(Math.random() * insights.length)]);
+    // Use a stable index based on user context instead of random
+    const insightIndex = userId
+      ? Math.abs((userId + context + location).split('').reduce((a, b) => a + b.charCodeAt(0), 0)) % insights.length
+      : 0;
+
+    setAIInsight(insights[insightIndex]);
     setIsLoading(false);
   };
 
