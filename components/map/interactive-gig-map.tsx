@@ -356,8 +356,8 @@ export function InteractiveGigMap({
       const updatedJobs = MOCK_JOBS.map(job => ({
         ...job,
         updated_at: new Date().toISOString(),
-        // Randomly update some job statuses
-        status: Math.random() > 0.8 ? 'in_progress' : job.status
+        // Keep original status to avoid hydration mismatch
+        status: job.status
       }));
       setJobs(updatedJobs);
       setIsLoading(false);
