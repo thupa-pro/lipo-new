@@ -712,6 +712,120 @@ export default function AdminDashboard() {
                 </div>
               </GlassmorphicContainer>
             </TabsContent>
+
+            {/* AI Components Integration Test Section */}
+            <TabsContent value="ai-test" className="space-y-8">
+              <div className="space-y-8">
+                <HolographicText variant="gradient" size="2xl" className="mb-6">
+                  🧠 AGI Components Integration Test
+                </HolographicText>
+
+                <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+                  {/* AI Assistant */}
+                  <GlassmorphicContainer variant="intense" glow animated>
+                    <div className="p-6">
+                      <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                        <Brain className="h-5 w-5 text-blue-400" />
+                        AI Assistant - Neural Advisory Team
+                      </h3>
+                      <AIAssistant
+                        platformData={{
+                          totalUsers: mockData.stats.totalUsers,
+                          totalRevenue: mockData.stats.totalRevenue,
+                          systemHealth: 'Excellent',
+                          recentActivity: [
+                            { type: 'Growth', description: 'User engagement up 23%', priority: 'High' },
+                            { type: 'Security', description: 'No threats detected', priority: 'Normal' }
+                          ]
+                        }}
+                        onInsightGenerated={(insight, agentId) => {
+                          console.log(`🧠 AGI Insight from ${agentId}:`, insight);
+                        }}
+                      />
+                    </div>
+                  </GlassmorphicContainer>
+
+                  {/* AI Insights Dashboard */}
+                  <GlassmorphicContainer variant="neon" glow animated>
+                    <div className="p-6">
+                      <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                        <BarChart3 className="h-5 w-5 text-purple-400" />
+                        AI Insights - Intelligence Center
+                      </h3>
+                      <AIInsightsDashboard
+                        platformData={{
+                          userEngagement: 87.3,
+                          revenueGrowth: 23.5,
+                          securityScore: 4.2,
+                          satisfaction: 94.1
+                        }}
+                      />
+                    </div>
+                  </GlassmorphicContainer>
+                </div>
+
+                {/* AI Monitoring Hub */}
+                <GlassmorphicContainer variant="subtle" glow animated className="mt-8">
+                  <div className="p-6">
+                    <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                      <Activity className="h-5 w-5 text-green-400" />
+                      AI Monitoring Hub - System Intelligence
+                    </h3>
+                    <AIMonitoringHub
+                      platformData={{
+                        systemMetrics: {
+                          cpu: 67,
+                          memory: 78,
+                          network: 12,
+                          apiResponse: 145
+                        },
+                        alertLevel: 'normal'
+                      }}
+                    />
+                  </div>
+                </GlassmorphicContainer>
+
+                {/* Integration Status */}
+                <GlassmorphicContainer variant="intense" glow animated className="mt-8">
+                  <div className="p-8 text-center">
+                    <div className="mb-6">
+                      <div className="w-16 h-16 bg-gradient-to-r from-green-400 to-blue-500 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <CheckCircle className="w-8 h-8 text-white" />
+                      </div>
+                      <HolographicText variant="accent" size="xl" className="mb-2">
+                        AGI Integration Complete
+                      </HolographicText>
+                      <p className="text-white/70 mb-4">
+                        All AI personas, interfaces, and neural networks are operating at quantum efficiency
+                      </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
+                      <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+                        <CheckCircle className="w-6 h-6 text-green-400 mx-auto mb-2" />
+                        <p className="text-sm font-medium text-white">AI Assistant</p>
+                        <p className="text-xs text-white/60">Neural Advisory</p>
+                      </div>
+                      <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+                        <CheckCircle className="w-6 h-6 text-green-400 mx-auto mb-2" />
+                        <p className="text-sm font-medium text-white">Insights Dashboard</p>
+                        <p className="text-xs text-white/60">Intelligence Center</p>
+                      </div>
+                      <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+                        <CheckCircle className="w-6 h-6 text-green-400 mx-auto mb-2" />
+                        <p className="text-sm font-medium text-white">Monitoring Hub</p>
+                        <p className="text-xs text-white/60">System Intelligence</p>
+                      </div>
+                      <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+                        <CheckCircle className="w-6 h-6 text-green-400 mx-auto mb-2" />
+                        <p className="text-sm font-medium text-white">Design System</p>
+                        <p className="text-xs text-white/60">Quantum UI</p>
+                      </div>
+                    </div>
+                  </div>
+                </GlassmorphicContainer>
+              </div>
+            </TabsContent>
           </Tabs>
         </motion.div>
       </div>
