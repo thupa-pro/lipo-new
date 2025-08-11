@@ -38,6 +38,8 @@ function sendToAnalytics(metric: WebVitalsMetric) {
 
 export default function WebVitals() {
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
     // Largest Contentful Paint
     getLCP((metric) => {
       sendToAnalytics(metric)
