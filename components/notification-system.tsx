@@ -159,11 +159,13 @@ export default function NotificationSystem() {
 
   // Simulate real-time notifications
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
     const interval = setInterval(() => {
-      // Randomly add a new notification (for demo purposes)
+      // Randomly add a new notification (for demo purposes) - client-only
       if (Math.random() > 0.95) {
         const newNotification: Notification = {
-          id: Date.now().toString(),
+          id: `${Date.now()}-${crypto.randomUUID?.() || Math.random().toString(36).substr(2, 9)}`,
           type: "message",
           title: "New Message",
           message: "You have a new message from a customer.",
