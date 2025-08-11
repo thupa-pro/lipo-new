@@ -178,8 +178,8 @@ export function NetworkProvider({ children }: { children: React.ReactNode }) {
   return (
     <NetworkContext.Provider value={value}>
       {children}
-      <NetworkStatusIndicator />
-      <NetworkErrorDisplay />
+      {isClient && <NetworkStatusIndicator />}
+      {isClient && <NetworkErrorDisplay />}
     </NetworkContext.Provider>
   );
 }
