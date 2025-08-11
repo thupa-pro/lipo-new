@@ -72,7 +72,7 @@ export function NetworkProvider({ children }: { children: React.ReactNode }) {
   const addError = useCallback((error: Omit<NetworkError, 'id' | 'timestamp'>) => {
     const newError: NetworkError = {
       ...error,
-      id: `error-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+      id: `error-${Date.now()}-${crypto.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`}`,
       timestamp: new Date(),
     };
 
