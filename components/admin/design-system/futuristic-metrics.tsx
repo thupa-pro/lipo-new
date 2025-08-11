@@ -49,7 +49,7 @@ export function FuturisticMetrics({
     : 'neutral'
     : 'neutral';
   
-  const changePercent = data.previousValue 
+  const changePercent = data?.previousValue
     ? Math.abs(((data.value - data.previousValue) / data.previousValue) * 100)
     : 0;
 
