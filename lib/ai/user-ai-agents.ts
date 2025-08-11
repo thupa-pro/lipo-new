@@ -321,7 +321,7 @@ ${recentHistory.map(msg => `${msg.role}: ${msg.content}`).join('\n')}
 `;
   }
 
-  private getFallbackResponse(agent: UserAIAgent, userMessage: string): string {
+  private getFallbackResponse(agent: UserAIAgent, userMessage: string, context?: any): string {
     const responses = {
       maya: `I'd love to help you find the perfect service! Based on what you're looking for, I can recommend some great providers in your area. What type of service do you need?`,
       zoe: `I'm here to help with any questions or concerns you might have. Customer satisfaction is my top priority, so please don't hesitate to share what's on your mind.`,
