@@ -95,11 +95,13 @@ export function NetworkProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    setIsClient(true);
+
+    if (typeof window === 'undefined' || typeof navigator === 'undefined') return;
 
     const updateNetworkStatus = () => {
-      const connection = (navigator as any).connection || 
-                        (navigator as any).mozConnection || 
+      const connection = (navigator as any).connection ||
+                        (navigator as any).mozConnection ||
                         (navigator as any).webkitConnection;
 
       setStatus({
