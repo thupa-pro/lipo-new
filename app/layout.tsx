@@ -7,13 +7,15 @@ import { ThemeProvider } from "next-themes";
 import { CommandPaletteProvider } from "@/components/providers/command-palette-provider";
 import { AuthProvider } from "@/components/auth/auth-provider";
 import { NetworkProvider } from "@/components/network/network-status";
-import { 
-  AccessibilityProvider, 
-  SkipLink, 
-  LiveRegion, 
+import {
+  AccessibilityProvider,
+  SkipLink,
+  LiveRegion,
   KeyboardNavigationIndicator,
-  AccessibilityToolbar 
+  AccessibilityToolbar
 } from "@/components/ui/accessibility-helpers";
+import PerformanceClient from "@/components/performance/performance-client";
+import WebVitals from "@/components/performance/web-vitals";
 
 const inter = Inter({ subsets: ["latin"] });
 
