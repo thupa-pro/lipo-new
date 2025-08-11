@@ -6,6 +6,11 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { aiClient } from '@/lib/ai/gemini-client';
+import { GlassmorphicContainer } from '@/components/admin/design-system/glassmorphic-container';
+import { AICard } from '@/components/admin/design-system/ai-native-card';
+import { HolographicText } from '@/components/admin/design-system/holographic-text';
+import { NeuralLoading } from '@/components/admin/design-system/neural-loading';
+import { FuturisticMetrics } from '@/components/admin/design-system/futuristic-metrics';
 import {
   TrendingUp,
   TrendingDown,
@@ -22,7 +27,10 @@ import {
   Lightbulb,
   BarChart3,
   Shield,
-  Clock
+  Clock,
+  Network,
+  Cpu,
+  Database
 } from 'lucide-react';
 
 interface Insight {
@@ -181,20 +189,20 @@ export default function AIInsightsDashboard({ platformData }: { platformData: an
 
   const getInsightIcon = (type: Insight['type']) => {
     const icons = {
-      opportunity: <Target className="h-4 w-4" />,
-      warning: <AlertTriangle className="h-4 w-4" />,
-      success: <CheckCircle className="h-4 w-4" />,
-      prediction: <Brain className="h-4 w-4" />
+      opportunity: <Target className="h-5 w-5" />,
+      warning: <AlertTriangle className="h-5 w-5" />,
+      success: <CheckCircle className="h-5 w-5" />,
+      prediction: <Brain className="h-5 w-5" />
     };
     return icons[type];
   };
 
   const getInsightColor = (type: Insight['type']) => {
     const colors = {
-      opportunity: 'text-blue-600 bg-blue-50',
-      warning: 'text-amber-600 bg-amber-50',
-      success: 'text-green-600 bg-green-50',
-      prediction: 'text-purple-600 bg-purple-50'
+      opportunity: 'from-blue-500 to-cyan-500',
+      warning: 'from-amber-500 to-orange-500',
+      success: 'from-green-500 to-emerald-500',
+      prediction: 'from-purple-500 to-pink-500'
     };
     return colors[type];
   };
@@ -227,87 +235,129 @@ export default function AIInsightsDashboard({ platformData }: { platformData: an
     return avatars[agentId as keyof typeof avatars] || '🤖';
   };
 
+  const getAgentName = (agentId: string) => {
+    const names = {
+      sophia: 'Sophia',
+      marcus: 'Marcus',
+      elena: 'Elena',
+      alex: 'Alex'
+    };
+    return names[agentId as keyof typeof names] || 'AI Agent';
+  };
+
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Header */}
-      <Card className="gradient-border bg-gradient-to-r from-indigo-50 to-purple-50">
-        <CardHeader>
+      <GlassmorphicContainer variant="intense" glow animated className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-purple-500/10 to-pink-500/10" />
+        <CardHeader className="relative">
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle className="flex items-center gap-2 text-2xl">
-                <Brain className="h-6 w-6 text-indigo-600" />
-                AI Intelligence Center
-              </CardTitle>
-              <p className="text-gray-600 mt-1">Real-time insights and predictive analytics powered by AGI</p>
+              <HolographicText className="text-2xl font-bold flex items-center gap-3">
+                <div className="p-3 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl shadow-lg">
+                  <Brain className="h-8 w-8 text-white" />
+                </div>
+                AGI Intelligence Center
+              </HolographicText>
+              <p className="text-gray-600/80 mt-2 font-medium">Real-time insights and predictive analytics powered by advanced AI</p>
+              <div className="flex items-center gap-2 mt-3">
+                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                <span className="text-xs font-medium text-green-600">Neural Networks Online • Quantum Processing Active</span>
+              </div>
             </div>
             <Button 
               onClick={generateInsights}
               disabled={isGenerating}
-              className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700"
+              className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-700 hover:via-purple-700 hover:to-pink-700 text-white font-bold px-8 py-3 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-500 relative overflow-hidden group"
             >
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
               {isGenerating ? (
                 <>
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                  Analyzing...
+                  <NeuralLoading size="sm" className="mr-2" />
+                  Neural Processing...
                 </>
               ) : (
                 <>
-                  <RefreshCw className="h-4 w-4 mr-2" />
+                  <RefreshCw className="h-5 w-5 mr-2" />
                   Refresh Insights
                 </>
               )}
             </Button>
           </div>
         </CardHeader>
-      </Card>
+      </GlassmorphicContainer>
 
       {/* Key Metrics */}
-      <Card className="gradient-border">
+      <GlassmorphicContainer variant="subtle" glow animated>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <BarChart3 className="h-5 w-5 text-blue-600" />
-            Predictive Metrics
-          </CardTitle>
+          <HolographicText className="text-xl font-bold flex items-center gap-2">
+            <BarChart3 className="h-6 w-6 text-blue-600" />
+            Predictive Metrics Dashboard
+          </HolographicText>
+          <div className="flex items-center gap-2 mt-2">
+            <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse" />
+            <span className="text-xs font-medium text-blue-600">Real-time Neural Analysis</span>
+          </div>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {metrics.map((metric, index) => (
-              <div key={index} className="p-4 bg-gray-50 rounded-lg">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-medium text-gray-700">{metric.name}</span>
-                  {getTrendIcon(metric.trend)}
+              <FuturisticMetrics
+                key={index}
+                title={metric.name}
+                value={metric.value}
+                change={metric.change}
+                trend={metric.trend}
+                icon={index === 0 ? Users : index === 1 ? DollarSign : index === 2 ? Shield : Activity}
+                className="hover:scale-105 transition-transform duration-300"
+              >
+                <div className="mt-4 space-y-2">
+                  <div className="text-xs text-gray-600 font-medium">{metric.prediction}</div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-gray-500">AI Confidence</span>
+                    <span className="text-xs font-bold text-blue-600">{metric.confidence}%</span>
+                  </div>
+                  <Progress value={metric.confidence} className="h-1.5" />
                 </div>
-                <div className="text-2xl font-bold text-gray-900 mb-1">{metric.value}</div>
-                <div className="text-xs text-gray-600 mb-3">{metric.prediction}</div>
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-gray-500">Confidence</span>
-                  <span className="text-xs font-medium">{metric.confidence}%</span>
-                </div>
-                <Progress value={metric.confidence} className="h-1 mt-1" />
-              </div>
+              </FuturisticMetrics>
             ))}
           </div>
         </CardContent>
-      </Card>
+      </GlassmorphicContainer>
 
       {/* AI Insights */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {insights.map((insight) => (
-          <Card key={insight.id} className="gradient-border hover:shadow-lg transition-all duration-300">
-            <CardHeader>
-              <div className="flex items-start justify-between">
+          <AICard
+            key={insight.id}
+            aiInsight={{
+              title: insight.title,
+              description: insight.description,
+              confidence: insight.confidence,
+              status: insight.type === 'warning' ? 'alert' : 'active'
+            }}
+            className="hover:scale-[1.02] transition-all duration-500"
+          >
+            <div className="p-6">
+              <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
-                  <div className="text-xl">{getAgentAvatar(insight.agentId)}</div>
+                  <div className="relative">
+                    <div className="text-2xl">{getAgentAvatar(insight.agentId)}</div>
+                    <div className="absolute inset-0 bg-blue-400/20 rounded-full animate-ping" />
+                  </div>
                   <div>
-                    <div className="flex items-center gap-2">
-                      <span className={`p-1 rounded ${getInsightColor(insight.type)}`}>
+                    <div className="flex items-center gap-2 mb-1">
+                      <div className={`p-2 bg-gradient-to-r ${getInsightColor(insight.type)} rounded-lg shadow-lg`}>
                         {getInsightIcon(insight.type)}
-                      </span>
-                      <CardTitle className="text-lg">{insight.title}</CardTitle>
+                      </div>
+                      <HolographicText className="text-lg font-bold">{insight.title}</HolographicText>
                     </div>
                     <div className="flex items-center gap-2 mt-2">
                       <Badge variant="outline" className={getImpactColor(insight.impact)}>
                         {insight.impact.toUpperCase()} IMPACT
+                      </Badge>
+                      <Badge className="bg-blue-100 text-blue-700 text-xs">
+                        {getAgentName(insight.agentId)}
                       </Badge>
                       <span className="text-xs text-gray-500">
                         {insight.timestamp.toLocaleTimeString()}
@@ -316,48 +366,50 @@ export default function AIInsightsDashboard({ platformData }: { platformData: an
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className="text-xs text-gray-500">Confidence</div>
-                  <div className="text-sm font-bold text-gray-900">{insight.confidence}%</div>
+                  <div className="text-xs text-gray-500 font-medium">Neural Confidence</div>
+                  <div className="text-lg font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    {insight.confidence}%
+                  </div>
                 </div>
               </div>
-            </CardHeader>
-            <CardContent>
-              <p className="text-gray-700 mb-4">{insight.description}</p>
+              
+              <p className="text-gray-700 mb-4 leading-relaxed">{insight.description}</p>
               
               {/* Confidence Bar */}
               <div className="mb-4">
-                <div className="flex justify-between text-xs text-gray-500 mb-1">
-                  <span>AI Confidence Level</span>
-                  <span>{insight.confidence}%</span>
+                <div className="flex justify-between text-xs text-gray-500 mb-2">
+                  <span className="font-medium">AI Confidence Level</span>
+                  <span className="font-bold">{insight.confidence}%</span>
                 </div>
                 <Progress value={insight.confidence} className="h-2" />
               </div>
 
               {insight.actionable && (
-                <div className="flex gap-2">
-                  <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
+                <div className="flex gap-3">
+                  <Button size="sm" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg">
                     <Lightbulb className="h-3 w-3 mr-1" />
                     Take Action
                   </Button>
-                  <Button size="sm" variant="outline">
+                  <Button size="sm" variant="outline" className="bg-white/50 backdrop-blur-sm">
                     <Eye className="h-3 w-3 mr-1" />
                     View Details
                   </Button>
                 </div>
               )}
-            </CardContent>
-          </Card>
+            </div>
+          </AICard>
         ))}
       </div>
 
       {/* Time-based Analytics */}
-      <Card className="gradient-border">
-        <CardHeader>
+      <GlassmorphicContainer variant="neon" glow animated className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 via-blue-500/5 to-green-500/5" />
+        <CardHeader className="relative">
           <div className="flex items-center justify-between">
-            <CardTitle className="flex items-center gap-2">
-              <Clock className="h-5 w-5 text-purple-600" />
-              Temporal Analysis
-            </CardTitle>
+            <HolographicText className="text-xl font-bold flex items-center gap-2">
+              <Clock className="h-6 w-6 text-purple-600" />
+              Temporal Analysis Matrix
+            </HolographicText>
             <div className="flex gap-2">
               {['1h', '24h', '7d', '30d'].map((timeframe) => (
                 <Button
@@ -365,6 +417,10 @@ export default function AIInsightsDashboard({ platformData }: { platformData: an
                   size="sm"
                   variant={selectedTimeframe === timeframe ? "default" : "outline"}
                   onClick={() => setSelectedTimeframe(timeframe)}
+                  className={selectedTimeframe === timeframe ? 
+                    "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg" : 
+                    "bg-white/30 backdrop-blur-sm border-white/40 hover:bg-white/40"
+                  }
                 >
                   {timeframe}
                 </Button>
@@ -372,37 +428,55 @@ export default function AIInsightsDashboard({ platformData }: { platformData: an
             </div>
           </div>
         </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg">
-              <div className="flex items-center gap-2 mb-2">
-                <Users className="h-4 w-4 text-blue-600" />
-                <span className="text-sm font-medium text-blue-900">User Activity Patterns</span>
+        <CardContent className="relative">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="p-6 bg-gradient-to-br from-blue-50/80 to-indigo-50/80 backdrop-blur-sm rounded-xl border border-white/40 hover:shadow-lg transition-all duration-300">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="p-2 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg">
+                  <Users className="h-5 w-5 text-white" />
+                </div>
+                <span className="text-sm font-bold text-blue-900">User Activity Patterns</span>
               </div>
-              <p className="text-xs text-blue-700 mb-2">Peak hours: 2-4 PM, 7-9 PM</p>
-              <div className="text-lg font-bold text-blue-900">+12.5% vs last {selectedTimeframe}</div>
+              <p className="text-xs text-blue-700 mb-2 font-medium">Peak hours: 2-4 PM, 7-9 PM</p>
+              <div className="text-xl font-bold text-blue-900">+12.5% vs last {selectedTimeframe}</div>
+              <div className="mt-2 flex items-center gap-1">
+                <div className="w-1 h-1 bg-blue-400 rounded-full animate-pulse" />
+                <span className="text-xs text-blue-600">Neural prediction: 95% confidence</span>
+              </div>
             </div>
 
-            <div className="p-4 bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg">
-              <div className="flex items-center gap-2 mb-2">
-                <DollarSign className="h-4 w-4 text-green-600" />
-                <span className="text-sm font-medium text-green-900">Revenue Trends</span>
+            <div className="p-6 bg-gradient-to-br from-green-50/80 to-emerald-50/80 backdrop-blur-sm rounded-xl border border-white/40 hover:shadow-lg transition-all duration-300">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="p-2 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg">
+                  <DollarSign className="h-5 w-5 text-white" />
+                </div>
+                <span className="text-sm font-bold text-green-900">Revenue Trends</span>
               </div>
-              <p className="text-xs text-green-700 mb-2">Consistent growth trajectory</p>
-              <div className="text-lg font-bold text-green-900">+18.7% vs last {selectedTimeframe}</div>
+              <p className="text-xs text-green-700 mb-2 font-medium">Consistent growth trajectory</p>
+              <div className="text-xl font-bold text-green-900">+18.7% vs last {selectedTimeframe}</div>
+              <div className="mt-2 flex items-center gap-1">
+                <div className="w-1 h-1 bg-green-400 rounded-full animate-pulse" />
+                <span className="text-xs text-green-600">AGI forecast: Sustainable growth</span>
+              </div>
             </div>
 
-            <div className="p-4 bg-gradient-to-br from-purple-50 to-violet-50 rounded-lg">
-              <div className="flex items-center gap-2 mb-2">
-                <Shield className="h-4 w-4 text-purple-600" />
-                <span className="text-sm font-medium text-purple-900">Security Events</span>
+            <div className="p-6 bg-gradient-to-br from-purple-50/80 to-violet-50/80 backdrop-blur-sm rounded-xl border border-white/40 hover:shadow-lg transition-all duration-300">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="p-2 bg-gradient-to-r from-purple-500 to-violet-500 rounded-lg">
+                  <Shield className="h-5 w-5 text-white" />
+                </div>
+                <span className="text-sm font-bold text-purple-900">Security Events</span>
               </div>
-              <p className="text-xs text-purple-700 mb-2">All systems secure</p>
-              <div className="text-lg font-bold text-purple-900">0 threats detected</div>
+              <p className="text-xs text-purple-700 mb-2 font-medium">All systems secure</p>
+              <div className="text-xl font-bold text-purple-900">0 threats detected</div>
+              <div className="mt-2 flex items-center gap-1">
+                <div className="w-1 h-1 bg-purple-400 rounded-full animate-pulse" />
+                <span className="text-xs text-purple-600">Quantum security: 100% integrity</span>
+              </div>
             </div>
           </div>
         </CardContent>
-      </Card>
+      </GlassmorphicContainer>
     </div>
   );
 }

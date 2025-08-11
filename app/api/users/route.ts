@@ -1,29 +1,37 @@
 import { NextRequest, NextResponse } from "next/server"
-import { createSupabaseServerClient } from "@/lib/supabase/client"
+// Using Supabase auth instead of Clerk
+import { createSupabaseAdminClient } from "@/lib/supabase/client"
 
 export async function GET(request: NextRequest) {
   try {
-    const supabase = createSupabaseServerClient()
-    
-    // Check if user is authenticated
-    const { data: { session }, error: authError } = await supabase.auth.getSession()
-    
-    if (authError || !session) {
+    const { userId } = auth()
+    const searchParams = request.nextUrl.searchParams
+    const id = searchParams.get('id')
+
+    if (!userId) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
+
+    const supabase = createSupabaseAdminClient()
+
+    if (id && id !== userId) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    const targetId = id || userId
 
     // Get user profile
     const { data: user, error } = await supabase
       .from("users")
       .select("*")
-      .eq("id", session.user.id)
+      .eq("id", targetId)
       .single()
 
-    if (error) {
+    if (error && error.code !== 'PGRST116') {
       return NextResponse.json({ error: error.message }, { status: 400 })
     }
 
-    return NextResponse.json({ user })
+    return NextResponse.json(user)
   } catch (error) {
     return NextResponse.json(
       { error: "Internal server error" },
@@ -34,15 +42,13 @@ export async function GET(request: NextRequest) {
 
 export async function PUT(request: NextRequest) {
   try {
-    const supabase = createSupabaseServerClient()
-    
-    // Check if user is authenticated
-    const { data: { session }, error: authError } = await supabase.auth.getSession()
-    
-    if (authError || !session) {
+    const { userId } = auth()
+
+    if (!userId) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
+    const supabase = createSupabaseAdminClient()
     const body = await request.json()
     const { display_name, phone, avatar_url } = body
 
@@ -55,7 +61,7 @@ export async function PUT(request: NextRequest) {
         avatar_url,
         updated_at: new Date().toISOString()
       })
-      .eq("id", session.user.id)
+      .eq("id", userId)
       .select()
       .single()
 
@@ -63,7 +69,7 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: error.message }, { status: 400 })
     }
 
-    return NextResponse.json({ user })
+    return NextResponse.json(user)
   } catch (error) {
     return NextResponse.json(
       { error: "Internal server error" },

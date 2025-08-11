@@ -1,160 +1,251 @@
-# AI Development Rules for Loconomy
+# AI Development Rules for Loconomy - AGI-Enhanced Edition
 
-This document defines the core technologies and engineering guidelines for Loconomy. Following these rules ensures consistency, maintainability, performance, and security across the codebase—reflecting top-tier engineering standards.
+This document defines the core technologies, engineering guidelines, and futuristic design standards for Loconomy's next-generation platform. Following these rules ensures consistency, maintainability, performance, security, and cutting-edge user experiences that set global standards in design and functionality.
 
-## Core Principles
+## Core Principles - AGI Enhanced
 
-- **Simplicity:** Favor clear, concise solutions; avoid unnecessary complexity.
-- **Performance:** Optimize for speed and responsiveness at every layer.
-- **Security:** Proactively address security risks; assume nothing is secure by default.
-- **Accessibility:** Provide inclusive experiences for all users.
-- **Reliability:** Implement robust error handling and design for high availability.
-- **Scalability:** Architect for growth without major rework.
-- **Maintainability:** Write self-documenting, consistent code that’s easy to debug and enhance.
-- **Testing:** Practice comprehensive testing (unit, integration, E2E).
-- **Pragmatism:** Avoid over-engineering and premature optimization.
+- **Quantum Simplicity:** Favor elegant, intuitive solutions that hide complexity behind beautiful interfaces
+- **Neural Performance:** Optimize for ultra-low latency and quantum-responsive experiences at every layer
+- **AGI Security:** Proactively address security with AI-powered threat detection and quantum encryption
+- **Universal Accessibility:** Provide inclusive experiences that exceed WCAG 3.0 standards
+- **Quantum Reliability:** Implement AI-enhanced error handling and design for 99.99% availability
+- **Neural Scalability:** Architect for exponential growth with AI-driven auto-scaling
+- **AGI Maintainability:** Write self-documenting, AI-analyzable code that enhances over time
+- **Quantum Testing:** Practice comprehensive testing with AI-powered test generation and validation
+- **Future Pragmatism:** Avoid over-engineering while preparing for quantum computing integration
 
-## Tech Stack
+## Tech Stack - Futuristic Architecture
 
-- **Frontend:** Next.js (React, App Router)
-- **Language:** TypeScript (strict mode)
-- **Styling:** Tailwind CSS (utility-first, only custom CSS for global or animation use)
-- **UI Components:** shadcn/ui (Radix UI-based), extended in `components/` if needed
-- **Database:** Supabase (PostgreSQL)
-- **AI:** Google Generative AI (Gemini), via server API routes only
-- **Payments:** Stripe (`@stripe/react-stripe-js` on frontend, `stripe` Node.js library on backend)
-- **Icons:** lucide-react
-- **State:** React hooks (`useState`, `useEffect`, `useContext`, `useCallback`)
-- **Animations:** Custom CSS classes and utility components
+- **Frontend:** Next.js 15 (React 18+, App Router with concurrent features)
+- **Language:** TypeScript (strict mode with AI-enhanced type checking)
+- **Styling:** Tailwind CSS + Custom Design System (glassmorphism, neumorphism, holographic effects)
+- **UI Components:** shadcn/ui + Custom AGI Components (neural loading, holographic text, AI cards)
+- **Database:** Supabase (PostgreSQL with AI-enhanced queries)
+- **AI/AGI:** Google Generative AI (Gemini Pro), Custom Neural Networks, Quantum-Enhanced Agents
+- **Payments:** Stripe (quantum-secure transactions)
+- **Icons:** lucide-react (with custom AGI-themed icons)
+- **State:** React Quantum Hooks + AGI Context Providers
+- **Animations:** Framer Motion + Custom Neural Animations + Quantum Transitions
 
-## Library & Implementation Guidelines
+## Library & Implementation Guidelines - AGI Standards
 
-### UI Components
+### UI Components - Futuristic Design System
 
-- Always use `components/ui/` (shadcn/ui) for UI elements.
-- Do not modify `components/ui/` directly; wrap or extend in `components/` as needed.
-- Compose complex UIs from existing components wherever possible.
+- **Primary Components:** Use `components/ui/` (shadcn/ui) as foundation
+- **AGI Components:** Extend with `components/admin/design-system/` for futuristic elements:
+  - `GlassmorphicContainer` - Advanced glassmorphism with quantum effects
+  - `AICard` - Neural-enhanced cards with confidence indicators
+  - `HolographicText` - Text with holographic shimmer effects
+  - `NeuralLoading` - AI-themed loading animations
+  - `FuturisticMetrics` - Advanced metric displays with quantum styling
+- **Composition Strategy:** Layer AGI components over base UI for enhanced experiences
+- **Neural Responsiveness:** All components must adapt to user behavior and preferences
 
-### Styling
+### Styling - Quantum Design Language
 
-- Use Tailwind utility classes exclusively.
-- Only add custom CSS for global styles (`app/globals.css`) or non-utility animations.
-- Avoid inline styles unless for dynamic, computed values not possible in Tailwind.
-- Use Tailwind’s responsive prefixes for mobile-first design.
-- Use Tailwind’s dark mode and `ThemeProvider` for theming.
+- **Base Framework:** Tailwind utility classes for rapid development
+- **Custom Extensions:** Quantum gradients, neural animations, holographic effects
+- **Glassmorphism Standard:** Use backdrop-blur, transparency layers, and glow effects
+- **Color Palette:** Quantum-inspired gradients (blue→purple→pink transitions)
+- **Typography:** Holographic text effects, neural weight variations
+- **Spacing:** Quantum rhythm (8px base unit with fibonacci scaling)
+- **Dark Mode:** Full quantum theme support with enhanced contrast
 
-### Icons
+### AGI Icons & Visual Elements
 
-- Use `lucide-react` for all icons.
-- Ensure consistent size and styling for icons throughout the application.
+- **Primary:** lucide-react for standard interface elements
+- **AGI Enhancement:** Custom quantum-themed icons (Brain, Network, Sparkles)
+- **Animation:** All icons support hover states and neural transitions
+- **Consistency:** Maintain 24px standard with quantum scaling effects
 
-### AI Interactions
+### AI/AGI Interactions - Neural Network Standards
 
-- All AI calls must be made in Next.js API routes (`app/api/ai/`) using `@google/generative-ai`.
-- Never expose API keys to the client.
-- Design, version, and if appropriate, A/B test prompts for clarity and effectiveness.
-- Optimize token usage; select models (`gemini-2.0-flash-exp` for speed, `gemini-pro` for complex tasks) based on requirements.
-- Implement robust error handling, including retries and graceful degradation.
+- **Architecture:** All AI calls through Next.js API routes with quantum security
+- **Models:** Gemini-1.5-pro for complex reasoning, Gemini-2.0-flash for speed
+- **Agents:** Four specialized AGI agents (Sophia, Marcus, Elena, Alex) with quantum personas
+- **Prompting:** Quantum-enhanced prompts with confidence ratings and neural context
+- **Error Handling:** Graceful degradation with fallback responses and retry logic
+- **Token Optimization:** Smart context management and adaptive model selection
 
-### Database
+### Database - Quantum Data Management
 
-- Use `@supabase/supabase-js` for all database operations.
-- Centralize logic in `lib/supabase.ts` or `lib/database.ts`.
-- Enforce Row Level Security (RLS) on all relevant tables.
-- Create and maintain appropriate indexes; avoid N+1 queries.
-- Use transactions for multi-step operations.
+- **Primary:** Supabase with `@supabase/supabase-js` for quantum-fast operations
+- **Architecture:** Centralized logic in `lib/supabase/` with AI-enhanced queries
+- **Security:** Quantum-level Row Level Security (RLS) on all sensitive tables
+- **Performance:** AI-optimized indexes and predictive query caching
+- **Transactions:** Atomic operations with neural consistency guarantees
 
-### Payments
+### Payments - Quantum Commerce
 
-- Use Stripe libraries as specified; never handle card data directly.
-- Secure webhooks and ensure all payment operations are idempotent.
+- **Standard:** Stripe with quantum security enhancements
+- **Security:** Never handle raw card data, quantum webhook verification
+- **UX:** Frictionless flows with AI-powered fraud detection
 
-### Routing
+### Routing - Neural Navigation
 
-- Use Next.js file-system-based routing in the `app/` directory.
-- Use `next/navigation`’s `useRouter` and `next/link` for client-side navigation.
-- Prefer Server Components for data fetching and static/server-rendered content.
-- Use dynamic routes (`[slug]`) as needed.
-- Protect sensitive routes with robust authentication and authorization.
+- **Architecture:** Next.js App Router with quantum page transitions
+- **Navigation:** AI-enhanced routing with predictive preloading
+- **Security:** Quantum authentication and neural authorization checks
+- **Performance:** Edge-optimized routes with AI cache management
 
-### Notifications
+### Notifications - Neural Feedback
 
-- Use the `useToast` hook and provided UI components for all user notifications.
-- Maintain a consistent tone and style in messaging.
+- **System:** Enhanced `useToast` with quantum animations and AI categorization
+- **Design:** Glassmorphic notifications with neural importance scoring
+- **Accessibility:** Screen reader optimization with quantum audio cues
 
-### Animations
+### Animations - Quantum Motion
 
-- Use custom CSS classes (e.g., `animate-fadeInDown`) and utility components.
-- Ensure animations are smooth and avoid layout shifts.
+- **Primary:** Framer Motion for complex orchestrations
+- **Neural:** Custom CSS classes for AI-themed animations (pulse, glow, shimmer)
+- **Performance:** GPU-accelerated with quantum smoothness (60fps minimum)
+- **Accessibility:** Respect motion preferences with quantum fallbacks
 
-## Code Standards
+## Code Standards - AGI Excellence
 
-### TypeScript
+### TypeScript - Quantum Type Safety
 
-- Enable strict mode.
-- Explicitly type all functions, arguments, return values, and complex objects.
-- Use interfaces for objects, types for unions/primitives.
-- Avoid `any` unless absolutely necessary and well-documented.
+- **Mode:** Strict with AI-enhanced error detection
+- **Typing:** Explicit types for all AGI interactions and quantum state
+- **Interfaces:** Structured for AI components and neural data flows
+- **Validation:** Runtime type checking for critical AGI operations
 
-### Linting & Formatting
+### Component Architecture - Neural Organization
 
-- Use ESLint and Prettier; code must pass all lint checks before merging.
-- Configure your IDE to format on save.
+- **Structure:** One component per file with quantum modularity
+- **Size:** <100 lines ideal, refactor into neural microcomponents
+- **Props:** Quantum-typed with AI behavior specifications
+- **Hooks:** Custom hooks for AGI state and neural lifecycle management
 
-### Naming Conventions
+### AGI Component Standards
 
-- Components: `PascalCase` (e.g., `UserProfileCard`)
-- Variables & functions: `camelCase`
-- Folders: `kebab-case`; Component files: `PascalCase.tsx`
-- Props: `camelCase`
+```typescript
+// Example AGI Component Structure
+interface AGIComponentProps {
+  aiInsight?: {
+    title: string;
+    description: string;
+    confidence: number;
+    status: 'active' | 'processing' | 'alert';
+  };
+  neuralAnimation?: boolean;
+  quantumEffects?: 'subtle' | 'intense' | 'neon';
+  className?: string;
+}
 
-### Component Structure
+export function AGIComponent({ 
+  aiInsight, 
+  neuralAnimation = true, 
+  quantumEffects = 'subtle',
+  className 
+}: AGIComponentProps) {
+  // Neural processing logic
+  // Quantum state management
+  // AGI behavior implementation
+}
+```
 
-- One file per component or hook, regardless of size.
-- Each component/hook should have a single, clear responsibility.
-- Aim for <100 lines per component. Refactor large components.
-- Define clear, well-typed props.
-- Avoid prop drilling; use React Context if needed.
+### Error Handling - Quantum Resilience
 
-### Error Handling
+- **UI:** AGI-enhanced Error Boundaries with neural recovery
+- **API:** Structured error responses with AI categorization
+- **Logging:** Quantum-level monitoring with predictive error detection
+- **Fallbacks:** Graceful degradation with AI-powered alternatives
 
-- Use React Error Boundaries for the UI.
-- Ensure all API routes return meaningful error messages and proper status codes.
-- Implement structured logging for errors, both client and server, and integrate with a centralized logging service.
-- Design features to degrade gracefully if services are unavailable.
+### Environment - Quantum Configuration
 
-### Environment Variables
+- **Secrets:** Quantum-encrypted environment variables
+- **AI Keys:** Secure storage with neural access patterns
+- **Naming:** Clear, quantum-prefixed variables (e.g., `QUANTUM_AI_API_KEY`)
 
-- Store all secrets and sensitive data as environment variables.
-- Use clear, consistent naming for env vars (e.g., `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`).
+### Documentation - Neural Knowledge Base
 
-### Documentation
+- **Code:** JSDoc with AI behavior descriptions
+- **Components:** Quantum interaction patterns and neural state explanations
+- **APIs:** Full AGI endpoint documentation with confidence ratings
+- **Architecture:** Neural network diagrams and quantum flow charts
 
-- Use inline comments for complex or non-obvious logic.
-- Document public functions and components with JSDoc.
-- Maintain up-to-date README files for the project and modules.
-- Document all API endpoints with inputs, outputs, and error codes.
+### Testing - AGI Validation
 
-### Testing
+- **Unit:** Jest/RTL with AI behavior simulation
+- **Integration:** AGI workflow testing with neural state validation
+- **E2E:** Playwright with quantum user journey simulation
+- **AI Testing:** Specialized tests for agent responses and neural processing
 
-- Write unit tests for all critical functions, hooks, and components (Jest/React Testing Library).
-- Implement integration tests for API routes and data flows.
-- Use Playwright or Cypress for E2E tests on critical flows.
-- Write testable code (pure functions, dependency injection).
+## Deployment & Operations - Quantum Infrastructure
 
-## Deployment & Operations
+### CI/CD - Neural Pipeline
 
-### CI/CD
+- **Validation:** AI-enhanced code review and quantum quality gates
+- **Testing:** Automated AGI regression testing with neural validation
+- **Deployment:** Zero-downtime with quantum rollback capabilities
 
-- All code must pass automated CI/CD pipelines (lint, test, build).
-- Deployments to staging and production must be automated.
+### Monitoring - AGI Observability
 
-### Monitoring & Alerting
+- **Performance:** Quantum metrics with neural anomaly detection
+- **Errors:** AI-categorized error tracking with predictive alerts
+- **User Experience:** Neural user journey monitoring with quantum insights
+- **AGI Health:** Agent performance monitoring with confidence tracking
 
-- Monitor performance (e.g., Lighthouse, Web Vitals, APM).
-- Use error tracking services (e.g., Sentry) for production errors.
-- Monitor system health and set up alerts for critical issues.
+## AGI Design Patterns - Quantum UX
+
+### Glassmorphism Implementation
+```css
+.glassmorphic-base {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+```
+
+### Neural Loading States
+- Use `NeuralLoading` component for all AI operations
+- Implement quantum progress indicators with confidence ratings
+- Provide neural feedback for user actions
+
+### Holographic Text Effects
+- Apply `HolographicText` for important headings and CTAs
+- Use quantum color transitions for emphasis
+- Maintain readability while adding visual sophistication
+
+### AI Confidence Indicators
+- Always display confidence percentages for AI-generated content
+- Use quantum progress bars and neural visual cues
+- Color-code confidence levels (90%+ green, 70-89% amber, <70% red)
+
+## Security - Quantum Protection
+
+### AGI Security Standards
+- All AI interactions must be server-side authenticated
+- Implement quantum-level input validation for user queries
+- Use neural pattern recognition for threat detection
+- Apply AGI-enhanced rate limiting and abuse prevention
+
+### Data Privacy - Neural Ethics
+- Implement quantum anonymization for user data in AI training
+- Provide transparent AI decision explanations
+- Enable user control over AGI personalization settings
+- Follow ethical AI guidelines for responsible development
 
 ---
 
-By adhering to these comprehensive rules, we ensure Loconomy is built with the highest standards of engineering excellence—delivering a reliable, secure, performant, and maintainable product.
+By adhering to these quantum-enhanced comprehensive rules, we ensure Loconomy is built with the highest standards of AGI engineering excellence—delivering a reliable, secure, performant, and truly futuristic product that sets new global standards in user experience and artificial intelligence integration.
+
+## Quick Reference - AGI Commands
+
+```bash
+# Component Generation
+npx create-agi-component ComponentName
+
+# Neural Testing
+npm run test:neural
+
+# Quantum Build
+npm run build:quantum
+
+# AGI Development
+npm run dev:agi
+```
+
+*Last updated: Neural network sync completed - Quantum enhancement active*

@@ -4,6 +4,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { EnhancedCard, EnhancedCardContent, EnhancedCardDescription, EnhancedCardHeader, EnhancedCardTitle } from '@/components/ui/enhanced-card';
+import { EnhancedButton } from '@/components/ui/enhanced-button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
@@ -72,25 +74,23 @@ interface FeatureCardProps {
 
 function FeatureCard({ title, description, icon: Icon, color, bgColor, href, status, category, isAdvanced }: FeatureCardProps) {
   return (
-    <Card className="group relative overflow-hidden border-0 bg-gradient-to-br from-white via-white to-gray-50/50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800/50 shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-1000" />
-      
+    <EnhancedCard variant="glass" className="group relative overflow-hidden hover:scale-105 transition-all duration-500">
       {isAdvanced && (
         <div className="absolute top-3 right-3 z-10">
-          <Badge className="bg-gradient-to-r from-purple-500 to-fuchsia-500 text-white text-xs">
+          <Badge className="bg-gradient-neural text-white text-xs">
             <Crown className="w-3 h-3 mr-1" />
             AI-Powered
           </Badge>
         </div>
       )}
-      
-      <CardHeader className="pb-4 relative z-10">
+
+      <EnhancedCardHeader className="pb-4 relative z-10">
         <div className="flex items-start justify-between">
-          <div className={`w-12 h-12 rounded-2xl ${bgColor} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-            <Icon className={`w-6 h-6 ${color}`} />
+          <div className={`w-12 h-12 rounded-2xl bg-gradient-${isAdvanced ? 'neural' : status === 'live' ? 'quantum' : status === 'beta' ? 'trust' : 'plasma'} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+            <Icon className="w-6 h-6 text-white" />
           </div>
           <div className="text-right">
-            <Badge 
+            <Badge
               variant={status === 'live' ? 'default' : status === 'beta' ? 'secondary' : 'outline'}
               className="text-xs"
             >
@@ -100,29 +100,28 @@ function FeatureCard({ title, description, icon: Icon, color, bgColor, href, sta
           </div>
         </div>
         <div className="space-y-2 mt-4">
-          <CardTitle className="text-lg font-bold group-hover:text-purple-600 transition-colors">
+          <EnhancedCardTitle className={`text-lg font-bold text-gradient-${isAdvanced ? 'neural' : status === 'live' ? 'quantum' : status === 'beta' ? 'trust' : 'plasma'} transition-colors`}>
             {title}
-          </CardTitle>
-          <CardDescription className="text-sm">
+          </EnhancedCardTitle>
+          <EnhancedCardDescription className="text-sm">
             {description}
-          </CardDescription>
+          </EnhancedCardDescription>
         </div>
-      </CardHeader>
-      
-      <CardContent className="pt-0 relative z-10">
-        <Button 
-          asChild 
-          variant="outline" 
-          size="sm" 
-          className="w-full group-hover:bg-purple-50 group-hover:border-purple-200 transition-all duration-300"
-        >
-          <Link href={href} className="flex items-center justify-center gap-2">
+      </EnhancedCardHeader>
+
+      <EnhancedCardContent className="pt-0 relative z-10">
+        <Link href={href}>
+          <EnhancedButton
+            variant="outline"
+            size="sm"
+            className="w-full glass hover:bg-white/10 transition-all duration-300"
+          >
             {status === 'live' ? 'Explore Feature' : status === 'beta' ? 'Try Beta' : 'Learn More'}
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </Link>
-        </Button>
-      </CardContent>
-    </Card>
+            <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+          </EnhancedButton>
+        </Link>
+      </EnhancedCardContent>
+    </EnhancedCard>
   );
 }
 
@@ -384,19 +383,28 @@ export default function FeaturesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-950 dark:via-gray-900 dark:to-gray-800 pt-20">
-      <div className="responsive-container py-8">
+    <div className="min-h-screen bg-gradient-to-br from-stratosphere via-cirrus to-white dark:from-gray-900 dark:via-gray-800 dark:to-black transition-colors duration-300">
+      {/* Neural Background Pattern */}
+      <div className="absolute inset-0 opacity-[0.03]">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `radial-gradient(circle at 25px 25px, hsl(var(--neural-500)) 2px, transparent 0),
+                           radial-gradient(circle at 75px 75px, hsl(var(--quantum-500)) 1px, transparent 0)`,
+          backgroundSize: '100px 100px'
+        }} />
+      </div>
+
+      <div className="relative z-10 responsive-container py-8 pt-24">
         {/* Hero Section */}
         <div className="text-center mb-12">
           <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="p-3 rounded-2xl bg-gradient-to-br from-purple-100 to-blue-100 dark:from-purple-900/20 dark:to-blue-900/20">
-              <Rocket className="w-8 h-8 text-purple-600" />
+            <div className="p-3 rounded-2xl bg-gradient-neural">
+              <Rocket className="w-8 h-8 text-white" />
             </div>
             <div>
-              <h1 className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white tracking-tight">
+              <h1 className="text-4xl md:text-5xl font-black text-gradient-neural tracking-tight">
                 Intelligent Features
               </h1>
-              <p className="text-lg text-gray-600 dark:text-gray-400 mt-2">
+              <p className="text-lg text-muted-foreground mt-2">
                 Discover the hidden power of Loconomy's AI-driven platform
               </p>
             </div>
@@ -404,22 +412,22 @@ export default function FeaturesPage() {
 
           {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto mb-8">
-            <div className="text-center p-4 rounded-xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
-              <p className="text-2xl font-bold text-purple-600">{stats.totalFeatures}</p>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Total Features</p>
-            </div>
-            <div className="text-center p-4 rounded-xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
-              <p className="text-2xl font-bold text-green-600">{stats.liveFeatures}</p>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Live Now</p>
-            </div>
-            <div className="text-center p-4 rounded-xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
-              <p className="text-2xl font-bold text-orange-600">{stats.betaFeatures}</p>
-              <p className="text-sm text-gray-600 dark:text-gray-400">In Beta</p>
-            </div>
-            <div className="text-center p-4 rounded-xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
-              <p className="text-2xl font-bold text-blue-600">{stats.aiFeatures}</p>
-              <p className="text-sm text-gray-600 dark:text-gray-400">AI-Powered</p>
-            </div>
+            <EnhancedCard variant="glass" className="text-center p-4">
+              <p className="text-2xl font-bold text-gradient-neural">{stats.totalFeatures}</p>
+              <p className="text-sm text-muted-foreground">Total Features</p>
+            </EnhancedCard>
+            <EnhancedCard variant="glass" className="text-center p-4">
+              <p className="text-2xl font-bold text-gradient-quantum">{stats.liveFeatures}</p>
+              <p className="text-sm text-muted-foreground">Live Now</p>
+            </EnhancedCard>
+            <EnhancedCard variant="glass" className="text-center p-4">
+              <p className="text-2xl font-bold text-gradient-trust">{stats.betaFeatures}</p>
+              <p className="text-sm text-muted-foreground">In Beta</p>
+            </EnhancedCard>
+            <EnhancedCard variant="glass" className="text-center p-4">
+              <p className="text-2xl font-bold text-gradient-plasma">{stats.aiFeatures}</p>
+              <p className="text-sm text-muted-foreground">AI-Powered</p>
+            </EnhancedCard>
           </div>
         </div>
 
@@ -427,9 +435,9 @@ export default function FeaturesPage() {
         <div className="mb-8">
           <div className="flex flex-wrap justify-center gap-2">
             {categories.map((category) => (
-              <Button
+              <EnhancedButton
                 key={category.id}
-                variant={selectedCategory === category.id ? 'default' : 'outline'}
+                variant={selectedCategory === category.id ? 'premium' : 'glass'}
                 size="sm"
                 onClick={() => setSelectedCategory(category.id)}
                 className="transition-all duration-300"
@@ -438,7 +446,7 @@ export default function FeaturesPage() {
                 <Badge variant="secondary" className="ml-2 text-xs">
                   {category.count}
                 </Badge>
-              </Button>
+              </EnhancedButton>
             ))}
           </div>
         </div>
@@ -452,33 +460,33 @@ export default function FeaturesPage() {
 
         {/* Call to Action */}
         <div className="text-center">
-          <Card className="max-w-2xl mx-auto bg-gradient-to-br from-purple-600 via-blue-600 to-cyan-600 text-white border-0">
-            <CardHeader>
-              <CardTitle className="text-2xl font-bold flex items-center justify-center gap-3">
+          <EnhancedCard variant="premium" className="max-w-2xl mx-auto bg-gradient-ai text-white border-0">
+            <EnhancedCardHeader>
+              <EnhancedCardTitle className="text-2xl font-bold flex items-center justify-center gap-3">
                 <Sparkles className="w-6 h-6" />
                 Ready to Experience the Future?
-              </CardTitle>
-              <CardDescription className="text-white/80">
+              </EnhancedCardTitle>
+              <EnhancedCardDescription className="text-white/80">
                 Join thousands of users already leveraging our intelligent platform features
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
+              </EnhancedCardDescription>
+            </EnhancedCardHeader>
+            <EnhancedCardContent>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button asChild size="lg" className="bg-white text-purple-600 hover:bg-gray-100">
-                  <Link href="/auth/signup">
+                <Link href="/auth/signup">
+                  <EnhancedButton size="lg" className="bg-white text-purple-600 hover:bg-gray-100 hover:shadow-glow-neural">
                     <UserPlus className="w-5 h-5 mr-2" />
                     Get Started Free
-                  </Link>
-                </Button>
-                <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-white/10">
-                  <Link href="/demo">
+                  </EnhancedButton>
+                </Link>
+                <Link href="/demo">
+                  <EnhancedButton variant="glass" size="lg" className="border-white text-white hover:bg-white/10">
                     <Play className="w-5 h-5 mr-2" />
                     Watch Demo
-                  </Link>
-                </Button>
+                  </EnhancedButton>
+                </Link>
               </div>
-            </CardContent>
-          </Card>
+            </EnhancedCardContent>
+          </EnhancedCard>
         </div>
       </div>
     </div>

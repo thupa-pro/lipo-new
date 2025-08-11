@@ -6,7 +6,11 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { AI_AGENTS, aiClient, type AIAgent } from '@/lib/ai/gemini-client';
-import { Send, Zap, Eye, MessageCircle, Lightbulb, AlertTriangle, TrendingUp, Shield, Sparkles } from 'lucide-react';
+import { GlassmorphicContainer } from '@/components/admin/design-system/glassmorphic-container';
+import { AICard } from '@/components/admin/design-system/ai-native-card';
+import { HolographicText } from '@/components/admin/design-system/holographic-text';
+import { NeuralLoading } from '@/components/admin/design-system/neural-loading';
+import { Send, Zap, Eye, MessageCircle, Lightbulb, AlertTriangle, TrendingUp, Shield, Sparkles, Brain, Network } from 'lucide-react';
 
 interface Message {
   id: string;
@@ -91,7 +95,7 @@ export default function AIAssistant({ platformData, onInsightGenerated }: AIAssi
       const insightMessage: Message = {
         id: Date.now().toString(),
         role: 'assistant',
-        content: `💡 **Proactive Insight**: ${insight}`,
+        content: `💡 **Proactive AGI Insight**: ${insight}`,
         timestamp: new Date(),
         agentId: agent.id,
       };
@@ -106,7 +110,7 @@ export default function AIAssistant({ platformData, onInsightGenerated }: AIAssi
 
   const getAgentIcon = (agentId: string) => {
     const icons = {
-      sophia: <Zap className="h-4 w-4" />,
+      sophia: <Brain className="h-4 w-4" />,
       marcus: <Shield className="h-4 w-4" />,
       elena: <Sparkles className="h-4 w-4" />,
       alex: <TrendingUp className="h-4 w-4" />
@@ -145,117 +149,179 @@ export default function AIAssistant({ platformData, onInsightGenerated }: AIAssi
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Agent Selection */}
-      <Card className="gradient-border bg-white/90 backdrop-blur-sm">
-        <CardHeader>
-          <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-            <Eye className="h-5 w-5 text-blue-600" />
-            AI Advisory Team
-          </h3>
-          <p className="text-sm text-gray-600">Elite AI agents ready to assist with platform insights</p>
+      <GlassmorphicContainer variant="intense" glow animated className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10" />
+        <CardHeader className="relative">
+          <HolographicText className="text-xl font-bold flex items-center gap-3">
+            <div className="p-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl shadow-lg">
+              <Brain className="h-6 w-6 text-white" />
+            </div>
+            AI Advisory Neural Network
+          </HolographicText>
+          <p className="text-sm text-gray-600/80 mt-2 font-medium">Elite AGI agents with quantum-enhanced reasoning capabilities</p>
+          <div className="flex items-center gap-2 mt-3">
+            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+            <span className="text-xs font-medium text-green-600">All Agents Online • Neural Sync Active</span>
+          </div>
         </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <CardContent className="relative">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {AI_AGENTS.map((agent) => (
-              <div
+              <AICard
                 key={agent.id}
-                className={`p-4 rounded-lg border-2 cursor-pointer transition-all duration-300 ${
-                  selectedAgent.id === agent.id
-                    ? 'border-blue-500 bg-blue-50 shadow-lg'
-                    : 'border-gray-200 hover:border-blue-300 hover:bg-gray-50'
-                }`}
+                aiInsight={{
+                  title: agent.name,
+                  description: agent.role,
+                  confidence: 98,
+                  status: 'active' as const
+                }}
                 onClick={() => setSelectedAgent(agent)}
+                className={`cursor-pointer transition-all duration-500 ${
+                  selectedAgent.id === agent.id
+                    ? 'ring-2 ring-blue-400 ring-opacity-60 shadow-2xl bg-gradient-to-br from-blue-50/90 to-purple-50/90'
+                    : 'hover:shadow-xl hover:scale-[1.02]'
+                }`}
               >
-                <div className="flex items-start gap-3">
-                  <div className="text-2xl">{agent.avatar}</div>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2">
-                      <h4 className="font-semibold text-gray-900">{agent.name}</h4>
-                      {getAgentIcon(agent.id)}
+                <div className="p-6">
+                  <div className="flex items-start gap-4">
+                    <div className="relative">
+                      <div className="text-3xl relative z-10">{agent.avatar}</div>
+                      {selectedAgent.id === agent.id && (
+                        <div className="absolute inset-0 bg-blue-400/30 rounded-full animate-ping" />
+                      )}
                     </div>
-                    <p className="text-sm text-blue-600 font-medium">{agent.role}</p>
-                    <p className="text-xs text-gray-600 mt-1">{agent.specialty}</p>
-                    <Badge variant="outline" className="mt-2 text-xs">
-                      {agent.personality.split(',')[0]}
-                    </Badge>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-2">
+                        <h4 className="font-bold text-gray-900 text-lg">{agent.name}</h4>
+                        <div className="text-blue-600">{getAgentIcon(agent.id)}</div>
+                        {selectedAgent.id === agent.id && (
+                          <Badge className="bg-green-100 text-green-700 text-xs animate-pulse">
+                            <Network className="h-3 w-3 mr-1" />
+                            ACTIVE
+                          </Badge>
+                        )}
+                      </div>
+                      <p className="text-sm font-semibold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+                        {agent.role}
+                      </p>
+                      <p className="text-xs text-gray-600 mb-3 leading-relaxed">{agent.specialty}</p>
+                      <div className="flex gap-2">
+                        <Badge variant="outline" className="text-xs font-medium bg-white/50">
+                          {agent.personality.split(',')[0]}
+                        </Badge>
+                        <Badge variant="outline" className="text-xs font-medium bg-gradient-to-r from-purple-100 to-blue-100">
+                          AGI-Enhanced
+                        </Badge>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </AICard>
             ))}
           </div>
         </CardContent>
-      </Card>
+      </GlassmorphicContainer>
 
       {/* Quick Actions */}
-      <Card className="gradient-border bg-white/90 backdrop-blur-sm">
-        <CardHeader>
-          <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-            <Lightbulb className="h-5 w-5 text-amber-600" />
-            Quick Insights with {selectedAgent.name}
-          </h3>
+      <GlassmorphicContainer variant="neon" glow animated className="relative">
+        <div className="absolute inset-0 bg-gradient-to-r from-amber-500/5 via-orange-500/5 to-red-500/5" />
+        <CardHeader className="relative">
+          <HolographicText className="text-lg font-bold flex items-center gap-3">
+            <div className="p-2 bg-gradient-to-r from-amber-500 to-orange-500 rounded-xl animate-pulse">
+              <Lightbulb className="h-5 w-5 text-white" />
+            </div>
+            Neural Insights with {selectedAgent.name}
+          </HolographicText>
+          <div className="flex items-center gap-2 mt-2">
+            <div className="w-1.5 h-1.5 bg-amber-400 rounded-full animate-pulse" />
+            <span className="text-xs font-medium text-amber-600">Quantum Processing Active</span>
+          </div>
         </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <CardContent className="relative">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {getQuickActions(selectedAgent).map((action, index) => (
               <Button
                 key={index}
                 variant="outline"
-                className="justify-start h-auto p-3 text-left"
+                className="justify-start h-auto p-4 text-left bg-white/30 backdrop-blur-sm border-white/20 hover:bg-white/40 hover:border-white/30 transition-all duration-300 group"
                 onClick={() => setInput(action)}
               >
-                <Zap className="h-4 w-4 mr-2 text-blue-600" />
-                {action}
+                <div className="p-1.5 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg mr-3 group-hover:scale-110 transition-transform">
+                  <Zap className="h-3 w-3 text-white" />
+                </div>
+                <span className="font-medium">{action}</span>
               </Button>
             ))}
           </div>
-          <div className="mt-4 pt-4 border-t">
+          <div className="mt-6 pt-6 border-t border-white/20">
             <Button
               onClick={() => generateProactiveInsight(selectedAgent, 'platform_overview')}
               disabled={isAnalyzing}
-              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+              className="w-full h-14 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-500 relative overflow-hidden group"
             >
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
               {isAnalyzing ? (
                 <>
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                  {selectedAgent.name} is analyzing...
+                  <NeuralLoading size="sm" className="mr-3" />
+                  <span className="animate-pulse">{selectedAgent.name} Neural Processing...</span>
                 </>
               ) : (
                 <>
-                  <Lightbulb className="h-4 w-4 mr-2" />
-                  Generate Proactive Insight
+                  <div className="p-1.5 bg-white/20 rounded-lg mr-3">
+                    <Brain className="h-5 w-5" />
+                  </div>
+                  <span>Generate AGI Insight</span>
                 </>
               )}
             </Button>
           </div>
         </CardContent>
-      </Card>
+      </GlassmorphicContainer>
 
       {/* Chat Interface */}
-      <Card className="gradient-border bg-white/90 backdrop-blur-sm">
-        <CardHeader>
+      <GlassmorphicContainer variant="intense" glow animated className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 via-blue-500/10 to-purple-500/10" />
+        <CardHeader className="relative">
           <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-              <MessageCircle className="h-5 w-5 text-green-600" />
-              Conversation with {selectedAgent.name}
-            </h3>
-            <Badge variant="secondary" className="bg-green-100 text-green-800">
-              {selectedAgent.avatar} Online
-            </Badge>
+            <HolographicText className="text-lg font-bold flex items-center gap-3">
+              <div className="p-2 bg-gradient-to-r from-green-500 to-blue-500 rounded-xl animate-pulse">
+                <MessageCircle className="h-5 w-5 text-white" />
+              </div>
+              Neural Conversation with {selectedAgent.name}
+            </HolographicText>
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                <span className="text-xs font-medium text-green-600">Quantum Link Active</span>
+              </div>
+              <Badge className="bg-gradient-to-r from-green-100 to-blue-100 text-green-800 border-green-200 animate-pulse">
+                <span className="text-lg mr-1">{selectedAgent.avatar}</span>
+                AGI Online
+              </Badge>
+            </div>
           </div>
         </CardHeader>
-        <CardContent>
+        <CardContent className="relative">
           {/* Messages */}
-          <div className="h-96 overflow-y-auto mb-4 space-y-4 p-4 bg-gray-50 rounded-lg">
+          <div className="h-96 overflow-y-auto mb-4 space-y-4 p-4 bg-gradient-to-br from-gray-50/50 to-white/30 backdrop-blur-sm rounded-xl border border-white/20">
             {messages.length === 0 && (
               <div className="text-center py-8">
-                <div className="text-4xl mb-2">{selectedAgent.avatar}</div>
-                <p className="text-gray-600">
+                <div className="relative mb-4">
+                  <div className="text-5xl mb-2 relative z-10">{selectedAgent.avatar}</div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-400/30 to-purple-400/30 rounded-full animate-pulse" />
+                </div>
+                <HolographicText className="text-lg font-bold mb-2">
                   Hello! I'm {selectedAgent.name}, your {selectedAgent.role}.
+                </HolographicText>
+                <p className="text-sm text-gray-600/80 mt-2 font-medium">
+                  I specialize in {selectedAgent.specialty.toLowerCase()}. My neural networks are ready to assist you with advanced insights and analysis.
                 </p>
-                <p className="text-sm text-gray-500 mt-1">
-                  I specialize in {selectedAgent.specialty.toLowerCase()}. How can I assist you today?
-                </p>
+                <div className="flex items-center justify-center gap-2 mt-3">
+                  <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse" />
+                  <span className="text-xs font-medium text-blue-600">AGI Mode: Enhanced Reasoning Active</span>
+                </div>
               </div>
             )}
             
@@ -265,10 +331,10 @@ export default function AIAssistant({ platformData, onInsightGenerated }: AIAssi
                 className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 <div
-                  className={`max-w-[80%] p-3 rounded-lg ${
+                  className={`max-w-[80%] p-4 rounded-xl backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] ${
                     message.role === 'user'
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-white border border-gray-200 text-gray-900'
+                      ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg'
+                      : 'bg-white/80 border border-white/40 text-gray-900 shadow-md'
                   }`}
                 >
                   {message.role === 'assistant' && (
@@ -279,6 +345,9 @@ export default function AIAssistant({ platformData, onInsightGenerated }: AIAssi
                       <span className="font-medium">
                         {AI_AGENTS.find(a => a.id === message.agentId)?.name}
                       </span>
+                      <Badge className="bg-blue-100 text-blue-700 text-xs">
+                        AGI
+                      </Badge>
                     </div>
                   )}
                   <div className="whitespace-pre-wrap">{message.content}</div>
@@ -293,14 +362,20 @@ export default function AIAssistant({ platformData, onInsightGenerated }: AIAssi
             
             {isLoading && (
               <div className="flex justify-start">
-                <div className="bg-white border border-gray-200 p-3 rounded-lg">
-                  <div className="flex items-center gap-2 mb-2 text-sm text-gray-600">
-                    <span className="text-lg">{selectedAgent.avatar}</span>
-                    <span className="font-medium">{selectedAgent.name}</span>
+                <div className="bg-white/80 border border-white/40 p-4 rounded-xl backdrop-blur-sm shadow-md">
+                  <div className="flex items-center gap-3 mb-3 text-sm text-gray-600">
+                    <span className="text-lg relative">
+                      {selectedAgent.avatar}
+                      <div className="absolute inset-0 bg-blue-400/30 rounded-full animate-ping" />
+                    </span>
+                    <span className="font-semibold">{selectedAgent.name}</span>
+                    <Badge className="bg-blue-100 text-blue-700 text-xs animate-pulse">
+                      Processing
+                    </Badge>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
-                    <span className="text-gray-600">Analyzing and generating insights...</span>
+                  <div className="flex items-center gap-3">
+                    <NeuralLoading size="sm" />
+                    <span className="text-gray-700 font-medium">Neural networks analyzing and generating insights...</span>
                   </div>
                 </div>
               </div>
@@ -310,25 +385,28 @@ export default function AIAssistant({ platformData, onInsightGenerated }: AIAssi
           </div>
 
           {/* Input */}
-          <div className="flex gap-2">
-            <Input
-              value={input}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInput(e.target.value)}
-              placeholder={`Ask ${selectedAgent.name} anything about your platform...`}
-              onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && handleSendMessage()}
-              disabled={isLoading}
-              className="flex-1"
-            />
-            <Button
-              onClick={handleSendMessage}
-              disabled={isLoading || !input.trim()}
-              className="bg-blue-600 hover:bg-blue-700"
-            >
-              <Send className="h-4 w-4" />
-            </Button>
+          <div className="relative">
+            <div className="flex gap-3">
+              <Input
+                value={input}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInput(e.target.value)}
+                placeholder={`Ask ${selectedAgent.name} anything about your platform...`}
+                onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && handleSendMessage()}
+                disabled={isLoading}
+                className="flex-1 h-12 bg-white/80 backdrop-blur-sm border-white/40 focus:border-blue-400 focus:ring-blue-400/30 text-gray-900 font-medium"
+              />
+              <Button
+                onClick={handleSendMessage}
+                disabled={isLoading || !input.trim()}
+                className="h-12 px-6 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-300 group"
+              >
+                <Send className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-400/10 to-purple-400/10 rounded-xl -z-10 blur-xl" />
           </div>
         </CardContent>
-      </Card>
+      </GlassmorphicContainer>
     </div>
   );
 }
