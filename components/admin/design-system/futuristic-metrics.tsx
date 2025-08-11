@@ -47,15 +47,16 @@ export function FuturisticMetrics({
     ? data.value > data.previousValue ? 'up' 
     : data.value < data.previousValue ? 'down' 
     : 'neutral'
+    : 'neutral';
   
   const changePercent = data.previousValue 
     ? Math.abs(((data.value - data.previousValue) / data.previousValue) * 100)
-    : 0
+    : 0;
 
   // Calculate progress percentage
   const progressPercent = data.target 
     ? Math.min((data.value / data.target) * 100, 100)
-    : 0
+    : 0;
 
   // Animate value changes
   useEffect(() => {
