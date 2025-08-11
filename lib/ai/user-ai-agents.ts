@@ -259,7 +259,7 @@ Respond as ${agent.name} with your unique personality. Be helpful, personalized,
       return response.text();
     } catch (error) {
       console.error('Gemini API error:', error);
-      return this.getFallbackResponse(agent, userMessage);
+      return this.getFallbackResponse(agent, userMessage, context);
     }
   }
 
