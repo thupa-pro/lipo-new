@@ -182,7 +182,10 @@ export function AICard({
             </motion.div>
             <div className="flex-1">
               <p className="text-sm text-white/80 font-medium">
-                AI Insight: {aiInsight}
+                AI Insight: {typeof aiInsight === 'string'
+                  ? aiInsight
+                  : aiInsight?.title || aiInsight?.description || 'No insight available'
+                }
               </p>
               {confidence > 0 && (
                 <div className="flex items-center gap-2 mt-1">
