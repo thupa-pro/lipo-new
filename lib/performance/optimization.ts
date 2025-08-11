@@ -1,341 +1,462 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { createSupabaseServerClient } from '@/lib/supabase/server'
+"use client"
 
-interface PerformanceMetrics {
-  responseTime: number
-  memoryUsage: number
-  cpuUsage: number
-  cacheHitRate: number
-}
+import { unstable_cache } from 'next/cache'
+import { cache } from 'react'
 
-interface CacheConfig {
-  ttl: number // Time to live in seconds
-  tags: string[]
-  revalidate?: number
-}
+// Performance monitoring utilities
+export class PerformanceMonitor {
+  private static instance: PerformanceMonitor
+  private metrics: Map<string, number[]> = new Map()
+  private observers: Map<string, PerformanceObserver> = new Map()
 
-class PerformanceOptimizer {
-  private static instance: PerformanceOptimizer
-  private cache = new Map<string, { data: any; expires: number; tags: string[] }>()
-  private metrics: PerformanceMetrics = {
-    responseTime: 0,
-    memoryUsage: 0,
-    cpuUsage: 0,
-    cacheHitRate: 0,
+  static getInstance(): PerformanceMonitor {
+    if (!PerformanceMonitor.instance) {
+      PerformanceMonitor.instance = new PerformanceMonitor()
+    }
+    return PerformanceMonitor.instance
   }
 
-  static getInstance(): PerformanceOptimizer {
-    if (!PerformanceOptimizer.instance) {
-      PerformanceOptimizer.instance = new PerformanceOptimizer()
-    }
-    return PerformanceOptimizer.instance
+  // Start performance monitoring
+  startMonitoring() {
+    if (typeof window === 'undefined') return
+
+    // Monitor Core Web Vitals
+    this.observeWebVitals()
+    
+    // Monitor navigation timing
+    this.observeNavigation()
+    
+    // Monitor resource loading
+    this.observeResources()
+    
+    // Monitor long tasks
+    this.observeLongTasks()
+    
+    // Monitor layout shifts
+    this.observeLayoutShifts()
   }
 
-  // Intelligent caching with tags for invalidation
-  async cache<T>(
-    key: string,
-    fetcher: () => Promise<T>,
-    config: CacheConfig
-  ): Promise<T> {
-    const now = Date.now()
-    const cached = this.cache.get(key)
-
-    // Return cached data if valid
-    if (cached && cached.expires > now) {
-      this.updateCacheHitRate(true)
-      return cached.data
-    }
-
-    // Fetch fresh data
-    const startTime = performance.now()
-    const data = await fetcher()
-    const endTime = performance.now()
-
-    // Cache the result
-    this.cache.set(key, {
-      data,
-      expires: now + (config.ttl * 1000),
-      tags: config.tags,
+  private observeWebVitals() {
+    // First Contentful Paint (FCP)
+    const fcpObserver = new PerformanceObserver((list) => {
+      const entries = list.getEntries()
+      entries.forEach((entry) => {
+        if (entry.name === 'first-contentful-paint') {
+          this.recordMetric('FCP', entry.startTime)
+        }
+      })
     })
+    fcpObserver.observe({ type: 'paint', buffered: true })
+    this.observers.set('fcp', fcpObserver)
 
-    this.updateCacheHitRate(false)
-    this.updateResponseTime(endTime - startTime)
+    // Largest Contentful Paint (LCP)
+    const lcpObserver = new PerformanceObserver((list) => {
+      const entries = list.getEntries()
+      const lastEntry = entries[entries.length - 1]
+      this.recordMetric('LCP', lastEntry.startTime)
+    })
+    lcpObserver.observe({ type: 'largest-contentful-paint', buffered: true })
+    this.observers.set('lcp', lcpObserver)
 
-    return data
+    // First Input Delay (FID)
+    const fidObserver = new PerformanceObserver((list) => {
+      const entries = list.getEntries()
+      entries.forEach((entry: any) => {
+        this.recordMetric('FID', entry.processingStart - entry.startTime)
+      })
+    })
+    fidObserver.observe({ type: 'first-input', buffered: true })
+    this.observers.set('fid', fidObserver)
   }
 
-  // Invalidate cache by tags
-  invalidateCacheByTags(tags: string[]): void {
-    for (const [key, value] of this.cache.entries()) {
-      if (value.tags.some(tag => tags.includes(tag))) {
-        this.cache.delete(key)
-      }
+  private observeNavigation() {
+    const navigationObserver = new PerformanceObserver((list) => {
+      const entries = list.getEntries()
+      entries.forEach((entry: any) => {
+        // DNS lookup time
+        this.recordMetric('DNS', entry.domainLookupEnd - entry.domainLookupStart)
+        
+        // TCP connection time
+        this.recordMetric('TCP', entry.connectEnd - entry.connectStart)
+        
+        // TLS handshake time
+        if (entry.secureConnectionStart > 0) {
+          this.recordMetric('TLS', entry.connectEnd - entry.secureConnectionStart)
+        }
+        
+        // Time to First Byte (TTFB)
+        this.recordMetric('TTFB', entry.responseStart - entry.requestStart)
+        
+        // Download time
+        this.recordMetric('Download', entry.responseEnd - entry.responseStart)
+        
+        // DOM processing time
+        this.recordMetric('DOMProcessing', entry.domComplete - entry.domLoading)
+      })
+    })
+    navigationObserver.observe({ type: 'navigation', buffered: true })
+    this.observers.set('navigation', navigationObserver)
+  }
+
+  private observeResources() {
+    const resourceObserver = new PerformanceObserver((list) => {
+      const entries = list.getEntries()
+      entries.forEach((entry: any) => {
+        // Categorize resources
+        const resourceType = entry.initiatorType || 'other'
+        const loadTime = entry.responseEnd - entry.startTime
+        
+        this.recordMetric(`Resource-${resourceType}`, loadTime)
+        
+        // Track large resources
+        if (entry.transferSize > 100000) { // > 100KB
+          this.recordMetric('LargeResource', loadTime)
+        }
+      })
+    })
+    resourceObserver.observe({ type: 'resource', buffered: true })
+    this.observers.set('resource', resourceObserver)
+  }
+
+  private observeLongTasks() {
+    if ('PerformanceObserver' in window && 'PerformanceLongTaskTiming' in window) {
+      const longTaskObserver = new PerformanceObserver((list) => {
+        const entries = list.getEntries()
+        entries.forEach((entry) => {
+          this.recordMetric('LongTask', entry.duration)
+        })
+      })
+      longTaskObserver.observe({ type: 'longtask', buffered: true })
+      this.observers.set('longtask', longTaskObserver)
     }
   }
 
-  // Clear expired cache entries
-  cleanupCache(): void {
-    const now = Date.now()
-    for (const [key, value] of this.cache.entries()) {
-      if (value.expires <= now) {
-        this.cache.delete(key)
-      }
+  private observeLayoutShifts() {
+    const clsObserver = new PerformanceObserver((list) => {
+      const entries = list.getEntries()
+      entries.forEach((entry: any) => {
+        if (!entry.hadRecentInput) {
+          this.recordMetric('CLS', entry.value)
+        }
+      })
+    })
+    clsObserver.observe({ type: 'layout-shift', buffered: true })
+    this.observers.set('cls', clsObserver)
+  }
+
+  private recordMetric(name: string, value: number) {
+    if (!this.metrics.has(name)) {
+      this.metrics.set(name, [])
+    }
+    this.metrics.get(name)!.push(value)
+    
+    // Send to analytics in production
+    if (process.env.NODE_ENV === 'production') {
+      this.sendToAnalytics(name, value)
     }
   }
 
-  // Database query optimization
-  async optimizeQuery<T>(
-    query: () => Promise<T>,
-    options: {
-      timeout?: number
-      retry?: number
-      cacheKey?: string
-      cacheTtl?: number
-    } = {}
-  ): Promise<T> {
-    const {
-      timeout = 5000,
-      retry = 2,
-      cacheKey,
-      cacheTtl = 300, // 5 minutes default
-    } = options
-
-    // Use cache if key provided
-    if (cacheKey) {
-      return this.cache(
-        cacheKey,
-        query,
-        { ttl: cacheTtl, tags: ['database'] }
-      )
+  private sendToAnalytics(name: string, value: number) {
+    // Send to your analytics service
+    if (typeof window !== 'undefined' && 'navigator' in window && 'sendBeacon' in navigator) {
+      const data = JSON.stringify({
+        metric: name,
+        value: value,
+        timestamp: Date.now(),
+        url: window.location.href,
+        userAgent: navigator.userAgent
+      })
+      
+      navigator.sendBeacon('/api/performance/web-vitals', data)
     }
+  }
 
-    // Implement timeout and retry logic
-    let lastError: Error
-    for (let attempt = 0; attempt <= retry; attempt++) {
-      try {
-        return await Promise.race([
-          query(),
-          new Promise<never>((_, reject) =>
-            setTimeout(() => reject(new Error('Query timeout')), timeout)
-          ),
-        ])
-      } catch (error) {
-        lastError = error as Error
-        if (attempt < retry) {
-          // Exponential backoff
-          await new Promise(resolve => setTimeout(resolve, Math.pow(2, attempt) * 1000))
+  getMetrics(): Record<string, number[]> {
+    return Object.fromEntries(this.metrics)
+  }
+
+  getAverageMetric(name: string): number | null {
+    const values = this.metrics.get(name)
+    if (!values || values.length === 0) return null
+    
+    return values.reduce((sum, value) => sum + value, 0) / values.length
+  }
+
+  stopMonitoring() {
+    this.observers.forEach((observer) => {
+      observer.disconnect()
+    })
+    this.observers.clear()
+  }
+}
+
+// Hybrid caching strategies
+export const createHybridCache = <T>(
+  key: string,
+  fetcher: () => Promise<T>,
+  options: {
+    revalidate?: number
+    tags?: string[]
+    clientTTL?: number
+  } = {}
+) => {
+  // Server-side caching with unstable_cache
+  const serverCache = unstable_cache(
+    async () => {
+      return await fetcher()
+    },
+    [key],
+    {
+      revalidate: options.revalidate,
+      tags: options.tags
+    }
+  )
+
+  // Client-side caching with React cache
+  const clientCache = cache(async () => {
+    if (typeof window !== 'undefined') {
+      // Check if data exists in client cache
+      const cached = sessionStorage.getItem(`cache:${key}`)
+      if (cached) {
+        const { data, timestamp } = JSON.parse(cached)
+        const age = Date.now() - timestamp
+        const ttl = options.clientTTL || 60000 // 1 minute default
+        
+        if (age < ttl) {
+          return data
         }
       }
     }
 
-    throw lastError!
-  }
-
-  // Image optimization helpers
-  getOptimizedImageUrl(
-    originalUrl: string,
-    options: {
-      width?: number
-      height?: number
-      quality?: number
-      format?: 'webp' | 'avif' | 'jpeg' | 'png'
-    } = {}
-  ): string {
-    const { width, height, quality = 80, format = 'webp' } = options
-
-    // If using Supabase Storage, add transformation parameters
-    if (originalUrl.includes('supabase')) {
-      const url = new URL(originalUrl)
-      if (width) url.searchParams.set('width', width.toString())
-      if (height) url.searchParams.set('height', height.toString())
-      url.searchParams.set('quality', quality.toString())
-      url.searchParams.set('format', format)
-      return url.toString()
-    }
-
-    // For other sources, return original (could integrate with other services)
-    return originalUrl
-  }
-
-  // Bundle size optimization
-  async loadComponentDynamically<T>(
-    componentLoader: () => Promise<{ default: T }>
-  ): Promise<T> {
-    try {
-      const module = await componentLoader()
-      return module.default
-    } catch (error) {
-      console.error('Dynamic component loading failed:', error)
-      throw error
-    }
-  }
-
-  // Performance monitoring
-  private updateResponseTime(time: number): void {
-    this.metrics.responseTime = (this.metrics.responseTime + time) / 2
-  }
-
-  private updateCacheHitRate(hit: boolean): void {
-    const current = this.metrics.cacheHitRate
-    this.metrics.cacheHitRate = hit ? current + 0.1 : Math.max(0, current - 0.1)
-  }
-
-  getMetrics(): PerformanceMetrics {
-    return { ...this.metrics }
-  }
-
-  // Critical resource preloading
-  preloadCriticalResources(): string[] {
-    return [
-      // Preload critical fonts
-      '<link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>',
-      // Preload critical images
-      '<link rel="preload" href="/images/hero-bg.webp" as="image" type="image/webp">',
-      // Preload critical API endpoints
-      '<link rel="preload" href="/api/categories" as="fetch" crossorigin>',
-      // DNS prefetch for external domains
-      '<link rel="dns-prefetch" href="//fonts.googleapis.com">',
-      '<link rel="dns-prefetch" href="//images.unsplash.com">',
-    ]
-  }
-
-  // Service Worker registration for offline support
-  generateServiceWorkerScript(): string {
-    return `
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
-          navigator.serviceWorker.register('/sw.js')
-            .then(function(registration) {
-              console.log('SW registered: ', registration);
-            })
-            .catch(function(registrationError) {
-              console.log('SW registration failed: ', registrationError);
-            });
-        });
-      }
-    `
-  }
-}
-
-// Middleware for performance monitoring
-export async function performanceMiddleware(
-  request: NextRequest,
-  handler: () => Promise<NextResponse>
-): Promise<NextResponse> {
-  const startTime = performance.now()
-  const optimizer = PerformanceOptimizer.getInstance()
-
-  try {
-    const response = await handler()
-    const endTime = performance.now()
-    const responseTime = endTime - startTime
-
-    // Log performance metrics
-    await logPerformanceMetrics({
-      endpoint: request.nextUrl.pathname,
-      method: request.method,
-      responseTime: Math.round(responseTime),
-      statusCode: response.status,
-      userAgent: request.headers.get('user-agent') || '',
-      ipAddress: request.ip || request.headers.get('x-forwarded-for') || '',
-    })
-
-    // Add performance headers
-    response.headers.set('X-Response-Time', `${responseTime.toFixed(2)}ms`)
-    response.headers.set('X-Cache-Status', 'MISS') // Could be enhanced based on cache usage
-
-    return response
-  } catch (error) {
-    const endTime = performance.now()
-    const responseTime = endTime - startTime
-
-    console.error('Performance monitoring error:', error)
-
-    // Log error metrics
-    await logPerformanceMetrics({
-      endpoint: request.nextUrl.pathname,
-      method: request.method,
-      responseTime: Math.round(responseTime),
-      statusCode: 500,
-      userAgent: request.headers.get('user-agent') || '',
-      ipAddress: request.ip || request.headers.get('x-forwarded-for') || '',
-    })
-
-    throw error
-  }
-}
-
-async function logPerformanceMetrics(metrics: {
-  endpoint: string
-  method: string
-  responseTime: number
-  statusCode: number
-  userAgent: string
-  ipAddress: string
-}) {
-  try {
-    const supabase = createSupabaseServerClient()
+    // Fetch fresh data
+    const data = await fetcher()
     
-    await supabase.from('performance_metrics').insert({
-      endpoint: metrics.endpoint,
-      method: metrics.method,
-      response_time_ms: metrics.responseTime,
-      status_code: metrics.statusCode,
-      user_agent: metrics.userAgent.slice(0, 500), // Truncate long user agents
-      ip_address: metrics.ipAddress,
-    })
-  } catch (error) {
-    // Don't let performance logging break the app
-    console.error('Failed to log performance metrics:', error)
-  }
-}
+    // Store in client cache
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem(`cache:${key}`, JSON.stringify({
+        data,
+        timestamp: Date.now()
+      }))
+    }
+    
+    return data
+  })
 
-// Core Web Vitals optimization
-export class CoreWebVitalsOptimizer {
-  // Largest Contentful Paint optimization
-  static optimizeLCP(): string[] {
-    return [
-      // Preload LCP image
-      '<link rel="preload" href="/images/hero-image.webp" as="image">',
-      // Optimize font loading
-      '<link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>',
-      // Remove render-blocking resources
-      '<style>body{font-family:system-ui,-apple-system,sans-serif}</style>',
-    ]
-  }
-
-  // First Input Delay optimization  
-  static optimizeFID(): string {
-    return `
-      // Break up long tasks
-      function yieldToMain() {
-        return new Promise(resolve => {
-          setTimeout(resolve, 0);
-        });
+  return {
+    server: serverCache,
+    client: clientCache,
+    invalidate: () => {
+      if (typeof window !== 'undefined') {
+        sessionStorage.removeItem(`cache:${key}`)
       }
-
-      // Optimize event handlers
-      document.addEventListener('click', async function(e) {
-        // Process critical work first
-        await processClick(e);
-        await yieldToMain();
-        // Process non-critical work after yielding
-        await processNonCriticalWork(e);
-      }, { passive: true });
-    `
-  }
-
-  // Cumulative Layout Shift optimization
-  static optimizeCLS(): string[] {
-    return [
-      // Reserve space for images
-      'img { aspect-ratio: attr(width) / attr(height); }',
-      // Reserve space for ads/embeds
-      '.ad-container { min-height: 250px; }',
-      // Avoid layout shifts from fonts
-      'body { font-display: swap; }',
-    ]
+    }
   }
 }
 
-export default PerformanceOptimizer
+// Preloading utilities for ultra-fast navigation
+export class PreloadManager {
+  private static preloadedRoutes = new Set<string>()
+  private static preloadedData = new Map<string, any>()
+
+  static preloadRoute(href: string) {
+    if (this.preloadedRoutes.has(href)) return
+    
+    // Preload the route
+    const link = document.createElement('link')
+    link.rel = 'prefetch'
+    link.href = href
+    document.head.appendChild(link)
+    
+    this.preloadedRoutes.add(href)
+  }
+
+  static preloadData<T>(key: string, fetcher: () => Promise<T>): Promise<T> {
+    if (this.preloadedData.has(key)) {
+      return Promise.resolve(this.preloadedData.get(key))
+    }
+    
+    const promise = fetcher()
+    promise.then(data => {
+      this.preloadedData.set(key, data)
+    })
+    
+    return promise
+  }
+
+  static getPreloadedData<T>(key: string): T | null {
+    return this.preloadedData.get(key) || null
+  }
+
+  static clearPreloadedData(key?: string) {
+    if (key) {
+      this.preloadedData.delete(key)
+    } else {
+      this.preloadedData.clear()
+    }
+  }
+}
+
+// Resource hints for better performance
+export const addResourceHints = () => {
+  if (typeof document === 'undefined') return
+
+  const head = document.head
+
+  // DNS prefetch for external domains
+  const dnsPrefetch = [
+    'https://fonts.googleapis.com',
+    'https://fonts.gstatic.com',
+    'https://api.stripe.com'
+  ]
+
+  dnsPrefetch.forEach(domain => {
+    const link = document.createElement('link')
+    link.rel = 'dns-prefetch'
+    link.href = domain
+    head.appendChild(link)
+  })
+
+  // Preconnect to critical resources
+  const preconnect = [
+    'https://fonts.googleapis.com',
+    'https://fonts.gstatic.com'
+  ]
+
+  preconnect.forEach(url => {
+    const link = document.createElement('link')
+    link.rel = 'preconnect'
+    link.href = url
+    link.crossOrigin = 'anonymous'
+    head.appendChild(link)
+  })
+}
+
+// Critical CSS inlining utility
+export const inlineCriticalCSS = (css: string) => {
+  if (typeof document === 'undefined') return
+
+  const style = document.createElement('style')
+  style.textContent = css
+  document.head.appendChild(style)
+}
+
+// Image optimization utilities
+export const optimizeImage = (
+  src: string,
+  options: {
+    width?: number
+    height?: number
+    quality?: number
+    format?: 'webp' | 'avif' | 'auto'
+  } = {}
+) => {
+  const { width, height, quality = 75, format = 'auto' } = options
+  
+  // Use Next.js Image Optimization API
+  const params = new URLSearchParams()
+  if (width) params.set('w', width.toString())
+  if (height) params.set('h', height.toString())
+  params.set('q', quality.toString())
+  
+  // Auto-detect best format based on browser support
+  if (format === 'auto') {
+    if (typeof window !== 'undefined') {
+      // Check for AVIF support
+      const canvas = document.createElement('canvas')
+      const avifSupported = canvas.toDataURL('image/avif').indexOf('data:image/avif') === 0
+      
+      if (avifSupported) {
+        params.set('f', 'avif')
+      } else {
+        // Check for WebP support
+        const webpSupported = canvas.toDataURL('image/webp').indexOf('data:image/webp') === 0
+        if (webpSupported) {
+          params.set('f', 'webp')
+        }
+      }
+    }
+  } else {
+    params.set('f', format)
+  }
+  
+  return `/_next/image?url=${encodeURIComponent(src)}&${params.toString()}`
+}
+
+// Bundle splitting utilities
+export const dynamicImport = <T>(
+  importFn: () => Promise<T>,
+  options: {
+    loading?: React.ComponentType
+    error?: React.ComponentType<{ error: Error; retry: () => void }>
+    delay?: number
+  } = {}
+) => {
+  return import('next/dynamic').then(({ default: dynamic }) => 
+    dynamic(importFn as any, {
+      loading: options.loading,
+      ssr: false,
+      ...options
+    })
+  )
+}
+
+// Service Worker utilities for advanced caching
+export const registerServiceWorker = async () => {
+  if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+    try {
+      const registration = await navigator.serviceWorker.register('/sw-enhanced.js')
+      console.log('Service Worker registered:', registration)
+      return registration
+    } catch (error) {
+      console.error('Service Worker registration failed:', error)
+    }
+  }
+}
+
+// Network-aware loading
+export const getNetworkInfo = () => {
+  if (typeof navigator !== 'undefined' && 'connection' in navigator) {
+    const connection = (navigator as any).connection
+    return {
+      effectiveType: connection.effectiveType,
+      downlink: connection.downlink,
+      rtt: connection.rtt,
+      saveData: connection.saveData
+    }
+  }
+  return null
+}
+
+// Adaptive loading based on network conditions
+export const shouldLoadResource = (sizeMB: number) => {
+  const network = getNetworkInfo()
+  if (!network) return true
+  
+  // Don't load large resources on slow connections
+  if (network.effectiveType === 'slow-2g' || network.effectiveType === '2g') {
+    return sizeMB < 0.5 // Only load resources smaller than 500KB
+  }
+  
+  if (network.effectiveType === '3g') {
+    return sizeMB < 2 // Only load resources smaller than 2MB
+  }
+  
+  // Load data saver mode
+  if (network.saveData) {
+    return sizeMB < 1 // Only load resources smaller than 1MB
+  }
+  
+  return true
+}
+
+// Initialize performance monitoring
+if (typeof window !== 'undefined') {
+  const monitor = PerformanceMonitor.getInstance()
+  monitor.startMonitoring()
+  
+  // Add resource hints
+  addResourceHints()
+  
+  // Register service worker
+  registerServiceWorker()
+}
