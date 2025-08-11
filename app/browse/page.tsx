@@ -1,9 +1,13 @@
-import { Suspense } from 'react';
-import { createSupabaseServerComponent } from '@/lib/supabase/server';
+'use client';
+
+import { useState, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { EnhancedCard, EnhancedCardContent, EnhancedCardHeader, EnhancedCardTitle } from "@/components/ui/enhanced-card";
 import { EnhancedButton, IconButton } from "@/components/ui/enhanced-button";
 import { SkeletonLoader, ListSkeleton } from "@/components/ui/skeleton-loader";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ModernFooter } from "@/components/modern-footer";
 import { CommandPaletteHint } from "@/components/ui/command-palette-hint";
@@ -14,157 +18,41 @@ import { Star, Clock, CheckCircle, MapPin, Filter, Search, Heart, MessageCircle,
 // Client components for interactivity
 import { BrowseFilters } from "./components/browse-filters";
 
-// Enhanced metadata for SEO
-export const metadata = {
-  title: "Browse Local Service Providers | Loconomy - Find Trusted Professionals",
-  description: "Discover and book trusted local service providers near you. From home services to personal training, find verified professionals with real reviews and instant booking.",
-  keywords: ["local services", "service providers", "home repair", "personal training", "tutoring", "professional services"],
-  openGraph: {
-    title: "Browse Local Service Providers | Loconomy",
-    description: "Discover and book trusted local service providers near you",
-    url: "https://loconomy.com/browse",
-    type: "website",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
-
-// Server-side data fetching for providers
-async function getProviders(searchParams: { q?: string; location?: string; category?: string }) {
-  const supabase = createSupabaseServerComponent();
-  
-  try {
-    let query = supabase
-      .from('providers')
-      .select(`
-        *,
-        users (display_name, avatar_url),
-        categories (name, slug),
-        reviews (rating)
-      `)
-      .eq('is_active', true);
-
-    // Apply filters if provided
-    if (searchParams.category) {
-      query = query.eq('categories.slug', searchParams.category);
-    }
-
-    // For now, limit results for performance
-    const { data: providers, error } = await query
-      .order('rating_average', { ascending: false })
-      .limit(12);
-
-    if (error) {
-      console.error('Error fetching providers:', error);
-      return mockProviders; // Fallback to mock data
-    }
-
-    return providers || mockProviders;
-  } catch (error) {
-    console.error('Error in getProviders:', error);
-    return mockProviders;
-  }
+// Types
+interface Provider {
+  id: string;
+  business_name: string;
+  bio: string;
+  rating_average: number;
+  rating_count: number;
+  response_time_minutes?: number;
+  users?: {
+    display_name: string;
+    avatar_url?: string;
+  };
+  categories?: {
+    name: string;
+    slug: string;
+  };
+  location?: string;
+  hourlyRate?: number;
+  tags?: string[];
+  verified?: boolean;
+  completedJobs?: number;
+  specialty?: string;
+  badge?: string;
 }
 
-// Server-side category fetching
-async function getCategories() {
-  const supabase = createSupabaseServerComponent();
-  
-  try {
-    const { data: categories } = await supabase
-      .from('categories')
-      .select('id, name, slug')
-      .eq('parent_id', null)
-      .order('sort_order');
-
-    return categories || mockCategories;
-  } catch (error) {
-    console.error('Error fetching categories:', error);
-    return mockCategories;
-  }
+interface Category {
+  id: string;
+  name: string;
+  slug: string;
 }
 
-// Mock data fallback
-const mockProviders = [
-  {
-    id: '1',
-    business_name: "Sarah's Cleaning Service",
-    bio: "Professional house cleaning with eco-friendly products",
-    rating_average: 4.9,
-    rating_count: 127,
-    response_time_minutes: 120,
-    users: {
-      display_name: "Sarah Mitchell",
-      avatar_url: null
-    },
-    categories: {
-      name: "House Cleaning",
-      slug: "house-cleaning"
-    },
-    location: "2.3 miles away",
-    hourlyRate: 35,
-    tags: ["Eco-Friendly", "Pet-Safe", "Same-Day"],
-    verified: true,
-    completedJobs: 245,
-    specialty: "Deep Cleaning",
-    badge: "Elite Provider"
-  },
-  {
-    id: '2',
-    business_name: "Rodriguez Handyman Services",
-    bio: "Licensed handyman for all your home repair needs",
-    rating_average: 4.8,
-    rating_count: 89,
-    response_time_minutes: 60,
-    users: {
-      display_name: "Michael Rodriguez",
-      avatar_url: null
-    },
-    categories: {
-      name: "Home Repair",
-      slug: "home-repair"
-    },
-    location: "1.8 miles away",
-    hourlyRate: 45,
-    tags: ["Licensed", "Insured", "Emergency"],
-    verified: true,
-    completedJobs: 156,
-    specialty: "Electrical Work",
-    badge: "Top Rated"
-  },
-  {
-    id: '3',
-    business_name: "FitLife Personal Training",
-    bio: "Certified personal trainer specializing in weight loss and strength training",
-    rating_average: 4.9,
-    rating_count: 203,
-    response_time_minutes: 90,
-    users: {
-      display_name: "Jessica Chen",
-      avatar_url: null
-    },
-    categories: {
-      name: "Personal Training",
-      slug: "personal-training"
-    },
-    location: "0.9 miles away",
-    hourlyRate: 65,
-    tags: ["Certified", "Nutrition", "Flexible"],
-    verified: true,
-    completedJobs: 312,
-    specialty: "Weight Loss",
-    badge: "Featured"
-  }
-];
-
-const mockCategories = [
-  { id: '1', name: 'Home Services', slug: 'home-services' },
-  { id: '2', name: 'Fitness & Wellness', slug: 'fitness-wellness' },
-  { id: '3', name: 'Education', slug: 'education' },
-  { id: '4', name: 'Tech Support', slug: 'tech-support' }
-];
+interface BrowseData {
+  providers: Provider[];
+  categories: Category[];
+}
 
 // Structured data for SEO
 const structuredData = {
@@ -175,20 +63,125 @@ const structuredData = {
   "url": "https://loconomy.com/browse"
 };
 
+// Loading skeleton component
+function BrowsePageSkeleton() {
+  return (
+    <div className="min-h-screen bg-background">
+      {/* Header skeleton */}
+      <div className="border-b bg-background/95 backdrop-blur sticky top-0 z-50">
+        <div className="container flex h-14 items-center justify-between">
+          <div className="h-6 w-24 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+          <div className="flex items-center space-x-4">
+            <div className="h-8 w-16 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+            <div className="h-8 w-20 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+          </div>
+        </div>
+      </div>
+
+      <main className="container py-8">
+        {/* Page Header skeleton */}
+        <div className="mb-8">
+          <div className="h-8 w-64 bg-gray-200 dark:bg-gray-700 rounded mb-2 animate-pulse"></div>
+          <div className="h-5 w-48 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          {/* Filters skeleton */}
+          <div className="lg:col-span-1">
+            <div className="h-96 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse"></div>
+          </div>
+
+          {/* Results skeleton */}
+          <div className="lg:col-span-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+              {[...Array(6)].map((_, i) => (
+                <div key={i} className="h-80 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse"></div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+}
+
 interface BrowsePageProps {
-  searchParams: {
+  searchParams?: {
     q?: string;
     location?: string;
     category?: string;
   };
 }
 
-export default async function BrowsePage({ searchParams }: BrowsePageProps) {
-  // Server-side data fetching
-  const [providers, categories] = await Promise.all([
-    getProviders(searchParams),
-    getCategories()
-  ]);
+function BrowsePageContent() {
+  const searchParams = useSearchParams();
+  const [data, setData] = useState<BrowseData | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // Extract search parameters
+  const q = searchParams.get('q') || '';
+  const location = searchParams.get('location') || '';
+  const category = searchParams.get('category') || '';
+
+  useEffect(() => {
+    async function fetchBrowseData() {
+      try {
+        setIsLoading(true);
+        setError(null);
+
+        // Build query parameters
+        const params = new URLSearchParams();
+        if (q) params.append('q', q);
+        if (location) params.append('location', location);
+        if (category) params.append('category', category);
+
+        const response = await fetch(`/api/providers-browse?${params.toString()}`);
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch browse data');
+        }
+
+        const browseData = await response.json();
+        setData(browseData);
+      } catch (err) {
+        console.error('Error fetching browse data:', err);
+        setError('Failed to load browse data');
+        
+        // Fallback data
+        setData({
+          providers: [],
+          categories: [
+            { id: '1', name: 'Home Services', slug: 'home-services' },
+            { id: '2', name: 'Fitness & Wellness', slug: 'fitness-wellness' },
+            { id: '3', name: 'Education', slug: 'education' },
+            { id: '4', name: 'Tech Support', slug: 'tech-support' }
+          ]
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    fetchBrowseData();
+  }, [q, location, category]);
+
+  if (isLoading) {
+    return <BrowsePageSkeleton />;
+  }
+
+  if (!data) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold mb-4">Unable to load browse page</h1>
+          <Button onClick={() => window.location.reload()}>
+            Try Again
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -219,7 +212,7 @@ export default async function BrowsePage({ searchParams }: BrowsePageProps) {
           <div className="mb-8">
             <h1 className="text-3xl font-bold mb-2">Find Local Service Providers</h1>
             <p className="text-muted-foreground mb-4">
-              Browse {providers.length}+ verified professionals in your area
+              Browse {data.providers.length}+ verified professionals in your area
             </p>
           </div>
 
@@ -228,21 +221,21 @@ export default async function BrowsePage({ searchParams }: BrowsePageProps) {
             <div className="lg:col-span-1">
               <Suspense fallback={<div className="h-96 animate-pulse bg-gray-200 dark:bg-gray-700 rounded-lg"></div>}>
                 <BrowseFilters 
-                  categories={categories}
-                  currentSearch={searchParams.q || ''}
-                  currentLocation={searchParams.location || ''}
-                  currentCategory={searchParams.category || ''}
+                  categories={data.categories}
+                  currentSearch={q}
+                  currentLocation={location}
+                  currentCategory={category}
                 />
               </Suspense>
             </div>
 
-            {/* Results Grid - Server Rendered */}
+            {/* Results Grid - Client Rendered */}
             <div className="lg:col-span-3">
               <div className="flex justify-between items-center mb-6">
                 <p className="text-sm text-muted-foreground">
-                  Showing {providers.length} results
-                  {searchParams.q && (
-                    <span> for "{searchParams.q}"</span>
+                  Showing {data.providers.length} results
+                  {q && (
+                    <span> for "{q}"</span>
                   )}
                 </p>
                 <div className="flex gap-2">
@@ -254,7 +247,7 @@ export default async function BrowsePage({ searchParams }: BrowsePageProps) {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                {providers.map((provider) => (
+                {data.providers.map((provider) => (
                   <Card key={provider.id} className="card-glow hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
                     <CardHeader className="pb-4">
                       <div className="flex items-start justify-between">
@@ -328,7 +321,7 @@ export default async function BrowsePage({ searchParams }: BrowsePageProps) {
                 ))}
               </div>
 
-              {providers.length === 0 && (
+              {data.providers.length === 0 && (
                 <div className="text-center py-16">
                   <div className="w-16 h-16 mx-auto mb-4 bg-muted rounded-full flex items-center justify-center">
                     <Search className="w-8 h-8 text-muted-foreground" />
@@ -344,7 +337,7 @@ export default async function BrowsePage({ searchParams }: BrowsePageProps) {
               )}
 
               {/* Load More - for future pagination */}
-              {providers.length > 0 && (
+              {data.providers.length > 0 && (
                 <div className="text-center mt-12">
                   <Button variant="outline" size="lg">
                     Load More Providers
@@ -359,5 +352,13 @@ export default async function BrowsePage({ searchParams }: BrowsePageProps) {
         <CommandPaletteHint />
       </div>
     </>
+  );
+}
+
+export default function BrowsePage() {
+  return (
+    <Suspense fallback={<BrowsePageSkeleton />}>
+      <BrowsePageContent />
+    </Suspense>
   );
 }
