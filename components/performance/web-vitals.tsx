@@ -96,9 +96,11 @@ export function useImageOptimization() {
 
 export function useLazyLoading() {
   useEffect(() => {
+    if (typeof window === 'undefined' || typeof document === 'undefined') return;
+
     // Intersection Observer for lazy loading
     const images = document.querySelectorAll('img[data-src]')
-    
+
     if ('IntersectionObserver' in window) {
       const imageObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
