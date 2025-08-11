@@ -26,6 +26,9 @@ import {
 } from "@/components/admin/design-system";
 
 import { RevenueAcceleratorDashboard } from "@/components/admin/revenue-accelerators";
+import AIAssistant from "@/components/admin/AIAssistant";
+import AIInsightsDashboard from "@/components/admin/AIInsightsDashboard";
+import AIMonitoringHub from "@/components/admin/AIMonitoringHub";
 
 import {
   Activity,
