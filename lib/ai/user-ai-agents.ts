@@ -226,17 +226,22 @@ export class UserAIClient {
   }
 
   async generateResponse(
-    agentId: string, 
-    userMessage: string, 
+    agentId: string,
+    userMessage: string,
     context?: any,
     conversationHistory?: any[]
   ): Promise<string> {
     const agent = USER_AI_AGENTS.find(a => a.id === agentId);
     if (!agent) throw new Error('Agent not found');
 
+    // Check if we have a valid API key
+    if (!process.env.GOOGLE_AI_API_KEY || process.env.GOOGLE_AI_API_KEY === 'demo-key') {
+      return this.getFallbackResponse(agent, userMessage, context);
+    }
+
     const contextualData = this.buildUserContext(context);
     const historyContext = this.buildConversationHistory(conversationHistory);
-    
+
     const prompt = `${agent.systemPrompt}
 
 ${historyContext}
