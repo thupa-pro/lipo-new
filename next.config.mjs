@@ -2,10 +2,6 @@
 const nextConfig = {
   // Experimental features for performance optimization
   experimental: {
-    // Enable React 18 features
-    appDir: true,
-    serverComponentsExternalPackages: ['@supabase/supabase-js'],
-    
     // Ultra-low latency optimizations
     optimizeCss: true,
     optimizePackageImports: [
@@ -50,35 +46,14 @@ const nextConfig = {
       },
     },
     
-    // Memory optimization
-    largePageDataBytes: 128 * 1000, // 128KB
-    
-    // Incremental Static Regeneration optimizations
-    isrFlushToDisk: true,
-    isrMemoryCacheSize: 0, // Disable ISR memory cache in production
-    
     // Performance monitoring
     webVitalsAttribution: ['CLS', 'LCP', 'FCP', 'FID', 'TTFB'],
-    
-    // Advanced caching
-    swcFileReading: true,
     
     // Runtime optimizations
     esmExternals: true,
     
-    // Build optimizations
-    optimisticClientCache: true,
-    
-    // Edge runtime optimizations
-    runtime: 'nodejs',
-    
     // Parallel processing
     workerThreads: true,
-    
-    // Advanced image optimization
-    images: {
-      allowFutureImage: true,
-    },
   },
 
   // Production optimizations
@@ -161,30 +136,16 @@ const nextConfig = {
     return [
       {
         source: '/admin',
-        destination: '/admin/dashboard',
+        destination: '/admin',
         permanent: false,
       },
     ]
   },
 
   // Webpack optimizations for ultra-low latency
-  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+  webpack: (config, { buildId, dev, isServer, defaultLoaders }) => {
     // Production optimizations
     if (!dev) {
-      // Bundle analyzer
-      if (process.env.ANALYZE === 'true') {
-        const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
-        config.plugins.push(
-          new BundleAnalyzerPlugin({
-            analyzerMode: 'static',
-            openAnalyzer: false,
-            reportFilename: isServer
-              ? '../analyze/server.html'
-              : './analyze/client.html'
-          })
-        )
-      }
-
       // Advanced optimizations
       config.optimization = {
         ...config.optimization,
@@ -233,17 +194,6 @@ const nextConfig = {
           },
         },
       }
-
-      // Compression
-      config.plugins.push(
-        new webpack.optimize.AggressiveMergingPlugin()
-      )
-    }
-
-    // Module resolution optimizations
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      '@': require('path').resolve(__dirname, './'),
     }
 
     // Performance optimizations
