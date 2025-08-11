@@ -1,6 +1,6 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-const genAI = new GoogleGenerativeAI('AIzaSyAgqO16uwvIWypTTEZmWvnfqcOrW5gg5uM');
+const genAI = new GoogleGenerativeAI(process.env.GOOGLE_AI_API_KEY || 'demo-key');
 
 export interface UserAIAgent {
   id: string;
