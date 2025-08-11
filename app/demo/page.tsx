@@ -9,7 +9,7 @@ import { EnhancedButton } from "@/components/ui/enhanced-button";
 import { GlassmorphicContainer } from "@/components/admin/design-system/glassmorphic-container";
 import { HolographicText } from "@/components/admin/design-system/holographic-text";
 import { NeuralLoading } from "@/components/admin/design-system/neural-loading";
-import { AIChat } from "@/components/ai/AIChat";
+import AIChat from "@/components/ai/AIChat";
 import {
   Play,
   Sparkles,
