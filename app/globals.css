@@ -520,10 +520,22 @@
     .print-hidden {
       @apply hidden;
     }
-    
+
     .print-visible {
       @apply block;
     }
+  }
+
+  /* Auth layout specific styles */
+  .auth-layout {
+    font-feature-settings: "rlig" 1, "calt" 1;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .auth-layout input {
+    font-feature-settings: "tnum" 1;
   }
 }
 
