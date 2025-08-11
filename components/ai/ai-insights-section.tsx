@@ -86,7 +86,7 @@ export function AIInsightsSection({ stats }: AIInsightsSectionProps) {
   const neuralMetrics = [
     {
       title: 'Neural Engagement Score',
-      value: '94.7%',
+      value: 94.7,
       change: 8.3,
       trend: 'up' as const,
       icon: Brain,
@@ -94,7 +94,7 @@ export function AIInsightsSection({ stats }: AIInsightsSectionProps) {
     },
     {
       title: 'Quantum Match Accuracy',
-      value: '96.2%',
+      value: 96.2,
       change: 4.1,
       trend: 'up' as const,
       icon: Target,
@@ -102,7 +102,7 @@ export function AIInsightsSection({ stats }: AIInsightsSectionProps) {
     },
     {
       title: 'Predictive Satisfaction',
-      value: '91.8%',
+      value: 91.8,
       change: 2.7,
       trend: 'up' as const,
       icon: Sparkles,
@@ -110,7 +110,7 @@ export function AIInsightsSection({ stats }: AIInsightsSectionProps) {
     },
     {
       title: 'Neural Network Uptime',
-      value: '99.99%',
+      value: 99.99,
       change: 0.1,
       trend: 'stable' as const,
       icon: Network,
