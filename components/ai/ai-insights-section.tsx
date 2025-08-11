@@ -1,11 +1,11 @@
-'use client';
+'use client'
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { GlassmorphicContainer } from '@/components/admin/design-system/glassmorphic-container';
-import { AICard } from '@/components/admin/design-system/ai-native-card';
-import { HolographicText } from '@/components/admin/design-system/holographic-text';
-import { FuturisticMetrics } from '@/components/admin/design-system/futuristic-metrics';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { GlassmorphicContainer } from '@/components/admin/design-system/glassmorphic-container'
+import { AICard } from '@/components/admin/design-system/ai-native-card'
+import { HolographicText } from '@/components/admin/design-system/holographic-text'
+import { FuturisticMetrics } from '@/components/admin/design-system/futuristic-metrics'
 import {
   TrendingUp,
   Clock,
@@ -18,21 +18,21 @@ import {
   BarChart3,
   Users,
   DollarSign,
-  Eye
-} from 'lucide-react';
+  Eye,
+} from 'lucide-react'
 
 interface AIInsightsSectionProps {
   stats: {
-    userCount: number;
-    providerCount: number;
-    bookingCount: number;
-    averageRating: number;
-    responseTime: string;
-    successRate: string;
-    liveProviders: number;
-    avgEarnings: string;
-    satisfactionRate: string;
-  };
+    userCount: number
+    providerCount: number
+    bookingCount: number
+    averageRating: number
+    responseTime: string
+    successRate: string
+    liveProviders: number
+    avgEarnings: string
+    satisfactionRate: string
+  }
 }
 
 export function AIInsightsSection({ stats }: AIInsightsSectionProps) {
@@ -46,7 +46,8 @@ export function AIInsightsSection({ stats }: AIInsightsSectionProps) {
       color: 'from-green-500 to-emerald-500',
       confidence: 92,
       trend: 'up' as const,
-      aiAnalysis: 'Neural networks predict sustained growth in this category based on seasonal patterns and market dynamics.'
+      aiAnalysis:
+        'Neural networks predict sustained growth in this category based on seasonal patterns and market dynamics.',
     },
     {
       id: 'peak-hours',
@@ -57,7 +58,8 @@ export function AIInsightsSection({ stats }: AIInsightsSectionProps) {
       color: 'from-blue-500 to-cyan-500',
       confidence: 89,
       trend: 'stable' as const,
-      aiAnalysis: 'AGI analysis shows consistent patterns aligned with user behavior and optimal provider availability.'
+      aiAnalysis:
+        'AGI analysis shows consistent patterns aligned with user behavior and optimal provider availability.',
     },
     {
       id: 'top-category',
@@ -68,7 +70,8 @@ export function AIInsightsSection({ stats }: AIInsightsSectionProps) {
       color: 'from-purple-500 to-pink-500',
       confidence: 95,
       trend: 'up' as const,
-      aiAnalysis: 'Education services showing exponential growth driven by remote learning trends and skill development demand.'
+      aiAnalysis:
+        'Education services showing exponential growth driven by remote learning trends and skill development demand.',
     },
     {
       id: 'response-time',
@@ -79,9 +82,10 @@ export function AIInsightsSection({ stats }: AIInsightsSectionProps) {
       color: 'from-orange-500 to-red-500',
       confidence: 87,
       trend: 'down' as const,
-      aiAnalysis: 'Response times improving through neural optimization of provider matching algorithms and smart notifications.'
-    }
-  ];
+      aiAnalysis:
+        'Response times improving through neural optimization of provider matching algorithms and smart notifications.',
+    },
+  ]
 
   const neuralMetrics = [
     {
@@ -90,7 +94,7 @@ export function AIInsightsSection({ stats }: AIInsightsSectionProps) {
       change: 8.3,
       trend: 'up' as const,
       icon: Brain,
-      description: 'AI-powered user engagement analysis'
+      description: 'AI-powered user engagement analysis',
     },
     {
       title: 'Quantum Match Accuracy',
@@ -98,7 +102,7 @@ export function AIInsightsSection({ stats }: AIInsightsSectionProps) {
       change: 4.1,
       trend: 'up' as const,
       icon: Target,
-      description: 'Advanced matching algorithm performance'
+      description: 'Advanced matching algorithm performance',
     },
     {
       title: 'Predictive Satisfaction',
@@ -106,7 +110,7 @@ export function AIInsightsSection({ stats }: AIInsightsSectionProps) {
       change: 2.7,
       trend: 'up' as const,
       icon: Sparkles,
-      description: 'AGI-forecasted user satisfaction rates'
+      description: 'AGI-forecasted user satisfaction rates',
     },
     {
       title: 'Neural Network Uptime',
@@ -114,19 +118,19 @@ export function AIInsightsSection({ stats }: AIInsightsSectionProps) {
       change: 0.1,
       trend: 'stable' as const,
       icon: Network,
-      description: 'AI system reliability and availability'
-    }
-  ];
+      description: 'AI system reliability and availability',
+    },
+  ]
 
   return (
-    <GlassmorphicContainer 
-      variant="intense" 
-      glow 
-      animated 
+    <GlassmorphicContainer
+      variant="intense"
+      glow
+      animated
       className="max-w-7xl mx-auto mb-20 relative overflow-hidden"
     >
       <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/10 via-orange-500/10 to-red-500/10" />
-      
+
       <CardHeader className="pb-8 relative">
         <div className="flex items-center gap-4">
           <div className="p-4 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 rounded-2xl shadow-xl relative">
@@ -142,11 +146,14 @@ export function AIInsightsSection({ stats }: AIInsightsSectionProps) {
               </Badge>
             </HolographicText>
             <p className="text-gray-600/80 dark:text-gray-400 text-sm mt-2 font-medium">
-              Real-time market trends and demand patterns powered by advanced neural networks
+              Real-time market trends and demand patterns powered by advanced
+              neural networks
             </p>
             <div className="flex items-center gap-2 mt-3">
               <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-              <span className="text-xs font-medium text-green-600">Quantum Processing Active • AGI Models Online</span>
+              <span className="text-xs font-medium text-green-600">
+                Quantum Processing Active • AGI Models Online
+              </span>
             </div>
           </div>
         </div>
@@ -167,7 +174,7 @@ export function AIInsightsSection({ stats }: AIInsightsSectionProps) {
                 data={{
                   value: metric.value,
                   previousValue: metric.value - metric.change,
-                  unit: '%'
+                  unit: '%',
                 }}
                 icon={metric.icon}
                 variant="neural"
@@ -186,24 +193,34 @@ export function AIInsightsSection({ stats }: AIInsightsSectionProps) {
                 title: insight.metric,
                 description: insight.aiAnalysis,
                 confidence: insight.confidence,
-                status: 'active'
+                status: 'active',
               }}
               className="hover:scale-[1.02] transition-all duration-500"
             >
               <div className="p-6">
                 <div className="flex items-start justify-between mb-4">
-                  <div className={`p-3 bg-gradient-to-r ${insight.color} rounded-xl shadow-lg relative`}>
+                  <div
+                    className={`p-3 bg-gradient-to-r ${insight.color} rounded-xl shadow-lg relative`}
+                  >
                     <insight.icon className="w-6 h-6 text-white" />
                     <div className="absolute inset-0 bg-white/20 rounded-xl animate-pulse" />
                   </div>
                   <div className="flex items-center gap-1">
-                    <Activity className={`w-4 h-4 ${
-                      insight.trend === 'up' ? 'text-green-500' : 
-                      insight.trend === 'down' ? 'text-red-500' : 'text-gray-500'
-                    }`} />
+                    <Activity
+                      className={`w-4 h-4 ${
+                        insight.trend === 'up'
+                          ? 'text-green-500'
+                          : insight.trend === 'down'
+                            ? 'text-red-500'
+                            : 'text-gray-500'
+                      }`}
+                    />
                     <span className="text-xs font-medium text-gray-600">
-                      {insight.trend === 'up' ? 'Increasing' : 
-                       insight.trend === 'down' ? 'Optimizing' : 'Stable'}
+                      {insight.trend === 'up'
+                        ? 'Increasing'
+                        : insight.trend === 'down'
+                          ? 'Optimizing'
+                          : 'Stable'}
                     </span>
                   </div>
                 </div>
@@ -226,10 +243,12 @@ export function AIInsightsSection({ stats }: AIInsightsSectionProps) {
                         <Brain className="h-3 w-3 text-blue-600" />
                         Neural Confidence
                       </span>
-                      <span className="text-xs font-bold text-blue-600">{insight.confidence}%</span>
+                      <span className="text-xs font-bold text-blue-600">
+                        {insight.confidence}%
+                      </span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-1.5">
-                      <div 
+                      <div
                         className="bg-gradient-to-r from-blue-500 to-purple-500 h-1.5 rounded-full transition-all duration-1000"
                         style={{ width: `${insight.confidence}%` }}
                       />
@@ -240,7 +259,9 @@ export function AIInsightsSection({ stats }: AIInsightsSectionProps) {
                   <div className="bg-gradient-to-r from-gray-50/80 to-white/60 p-3 rounded-lg border border-white/40">
                     <div className="flex items-center gap-1 mb-2">
                       <Eye className="h-3 w-3 text-purple-600" />
-                      <span className="text-xs font-medium text-purple-600">AGI Analysis</span>
+                      <span className="text-xs font-medium text-purple-600">
+                        AGI Analysis
+                      </span>
                     </div>
                     <p className="text-xs text-gray-700 leading-relaxed">
                       {insight.aiAnalysis}
@@ -263,19 +284,23 @@ export function AIInsightsSection({ stats }: AIInsightsSectionProps) {
             </HolographicText>
           </div>
           <p className="text-sm text-gray-700 leading-relaxed mb-4">
-            Our AGI systems have analyzed {stats.userCount.toLocaleString()} user interactions, 
-            {stats.providerCount.toLocaleString()} provider profiles, and {stats.bookingCount.toLocaleString()} booking patterns 
-            to generate these real-time insights. The neural networks indicate strong market momentum with {stats.successRate} success rate 
-            and {stats.satisfactionRate} user satisfaction.
+            Our AGI systems have analyzed {stats.userCount.toLocaleString()}{' '}
+            user interactions,
+            {stats.providerCount.toLocaleString()} provider profiles, and{' '}
+            {stats.bookingCount.toLocaleString()} booking patterns to generate
+            these real-time insights. The neural networks indicate strong market
+            momentum with {stats.successRate} success rate and{' '}
+            {stats.satisfactionRate} user satisfaction.
           </p>
           <div className="flex items-center gap-2">
             <div className="w-1.5 h-1.5 bg-indigo-400 rounded-full animate-pulse" />
             <span className="text-xs font-medium text-indigo-600">
-              Next neural update in: 2 minutes • Quantum sync: {stats.responseTime}
+              Next neural update in: 2 minutes • Quantum sync:{' '}
+              {stats.responseTime}
             </span>
           </div>
         </div>
       </CardContent>
     </GlassmorphicContainer>
-  );
+  )
 }

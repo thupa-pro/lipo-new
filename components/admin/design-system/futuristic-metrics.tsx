@@ -1,9 +1,17 @@
-"use client"
+'use client'
 
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '@/lib/utils'
-import { TrendingUp, TrendingDown, Minus, Zap, Brain, Target, Activity } from 'lucide-react'
+import {
+  TrendingUp,
+  TrendingDown,
+  Minus,
+  Zap,
+  Brain,
+  Target,
+  Activity,
+} from 'lucide-react'
 
 interface MetricData {
   value: number
@@ -44,19 +52,21 @@ export function FuturisticMetrics({
 
   // Calculate trend
   const trend = data?.previousValue
-    ? data.value > data.previousValue ? 'up'
-    : data.value < data.previousValue ? 'down'
+    ? data.value > data.previousValue
+      ? 'up'
+      : data.value < data.previousValue
+        ? 'down'
+        : 'neutral'
     : 'neutral'
-    : 'neutral';
-  
+
   const changePercent = data?.previousValue
     ? Math.abs(((data.value - data.previousValue) / data.previousValue) * 100)
-    : 0;
+    : 0
 
   // Calculate progress percentage
   const progressPercent = data?.target
     ? Math.min((data.value / data.target) * 100, 100)
-    : 0;
+    : 0
 
   // Animate value changes
   useEffect(() => {
@@ -75,20 +85,20 @@ export function FuturisticMetrics({
       const now = Date.now()
       const elapsed = now - startTime
       const progress = Math.min(elapsed / duration, 1)
-      
+
       // Easing function for smooth animation
       const easeOut = 1 - Math.pow(1 - progress, 3)
       const current = start + (end - start) * easeOut
-      
+
       setDisplayValue(current)
-      
+
       if (progress < 1) {
         requestAnimationFrame(animate)
       } else {
         setIsAnimating(false)
       }
     }
-    
+
     requestAnimationFrame(animate)
   }, [data?.value, animated, displayValue])
 
@@ -97,26 +107,26 @@ export function FuturisticMetrics({
       gradient: 'from-purple-500 via-blue-500 to-cyan-500',
       glow: 'shadow-purple-500/30',
       border: 'border-purple-500/30',
-      text: 'text-purple-400'
+      text: 'text-purple-400',
     },
     quantum: {
       gradient: 'from-green-500 via-emerald-500 to-teal-500',
       glow: 'shadow-emerald-500/30',
       border: 'border-emerald-500/30',
-      text: 'text-emerald-400'
+      text: 'text-emerald-400',
     },
     holographic: {
       gradient: 'from-pink-500 via-purple-500 to-indigo-500',
       glow: 'shadow-pink-500/30',
       border: 'border-pink-500/30',
-      text: 'text-pink-400'
+      text: 'text-pink-400',
     },
     biometric: {
       gradient: 'from-orange-500 via-red-500 to-rose-500',
       glow: 'shadow-orange-500/30',
       border: 'border-orange-500/30',
-      text: 'text-orange-400'
-    }
+      text: 'text-orange-400',
+    },
   }
 
   const sizes = {
@@ -125,35 +135,36 @@ export function FuturisticMetrics({
       icon: 'w-6 h-6',
       title: 'text-sm',
       value: 'text-2xl',
-      trend: 'text-xs'
+      trend: 'text-xs',
     },
     md: {
       container: 'p-6',
       icon: 'w-8 h-8',
       title: 'text-base',
       value: 'text-3xl',
-      trend: 'text-sm'
+      trend: 'text-sm',
     },
     lg: {
       container: 'p-8',
       icon: 'w-10 h-10',
       title: 'text-lg',
       value: 'text-4xl',
-      trend: 'text-base'
+      trend: 'text-base',
     },
     xl: {
       container: 'p-10',
       icon: 'w-12 h-12',
       title: 'text-xl',
       value: 'text-5xl',
-      trend: 'text-lg'
-    }
+      trend: 'text-lg',
+    },
   }
 
   const variantStyle = variants[variant]
   const sizeStyle = sizes[size]
 
-  const TrendIcon = trend === 'up' ? TrendingUp : trend === 'down' ? TrendingDown : Minus
+  const TrendIcon =
+    trend === 'up' ? TrendingUp : trend === 'down' ? TrendingDown : Minus
 
   return (
     <motion.div
@@ -171,14 +182,14 @@ export function FuturisticMetrics({
     >
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-5">
-        <div 
+        <div
           className="absolute inset-0"
           style={{
             backgroundImage: `
               linear-gradient(90deg, transparent 50%, currentColor 50%),
               linear-gradient(0deg, transparent 50%, currentColor 50%)
             `,
-            backgroundSize: '20px 20px'
+            backgroundSize: '20px 20px',
           }}
         />
       </div>
@@ -195,7 +206,7 @@ export function FuturisticMetrics({
         transition={{
           duration: 4,
           repeat: Infinity,
-          ease: "easeInOut"
+          ease: 'easeInOut',
         }}
       />
 
@@ -207,19 +218,20 @@ export function FuturisticMetrics({
               'p-2 rounded-2xl bg-gradient-to-br',
               variantStyle.gradient
             )}
-            animate={isAnimating ? { 
-              scale: [1, 1.1, 1],
-              rotate: [0, 5, -5, 0]
-            } : {}}
+            animate={
+              isAnimating
+                ? {
+                    scale: [1, 1.1, 1],
+                    rotate: [0, 5, -5, 0],
+                  }
+                : {}
+            }
             transition={{ duration: 0.5 }}
           >
             <Icon className={cn('text-white', sizeStyle.icon)} />
           </motion.div>
           <div>
-            <h3 className={cn(
-              'font-semibold text-white/90',
-              sizeStyle.title
-            )}>
+            <h3 className={cn('font-semibold text-white/90', sizeStyle.title)}>
               {title}
             </h3>
           </div>
@@ -241,12 +253,12 @@ export function FuturisticMetrics({
                   className="w-1 h-1 bg-cyan-400 rounded-full"
                   animate={{
                     scale: [0.8, 1.2, 0.8],
-                    opacity: [0.5, 1, 0.5]
+                    opacity: [0.5, 1, 0.5],
                   }}
                   transition={{
                     duration: 1,
                     repeat: Infinity,
-                    delay: i * 0.2
+                    delay: i * 0.2,
                   }}
                 />
               ))}
@@ -263,14 +275,18 @@ export function FuturisticMetrics({
             variantStyle.gradient,
             sizeStyle.value
           )}
-          animate={isAnimating ? {
-            textShadow: [
-              '0 0 0px rgba(139, 92, 246, 0)',
-              '0 0 20px rgba(139, 92, 246, 0.8)',
-              '0 0 0px rgba(139, 92, 246, 0)'
-            ]
-          } : {}}
-          transition={{ duration: 2, ease: "easeInOut" }}
+          animate={
+            isAnimating
+              ? {
+                  textShadow: [
+                    '0 0 0px rgba(139, 92, 246, 0)',
+                    '0 0 20px rgba(139, 92, 246, 0.8)',
+                    '0 0 0px rgba(139, 92, 246, 0)',
+                  ],
+                }
+              : {}
+          }
+          transition={{ duration: 2, ease: 'easeInOut' }}
         >
           {data?.prefix}
           {Math.round(displayValue).toLocaleString()}
@@ -289,16 +305,18 @@ export function FuturisticMetrics({
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
           >
-            <div className={cn(
-              'flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium',
-              trend === 'up' ? 'bg-green-500/20 text-green-400' :
-              trend === 'down' ? 'bg-red-500/20 text-red-400' :
-              'bg-gray-500/20 text-gray-400'
-            )}>
-              <TrendIcon className="w-3 h-3" />
-              {trend !== 'neutral' && (
-                <span>{changePercent.toFixed(1)}%</span>
+            <div
+              className={cn(
+                'flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium',
+                trend === 'up'
+                  ? 'bg-green-500/20 text-green-400'
+                  : trend === 'down'
+                    ? 'bg-red-500/20 text-red-400'
+                    : 'bg-gray-500/20 text-gray-400'
               )}
+            >
+              <TrendIcon className="w-3 h-3" />
+              {trend !== 'neutral' && <span>{changePercent.toFixed(1)}%</span>}
             </div>
             <span className={cn('text-white/60', sizeStyle.trend)}>
               vs previous period
@@ -313,7 +331,9 @@ export function FuturisticMetrics({
               <span className={cn('text-white/60', sizeStyle.trend)}>
                 Progress to target
               </span>
-              <span className={cn('font-medium text-white/80', sizeStyle.trend)}>
+              <span
+                className={cn('font-medium text-white/80', sizeStyle.trend)}
+              >
                 {progressPercent.toFixed(1)}%
               </span>
             </div>
@@ -325,12 +345,13 @@ export function FuturisticMetrics({
                 )}
                 initial={{ width: 0 }}
                 animate={{ width: `${progressPercent}%` }}
-                transition={{ delay: 0.5, duration: 1.5, ease: "easeOut" }}
+                transition={{ delay: 0.5, duration: 1.5, ease: 'easeOut' }}
               />
             </div>
             <div className="flex items-center justify-between">
               <span className={cn('text-white/40', sizeStyle.trend)}>
-                Target: {data?.target?.toLocaleString()}{data?.unit}
+                Target: {data?.target?.toLocaleString()}
+                {data?.unit}
               </span>
               {progressPercent >= 100 && (
                 <motion.div
@@ -351,21 +372,18 @@ export function FuturisticMetrics({
       {/* Pulse effect for critical metrics */}
       {glowEffect && (
         <motion.div
-          className={cn(
-            'absolute inset-0 rounded-3xl',
-            variantStyle.border
-          )}
+          className={cn('absolute inset-0 rounded-3xl', variantStyle.border)}
           animate={{
             boxShadow: [
               '0 0 0px rgba(139, 92, 246, 0)',
               '0 0 40px rgba(139, 92, 246, 0.3)',
-              '0 0 0px rgba(139, 92, 246, 0)'
-            ]
+              '0 0 0px rgba(139, 92, 246, 0)',
+            ],
           }}
           transition={{
             duration: 3,
             repeat: Infinity,
-            ease: "easeInOut"
+            ease: 'easeInOut',
           }}
         />
       )}

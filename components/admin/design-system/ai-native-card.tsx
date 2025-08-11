@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 import React, { useState, useRef, useEffect } from 'react'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
@@ -40,7 +40,7 @@ export function AICard({
 }: AICardProps) {
   const cardRef = useRef<HTMLDivElement>(null)
   const [isHovered, setIsHovered] = useState(false)
-  
+
   // Mouse tracking for interactive effects
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
@@ -50,11 +50,11 @@ export function AICard({
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (!cardRef.current || !interactive) return
-      
+
       const rect = cardRef.current.getBoundingClientRect()
       const centerX = rect.left + rect.width / 2
       const centerY = rect.top + rect.height / 2
-      
+
       mouseX.set((e.clientX - centerX) / rect.width)
       mouseY.set((e.clientY - centerY) / rect.height)
     }
@@ -69,23 +69,27 @@ export function AICard({
     learning: Brain,
     active: Zap,
     optimized: TrendingUp,
-    predicting: Sparkles
+    predicting: Sparkles,
   }
 
   const StatusIcon = statusIcons[status]
 
   const variantStyles = {
-    neural: 'bg-gradient-to-br from-purple-900/20 via-blue-900/20 to-cyan-900/20 border-purple-500/30',
-    quantum: 'bg-gradient-to-br from-green-900/20 via-emerald-900/20 to-teal-900/20 border-emerald-500/30',
-    holographic: 'bg-gradient-to-br from-pink-900/20 via-purple-900/20 to-indigo-900/20 border-pink-500/30',
-    biometric: 'bg-gradient-to-br from-orange-900/20 via-red-900/20 to-rose-900/20 border-orange-500/30'
+    neural:
+      'bg-gradient-to-br from-purple-900/20 via-blue-900/20 to-cyan-900/20 border-purple-500/30',
+    quantum:
+      'bg-gradient-to-br from-green-900/20 via-emerald-900/20 to-teal-900/20 border-emerald-500/30',
+    holographic:
+      'bg-gradient-to-br from-pink-900/20 via-purple-900/20 to-indigo-900/20 border-pink-500/30',
+    biometric:
+      'bg-gradient-to-br from-orange-900/20 via-red-900/20 to-rose-900/20 border-orange-500/30',
   }
 
   const statusColors = {
     learning: 'text-blue-400',
     active: 'text-green-400',
     optimized: 'text-purple-400',
-    predicting: 'text-cyan-400'
+    predicting: 'text-cyan-400',
   }
 
   return (
@@ -98,11 +102,15 @@ export function AICard({
         interactive && 'cursor-pointer',
         className
       )}
-      style={interactive ? {
-        rotateX,
-        rotateY,
-        transformStyle: 'preserve-3d'
-      } : {}}
+      style={
+        interactive
+          ? {
+              rotateX,
+              rotateY,
+              transformStyle: 'preserve-3d',
+            }
+          : {}
+      }
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
@@ -112,14 +120,15 @@ export function AICard({
     >
       {/* Neural network background pattern */}
       <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0" 
+        <div
+          className="absolute inset-0"
           style={{
             backgroundImage: `
               radial-gradient(circle at 25% 25%, currentColor 1px, transparent 0),
               radial-gradient(circle at 75% 75%, currentColor 1px, transparent 0),
               radial-gradient(circle at 50% 50%, currentColor 1px, transparent 0)
             `,
-            backgroundSize: '50px 50px, 70px 70px, 90px 90px'
+            backgroundSize: '50px 50px, 70px 70px, 90px 90px',
           }}
         />
       </div>
@@ -129,9 +138,9 @@ export function AICard({
         className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-white/5"
         animate={{
           opacity: isHovered ? 0.8 : 0.4,
-          background: isHovered 
+          background: isHovered
             ? 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%, rgba(255,255,255,0.1) 100%)'
-            : 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 50%, rgba(255,255,255,0.05) 100%)'
+            : 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 50%, rgba(255,255,255,0.05) 100%)',
         }}
         transition={{ duration: 0.5 }}
       />
@@ -142,17 +151,11 @@ export function AICard({
           <div className="flex items-start justify-between">
             <div className="space-y-1">
               {title && (
-                <h3 className="text-xl font-bold text-white/90">
-                  {title}
-                </h3>
+                <h3 className="text-xl font-bold text-white/90">{title}</h3>
               )}
-              {subtitle && (
-                <p className="text-sm text-white/60">
-                  {subtitle}
-                </p>
-              )}
+              {subtitle && <p className="text-sm text-white/60">{subtitle}</p>}
             </div>
-            
+
             <div className="flex items-center gap-2">
               <motion.div
                 className={cn(
@@ -163,9 +166,7 @@ export function AICard({
                 transition={{ duration: 0.2 }}
               >
                 <StatusIcon className="w-4 h-4" />
-                <span className="text-xs font-medium capitalize">
-                  {status}
-                </span>
+                <span className="text-xs font-medium capitalize">{status}</span>
               </motion.div>
             </div>
           </div>
@@ -183,7 +184,7 @@ export function AICard({
           <div className="flex items-center gap-3">
             <motion.div
               animate={{ rotate: 360 }}
-              transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+              transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
             >
               <Brain className="w-4 h-4 text-purple-400" />
             </motion.div>
@@ -195,23 +196,32 @@ export function AICard({
                   <>
                     <span className="font-semibold">{aiInsight.title}</span>
                     <br />
-                    <span className="text-xs text-white/60">{aiInsight.description}</span>
+                    <span className="text-xs text-white/60">
+                      {aiInsight.description}
+                    </span>
                   </>
                 )}
               </p>
-              {(confidence > 0 || (typeof aiInsight === 'object' && aiInsight.confidence > 0)) && (
+              {(confidence > 0 ||
+                (typeof aiInsight === 'object' &&
+                  aiInsight.confidence > 0)) && (
                 <div className="flex items-center gap-2 mt-1">
                   <span className="text-xs text-white/50">Confidence:</span>
                   <div className="flex-1 h-1 bg-white/20 rounded-full overflow-hidden">
                     <motion.div
                       className="h-full bg-gradient-to-r from-purple-400 to-cyan-400"
                       initial={{ width: 0 }}
-                      animate={{ width: `${typeof aiInsight === 'object' ? aiInsight.confidence : confidence}%` }}
-                      transition={{ delay: 0.5, duration: 1, ease: "easeOut" }}
+                      animate={{
+                        width: `${typeof aiInsight === 'object' ? aiInsight.confidence : confidence}%`,
+                      }}
+                      transition={{ delay: 0.5, duration: 1, ease: 'easeOut' }}
                     />
                   </div>
                   <span className="text-xs text-white/70 font-medium">
-                    {typeof aiInsight === 'object' ? aiInsight.confidence : confidence}%
+                    {typeof aiInsight === 'object'
+                      ? aiInsight.confidence
+                      : confidence}
+                    %
                   </span>
                 </div>
               )}
@@ -221,9 +231,7 @@ export function AICard({
       )}
 
       {/* Main content */}
-      <div className="relative z-10">
-        {children}
-      </div>
+      <div className="relative z-10">{children}</div>
 
       {/* Floating AI particles */}
       {interactive && (
@@ -244,7 +252,7 @@ export function AICard({
               transition={{
                 duration: 2 + i * 0.5,
                 repeat: Infinity,
-                ease: "easeInOut",
+                ease: 'easeInOut',
                 delay: i * 0.2,
               }}
             />
