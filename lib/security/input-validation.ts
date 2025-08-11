@@ -26,7 +26,7 @@ const SECURITY_CONFIG = {
   ],
   pathTraversalPatterns: [
     /\.\.\//g,
-    /\.\.\\\\g,
+    /\.\.\\/g,
     /%2e%2e%2f/gi,
     /%2e%2e\//gi,
     /\.\.%2f/gi,
@@ -122,16 +122,6 @@ class InputValidator {
     // Sanitization
     if (options.sanitize) {
       result.sanitizedValue = this.sanitizeString(value, options)
-    }
-
-    // Custom pattern validation
-    if (options.customPatterns) {
-      for (const pattern of options.customPatterns) {
-        if (!pattern.test(value)) {
-          result.isValid = false
-          result.errors.push('Value does not match required pattern')
-        }
-      }
     }
 
     return result
@@ -286,15 +276,6 @@ class InputValidator {
       }
     }
 
-    // Check for suspicious patterns
-    if (value.includes('${') || value.includes('#{')) {
-      issues.push('Potential template injection detected')
-    }
-
-    if (value.includes('<!--') || value.includes('<!DOCTYPE')) {
-      issues.push('Potential HTML injection detected')
-    }
-
     return { issues, hasXSS, hasSQLi, hasPathTraversal }
   }
 
@@ -321,7 +302,7 @@ class InputValidator {
     sanitized = sanitized.replace(/('|(\\')|(;)|(\-\-)|(\#))/g, '')
 
     // Remove path traversal patterns
-    sanitized = sanitized.replace(/\.\.\//g, '').replace(/\.\.\\\\g, '')
+    sanitized = sanitized.replace(/\.\.\//g, '').replace(/\.\.\\/g, '')
 
     // Normalize whitespace
     sanitized = sanitized.replace(/\s+/g, ' ').trim()
@@ -357,17 +338,16 @@ class InputValidator {
   }
 
   // URL validation
-  validateURL(url: string, options: { allowedProtocols?: string[] } = {}): ValidationResult {
+  validateURL(url: string): ValidationResult {
     const result: ValidationResult = {
       isValid: true,
       errors: [],
       sanitizedValue: url.trim()
     }
 
-    const allowedProtocols = options.allowedProtocols || ['http:', 'https:']
-
     try {
       const urlObj = new URL(url)
+      const allowedProtocols = ['http:', 'https:']
       
       if (!allowedProtocols.includes(urlObj.protocol)) {
         result.isValid = false
