@@ -65,7 +65,8 @@ export function NetworkProvider({ children }: { children: React.ReactNode }) {
     rtt: 0,
     saveData: false,
   });
-  
+  const [isClient, setIsClient] = useState(false);
+
   const [errors, setErrors] = useState<NetworkError[]>([]);
 
   const addError = useCallback((error: Omit<NetworkError, 'id' | 'timestamp'>) => {
