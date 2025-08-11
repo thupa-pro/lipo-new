@@ -1,4 +1,4 @@
-import { auth } from '@clerk/nextjs/server'
+// Using Supabase auth instead of Clerk
 import { createSupabaseAdminClient } from '@/lib/supabase/client'
 import { NextResponse } from 'next/server'
 
