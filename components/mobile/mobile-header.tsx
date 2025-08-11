@@ -40,6 +40,7 @@ export function MobileHeader({
   const [isOnline, setIsOnline] = useState(true);
   const [batteryLevel, setBatteryLevel] = useState(85);
   const [signalStrength, setSignalStrength] = useState(4);
+  const [isClient, setIsClient] = useState(false);
   const router = useRouter();
   const isMobile = useIsMobile();
   const t = useTranslations("Mobile.header");
