@@ -360,7 +360,7 @@ export function useNetworkAwareFetch() {
         url,
         retryable: true,
       });
-    } else if (!navigator.onLine) {
+    } else if (typeof navigator !== 'undefined' && !navigator.onLine) {
       addError({
         message: 'No internet connection available',
         type: 'network',
