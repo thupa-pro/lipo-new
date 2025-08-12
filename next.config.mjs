@@ -43,42 +43,16 @@ const nextConfig = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
 
-  // Advanced bundling with quantum-optimized chunks
+  // Simplified webpack optimization for compatibility
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-    // Optimize bundle splitting for better caching
-    config.optimization = {
-      ...config.optimization,
-      splitChunks: {
-        chunks: 'all',
-        cacheGroups: {
-          vendor: {
-            test: /[\\/]node_modules[\\/]/,
-            name: 'vendors',
-            chunks: 'all',
-          },
-          animations: {
-            test: /[\\/]node_modules[\\/](framer-motion|lottie-react)[\\/]/,
-            name: 'animations',
-            chunks: 'all',
-          },
-          ui: {
-            test: /[\\/]components[\\/]ui[\\/]/,
-            name: 'ui-components',
-            chunks: 'all',
-          },
-        },
-      },
-    };
-
-    // Add support for WebAssembly (for future quantum computing features)
+    // Add support for future WebAssembly features
     config.experiments = {
       ...config.experiments,
       asyncWebAssembly: true,
       topLevelAwait: true,
-      layers: true,
     };
 
-    // Optimize for WebGL/WebXR
+    // Optimize for Web APIs
     config.resolve.fallback = {
       ...config.resolve.fallback,
       fs: false,
