@@ -100,7 +100,7 @@ const nextConfig = {
     return config;
   },
 
-  // Very permissive headers for development and preview
+  // Quantum-level security headers with preview compatibility
   async headers() {
     return [
       {
@@ -116,16 +116,59 @@ const nextConfig = {
           },
           {
             key: 'Referrer-Policy',
-            value: 'origin-when-cross-origin'
+            value: 'strict-origin-when-cross-origin'
           },
-          // Explicitly allow iframe embedding for preview
           {
             key: 'X-Frame-Options',
             value: 'ALLOWALL'
+          },
+          {
+            key: 'Permissions-Policy',
+            value: 'camera=(), microphone=(), geolocation=(self), payment=(self), usb=(), accelerometer=(), gyroscope=(), magnetometer=()'
+          },
+          {
+            key: 'Cross-Origin-Embedder-Policy',
+            value: 'unsafe-none' // Required for preview compatibility
+          },
+          {
+            key: 'Cross-Origin-Opener-Policy',
+            value: 'same-origin-allow-popups'
+          }
+        ]
+      },
+      {
+        source: '/api/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, s-maxage=60, stale-while-revalidate=300'
+          }
+        ]
+      },
+      {
+        source: '/_next/static/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable'
           }
         ]
       }
     ]
+  },
+
+  // PWA Configuration for offline-first experience
+  async rewrites() {
+    return [
+      {
+        source: '/sw.js',
+        destination: '/api/sw',
+      },
+      {
+        source: '/workbox-:hash.js',
+        destination: '/api/workbox',
+      }
+    ];
   },
 
   // Disable x-powered-by header
