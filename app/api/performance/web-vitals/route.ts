@@ -56,7 +56,23 @@ export async function POST(request: NextRequest) {
 
 export async function GET() {
   try {
-    const supabase = createSupabaseServerClient()
+    const supabase = createSupabaseServerComponent()
+
+    // Handle case where Supabase is not configured
+    if (!supabase) {
+      return NextResponse.json({
+        message: 'Web Vitals Performance API',
+        description: 'Track and analyze Core Web Vitals metrics',
+        stats: {
+          totalMetrics: 0,
+          averageResponseTime: 0,
+          p95ResponseTime: 0,
+          slowestEndpoints: [],
+          performanceTrend: 'stable' as const
+        },
+        note: 'Supabase not configured'
+      })
+    }
     
     // Get performance summary from last 24 hours
     const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
