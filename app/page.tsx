@@ -1,6 +1,7 @@
-import { Suspense } from 'react';
+'use client';
+
+import { useState, Suspense } from 'react';
 import Link from 'next/link';
-import { createSupabaseServerComponent } from '@/lib/supabase/server';
 import { IntelligentHeader } from '@/components/ui/intelligent-header';
 import { PWAProvider } from '@/components/ui/pwa-features';
 import { ModernFooter } from '@/components/modern-footer';
@@ -37,106 +38,17 @@ import {
 // Interactive components
 import { HomePageClient } from './components/home-page-client';
 
-// Configure ISR - revalidate every hour for fresh stats
-export const revalidate = 3600;
-
-// Enhanced metadata for SEO
-export const metadata = {
-  title: "Loconomy - AI-Powered Local Services Platform | Find Trusted Professionals",
-  description: "Connect with verified local service professionals through our intelligent platform. From home repairs to personal training - find trusted providers with AI-powered matching, real-time chat, and smart recommendations.",
-  keywords: ["local services", "AI marketplace", "service providers", "home repair", "professional services", "artificial intelligence", "smart matching"],
-  openGraph: {
-    title: "Loconomy - AI-Powered Local Services Platform",
-    description: "Connect with trusted local service professionals through our intelligent platform",
-    url: "https://loconomy.com",
-    siteName: "Loconomy",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Loconomy - AI-Powered Local Services",
-      },
-    ],
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Loconomy - AI-Powered Local Services Platform",
-    description: "Connect with trusted local service professionals through our intelligent platform",
-    creator: "@loconomy",
-    images: ["/twitter-image.png"],
-  },
-  robots: {
-    index: true,
-    follow: true,
-    nocache: false,
-    googleBot: {
-      index: true,
-      follow: true,
-      noimageindex: false,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-  alternates: {
-    canonical: "https://loconomy.com",
-  },
+// Static data instead of dynamic fetching
+const stats = {
+  userCount: 2400000,
+  providerCount: 45000,
+  bookingCount: 1200000,
+  averageRating: 4.9,
+  responseTime: "< 2hrs",
+  successRate: "98.7%"
 };
 
-// Server-side data fetching
-async function getHomePageStats() {
-  const supabase = createSupabaseServerComponent();
-
-  try {
-    const [usersResult, providersResult, bookingsResult] = await Promise.all([
-      supabase.from('users').select('id', { count: 'exact', head: true }),
-      supabase.from('providers').select('id', { count: 'exact', head: true }),
-      supabase.from('bookings').select('id', { count: 'exact', head: true })
-    ]);
-
-    return {
-      userCount: usersResult.count || 2400000,
-      providerCount: providersResult.count || 45000,
-      bookingCount: bookingsResult.count || 1200000,
-      averageRating: 4.9,
-      responseTime: "< 2hrs",
-      successRate: "98.7%"
-    };
-  } catch (error) {
-    console.error('Error fetching homepage stats:', error);
-    return {
-      userCount: 2400000,
-      providerCount: 45000,
-      bookingCount: 1200000,
-      averageRating: 4.9,
-      responseTime: "< 2hrs",
-      successRate: "98.7%"
-    };
-  }
-}
-
-async function getPopularCategories() {
-  const supabase = createSupabaseServerComponent();
-
-  try {
-    const { data: categories } = await supabase
-      .from('categories')
-      .select('id, name, slug, description, icon_name')
-      .eq('parent_id', null)
-      .order('sort_order')
-      .limit(6);
-
-    return categories || defaultCategories;
-  } catch (error) {
-    console.error('Error fetching categories:', error);
-    return defaultCategories;
-  }
-}
-
-const defaultCategories = [
+const categories = [
   {
     id: '1',
     name: 'Home Services',
@@ -212,12 +124,8 @@ const structuredData = {
   }
 };
 
-export default async function HomePage() {
-  // Server-side data fetching
-  const [stats, categories] = await Promise.all([
-    getHomePageStats(),
-    getPopularCategories()
-  ]);
+export default function HomePage() {
+  const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
 
   return (
     <PWAProvider>
@@ -236,7 +144,7 @@ export default async function HomePage() {
         <div className="absolute top-[30%] right-[10%] w-[500px] h-[500px] bg-fuchsia-700/20 rounded-full blur-[150px] animate-pulse animation-delay-2000"></div>
 
         {/* Intelligent Header */}
-        <IntelligentHeader />
+        <IntelligentHeader onCommandPaletteOpen={() => setIsCommandPaletteOpen(true)} />
 
         {/* Header Compensation */}
         <div className="h-20 md:h-24"></div>
@@ -574,6 +482,10 @@ export default async function HomePage() {
 
         <ModernFooter />
         <CommandPaletteHint />
+        <CommandPalette
+          isOpen={isCommandPaletteOpen}
+          onClose={() => setIsCommandPaletteOpen(false)}
+        />
         <FloatingFAB />
         <MobileBottomNav currentPath="/" />
 
