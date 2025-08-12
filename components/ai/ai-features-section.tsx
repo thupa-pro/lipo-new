@@ -204,7 +204,15 @@ export function AIFeaturesSection() {
                     </DialogTitle>
                   </DialogHeader>
                   <div className="flex-1 overflow-auto p-6">
-                    <SmartRecommendations />
+                    <SmartRecommendations
+                      userId="demo-user"
+                      query="home cleaning services"
+                      context={{
+                        location: { lat: 37.7749, lng: -122.4194 },
+                        urgency: 'medium',
+                        budget: { min: 50, max: 200 }
+                      }}
+                    />
                   </div>
                 </DialogContent>
               </Dialog>
