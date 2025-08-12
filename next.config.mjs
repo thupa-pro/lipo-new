@@ -16,7 +16,7 @@ const nextConfig = {
     unoptimized: false,
   },
 
-  // Very permissive headers for development
+  // Very permissive headers for development and preview
   async headers() {
     return [
       {
@@ -33,6 +33,11 @@ const nextConfig = {
           {
             key: 'Referrer-Policy',
             value: 'origin-when-cross-origin'
+          },
+          // Explicitly allow iframe embedding for preview
+          {
+            key: 'X-Frame-Options',
+            value: 'ALLOWALL'
           }
         ]
       }
