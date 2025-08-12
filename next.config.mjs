@@ -5,6 +5,15 @@ const nextConfig = {
     optimizePackageImports: ['lucide-react'],
   },
 
+  // Allow cross-origin requests from preview domains
+  allowedDevOrigins: [
+    '*.builder.io',
+    '*.vercel.app',
+    '*.netlify.app',
+    '*.fly.dev',
+    'd4d881df829349b782b0cfae8b91d649-3c85ac9e8bde4163835739553.fly.dev'
+  ],
+
   // Production optimizations
   poweredByHeader: false,
   compress: true,
