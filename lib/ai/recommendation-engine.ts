@@ -818,6 +818,3 @@ export async function getAIRecommendations(
 export async function getUserAIInsights(userId: string) {
   return await aiRecommendationEngine.getUserInsights(userId)
 }
-
-// Export the singleton instance
-export const aiRecommendationEngine = new AIRecommendationEngine()
