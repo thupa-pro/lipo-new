@@ -75,8 +75,8 @@ export function middleware(request: NextRequest) {
       return new NextResponse('Forbidden', { status: 403 })
     }
 
-    // 4. Origin Validation for API routes
-    if (pathname.startsWith('/api/') && method !== 'GET') {
+    // 4. Origin Validation for API routes - disabled for development
+    if (process.env.NODE_ENV === 'production' && pathname.startsWith('/api/') && method !== 'GET') {
       if (!isValidOrigin(request)) {
         return new NextResponse('Forbidden', { status: 403 })
       }
