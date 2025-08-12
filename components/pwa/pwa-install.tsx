@@ -6,12 +6,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge'
 import { Progress } from '@/components/ui/progress'
 import { 
-  Download, 
-  Smartphone, 
-  Monitor, 
-  Wifi, 
-  WifiOff, 
+  Download,
+  Smartphone,
+  Monitor,
+  Wifi,
+  WifiOff,
   Bell,
+  RefreshCw,
   RefreshCw as Sync,
   CheckCircle,
   XCircle,
