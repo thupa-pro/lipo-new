@@ -4,12 +4,13 @@ import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { 
-  WifiOff, 
-  Wifi, 
-  RefreshCw, 
-  Smartphone, 
-  Clock, 
+import {
+  WifiOff,
+  Wifi,
+  RefreshCw,
+  RefreshCw as Sync,
+  Smartphone,
+  Clock,
   MessageCircle,
   Calendar,
   Star,
