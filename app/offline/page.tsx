@@ -370,7 +370,7 @@ export default function OfflinePage() {
                 </>
               ) : (
                 <>
-                  <Sync className="w-4 h-4" />
+                  <RefreshCw className="w-4 h-4" />
                   Sync Now
                 </>
               )}
