@@ -118,10 +118,9 @@ export function middleware(request: NextRequest) {
 }
 
 function addSecurityHeaders(response: NextResponse, pathname: string) {
-  // Basic security headers
+  // Basic security headers - removed X-Frame-Options to allow preview iframe
   response.headers.set('X-DNS-Prefetch-Control', 'on')
   response.headers.set('X-Content-Type-Options', 'nosniff')
-  response.headers.set('X-Frame-Options', 'SAMEORIGIN')
   response.headers.set('X-XSS-Protection', '1; mode=block')
   response.headers.set('Referrer-Policy', 'origin-when-cross-origin')
   response.headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=(self)')
@@ -134,7 +133,7 @@ function addSecurityHeaders(response: NextResponse, pathname: string) {
     )
   }
 
-  // Content Security Policy
+  // Content Security Policy - relaxed for preview iframe
   const cspDirectives = [
     "default-src 'self'",
     "script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: https://va.vercel-scripts.com https://challenges.cloudflare.com",
@@ -146,7 +145,7 @@ function addSecurityHeaders(response: NextResponse, pathname: string) {
     "object-src 'none'",
     "base-uri 'self'",
     "form-action 'self'",
-    "frame-ancestors 'self' https://*.builder.io",
+    "frame-ancestors 'self' https://*.builder.io https://*.vercel.app https://*.netlify.app *",
     "block-all-mixed-content",
     "upgrade-insecure-requests"
   ]
