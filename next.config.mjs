@@ -235,6 +235,11 @@ const nextConfig = {
     BUILD_TIMESTAMP: Date.now().toString(),
   },
 
+  // Fix cross-origin warning for Builder.io
+  allowedDevOrigins: [
+    'd4d881df829349b782b0cfae8b91d649-3c85ac9e8bde4163835739553.fly.dev'
+  ],
+
   // Logging for performance monitoring
   logging: {
     fetches: {
