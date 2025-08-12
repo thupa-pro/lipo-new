@@ -62,6 +62,7 @@ import {
 // Interactive components
 import { HomePageClient } from './components/home-page-client';
 import { AIInsightsSection } from '@/components/ai/ai-insights-section';
+import { AIFeaturesSection } from '@/components/ai/ai-features-section';
 import { LiveProviderStatus } from '@/components/providers/live-provider-status';
 
 // Types
