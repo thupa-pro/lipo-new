@@ -101,7 +101,7 @@ const nextConfig = {
           },
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; connect-src 'self' https:; media-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self' https://*.builder.io;"
+            value: "default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https: wss: ws:; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: data: https:; style-src 'self' 'unsafe-inline' data: blob: https:; img-src 'self' data: blob: https:; font-src 'self' data: blob: https:; connect-src 'self' https: wss: ws: data: blob:; media-src 'self' blob: data: https:; object-src 'self' data: blob:; base-uri 'self'; form-action 'self'; frame-ancestors *; worker-src 'self' blob: data:;"
           }
         ]
       },
