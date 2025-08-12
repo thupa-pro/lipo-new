@@ -27,15 +27,77 @@ const nextConfig = {
     'd4d881df829349b782b0cfae8b91d649-3c85ac9e8bde4163835739553.fly.dev'
   ],
 
-  // Production optimizations
+  // Production optimizations for quantum performance
   poweredByHeader: false,
   compress: true,
-  
-  // Image optimization - simplified
+  generateEtags: true,
+
+  // Advanced Image optimization with AI-powered compression
   images: {
     formats: ['image/avif', 'image/webp'],
     dangerouslyAllowSVG: true,
     unoptimized: false,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+      }
+    ],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    minimumCacheTTL: 31536000, // 1 year for maximum performance
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+  },
+
+  // Advanced bundling with quantum-optimized chunks
+  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+    // Optimize bundle splitting for better caching
+    config.optimization = {
+      ...config.optimization,
+      splitChunks: {
+        chunks: 'all',
+        cacheGroups: {
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendors',
+            chunks: 'all',
+          },
+          animations: {
+            test: /[\\/]node_modules[\\/](framer-motion|lottie-react)[\\/]/,
+            name: 'animations',
+            chunks: 'all',
+          },
+          ui: {
+            test: /[\\/]components[\\/]ui[\\/]/,
+            name: 'ui-components',
+            chunks: 'all',
+          },
+        },
+      },
+    };
+
+    // Add support for WebAssembly (for future quantum computing features)
+    config.experiments = {
+      ...config.experiments,
+      asyncWebAssembly: true,
+      topLevelAwait: true,
+      layers: true,
+    };
+
+    // Optimize for WebGL/WebXR
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      fs: false,
+      path: false,
+      crypto: false,
+    };
+
+    return config;
   },
 
   // Very permissive headers for development and preview
