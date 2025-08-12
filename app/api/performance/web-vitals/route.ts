@@ -21,8 +21,14 @@ export async function POST(request: NextRequest) {
     }
 
     // Store in database for analytics
-    const supabase = createSupabaseServerClient()
-    
+    const supabase = createSupabaseServerComponent()
+
+    // Handle case where Supabase is not configured
+    if (!supabase) {
+      console.warn('Supabase not configured, skipping metrics storage')
+      return NextResponse.json({ success: true, note: 'Metrics logged locally only' })
+    }
+
     await supabase.from('performance_metrics').insert({
       endpoint: '/web-vitals',
       method: 'METRIC',
