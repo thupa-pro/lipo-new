@@ -39,27 +39,27 @@ function sendToAnalytics(metric: WebVitalsMetric) {
 export default function WebVitals() {
   useEffect(() => {
     // Largest Contentful Paint
-    getLCP((metric) => {
+    onLCP((metric) => {
       sendToAnalytics(metric)
     })
 
     // First Input Delay
-    getFID((metric) => {
+    onFID((metric) => {
       sendToAnalytics(metric)
     })
 
     // Cumulative Layout Shift
-    getCLS((metric) => {
+    onCLS((metric) => {
       sendToAnalytics(metric)
     })
 
     // First Contentful Paint
-    getFCP((metric) => {
+    onFCP((metric) => {
       sendToAnalytics(metric)
     })
 
     // Time to First Byte
-    getTTFB((metric) => {
+    onTTFB((metric) => {
       sendToAnalytics(metric)
     })
   }, [])
