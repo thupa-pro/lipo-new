@@ -57,8 +57,8 @@ export function middleware(request: NextRequest) {
     // 1. Security Headers
     addSecurityHeaders(response, pathname)
 
-    // 2. Rate Limiting
-    if (isRateLimited(ip, pathname, method)) {
+    // 2. Rate Limiting - disabled for development
+    if (process.env.NODE_ENV === 'production' && isRateLimited(ip, pathname, method)) {
       return new NextResponse('Too Many Requests', {
         status: 429,
         headers: {
