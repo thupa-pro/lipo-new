@@ -217,6 +217,9 @@ export default function RootLayout({
                   {/* Performance optimization */}
                   <PerformanceClient />
                   <WebVitals />
+
+                  {/* PWA Installation */}
+                  <PWAInstall />
                 </CommandPaletteProvider>
               </AuthProvider>
             </NetworkProvider>
