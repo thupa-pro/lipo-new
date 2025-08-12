@@ -1,82 +1,32 @@
 {
-  "name": "Loconomy - Premium Local Services",
+  "name": "Loconomy - AI-Powered Local Services Platform",
   "short_name": "Loconomy",
-  "description": "AI-powered marketplace connecting you with verified local service providers. From home repairs to personal training - find trusted professionals in your area.",
+  "description": "Connect with trusted local service professionals through our intelligent platform. From home repairs to personal training - find verified providers with AI-powered matching, real-time chat, and smart recommendations.",
   "start_url": "/",
   "display": "standalone",
-  "display_override": ["window-controls-overlay", "standalone"],
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
   "orientation": "portrait-primary",
   "theme_color": "#7C3AED",
   "background_color": "#0A0B1E",
   "scope": "/",
-  "lang": "en",
-  "categories": ["business", "productivity", "lifestyle"],
-  "prefer_related_applications": false,
+  "lang": "en-US",
+  "dir": "ltr",
+  "categories": ["business", "productivity", "lifestyle", "utilities"],
   "edge_side_panel": {},
   "launch_handler": {
-    "client_mode": "focus-existing"
+    "client_mode": ["navigate-existing", "auto"]
   },
-  "handle_links": "preferred",
-  "icons": [
-    {
-      "src": "/icon-72x72.png",
-      "sizes": "72x72",
-      "type": "image/png",
-      "purpose": "maskable"
-    },
-    {
-      "src": "/icon-96x96.png",
-      "sizes": "96x96",
-      "type": "image/png",
-      "purpose": "maskable"
-    },
-    {
-      "src": "/icon-128x128.png",
-      "sizes": "128x128",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/icon-144x144.png",
-      "sizes": "144x144",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/icon-152x152.png",
-      "sizes": "152x152",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/icon-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/icon-384x384.png",
-      "sizes": "384x384",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/icon-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
-  ],
+  "prefer_related_applications": false,
   "shortcuts": [
     {
       "name": "Find Services",
-      "short_name": "Search",
-      "description": "Search for local service providers",
+      "short_name": "Browse",
+      "description": "Browse and search for local service providers",
       "url": "/browse",
       "icons": [
         {
-          "src": "/icon-192x192.png",
-          "sizes": "192x192",
+          "src": "/icons/shortcut-browse.png",
+          "sizes": "96x96",
           "type": "image/png"
         }
       ]
@@ -88,21 +38,8 @@
       "url": "/dashboard",
       "icons": [
         {
-          "src": "/icon-192x192.png",
-          "sizes": "192x192",
-          "type": "image/png"
-        }
-      ]
-    },
-    {
-      "name": "Post Job",
-      "short_name": "Post",
-      "description": "Request a service",
-      "url": "/post-job",
-      "icons": [
-        {
-          "src": "/icon-192x192.png",
-          "sizes": "192x192",
+          "src": "/icons/shortcut-dashboard.png",
+          "sizes": "96x96",
           "type": "image/png"
         }
       ]
@@ -110,41 +47,161 @@
     {
       "name": "Messages",
       "short_name": "Chat",
-      "description": "Chat with providers",
+      "description": "View your conversations with providers",
       "url": "/messages",
       "icons": [
         {
-          "src": "/icon-192x192.png",
-          "sizes": "192x192",
+          "src": "/icons/shortcut-messages.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Book Service",
+      "short_name": "Book",
+      "description": "Quickly book a service",
+      "url": "/request-service",
+      "icons": [
+        {
+          "src": "/icons/shortcut-book.png",
+          "sizes": "96x96",
           "type": "image/png"
         }
       ]
     }
   ],
-  "share_target": {
-    "action": "/share-target",
-    "method": "POST",
-    "params": {
-      "title": "title",
-      "text": "text",
-      "url": "url"
+  "icons": [
+    {
+      "src": "/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "density": "1.5"
+    },
+    {
+      "src": "/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "density": "2.0"
+    },
+    {
+      "src": "/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "density": "2.6"
+    },
+    {
+      "src": "/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "density": "3.0"
+    },
+    {
+      "src": "/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "density": "3.2"
+    },
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "density": "4.0",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "density": "8.0"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "density": "10.7",
+      "purpose": "any maskable"
     }
-  },
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/desktop-home.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Home page showing service categories and featured providers"
+    },
+    {
+      "src": "/screenshots/mobile-browse.png",
+      "sizes": "375x812",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Browse services with smart filters and AI recommendations"
+    },
+    {
+      "src": "/screenshots/mobile-chat.png",
+      "sizes": "375x812",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Real-time messaging with service providers"
+    },
+    {
+      "src": "/screenshots/desktop-dashboard.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "User dashboard with bookings and analytics"
+    }
+  ],
   "protocol_handlers": [
     {
-      "protocol": "loconomy",
-      "url": "/handle-protocol?url=%s"
+      "protocol": "web+loconomy",
+      "url": "/handle/%s"
     }
   ],
   "file_handlers": [
     {
       "action": "/handle-files",
       "accept": {
-        "image/*": [".jpg", ".jpeg", ".png", ".gif", ".webp"],
-        "text/plain": [".txt"],
+        "image/*": [".jpg", ".jpeg", ".png", ".webp", ".gif"],
         "application/pdf": [".pdf"]
       }
     }
   ],
-  "capture_links": "existing-client-navigate"
+  "share_target": {
+    "action": "/share",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url",
+      "files": [
+        {
+          "name": "files",
+          "accept": ["image/*", "application/pdf"]
+        }
+      ]
+    }
+  },
+  "capture_links": "new-client",
+  "handle_links": "preferred",
+  "related_applications": [],
+  "scope_extensions": [
+    {
+      "origin": "https://loconomy.com"
+    },
+    {
+      "origin": "https://app.loconomy.com"
+    }
+  ],
+  "permissions": [
+    "geolocation",
+    "notifications",
+    "camera",
+    "microphone"
+  ],
+  "features": [
+    "CrossOriginIsolated"
+  ]
 }
