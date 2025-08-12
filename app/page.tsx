@@ -793,6 +793,13 @@ export default function HomePage() {
               </div>
             </section>
 
+            {/* AI Features Section */}
+            <Suspense fallback={
+              <div className="h-96 bg-gray-200 dark:bg-gray-700 rounded-3xl mx-4 animate-pulse"></div>
+            }>
+              <AIFeaturesSection />
+            </Suspense>
+
             {/* Enhanced Testimonials Section */}
             <section className="py-16 sm:py-20 md:py-24 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-800/50 dark:via-gray-900/50 dark:to-gray-800/50" role="region" aria-labelledby="testimonials-title">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
