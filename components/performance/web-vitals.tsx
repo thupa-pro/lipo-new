@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
-import { getCLS, getFID, getFCP, getLCP, getTTFB } from 'web-vitals'
+import { onCLS, onFID, onFCP, onLCP, onTTFB } from 'web-vitals'
 
 interface WebVitalsMetric {
   name: string
