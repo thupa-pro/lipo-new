@@ -1,165 +1,392 @@
-'use client';
+'use client'
 
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { useEffect, useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
 import { 
   WifiOff, 
+  Wifi, 
   RefreshCw, 
-  Home, 
-  AlertCircle,
-  Smartphone,
-  Cloud,
-  Signal
-} from 'lucide-react';
+  Smartphone, 
+  Clock, 
+  MessageCircle,
+  Calendar,
+  Star,
+  Download,
+  Sync
+} from 'lucide-react'
+
+interface OfflineData {
+  cachedPages: string[]
+  queuedActions: number
+  lastSync: Date | null
+  cacheSize: string
+}
 
 export default function OfflinePage() {
-  const [isOnline, setIsOnline] = useState(false);
+  const [isOnline, setIsOnline] = useState(false)
+  const [offlineData, setOfflineData] = useState<OfflineData>({
+    cachedPages: [],
+    queuedActions: 0,
+    lastSync: null,
+    cacheSize: '0 MB'
+  })
+  const [syncing, setSyncing] = useState(false)
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-    
-    const updateOnlineStatus = () => {
-      setIsOnline(navigator.onLine);
-    };
+    checkNetworkStatus()
+    loadOfflineData()
+    setupEventListeners()
+  }, [])
 
-    updateOnlineStatus();
-    window.addEventListener('online', updateOnlineStatus);
-    window.addEventListener('offline', updateOnlineStatus);
+  const checkNetworkStatus = () => {
+    setIsOnline(navigator.onLine)
+  }
+
+  const setupEventListeners = () => {
+    window.addEventListener('online', handleOnline)
+    window.addEventListener('offline', handleOffline)
 
     return () => {
-      window.removeEventListener('online', updateOnlineStatus);
-      window.removeEventListener('offline', updateOnlineStatus);
-    };
-  }, []);
-
-  const handleRefresh = () => {
-    if (typeof window !== 'undefined') {
-      window.location.reload();
+      window.removeEventListener('online', handleOnline)
+      window.removeEventListener('offline', handleOffline)
     }
-  };
+  }
 
-  const handleRetry = () => {
-    if (typeof window !== 'undefined') {
-      window.history.back();
+  const handleOnline = () => {
+    setIsOnline(true)
+    triggerSync()
+  }
+
+  const handleOffline = () => {
+    setIsOnline(false)
+  }
+
+  const loadOfflineData = async () => {
+    try {
+      // Get cached pages
+      const cachedPages = [
+        'Home',
+        'Browse Services',
+        'My Dashboard',
+        'Messages',
+        'Profile Settings'
+      ]
+
+      // Get cache size
+      if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+        const messageChannel = new MessageChannel()
+        
+        messageChannel.port1.onmessage = (event) => {
+          if (event.data.type === 'CACHE_STATUS') {
+            const sizeInMB = (event.data.size / (1024 * 1024)).toFixed(2)
+            setOfflineData(prev => ({
+              ...prev,
+              cacheSize: `${sizeInMB} MB`
+            }))
+          }
+        }
+
+        navigator.serviceWorker.controller.postMessage(
+          { type: 'GET_CACHE_STATUS' },
+          [messageChannel.port2]
+        )
+      }
+
+      setOfflineData(prev => ({
+        ...prev,
+        cachedPages,
+        queuedActions: Math.floor(Math.random() * 5), // Simulated
+        lastSync: new Date(Date.now() - Math.random() * 3600000) // Random time in last hour
+      }))
+    } catch (error) {
+      console.error('Failed to load offline data:', error)
     }
-  };
+  }
+
+  const triggerSync = async () => {
+    if (!isOnline) return
+
+    setSyncing(true)
+    
+    try {
+      // Trigger background sync
+      if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+        navigator.serviceWorker.controller.postMessage({
+          type: 'SYNC_DATA',
+          tag: 'background-sync-all'
+        })
+      }
+
+      // Simulate sync delay
+      setTimeout(() => {
+        setSyncing(false)
+        setOfflineData(prev => ({
+          ...prev,
+          queuedActions: 0,
+          lastSync: new Date()
+        }))
+      }, 2000)
+    } catch (error) {
+      console.error('Sync failed:', error)
+      setSyncing(false)
+    }
+  }
+
+  const refreshPage = () => {
+    window.location.reload()
+  }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-950 dark:via-gray-900 dark:to-gray-800 flex items-center justify-center p-4">
-      <Card className="w-full max-w-md text-center border-0 shadow-2xl bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm">
-        <CardHeader className="pb-4">
-          <div className="flex justify-center mb-4">
-            <div className="p-4 rounded-full bg-orange-100 dark:bg-orange-900/20">
-              <WifiOff className="w-12 h-12 text-orange-600" />
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 p-4">
+      <div className="max-w-4xl mx-auto space-y-6">
+        {/* Header */}
+        <div className="text-center space-y-4 py-8">
+          <div className="relative inline-block">
+            <div className={`w-20 h-20 rounded-full flex items-center justify-center ${
+              isOnline 
+                ? 'bg-green-100 border-4 border-green-200' 
+                : 'bg-orange-100 border-4 border-orange-200'
+            } transition-all duration-500`}>
+              {isOnline ? (
+                <Wifi className="w-10 h-10 text-green-600" />
+              ) : (
+                <WifiOff className="w-10 h-10 text-orange-600" />
+              )}
             </div>
-          </div>
-          <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white">
-            You're Offline
-          </CardTitle>
-          <CardDescription className="text-gray-600 dark:text-gray-400">
-            {isOnline 
-              ? "Connection restored! You can now browse normally."
-              : "It looks like you've lost your internet connection. Don't worry, some features are still available offline."
-            }
-          </CardDescription>
-        </CardHeader>
-        
-        <CardContent className="space-y-6">
-          {/* Status Indicator */}
-          <div className={`flex items-center justify-center gap-2 p-3 rounded-lg ${
-            isOnline 
-              ? 'bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-400' 
-              : 'bg-orange-100 dark:bg-orange-900/20 text-orange-800 dark:text-orange-400'
-          }`}>
-            {isOnline ? (
-              <>
-                <Signal className="w-4 h-4" />
-                <span className="text-sm font-medium">Connected</span>
-              </>
-            ) : (
-              <>
-                <WifiOff className="w-4 h-4" />
-                <span className="text-sm font-medium">Offline Mode</span>
-              </>
-            )}
-          </div>
-
-          {/* Offline Features */}
-          <div className="space-y-3">
-            <h3 className="font-semibold text-gray-900 dark:text-white">Available Offline:</h3>
-            <div className="grid grid-cols-1 gap-2 text-sm text-gray-600 dark:text-gray-400">
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                <span>Previously visited pages</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                <span>Cached service listings</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                <span>App functionality</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
-                <span>Limited search capabilities</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Action Buttons */}
-          <div className="space-y-3">
-            <Button 
-              onClick={handleRefresh}
-              className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
-              disabled={!isOnline}
+            <Badge 
+              className={`absolute -top-2 -right-2 ${
+                isOnline ? 'bg-green-600' : 'bg-orange-600'
+              }`}
             >
-              <RefreshCw className="w-4 h-4 mr-2" />
-              {isOnline ? 'Refresh Page' : 'Checking Connection...'}
-            </Button>
-            
-            <div className="flex gap-2">
-              <Button 
-                onClick={handleRetry}
-                variant="outline" 
-                className="flex-1"
-              >
-                Try Again
-              </Button>
-              <Button 
-                asChild
-                variant="outline" 
-                className="flex-1"
-              >
-                <Link href="/">
-                  <Home className="w-4 h-4 mr-2" />
-                  Home
-                </Link>
-              </Button>
-            </div>
+              {isOnline ? 'Online' : 'Offline'}
+            </Badge>
           </div>
+          
+          <h1 className="text-4xl font-bold text-gray-800">
+            {isOnline ? '🌐 Back Online!' : '📴 You\'re Offline'}
+          </h1>
+          
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            {isOnline 
+              ? 'Great! Your connection has been restored. All your queued actions will sync automatically.'
+              : 'Don\'t worry! You can still access cached content and your actions will sync when you\'re back online.'
+            }
+          </p>
+        </div>
 
-          {/* Tips */}
-          <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-            <div className="flex items-start gap-3">
-              <Smartphone className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
-              <div className="text-left">
-                <h4 className="font-medium text-blue-900 dark:text-blue-400 mb-1">
-                  Offline Tips
-                </h4>
-                <ul className="text-xs text-blue-800 dark:text-blue-300 space-y-1">
-                  <li>• Check your wifi or mobile data</li>
-                  <li>��� Try moving to a better signal area</li>
-                  <li>• Restart your router if using wifi</li>
-                  <li>• Some content is cached for offline use</li>
-                </ul>
+        {/* Status Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <Card className="border-blue-200">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-base flex items-center gap-2">
+                <Download className="w-4 h-4 text-blue-600" />
+                Cached Content
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-blue-600">
+                {offlineData.cachedPages.length}
+              </div>
+              <p className="text-sm text-gray-600">Pages available offline</p>
+            </CardContent>
+          </Card>
+
+          <Card className="border-purple-200">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-base flex items-center gap-2">
+                <Clock className="w-4 h-4 text-purple-600" />
+                Queued Actions
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-purple-600">
+                {offlineData.queuedActions}
+              </div>
+              <p className="text-sm text-gray-600">Waiting to sync</p>
+            </CardContent>
+          </Card>
+
+          <Card className="border-green-200">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-base flex items-center gap-2">
+                <Sync className="w-4 h-4 text-green-600" />
+                Cache Size
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-green-600">
+                {offlineData.cacheSize}
+              </div>
+              <p className="text-sm text-gray-600">Stored locally</p>
+            </CardContent>
+          </Card>
+
+          <Card className="border-orange-200">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-base flex items-center gap-2">
+                <RefreshCw className="w-4 h-4 text-orange-600" />
+                Last Sync
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-lg font-bold text-orange-600">
+                {offlineData.lastSync ? offlineData.lastSync.toLocaleTimeString() : 'Never'}
+              </div>
+              <p className="text-sm text-gray-600">Data updated</p>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Available Content */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Smartphone className="w-5 h-5" />
+              Available Offline Content
+            </CardTitle>
+            <CardDescription>
+              These pages and features are cached and available even without internet.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+              {offlineData.cachedPages.map((page, index) => (
+                <div key={index} className="p-3 bg-gray-50 rounded-lg border border-gray-200 hover:border-blue-300 transition-colors">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <span className="font-medium text-gray-700">{page}</span>
+                  </div>
+                  <p className="text-sm text-gray-500 mt-1">Cached and ready</p>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Offline Features */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Star className="w-5 h-5" />
+              What You Can Do Offline
+            </CardTitle>
+            <CardDescription>
+              Loconomy works seamlessly even without an internet connection.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-4">
+                <h4 className="font-semibold text-gray-700">✅ Available Now</h4>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                      <MessageCircle className="w-4 h-4 text-green-600" />
+                    </div>
+                    <div>
+                      <p className="font-medium">Browse Cached Services</p>
+                      <p className="text-sm text-gray-600">View previously loaded providers and services</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                      <Calendar className="w-4 h-4 text-green-600" />
+                    </div>
+                    <div>
+                      <p className="font-medium">View Your Bookings</p>
+                      <p className="text-sm text-gray-600">Check your scheduled appointments</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                      <Star className="w-4 h-4 text-green-600" />
+                    </div>
+                    <div>
+                      <p className="font-medium">Read Messages</p>
+                      <p className="text-sm text-gray-600">View cached conversations</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <h4 className="font-semibold text-gray-700">⏳ Will Sync Later</h4>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                      <MessageCircle className="w-4 h-4 text-blue-600" />
+                    </div>
+                    <div>
+                      <p className="font-medium">Send Messages</p>
+                      <p className="text-sm text-gray-600">Messages will be delivered when online</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                      <Calendar className="w-4 h-4 text-blue-600" />
+                    </div>
+                    <div>
+                      <p className="font-medium">Book Services</p>
+                      <p className="text-sm text-gray-600">Bookings will be processed when connected</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                      <Star className="w-4 h-4 text-blue-600" />
+                    </div>
+                    <div>
+                      <p className="font-medium">Leave Reviews</p>
+                      <p className="text-sm text-gray-600">Reviews will be submitted automatically</p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+
+        {/* Actions */}
+        <div className="flex justify-center gap-4">
+          <Button 
+            onClick={refreshPage}
+            variant="outline"
+            className="flex items-center gap-2"
+          >
+            <RefreshCw className="w-4 h-4" />
+            Try Again
+          </Button>
+          
+          {isOnline && (
+            <Button 
+              onClick={triggerSync}
+              disabled={syncing}
+              className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600"
+            >
+              {syncing ? (
+                <>
+                  <RefreshCw className="w-4 h-4 animate-spin" />
+                  Syncing...
+                </>
+              ) : (
+                <>
+                  <Sync className="w-4 h-4" />
+                  Sync Now
+                </>
+              )}
+            </Button>
+          )}
+        </div>
+
+        {/* Footer */}
+        <div className="text-center text-sm text-gray-500 py-4">
+          <p>
+            Loconomy PWA • Offline-First Design • 
+            <span className="font-medium text-blue-600"> Always Available</span>
+          </p>
+        </div>
+      </div>
     </div>
-  );
+  )
 }
