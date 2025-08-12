@@ -13,8 +13,7 @@ import {
   MessageCircle,
   Calendar,
   Star,
-  Download,
-  Sync
+  Download
 } from 'lucide-react'
 
 interface OfflineData {
