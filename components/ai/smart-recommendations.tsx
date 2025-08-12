@@ -1,557 +1,459 @@
-"use client";
+'use client'
 
-import React, { useState, useEffect } from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useToast } from "@/components/ui/use-toast";
-import {
-  Brain,
-  Star,
-  Clock,
-  MapPin,
-  DollarSign,
-  Zap,
+import { useState, useEffect } from 'react'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Progress } from '@/components/ui/progress'
+import { Separator } from '@/components/ui/separator'
+import { 
+  Brain, 
+  Star, 
+  MapPin, 
+  Clock, 
+  DollarSign, 
   TrendingUp,
-  Users,
+  Zap,
+  Target,
+  Lightbulb,
+  AlertTriangle,
+  CheckCircle,
+  MessageCircle,
+  Calendar,
   Award,
   Shield,
-  Heart,
-  Sparkles,
-  ArrowRight,
-  RefreshCw,
-  ChevronRight,
-} from "lucide-react";
-
-interface ServiceRecommendation {
-  id: string;
-  title: string;
-  provider: {
-    name: string;
-    avatar: string;
-    rating: number;
-    reviews: number;
-    verified: boolean;
-    responseTime: string;
-  };
-  category: string;
-  price: {
-    amount: number;
-    unit: string;
-    currency: string;
-  };
-  location: string;
-  distance: number;
-  availability: string;
-  aiConfidence: number;
-  aiReason: string;
-  matchScore: number;
-  tags: string[];
-  features: string[];
-  previouslyBooked?: boolean;
-  trending?: boolean;
-  newProvider?: boolean;
-}
+  Users
+} from 'lucide-react'
+import { aiRecommendationEngine, RecommendationResult, AIInsight } from '@/lib/ai/recommendation-engine'
 
 interface SmartRecommendationsProps {
-  userId?: string;
-  location?: string;
-  preferences?: any;
-  context?: "homepage" | "browse" | "dashboard" | "request-service";
-  maxRecommendations?: number;
-  showAIInsights?: boolean;
-  onRecommendationClick?: (recommendation: ServiceRecommendation) => void;
+  userId: string
+  query: string
+  context?: {
+    location?: { lat: number; lng: number }
+    urgency?: 'low' | 'medium' | 'high'
+    budget?: { min: number; max: number }
+    timeframe?: string
+  }
+  onProviderSelect?: (providerId: string) => void
+  className?: string
 }
 
-export default function SmartRecommendations({
-  userId,
-  location = "New York, NY",
-  preferences = {},
-  context = "homepage",
-  maxRecommendations = 6,
-  showAIInsights = true,
-  onRecommendationClick,
+export default function SmartRecommendations({ 
+  userId, 
+  query, 
+  context = {}, 
+  onProviderSelect,
+  className = ""
 }: SmartRecommendationsProps) {
-  const [recommendations, setRecommendations] = useState<
-    ServiceRecommendation[]
-  >([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [aiInsight, setAIInsight] = useState("");
-  const [mounted, setMounted] = useState(false);
-  const { toast } = useToast();
-
-  // Simulated AI-powered recommendations
-  const generateRecommendations = async () => {
-    setIsLoading(true);
-
-    // Simulate AI processing time
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-
-    const mockRecommendations: ServiceRecommendation[] = [
-      {
-        id: "1",
-        title: "Premium Home Cleaning Service",
-        provider: {
-          name: "Sarah Chen",
-          avatar: "/placeholder.svg?height=40&width=40",
-          rating: 4.9,
-          reviews: 127,
-          verified: true,
-          responseTime: "< 1 hour",
-        },
-        category: "Home Cleaning",
-        price: { amount: 85, unit: "per visit", currency: "USD" },
-        location: "Manhattan, NY",
-        distance: 2.3,
-        availability: "Available today",
-        aiConfidence: 95,
-        aiReason:
-          "Perfect match based on your previous bookings and preferences for eco-friendly cleaning",
-        matchScore: 98,
-        tags: ["Eco-friendly", "Pet-safe", "Insured"],
-        features: [
-          "Same-day booking",
-          "Satisfaction guarantee",
-          "Premium supplies",
-        ],
-        previouslyBooked: true,
-        trending: false,
-      },
-      {
-        id: "2",
-        title: "Expert Plumbing Repairs",
-        provider: {
-          name: "Mike Rodriguez",
-          avatar: "/placeholder.svg?height=40&width=40",
-          rating: 4.8,
-          reviews: 89,
-          verified: true,
-          responseTime: "30 minutes",
-        },
-        category: "Plumbing",
-        price: { amount: 120, unit: "per hour", currency: "USD" },
-        location: "Brooklyn, NY",
-        distance: 4.7,
-        availability: "Emergency available",
-        aiConfidence: 92,
-        aiReason:
-          "Highly rated emergency plumber with expertise in your building type",
-        matchScore: 94,
-        tags: ["24/7 Emergency", "Licensed", "Warranty"],
-        features: ["Emergency service", "Upfront pricing", "2-year warranty"],
-        trending: true,
-      },
-      {
-        id: "3",
-        title: "Personal Training & Fitness",
-        provider: {
-          name: "Alex Thompson",
-          avatar: "/placeholder.svg?height=40&width=40",
-          rating: 4.9,
-          reviews: 156,
-          verified: true,
-          responseTime: "2 hours",
-        },
-        category: "Fitness",
-        price: { amount: 75, unit: "per session", currency: "USD" },
-        location: "Central Park, NY",
-        distance: 1.8,
-        availability: "Next week",
-        aiConfidence: 88,
-        aiReason:
-          "Specializes in beginners and has excellent reviews for motivation",
-        matchScore: 91,
-        tags: ["Certified", "Beginner-friendly", "Outdoor"],
-        features: [
-          "Custom workout plans",
-          "Nutrition guidance",
-          "Progress tracking",
-        ],
-        newProvider: true,
-      },
-      {
-        id: "4",
-        title: "Handyman Services",
-        provider: {
-          name: "David Kim",
-          avatar: "/placeholder.svg?height=40&width=40",
-          rating: 4.7,
-          reviews: 203,
-          verified: true,
-          responseTime: "4 hours",
-        },
-        category: "Home Repair",
-        price: { amount: 95, unit: "per hour", currency: "USD" },
-        location: "Queens, NY",
-        distance: 6.2,
-        availability: "Tomorrow",
-        aiConfidence: 85,
-        aiReason:
-          "Jack-of-all-trades with experience in your specific requests",
-        matchScore: 87,
-        tags: ["Multi-skilled", "Same-day", "Tools included"],
-        features: ["Free estimates", "Same-day service", "Tool provision"],
-      },
-      {
-        id: "5",
-        title: "Dog Walking & Pet Care",
-        provider: {
-          name: "Emma Wilson",
-          avatar: "/placeholder.svg?height=40&width=40",
-          rating: 5.0,
-          reviews: 67,
-          verified: true,
-          responseTime: "1 hour",
-        },
-        category: "Pet Care",
-        price: { amount: 25, unit: "per walk", currency: "USD" },
-        location: "Manhattan, NY",
-        distance: 1.5,
-        availability: "Available now",
-        aiConfidence: 96,
-        aiReason:
-          "Perfect for your Golden Retriever, with great references from similar dog breeds",
-        matchScore: 96,
-        tags: ["Dog specialist", "Insured", "References"],
-        features: ["GPS tracking", "Photo updates", "Flexible scheduling"],
-      },
-      {
-        id: "6",
-        title: "Interior Design Consultation",
-        provider: {
-          name: "Isabella Martinez",
-          avatar: "/placeholder.svg?height=40&width=40",
-          rating: 4.8,
-          reviews: 94,
-          verified: true,
-          responseTime: "6 hours",
-        },
-        category: "Interior Design",
-        price: { amount: 150, unit: "per consultation", currency: "USD" },
-        location: "Manhattan, NY",
-        distance: 3.1,
-        availability: "Next week",
-        aiConfidence: 90,
-        aiReason:
-          "Expertise in modern minimalist style that matches your Pinterest boards",
-        matchScore: 93,
-        tags: ["Modern style", "Budget-friendly", "Virtual options"],
-        features: [
-          "3D visualizations",
-          "Shopping list",
-          "Virtual consultations",
-        ],
-      },
-    ];
-
-    setRecommendations(mockRecommendations.slice(0, maxRecommendations));
-
-    // Generate AI insight
-    const insights = [
-      "Based on your booking history, I've prioritized eco-friendly and highly-rated providers in your area.",
-      "I noticed you prefer quick response times, so I've highlighted providers who respond within hours.",
-      "Your past reviews show you value quality over price, so I've focused on premium-rated services.",
-      "Since you often book last-minute, I've included providers with same-day availability.",
-    ];
-
-    setAIInsight(insights[Math.floor(Math.random() * insights.length)]);
-    setIsLoading(false);
-  };
+  const [recommendations, setRecommendations] = useState<RecommendationResult[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [selectedProvider, setSelectedProvider] = useState<string | null>(null)
+  const [showDetails, setShowDetails] = useState<Record<string, boolean>>({})
 
   useEffect(() => {
-    setMounted(true);
-    generateRecommendations();
-  }, [userId, location, preferences, maxRecommendations]);
+    loadRecommendations()
+  }, [userId, query, context])
 
-  // Prevent hydration issues by not rendering until mounted
-  if (!mounted) {
-    return (
-      <div className="w-full space-y-6">
-        <div className="flex items-center justify-between">
-          <div className="space-y-2">
-            <div className="h-6 bg-slate-200 rounded w-48 animate-pulse"></div>
-            <div className="h-4 bg-slate-200 rounded w-32 animate-pulse"></div>
-          </div>
-          <div className="h-10 w-24 bg-slate-200 rounded animate-pulse"></div>
-        </div>
-      </div>
-    );
+  const loadRecommendations = async () => {
+    setIsLoading(true)
+    try {
+      const results = await aiRecommendationEngine.getRecommendations(userId, query, context)
+      setRecommendations(results)
+    } catch (error) {
+      console.error('Failed to load recommendations:', error)
+      // Set fallback data
+      setRecommendations([])
+    } finally {
+      setIsLoading(false)
+    }
   }
 
-  const handleBookNow = (recommendation: ServiceRecommendation) => {
-    toast({
-      title: "🚀 Booking Initiated",
-      description: `Connecting you with ${recommendation.provider.name}...`,
-      variant: "default",
-    });
+  const handleProviderSelect = (providerId: string) => {
+    setSelectedProvider(providerId)
+    onProviderSelect?.(providerId)
+  }
 
-    onRecommendationClick?.(recommendation);
-  };
+  const toggleDetails = (providerId: string) => {
+    setShowDetails(prev => ({
+      ...prev,
+      [providerId]: !prev[providerId]
+    }))
+  }
 
-  const handleRefreshRecommendations = () => {
-    toast({
-      title: "🧠 AI Refreshing",
-      description: "Getting fresh recommendations tailored for you...",
-      variant: "default",
-    });
-    generateRecommendations();
-  };
+  const getInsightIcon = (type: AIInsight['type']) => {
+    switch (type) {
+      case 'prediction': return <Brain className="w-4 h-4" />
+      case 'recommendation': return <Lightbulb className="w-4 h-4" />
+      case 'warning': return <AlertTriangle className="w-4 h-4" />
+      case 'opportunity': return <TrendingUp className="w-4 h-4" />
+      default: return <Brain className="w-4 h-4" />
+    }
+  }
+
+  const getInsightColor = (type: AIInsight['type']) => {
+    switch (type) {
+      case 'prediction': return 'text-blue-600 bg-blue-50'
+      case 'recommendation': return 'text-green-600 bg-green-50'
+      case 'warning': return 'text-orange-600 bg-orange-50'
+      case 'opportunity': return 'text-purple-600 bg-purple-50'
+      default: return 'text-gray-600 bg-gray-50'
+    }
+  }
+
+  const formatPrice = (range: { min: number; max: number }) => {
+    return `$${range.min} - $${range.max}`
+  }
+
+  const getConfidenceColor = (confidence: number) => {
+    if (confidence >= 0.8) return 'text-green-600'
+    if (confidence >= 0.6) return 'text-yellow-600'
+    return 'text-red-600'
+  }
 
   if (isLoading) {
     return (
-      <div className="w-full space-y-6">
-        <div className="flex items-center justify-between">
-          <div className="space-y-2">
-            <div className="h-6 bg-slate-200 rounded w-48 animate-pulse"></div>
-            <div className="h-4 bg-slate-200 rounded w-32 animate-pulse"></div>
+      <Card className={`${className} animate-pulse`}>
+        <CardHeader>
+          <div className="flex items-center gap-2">
+            <Brain className="w-5 h-5 animate-pulse" />
+            <div className="h-6 bg-gray-200 rounded w-48"></div>
           </div>
-          <div className="h-10 w-24 bg-slate-200 rounded animate-pulse"></div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {Array.from({ length: maxRecommendations }).map((_, i) => (
-            <Card key={i} className="animate-pulse">
-              <CardHeader className="space-y-3">
-                <div className="flex items-center space-x-3">
-                  <div className="h-10 w-10 bg-slate-200 rounded-full"></div>
-                  <div className="space-y-1 flex-1">
-                    <div className="h-4 bg-slate-200 rounded w-3/4"></div>
-                    <div className="h-3 bg-slate-200 rounded w-1/2"></div>
-                  </div>
-                </div>
-                <div className="h-5 bg-slate-200 rounded w-full"></div>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="h-4 bg-slate-200 rounded w-full"></div>
-                <div className="h-4 bg-slate-200 rounded w-2/3"></div>
-                <div className="h-10 bg-slate-200 rounded w-full"></div>
-              </CardContent>
-            </Card>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          {[1, 2, 3].map(i => (
+            <div key={i} className="h-24 bg-gray-100 rounded-lg"></div>
           ))}
-        </div>
-      </div>
-    );
+        </CardContent>
+      </Card>
+    )
+  }
+
+  if (recommendations.length === 0) {
+    return (
+      <Card className={className}>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Brain className="w-5 h-5" />
+            AI Recommendations
+          </CardTitle>
+          <CardDescription>
+            No recommendations found for your search. Try adjusting your criteria.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="text-center py-8">
+          <div className="text-gray-400 mb-4">
+            <Target className="w-12 h-12 mx-auto" />
+          </div>
+          <p className="text-gray-600">
+            Our AI is learning your preferences. Try searching for specific services!
+          </p>
+        </CardContent>
+      </Card>
+    )
   }
 
   return (
-    <div className="w-full space-y-6">
-      {/* Header with AI insight */}
-      <div className="flex items-start justify-between">
-        <div className="space-y-2">
-          <div className="flex items-center gap-2">
-            <Brain className="w-5 h-5 text-blue-600" />
-            <h2 className="text-2xl font-bold text-slate-900">
-              AI Recommendations
-            </h2>
-            <Badge variant="secondary" className="bg-blue-100 text-blue-700">
-              <Sparkles className="w-3 h-3 mr-1" />
-              Personalized
+    <div className={`space-y-6 ${className}`}>
+      {/* Header */}
+      <Card className="border-blue-200 bg-gradient-to-r from-blue-50 to-purple-50">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-blue-700">
+            <Brain className="w-5 h-5" />
+            AI-Powered Smart Recommendations
+          </CardTitle>
+          <CardDescription>
+            Our advanced AI analyzed {recommendations.length} providers based on your preferences, 
+            location, and similar users' experiences.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="flex items-center gap-4 text-sm">
+            <Badge variant="outline" className="bg-white">
+              <Zap className="w-3 h-3 mr-1" />
+              Powered by Machine Learning
+            </Badge>
+            <Badge variant="outline" className="bg-white">
+              <Target className="w-3 h-3 mr-1" />
+              Personalized for You
+            </Badge>
+            <Badge variant="outline" className="bg-white">
+              <TrendingUp className="w-3 h-3 mr-1" />
+              Real-time Analysis
             </Badge>
           </div>
-          {showAIInsights && aiInsight && (
-            <p className="text-sm text-slate-600 max-w-2xl bg-blue-50 p-3 rounded-lg border border-blue-200">
-              <span className="font-medium text-blue-700">AI Insight:</span>{" "}
-              {aiInsight}
-            </p>
-          )}
-        </div>
+        </CardContent>
+      </Card>
 
-        <Button
-          variant="outline"
-          onClick={handleRefreshRecommendations}
-          disabled={isLoading}
-          className="shrink-0"
-        >
-          <RefreshCw className="w-4 h-4 mr-2" />
-          Refresh
-        </Button>
-      </div>
-
-      {/* Recommendations Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {recommendations.map((recommendation) => (
-          <Card
-            key={recommendation.id}
-            className="hover:shadow-lg transition-all duration-300 border-slate-200 hover:border-blue-300 group relative overflow-hidden"
+      {/* Recommendations */}
+      <div className="space-y-4">
+        {recommendations.map((recommendation, index) => (
+          <Card 
+            key={recommendation.provider.id}
+            className={`transition-all duration-200 hover:shadow-lg ${
+              selectedProvider === recommendation.provider.id 
+                ? 'ring-2 ring-blue-500 shadow-lg' 
+                : 'hover:shadow-md'
+            }`}
           >
-            {/* Special badges */}
-            <div className="absolute top-4 right-4 z-10 flex flex-col gap-2">
-              {recommendation.trending && (
-                <Badge
-                  variant="secondary"
-                  className="bg-teal-100 text-teal-700 text-xs"
-                >
-                  <TrendingUp className="w-3 h-3 mr-1" />
-                  Trending
-                </Badge>
-              )}
-              {recommendation.newProvider && (
-                <Badge
-                  variant="secondary"
-                  className="bg-green-100 text-green-700 text-xs"
-                >
-                  ✨ New
-                </Badge>
-              )}
-              {recommendation.previouslyBooked && (
-                <Badge
-                  variant="secondary"
-                  className="bg-blue-100 text-blue-700 text-xs"
-                >
-                  <Heart className="w-3 h-3 mr-1" />
-                  Booked before
-                </Badge>
-              )}
-            </div>
-
-            <CardHeader className="pb-3">
+            <CardHeader className="pb-4">
               <div className="flex items-start justify-between">
-                <div className="flex items-center space-x-3">
-                  <Avatar className="h-10 w-10 border-2 border-white shadow-md">
-                    <AvatarImage
-                      src={recommendation.provider.avatar}
-                      alt={recommendation.provider.name}
-                    />
-                    <AvatarFallback className="bg-blue-600 text-white font-medium">
-                      {recommendation.provider.name.charAt(0)}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2">
-                      <h3 className="font-medium text-slate-900">
-                        {recommendation.provider.name}
-                      </h3>
-                      {recommendation.provider.verified && (
-                        <Shield className="w-4 h-4 text-blue-600" />
-                      )}
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-2">
+                    <Badge className="bg-gradient-to-r from-blue-600 to-purple-600">
+                      #{index + 1} AI Pick
+                    </Badge>
+                    <div className="flex items-center gap-1">
+                      <Star className="w-4 h-4 text-yellow-500 fill-current" />
+                      <span className="font-medium">{recommendation.provider.rating}</span>
+                      <span className="text-sm text-gray-500">
+                        ({recommendation.provider.reviewCount} reviews)
+                      </span>
                     </div>
-                    <div className="flex items-center gap-2 text-sm text-slate-600">
-                      <div className="flex items-center gap-1">
-                        <Star className="w-3 h-3 fill-emerald-400 text-emerald-400" />
-                        <span className="font-medium">
-                          {recommendation.provider.rating}
-                        </span>
-                        <span className="text-slate-500">
-                          ({recommendation.provider.reviews})
-                        </span>
-                      </div>
+                    <div className={`text-sm font-medium ${getConfidenceColor(recommendation.confidence)}`}>
+                      {Math.round(recommendation.confidence * 100)}% match
                     </div>
                   </div>
+                  
+                  <CardTitle className="text-xl mb-1">
+                    {recommendation.provider.name}
+                  </CardTitle>
+                  
+                  <CardDescription className="flex items-center gap-4">
+                    <span>{recommendation.provider.category}</span>
+                    <div className="flex items-center gap-1">
+                      <MapPin className="w-3 h-3" />
+                      <span>2.3 miles away</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Clock className="w-3 h-3" />
+                      <span>{recommendation.provider.responseTime}min response</span>
+                    </div>
+                  </CardDescription>
                 </div>
-              </div>
-
-              <CardTitle className="text-lg text-slate-900 line-clamp-2">
-                {recommendation.title}
-              </CardTitle>
-
-              <div className="flex items-center gap-4 text-sm text-slate-600">
-                <div className="flex items-center gap-1">
-                  <MapPin className="w-3 h-3" />
-                  <span>{recommendation.distance} mi</span>
-                </div>
-                <div className="flex items-center gap-1">
-                  <Clock className="w-3 h-3" />
-                  <span>{recommendation.provider.responseTime}</span>
+                
+                <div className="text-right">
+                  <div className="text-lg font-semibold text-green-600">
+                    {formatPrice(recommendation.provider.priceRange)}
+                  </div>
+                  <div className="text-sm text-gray-500">per hour</div>
                 </div>
               </div>
             </CardHeader>
 
             <CardContent className="space-y-4">
-              {/* AI Match Score */}
-              <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-3 rounded-lg border border-blue-200">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-medium text-blue-700">
-                    AI Match Score
-                  </span>
-                  <Badge
-                    variant="secondary"
-                    className="bg-blue-100 text-blue-700"
-                  >
-                    {recommendation.matchScore}%
-                  </Badge>
-                </div>
-                <p className="text-xs text-blue-600">
-                  {recommendation.aiReason}
-                </p>
-              </div>
-
-              {/* Price and Availability */}
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1">
-                  <DollarSign className="w-4 h-4 text-green-600" />
-                  <span className="font-semibold text-slate-900">
-                    ${recommendation.price.amount}
-                  </span>
-                  <span className="text-sm text-slate-500">
-                    {recommendation.price.unit}
+              {/* AI Score Visualization */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="font-medium">AI Compatibility Score</span>
+                  <span className="text-blue-600 font-bold">
+                    {Math.round(recommendation.estimatedFit)}%
                   </span>
                 </div>
-                <Badge
-                  variant="outline"
-                  className={`text-xs ${
-                    recommendation.availability.includes("Available")
-                      ? "border-green-200 text-green-700 bg-green-50"
-                      : "border-slate-200 text-slate-700 bg-slate-50"
-                  }`}
-                >
-                  {recommendation.availability}
-                </Badge>
+                <Progress 
+                  value={recommendation.estimatedFit} 
+                  className="h-2"
+                />
               </div>
 
-              {/* Tags */}
-              <div className="flex flex-wrap gap-1">
-                {recommendation.tags.slice(0, 3).map((tag, index) => (
-                  <Badge
-                    key={index}
+              {/* Quick Reasons */}
+              <div className="flex flex-wrap gap-2">
+                {recommendation.reasons.slice(0, 3).map((reason, idx) => (
+                  <Badge 
+                    key={idx} 
                     variant="secondary"
-                    className="text-xs bg-slate-100 text-slate-700"
+                    className="text-xs"
                   >
-                    {tag}
+                    {reason.description}
                   </Badge>
                 ))}
               </div>
 
-              {/* Action Buttons */}
-              <div className="flex gap-2 pt-2">
-                <Button
-                  onClick={() => handleBookNow(recommendation)}
-                  className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-md hover:shadow-lg transition-all duration-300"
-                  size="sm"
+              {/* AI Insights */}
+              {recommendation.aiInsights.length > 0 && (
+                <div className="space-y-2">
+                  {recommendation.aiInsights.map((insight, idx) => (
+                    <div 
+                      key={idx}
+                      className={`flex items-start gap-2 p-3 rounded-lg ${getInsightColor(insight.type)}`}
+                    >
+                      {getInsightIcon(insight.type)}
+                      <div>
+                        <p className="text-sm font-medium">{insight.message}</p>
+                        <p className="text-xs opacity-75">
+                          {Math.round(insight.confidence * 100)}% confidence • {insight.source}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Provider Highlights */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                {recommendation.provider.certifications.includes('licensed') && (
+                  <div className="flex items-center gap-1 text-sm">
+                    <Shield className="w-4 h-4 text-green-600" />
+                    <span>Licensed</span>
+                  </div>
+                )}
+                {recommendation.provider.completionRate >= 0.95 && (
+                  <div className="flex items-center gap-1 text-sm">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    <span>Reliable</span>
+                  </div>
+                )}
+                {recommendation.provider.responseTime <= 30 && (
+                  <div className="flex items-center gap-1 text-sm">
+                    <Zap className="w-4 h-4 text-yellow-600" />
+                    <span>Fast Response</span>
+                  </div>
+                )}
+                <div className="flex items-center gap-1 text-sm">
+                  <Users className="w-4 h-4 text-blue-600" />
+                  <span>{recommendation.provider.reviewCount}+ jobs</span>
+                </div>
+              </div>
+
+              {/* Actions */}
+              <div className="flex gap-3 pt-2">
+                <Button 
+                  onClick={() => handleProviderSelect(recommendation.provider.id)}
+                  className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
                 >
-                  <Zap className="w-4 h-4 mr-2" />
-                  Book Now
+                  <MessageCircle className="w-4 h-4 mr-2" />
+                  Contact Provider
                 </Button>
-                <Button
+                <Button 
                   variant="outline"
-                  size="sm"
-                  className="shrink-0 border-slate-200 hover:border-slate-300"
+                  onClick={() => toggleDetails(recommendation.provider.id)}
                 >
-                  <ChevronRight className="w-4 h-4" />
+                  {showDetails[recommendation.provider.id] ? 'Hide' : 'Show'} Details
+                </Button>
+                <Button variant="outline" size="icon">
+                  <Calendar className="w-4 h-4" />
                 </Button>
               </div>
+
+              {/* Detailed Analysis */}
+              {showDetails[recommendation.provider.id] && (
+                <>
+                  <Separator />
+                  <div className="space-y-4">
+                    <h4 className="font-semibold flex items-center gap-2">
+                      <Brain className="w-4 h-4" />
+                      AI Analysis Details
+                    </h4>
+                    
+                    {/* Matching Factors */}
+                    <div className="space-y-3">
+                      <h5 className="text-sm font-medium text-gray-700">Matching Factors</h5>
+                      {recommendation.matchingFactors.map((factor, idx) => (
+                        <div key={idx} className="space-y-1">
+                          <div className="flex items-center justify-between text-sm">
+                            <span>{factor.factor}</span>
+                            <Badge 
+                              variant={factor.importance === 'high' ? 'default' : 'secondary'}
+                              className="text-xs"
+                            >
+                              {factor.matchPercentage}% • {factor.importance}
+                            </Badge>
+                          </div>
+                          <Progress value={factor.matchPercentage} className="h-1" />
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Detailed Reasons */}
+                    <div className="space-y-2">
+                      <h5 className="text-sm font-medium text-gray-700">Why This Match</h5>
+                      {recommendation.reasons.map((reason, idx) => (
+                        <div key={idx} className="flex items-start gap-2 text-sm">
+                          <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
+                          <div>
+                            <p>{reason.description}</p>
+                            <p className="text-xs text-gray-500">
+                              Weight: {Math.round(reason.weight * 100)}% • 
+                              Confidence: {Math.round(reason.confidence * 100)}%
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </>
+              )}
             </CardContent>
           </Card>
         ))}
       </div>
 
-      {/* CTA for more recommendations */}
-      <div className="text-center">
-        <Button
-          variant="ghost"
-          className="text-blue-600 hover:text-blue-700"
-          onClick={() => (window.location.href = "/browse")}
-        >
-          View All Services
-          <ArrowRight className="w-4 h-4 ml-2" />
-        </Button>
+      {/* Footer */}
+      <Card className="border-gray-200">
+        <CardContent className="pt-6">
+          <div className="text-center text-sm text-gray-600">
+            <p className="flex items-center justify-center gap-2">
+              <Brain className="w-4 h-4" />
+              Recommendations improve as you use the platform. 
+              <button className="text-blue-600 hover:underline">
+                Learn more about our AI
+              </button>
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  )
+}
+
+// Export sub-components for reuse
+export function RecommendationInsight({ insight }: { insight: AIInsight }) {
+  const icon = insight.type === 'prediction' ? <Brain className="w-4 h-4" /> :
+               insight.type === 'recommendation' ? <Lightbulb className="w-4 h-4" /> :
+               insight.type === 'warning' ? <AlertTriangle className="w-4 h-4" /> :
+               <TrendingUp className="w-4 h-4" />
+
+  const colorClass = insight.type === 'prediction' ? 'border-blue-200 bg-blue-50 text-blue-700' :
+                     insight.type === 'recommendation' ? 'border-green-200 bg-green-50 text-green-700' :
+                     insight.type === 'warning' ? 'border-orange-200 bg-orange-50 text-orange-700' :
+                     'border-purple-200 bg-purple-50 text-purple-700'
+
+  return (
+    <div className={`p-3 rounded-lg border ${colorClass}`}>
+      <div className="flex items-start gap-2">
+        {icon}
+        <div className="flex-1">
+          <p className="text-sm font-medium">{insight.message}</p>
+          <p className="text-xs opacity-75 mt-1">
+            {Math.round(insight.confidence * 100)}% confidence • Source: {insight.source}
+          </p>
+        </div>
       </div>
     </div>
-  );
+  )
+}
+
+export function MatchingFactorBar({ factor }: { factor: any }) {
+  return (
+    <div className="space-y-1">
+      <div className="flex items-center justify-between text-sm">
+        <span className="font-medium">{factor.factor}</span>
+        <div className="flex items-center gap-2">
+          <span className="text-gray-600">{factor.matchPercentage}%</span>
+          <Badge 
+            variant={factor.importance === 'high' ? 'default' : 'secondary'}
+            className="text-xs"
+          >
+            {factor.importance}
+          </Badge>
+        </div>
+      </div>
+      <div className="w-full bg-gray-200 rounded-full h-2">
+        <div 
+          className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full transition-all duration-500"
+          style={{ width: `${factor.matchPercentage}%` }}
+        />
+      </div>
+    </div>
+  )
 }
