@@ -39,7 +39,7 @@ interface SmartRecommendationsProps {
   className?: string
 }
 
-export default function SmartRecommendations({ 
+export function SmartRecommendations({ 
   userId, 
   query, 
   context = {}, 
