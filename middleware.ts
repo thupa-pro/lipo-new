@@ -70,8 +70,8 @@ export function middleware(request: NextRequest) {
       })
     }
 
-    // 3. User Agent Filtering
-    if (isBlockedUserAgent(userAgent) && !pathname.startsWith('/api/health')) {
+    // 3. User Agent Filtering - disabled for development
+    if (process.env.NODE_ENV === 'production' && isBlockedUserAgent(userAgent) && !pathname.startsWith('/api/health')) {
       return new NextResponse('Forbidden', { status: 403 })
     }
 
