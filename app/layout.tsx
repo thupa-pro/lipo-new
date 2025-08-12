@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/accessibility-helpers";
 import PerformanceClient from "@/components/performance/performance-client";
 import WebVitals from "@/components/performance/web-vitals";
+import PWAInstall from "@/components/pwa/pwa-install";
 
 const inter = Inter({ subsets: ["latin"] });
 
