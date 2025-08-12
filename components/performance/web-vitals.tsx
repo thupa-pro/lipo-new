@@ -43,8 +43,8 @@ export default function WebVitals() {
       sendToAnalytics(metric)
     })
 
-    // First Input Delay
-    onFID((metric) => {
+    // Interaction to Next Paint (replaces FID)
+    onINP((metric) => {
       sendToAnalytics(metric)
     })
 
