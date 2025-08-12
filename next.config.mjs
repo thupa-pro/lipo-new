@@ -3,19 +3,8 @@ const nextConfig = {
   // Experimental features for futuristic performance optimization
   experimental: {
     optimizePackageImports: ['lucide-react', 'framer-motion'],
-    turbo: {
-      rules: {
-        '*.svg': {
-          loaders: ['@svgr/webpack'],
-          as: '*.js',
-        },
-      },
-    },
     webVitalsAttribution: ['CLS', 'LCP', 'FCP', 'FID', 'TTFB'],
     instrumentationHook: true,
-    ppr: true, // Partial Prerendering for quantum-fast performance
-    dynamicIO: true,
-    authInterrupts: true,
   },
 
   // Allow cross-origin requests from preview domains
