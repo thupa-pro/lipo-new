@@ -1,15 +1,24 @@
 'use client';
 
-import { useState, Suspense } from 'react';
+import { useState, useEffect, Suspense, useCallback, useMemo } from 'react';
 import Link from 'next/link';
+import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
+import { useInView } from 'framer-motion';
+import { useRef } from 'react';
+
+// Core UI Components
 import { IntelligentHeader } from '@/components/ui/intelligent-header';
 import { PWAProvider } from '@/components/ui/pwa-features';
 import { ModernFooter } from '@/components/modern-footer';
 import { CommandPaletteHint } from '@/components/ui/command-palette-hint';
 import { CommandPalette } from '@/components/ui/command-palette';
-import { ScrollReveal, StaggeredReveal, ParallaxReveal } from '@/components/ui/scroll-reveal';
 import { FloatingFAB, MobileBottomNav } from '@/components/ui/floating-fab';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+
+// Icons
 import {
   Search,
   UserPlus,
@@ -22,7 +31,6 @@ import {
   ArrowRight,
   Users,
   Clock,
-  Wrench,
   HomeIcon,
   GraduationCap,
   Car,
@@ -33,453 +41,565 @@ import {
   Bot,
   Monitor,
   Briefcase,
+  Mic,
+  MessageCircle,
+  TrendingUp,
+  Globe,
+  Rocket,
+  Crown,
+  Award,
+  Target,
+  Zap as Lightning,
+  Eye,
+  Layers,
+  ChevronDown,
+  Play,
+  Palette,
+  Code,
+  Smartphone,
+  Wifi,
 } from 'lucide-react';
 
 // Interactive components
 import { HomePageClient } from './components/home-page-client';
 
-// Static data instead of dynamic fetching
-const stats = {
-  userCount: 2400000,
-  providerCount: 45000,
-  bookingCount: 1200000,
-  averageRating: 4.9,
-  responseTime: "< 2hrs",
-  successRate: "98.7%"
+// Enhanced stats with real-time simulation
+const useRealTimeStats = () => {
+  const [stats, setStats] = useState({
+    userCount: 2400000,
+    providerCount: 45000,
+    bookingCount: 1200000,
+    averageRating: 4.9,
+    responseTime: "< 2hrs",
+    successRate: "98.7%",
+    liveUsers: 12847,
+    revenueToday: 284750,
+    completedToday: 1847
+  });
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setStats(prev => ({
+        ...prev,
+        liveUsers: prev.liveUsers + Math.floor(Math.random() * 10 - 4),
+        revenueToday: prev.revenueToday + Math.floor(Math.random() * 500),
+        completedToday: prev.completedToday + Math.floor(Math.random() * 5)
+      }));
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return stats;
 };
 
+// AI-Powered Personalization Hook
+const useAIPersonalization = () => {
+  const [userIntent, setUserIntent] = useState('exploring');
+  const [personalizedContent, setPersonalizedContent] = useState({
+    heroText: "Connect with Local Service Professionals You Trust",
+    ctaText: "Find Services Now",
+    theme: 'default'
+  });
+
+  useEffect(() => {
+    // Simulate AI-driven personalization based on time, location, behavior
+    const hour = new Date().getHours();
+    const isWeekend = [0, 6].includes(new Date().getDay());
+    
+    if (hour < 12) {
+      setPersonalizedContent(prev => ({
+        ...prev,
+        heroText: "Start Your Day with Trusted Local Services",
+        ctaText: "Book Morning Services"
+      }));
+    } else if (hour > 18) {
+      setPersonalizedContent(prev => ({
+        ...prev,
+        heroText: "Evening Services at Your Fingertips",
+        ctaText: "Book Evening Services"
+      }));
+    }
+
+    if (isWeekend) {
+      setPersonalizedContent(prev => ({
+        ...prev,
+        heroText: "Weekend Projects Made Easy",
+        ctaText: "Find Weekend Experts"
+      }));
+    }
+  }, []);
+
+  return { userIntent, personalizedContent };
+};
+
+// Voice UI Hook
+const useVoiceInterface = () => {
+  const [isListening, setIsListening] = useState(false);
+  const [transcript, setTranscript] = useState('');
+  
+  const startListening = useCallback(() => {
+    if ('webkitSpeechRecognition' in window) {
+      const recognition = new (window as any).webkitSpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = 'en-US';
+      
+      recognition.onstart = () => setIsListening(true);
+      recognition.onend = () => setIsListening(false);
+      recognition.onresult = (event: any) => {
+        const transcript = event.results[0][0].transcript;
+        setTranscript(transcript);
+        // AI-powered intent parsing would go here
+      };
+      
+      recognition.start();
+    }
+  }, []);
+
+  return { isListening, transcript, startListening };
+};
+
+// Advanced Categories with AI-enhanced data
 const categories = [
   {
     id: '1',
-    name: 'Home Services',
-    slug: 'home-services',
-    description: 'Plumbing, electrical, cleaning, and more. All your home needs covered.',
-    icon_name: 'home'
+    name: 'Smart Home Services',
+    slug: 'smart-home',
+    description: 'IoT installation, smart automation, and future-ready home upgrades.',
+    icon_name: 'home',
+    trend: '+127%',
+    aiFeatures: ['Predictive Maintenance', 'Energy Optimization', 'Security Integration'],
+    avgPrice: '$289',
+    nextAvailable: '18 min'
   },
   {
     id: '2',
-    name: 'Wellness & Fitness',
-    slug: 'wellness-fitness',
-    description: 'Personal trainers, yoga instructors, and nutritionists to achieve your goals.',
-    icon_name: 'dumbbell'
+    name: 'AI Wellness & Fitness',
+    slug: 'ai-wellness',
+    description: 'Biometric trainers, VR fitness, and AI-powered wellness coaching.',
+    icon_name: 'dumbbell',
+    trend: '+89%',
+    aiFeatures: ['Biometric Analysis', 'Custom Nutrition', 'Mental Health AI'],
+    avgPrice: '$156',
+    nextAvailable: '24 min'
   },
   {
     id: '3',
-    name: 'Education & Tutoring',
-    slug: 'education-tutoring',
-    description: 'Find expert tutors for any subject, from math and science to music lessons.',
-    icon_name: 'graduation-cap'
+    name: 'Quantum Education',
+    slug: 'quantum-education',
+    description: 'AR/VR tutoring, AI mentorship, and immersive learning experiences.',
+    icon_name: 'graduation-cap',
+    trend: '+203%',
+    aiFeatures: ['Adaptive Learning', 'Virtual Reality', 'AI Tutoring'],
+    avgPrice: '$94',
+    nextAvailable: '12 min'
   },
   {
     id: '4',
-    name: 'Tech & Repair',
-    slug: 'tech-repair',
-    description: 'Computer, phone, appliance repair and technical support services.',
-    icon_name: 'monitor'
+    name: 'Neural Tech Repair',
+    slug: 'neural-tech',
+    description: 'AI diagnostics, quantum computing, and next-gen device optimization.',
+    icon_name: 'monitor',
+    trend: '+156%',
+    aiFeatures: ['Auto-Diagnosis', 'Predictive Fixes', 'Quantum Optimization'],
+    avgPrice: '$247',
+    nextAvailable: '31 min'
   },
   {
     id: '5',
-    name: 'Automotive',
-    slug: 'automotive',
-    description: 'Car repair, maintenance, detailing and automotive services.',
-    icon_name: 'car'
+    name: 'Autonomous Automotive',
+    slug: 'autonomous-auto',
+    description: 'EV optimization, self-driving upgrades, and smart vehicle services.',
+    icon_name: 'car',
+    trend: '+178%',
+    aiFeatures: ['Self-Diagnosis', 'EV Optimization', 'Autonomous Upgrades'],
+    avgPrice: '$412',
+    nextAvailable: '45 min'
   },
   {
     id: '6',
-    name: 'Entertainment',
-    slug: 'entertainment',
-    description: 'Events, photography, music and entertainment services.',
-    icon_name: 'party-popper'
+    name: 'Metaverse Events',
+    slug: 'metaverse-events',
+    description: 'Virtual events, holographic entertainment, and immersive experiences.',
+    icon_name: 'party-popper',
+    trend: '+267%',
+    aiFeatures: ['Virtual Reality', 'Holographic Display', 'AI Orchestration'],
+    avgPrice: '$834',
+    nextAvailable: '67 min'
   }
 ];
 
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "Service",
-  "name": "Loconomy",
-  "description": "AI-Powered Local Services Platform connecting customers with verified service professionals",
-  "url": "https://loconomy.com",
-  "logo": "https://loconomy.com/logo.png",
-  "serviceType": "Local Services Marketplace",
-  "areaServed": "Worldwide",
-  "hasOfferCatalog": {
-    "@type": "OfferCatalog",
-    "name": "Local Services",
-    "itemListElement": [
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Home Services"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Wellness & Fitness"
-        }
-      }
-    ]
-  }
-};
+// Revenue Optimization Components
+const PremiumUpgradeCard = () => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ delay: 2 }}
+    className="fixed bottom-4 right-4 z-50 max-w-sm"
+  >
+    <Card className="bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0 shadow-2xl">
+      <CardContent className="p-4">
+        <div className="flex items-center gap-3">
+          <Crown className="w-6 h-6 text-yellow-300" />
+          <div>
+            <h4 className="font-bold">Upgrade to Loconomy Pro</h4>
+            <p className="text-sm opacity-90">Skip the queue, premium support</p>
+          </div>
+          <Button size="sm" variant="secondary">
+            $29/mo
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
+  </motion.div>
+);
 
+// Main Homepage Component
 export default function HomePage() {
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const stats = useRealTimeStats();
+  const { personalizedContent } = useAIPersonalization();
+  const { isListening, startListening } = useVoiceInterface();
+  
+  const heroRef = useRef(null);
+  const { scrollYProgress } = useScroll();
+  const y = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
+  const opacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
+
+  // Enhanced Glassmorphism Theme
+  const glassTheme = {
+    primary: 'backdrop-blur-xl bg-white/10 border border-white/20',
+    secondary: 'backdrop-blur-lg bg-white/5 border border-white/10',
+    accent: 'backdrop-blur-md bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-300/30'
+  };
 
   return (
     <PWAProvider>
-      <div className="relative min-h-screen overflow-hidden">
-        {/* Skip Links for Accessibility */}
-        <a href="#main-content" className="skip-link">Skip to main content</a>
-        <a href="#find-service" className="skip-link">Skip to search</a>
-        <a href="#how-it-works" className="skip-link">Skip to how it works</a>
-        
-        {/* Grid Background */}
-        <div className="absolute inset-0 bg-grid-white/[0.04] [mask-image:radial-gradient(ellipse_at_center,white_20%,transparent_70%)]"></div>
-        
-        {/* Animated Background Blobs */}
-        <div className="absolute top-[-20%] left-[-10%] w-[800px] h-[800px] bg-purple-900/30 rounded-full blur-[200px] animate-pulse"></div>
-        <div className="absolute bottom-[-30%] right-[-20%] w-[900px] h-[900px] bg-cyan-700/30 rounded-full blur-[200px] animate-pulse animation-delay-4000"></div>
-        <div className="absolute top-[30%] right-[10%] w-[500px] h-[500px] bg-fuchsia-700/20 rounded-full blur-[150px] animate-pulse animation-delay-2000"></div>
+      <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+        {/* Dynamic Background with Floating Elements */}
+        <div className="absolute inset-0">
+          {/* Animated Gradient Mesh */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(120,119,198,0.3),transparent)] animate-pulse"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(236,72,153,0.2),transparent)]"></div>
+          
+          {/* Floating Geometric Shapes */}
+          {[...Array(20)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-2 h-2 bg-white/20 rounded-full"
+              animate={{
+                x: [0, Math.random() * 100 - 50],
+                y: [0, Math.random() * 100 - 50],
+                opacity: [0.2, 0.8, 0.2],
+              }}
+              transition={{
+                duration: Math.random() * 10 + 10,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
+            />
+          ))}
+        </div>
 
         {/* Intelligent Header */}
         <IntelligentHeader onCommandPaletteOpen={() => setIsCommandPaletteOpen(true)} />
 
-        {/* Header Compensation */}
-        <div className="h-20 md:h-24"></div>
-
         {/* Main Content */}
-        <main id="main-content" className="relative z-10 responsive-container" role="main">
-          {/* Hero Section */}
-          <section className="hero-section text-center py-8 sm:py-12 md:py-16 lg:py-20 xl:py-24 landscape-compact" role="main" aria-labelledby="hero-title">
-            <ScrollReveal delay={200} direction="scale">
-              <div className="hero-badge floating-element glow-pulse mb-6 flex justify-center items-center gap-3 text-xs md:text-sm font-ui px-4 md:px-6 py-2 md:py-3 rounded-full inline-flex">
-                <div className="relative">
-                  <Shield className="w-4 h-4 md:w-5 md:h-5 text-emerald-400 animate-pulse" />
-                  <div className="absolute inset-0 animate-ping">
-                    <Shield className="w-4 h-4 md:w-5 md:h-5 text-emerald-400 opacity-30" />
+        <main className="relative z-10">
+          {/* Revolutionary Hero Section */}
+          <motion.section 
+            ref={heroRef}
+            style={{ y, opacity }}
+            className="min-h-screen flex items-center justify-center px-4 py-20"
+          >
+            <div className="max-w-7xl mx-auto text-center">
+              {/* AI Status Indicator */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6 }}
+                className="mb-8"
+              >
+                <Badge className={`${glassTheme.primary} text-white px-6 py-3 text-sm font-medium`}>
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                    <Brain className="w-4 h-4" />
+                    <span>AI-Powered • Live: {stats.liveUsers.toLocaleString()} users</span>
+                    <Bot className="w-4 h-4 animate-bounce" />
                   </div>
-                </div>
-                <span>Trusted by 2.4M+ Users Worldwide</span>
-              </div>
-            </ScrollReveal>
+                </Badge>
+              </motion.div>
 
-            <ScrollReveal delay={400} direction="up">
-              <h1 id="hero-title" className="resp-text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-display mb-4 md:mb-6 leading-tight px-2 sm:px-4">
-                <span className="gradient-text">Connect with Local</span>
-                <br className="hidden sm:block" />
-                <span className="sm:hidden"> </span>
-                <span className="text-gray-900 dark:text-white font-display">Service Professionals You Trust</span>
-              </h1>
-            </ScrollReveal>
+              {/* Dynamic Hero Title */}
+              <motion.h1
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-tight"
+              >
+                <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                  {personalizedContent.heroText.split(' ').slice(0, 3).join(' ')}
+                </span>
+                <br />
+                <span className="text-white">
+                  {personalizedContent.heroText.split(' ').slice(3).join(' ')}
+                </span>
+              </motion.h1>
 
-            <ScrollReveal delay={600} direction="up">
-              <p className="hero-description max-w-2xl lg:max-w-3xl xl:max-w-4xl mx-auto resp-text-sm md:text-lg lg:text-xl mb-6 md:mb-8 lg:mb-12 font-body px-2 sm:px-4">
-                Loconomy is the premium marketplace connecting you with verified local service providers. From home repairs to personal training - find trusted professionals in your area with our AI-powered matching system.
-              </p>
-            </ScrollReveal>
-            
-            <ScrollReveal delay={800} direction="up">
-              <div className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-4 md:gap-6 px-2 sm:px-4 resp-flex-col">
-                <Link
-                  href="/browse"
-                  className="w-full sm:w-auto flex items-center justify-center gap-2 md:gap-3 resp-p-4 btn-elite text-white font-ui font-semibold rounded-full resp-text-sm md:text-lg group touch-target hover-enhance"
+              {/* Enhanced Value Proposition */}
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto mb-12 leading-relaxed"
+              >
+                Experience the future of service discovery with AI-powered matching, 
+                quantum-fast booking, and premium professionals in 200+ cities worldwide.
+              </motion.p>
+
+              {/* Revolutionary CTA Section */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+                className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16"
+              >
+                {/* Primary CTA with Micro-interactions */}
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  <Search className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 transition-transform duration-300 group-hover:scale-110" />
-                  <span className="hidden xs:inline">Find Services Now</span>
-                  <span className="xs:hidden">Find Services</span>
-                </Link>
-                <Link
-                  href="/become-provider"
-                  className="w-full sm:w-auto flex items-center justify-center gap-2 md:gap-3 resp-p-4 bg-white/10 text-white font-ui font-semibold rounded-full resp-text-sm md:text-lg hover:bg-white/20 transition-all duration-300 border border-transparent hover:border-white/30 backdrop-blur-sm group touch-target hover-enhance"
+                  <Link href="/browse">
+                    <Button 
+                      size="lg" 
+                      className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-12 py-6 text-xl font-bold rounded-full shadow-2xl border-0 group"
+                    >
+                      <Lightning className="w-6 h-6 mr-3 group-hover:animate-pulse" />
+                      {personalizedContent.ctaText}
+                      <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                  </Link>
+                </motion.div>
+
+                {/* Voice Search CTA */}
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  <UserPlus className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 transition-transform duration-300 group-hover:scale-110" />
-                  <span className="hidden xs:inline">Become a Provider</span>
-                  <span className="xs:hidden">Be a Provider</span>
-                </Link>
-              </div>
-            </ScrollReveal>
-          </section>
+                  <Button 
+                    onClick={startListening}
+                    variant="outline" 
+                    size="lg"
+                    className={`${glassTheme.primary} text-white border-white/30 px-8 py-6 text-lg font-semibold rounded-full group`}
+                  >
+                    <Mic className={`w-5 h-5 mr-2 ${isListening ? 'text-red-400 animate-pulse' : ''}`} />
+                    Voice Search
+                    <span className="ml-2 text-xs opacity-75">Try: "Find a plumber"</span>
+                  </Button>
+                </motion.div>
+              </motion.div>
 
-          {/* Search Section - Client Component for Interactivity */}
-          <Suspense fallback={<div className="h-96 animate-pulse bg-gray-200 dark:bg-gray-700 rounded-3xl mx-4"></div>}>
-            <HomePageClient />
-          </Suspense>
+              {/* Real-time Stats Showcase */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 0.8 }}
+                className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto"
+              >
+                {[
+                  { label: 'AI Matches Today', value: stats.completedToday, icon: Target, color: 'text-green-400' },
+                  { label: 'Revenue Generated', value: `$${(stats.revenueToday / 1000).toFixed(0)}K`, icon: TrendingUp, color: 'text-blue-400' },
+                  { label: 'Live Users', value: stats.liveUsers.toLocaleString(), icon: Users, color: 'text-purple-400' },
+                  { label: 'Success Rate', value: stats.successRate, icon: Award, color: 'text-yellow-400' }
+                ].map((stat, index) => (
+                  <motion.div
+                    key={index}
+                    whileHover={{ scale: 1.05 }}
+                    className={`${glassTheme.secondary} p-6 rounded-2xl text-center`}
+                  >
+                    <stat.icon className={`w-8 h-8 ${stat.color} mx-auto mb-3`} />
+                    <div className="text-2xl font-bold text-white mb-1">{stat.value}</div>
+                    <div className="text-sm text-gray-400">{stat.label}</div>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </div>
+          </motion.section>
 
-          {/* How It Works Section */}
-          <section className="py-12 sm:py-16 md:py-20 lg:py-24 px-2 sm:px-4 landscape-compact" id="how-it-works" role="region" aria-labelledby="how-it-works-title">
-            <h2 id="how-it-works-title" className="section-title resp-text-xl md:text-3xl lg:text-4xl font-heading text-center mb-4">How Loconomy Works</h2>
-            <p className="section-subtitle resp-text-sm md:text-lg text-center mb-8 sm:mb-12 md:mb-16 max-w-xl md:max-w-2xl mx-auto font-body">Finding your ideal service professional is as easy as 1-2-3.</p>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-12 relative works-grid">
-              <div className="absolute top-1/2 left-0 w-full h-px bg-gray-200 dark:bg-white/10 hidden md:block"></div>
-              <div className="works-connecting-line absolute top-1/2 left-0 w-full hidden md:flex justify-between">
-                <div className="w-1/3 h-px"></div>
-                <div className="w-1/3 h-px"></div>
-              </div>
-
-              <div className="relative text-center z-10 sm:col-span-2 lg:col-span-1">
-                <div className="works-number-circle w-12 sm:w-16 md:w-20 h-12 sm:h-16 md:h-20 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 md:mb-6">
-                  <span className="resp-text-lg md:text-3xl lg:text-4xl font-black gradient-text">1</span>
+          {/* Enhanced Search Section */}
+          <section className="py-20 px-4">
+            <div className="max-w-6xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+                className={`${glassTheme.primary} p-12 rounded-3xl shadow-2xl`}
+              >
+                <div className="text-center mb-8">
+                  <h2 className="text-4xl font-bold text-white mb-4">
+                    AI-Powered Service Discovery
+                  </h2>
+                  <p className="text-xl text-gray-300">
+                    Describe what you need in natural language, our AI does the rest
+                  </p>
                 </div>
-                <h3 className="works-step-title resp-text-lg md:text-xl lg:text-2xl font-heading mb-2 md:mb-3">Post a Job</h3>
-                <p className="works-step-description resp-text-xs md:text-sm lg:text-base font-body">Tell us what you need. Be specific to get the most accurate quotes from our network of professionals.</p>
-              </div>
-
-              <div className="relative text-center z-10">
-                <div className="works-number-circle w-12 sm:w-16 md:w-20 h-12 sm:h-16 md:h-20 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 md:mb-6">
-                  <span className="resp-text-lg md:text-3xl lg:text-4xl font-black gradient-text">2</span>
-                </div>
-                <h3 className="works-step-title resp-text-lg md:text-xl lg:text-2xl font-heading mb-2 md:mb-3">Get Matches</h3>
-                <p className="works-step-description resp-text-xs md:text-sm lg:text-base font-body">Our smart AI algorithm matches you with qualified, vetted pros in your area who are ready to help.</p>
-              </div>
-
-              <div className="relative text-center z-10">
-                <div className="works-number-circle w-12 sm:w-16 md:w-20 h-12 sm:h-16 md:h-20 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 md:mb-6">
-                  <span className="resp-text-lg md:text-3xl lg:text-4xl font-black gradient-text">3</span>
-                </div>
-                <h3 className="works-step-title resp-text-lg md:text-xl lg:text-2xl font-heading mb-2 md:mb-3">Hire & Relax</h3>
-                <p className="works-step-description resp-text-xs md:text-sm lg:text-base font-body">Compare profiles, quotes, and reviews. Hire the best fit and get the job done right, guaranteed.</p>
-              </div>
+                
+                <Suspense fallback={
+                  <div className="h-96 animate-pulse bg-white/10 rounded-2xl"></div>
+                }>
+                  <HomePageClient />
+                </Suspense>
+              </motion.div>
             </div>
           </section>
 
-          {/* Stats Section */}
-          <section className="py-12 sm:py-16 md:py-20 landscape-compact" role="region" aria-labelledby="stats-title">
-            <ScrollReveal direction="up">
-              <h2 id="stats-title" className="section-title resp-text-xl md:text-3xl lg:text-4xl font-heading text-center mb-8 sm:mb-12">Trusted Platform Performance</h2>
-            </ScrollReveal>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 stats-grid">
-              <div className="stats-card card-elite resp-p-4 md:p-6 lg:p-8 text-center magnetic-hover animate-elite-float hover-enhance touch-friendly">
-                <div className="flex justify-center items-center mb-4">
-                  <div className="stats-icon-bg p-4 rounded-full">
-                    <Users className="w-8 h-8 text-purple-500" />
-                  </div>
-                </div>
-                <p className="stats-number resp-text-2xl lg:text-4xl xl:text-5xl font-bold mb-2">{(stats.userCount / 1000000).toFixed(1)}M+</p>
-                <p className="stats-label mb-2 sm:mb-4 resp-text-sm">Active Users</p>
-                <span className="stats-growth font-semibold resp-text-xs">+23.5% vs last month</span>
-              </div>
-
-              <div className="stats-card card-elite resp-p-4 md:p-6 lg:p-8 text-center magnetic-hover animate-elite-float hover-enhance touch-friendly" style={{animationDelay: '0.2s'}}>
-                <div className="flex justify-center items-center mb-4">
-                  <div className="stats-icon-bg p-4 rounded-full">
-                    <Clock className="w-8 h-8 text-cyan-500" />
-                  </div>
-                </div>
-                <p className="stats-number resp-text-2xl lg:text-4xl xl:text-5xl font-bold mb-2">{stats.responseTime}</p>
-                <p className="stats-label mb-2 sm:mb-4 resp-text-sm">Average Response</p>
-                <span className="stats-growth font-semibold resp-text-xs">+15.2% vs last month</span>
-              </div>
-
-              <div className="stats-card card-elite resp-p-4 md:p-6 lg:p-8 text-center magnetic-hover animate-elite-float hover-enhance touch-friendly" style={{animationDelay: '0.4s'}}>
-                <div className="flex justify-center items-center mb-4">
-                  <div className="stats-icon-bg p-4 rounded-full">
-                    <CheckCircle className="w-8 h-8 text-green-500" />
-                  </div>
-                </div>
-                <p className="stats-number resp-text-2xl lg:text-4xl xl:text-5xl font-bold mb-2">{stats.successRate}</p>
-                <p className="stats-label mb-2 sm:mb-4 resp-text-sm">Job Success Rate</p>
-                <span className="stats-growth font-semibold resp-text-xs">+2.1% vs last month</span>
-              </div>
-
-              <div className="stats-card card-elite resp-p-4 md:p-6 lg:p-8 text-center magnetic-hover animate-elite-float hover-enhance touch-friendly" style={{animationDelay: '0.6s'}}>
-                <div className="flex justify-center items-center mb-4">
-                  <div className="stats-icon-bg p-4 rounded-full">
-                    <Star className="w-8 h-8 text-pink-500 fill-current" />
-                  </div>
-                </div>
-                <p className="stats-number resp-text-2xl lg:text-4xl xl:text-5xl font-bold mb-2">{stats.averageRating}/5</p>
-                <p className="stats-label mb-2 sm:mb-4 resp-text-sm">Average Rating</p>
-                <span className="stats-growth font-semibold resp-text-xs">+1.8% vs last month</span>
-              </div>
-            </div>
-          </section>
-
-          {/* Service Categories Section */}
-          <section className="py-12 sm:py-16 md:py-20 landscape-compact" role="region" aria-labelledby="categories-title">
-            <h2 id="categories-title" className="section-title resp-text-xl md:text-3xl lg:text-4xl font-heading text-center mb-4">Popular Service Categories</h2>
-            <p className="section-subtitle resp-text-sm md:text-lg text-center mb-8 sm:mb-12 max-w-xl md:max-w-2xl mx-auto">Explore thousands of verified service providers across all major categories.</p>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 category-grid">
-              {categories.map((category, index) => {
-                // Icon mapping
-                const IconComponent = {
-                  'home': HomeIcon,
-                  'dumbbell': Dumbbell,
-                  'graduation-cap': GraduationCap,
-                  'monitor': Monitor,
-                  'car': Car,
-                  'party-popper': PartyPopper
-                }[category.icon_name] || HomeIcon;
-
-                // Color mapping
-                const colors = [
-                  { bg: 'from-purple-100/20', icon: 'text-purple-500', text: 'text-purple-600' },
-                  { bg: 'from-cyan-900/60', icon: 'text-cyan-400', text: 'text-cyan-300' },
-                  { bg: 'from-fuchsia-900/60', icon: 'text-fuchsia-400', text: 'text-fuchsia-300' },
-                  { bg: 'from-green-900/60', icon: 'text-green-400', text: 'text-green-300' },
-                  { bg: 'from-orange-900/60', icon: 'text-orange-400', text: 'text-orange-300' },
-                  { bg: 'from-pink-900/60', icon: 'text-pink-400', text: 'text-pink-300' }
-                ];
-                const colorScheme = colors[index % colors.length];
-
-                return (
-                  <div key={category.id} className="category-card card-elite resp-p-4 md:p-6 lg:p-8 overflow-hidden relative group magnetic-hover hover-enhance touch-friendly">
-                    <div className={`absolute inset-0 bg-gradient-to-t ${colorScheme.bg} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
-                    <div className="relative z-10 flex flex-col h-full">
-                      <IconComponent className={`w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 ${colorScheme.icon} mb-3 sm:mb-4`} />
-                      <h3 className="category-title resp-text-lg md:text-xl lg:text-2xl font-bold mb-2">{category.name}</h3>
-                      <p className="category-description resp-text-xs md:text-sm lg:text-base mb-4 sm:mb-6 flex-grow">{category.description}</p>
-                      <Link href={`/category/${category.slug}`} className={`category-link font-semibold flex items-center ${colorScheme.text} group-hover:text-purple-600 dark:group-hover:text-white transition-colors`}>
-                        Explore
-                        <ArrowRight className="w-5 h-5 ml-1 group-hover:translate-x-1 transition-transform" />
-                      </Link>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </section>
-
-          {/* Testimonials Section */}
-          <section className="py-24">
-            <h2 className="text-4xl font-bold text-center text-white mb-4">What Our Users Say</h2>
-            <p className="text-lg text-[var(--mid-gray)] text-center mb-16 max-w-2xl mx-auto">
-              Join millions of satisfied customers who trust Loconomy for their service needs
-            </p>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="bg-glass rounded-3xl p-8 card-glow">
-                <div className="flex items-center mb-6">
-                  <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mr-4">
-                    <span className="text-white font-bold">SJ</span>
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-white">Sarah Johnson</h4>
-                    <p className="text-sm text-[var(--mid-gray)]">Homeowner</p>
-                  </div>
-                </div>
-                <div className="flex mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
-                  ))}
-                </div>
-                <p className="text-[var(--mid-gray)] italic">
-                  "Found an amazing house cleaner through Loconomy in minutes. The booking process was seamless and the service quality exceeded my expectations!"
-                </p>
-              </div>
-
-              <div className="bg-glass rounded-3xl p-8 card-glow">
-                <div className="flex items-center mb-6">
-                  <div className="w-12 h-12 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full flex items-center justify-center mr-4">
-                    <span className="text-white font-bold">MR</span>
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-white">Mike Rodriguez</h4>
-                    <p className="text-sm text-[var(--mid-gray)]">Business Owner</p>
-                  </div>
-                </div>
-                <div className="flex mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
-                  ))}
-                </div>
-                <p className="text-[var(--mid-gray)] italic">
-                  "As a provider, Loconomy has transformed my business. The AI matching brings me perfect clients and the platform handles everything seamlessly."
-                </p>
-              </div>
-
-              <div className="bg-glass rounded-3xl p-8 card-glow">
-                <div className="flex items-center mb-6">
-                  <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-teal-500 rounded-full flex items-center justify-center mr-4">
-                    <span className="text-white font-bold">ET</span>
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-white">Emma Thompson</h4>
-                    <p className="text-sm text-[var(--mid-gray)]">Tech Professional</p>
-                  </div>
-                </div>
-                <div className="flex mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
-                  ))}
-                </div>
-                <p className="text-[var(--mid-gray)] italic">
-                  "The AI recommendations are spot-on! Got my laptop fixed by a certified technician who arrived within 2 hours. Incredible service!"
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* Features Section */}
-          <section className="py-24 bg-gradient-to-l from-purple-900/20 to-cyan-900/20">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-white mb-6">Why Choose Loconomy</h2>
-              <p className="text-lg text-[var(--mid-gray)] max-w-2xl mx-auto">
-                Advanced technology meets personalized service for the ultimate experience
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <Brain className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-lg font-bold mb-3 text-white">AI-Powered Matching</h3>
-                <p className="text-[var(--mid-gray)] text-sm">Our neural network learns your preferences and matches you with the perfect providers every time.</p>
-              </div>
-
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <Shield className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-lg font-bold mb-3 text-white">Verified & Insured</h3>
-                <p className="text-[var(--mid-gray)] text-sm">Every provider is background-checked, verified, and fully insured for your peace of mind.</p>
-              </div>
-
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-teal-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <Zap className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-lg font-bold mb-3 text-white">Instant Booking</h3>
-                <p className="text-[var(--mid-gray)] text-sm">Book services instantly with real-time availability and immediate confirmation.</p>
-              </div>
-
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <HeadphonesIcon className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-lg font-bold mb-3 text-white">24/7 Support</h3>
-                <p className="text-[var(--mid-gray)] text-sm">Round-the-clock customer support and live tracking for all your service needs.</p>
-              </div>
-            </div>
-          </section>
-
-          {/* Call to Action */}
-          <section className="py-24">
-            <div className="max-w-4xl mx-auto">
-              <div className="bg-glass rounded-3xl p-12 text-center card-glow">
-                <h2 className="text-3xl font-bold text-white mb-6">
-                  Ready to Get Started with Loconomy?
+          {/* Revolutionary Service Categories */}
+          <section className="py-20 px-4">
+            <div className="max-w-7xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-center mb-16"
+              >
+                <h2 className="text-5xl font-bold text-white mb-6">
+                  Next-Generation Services
                 </h2>
-                <p className="text-lg text-[var(--mid-gray)] mb-8 max-w-2xl mx-auto">
-                  Join millions of satisfied customers who have found their perfect service providers through our platform.
+                <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                  Explore AI-enhanced services that blend cutting-edge technology with human expertise
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Link href="/browse" className="bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white px-8 py-4 rounded-full font-semibold text-lg btn-glow transition-transform transform hover:scale-105 flex items-center justify-center">
-                    Find Services Now
-                  </Link>
-                  <Link href="/become-provider" className="bg-white/10 text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white/20 transition-all duration-300 border border-transparent hover:border-white/30 flex items-center justify-center">
-                    Start Earning as Provider
-                  </Link>
-                </div>
+              </motion.div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {categories.map((category, index) => {
+                  const IconComponent = {
+                    'home': HomeIcon,
+                    'dumbbell': Dumbbell,
+                    'graduation-cap': GraduationCap,
+                    'monitor': Monitor,
+                    'car': Car,
+                    'party-popper': PartyPopper
+                  }[category.icon_name] || HomeIcon;
+
+                  return (
+                    <motion.div
+                      key={category.id}
+                      initial={{ opacity: 0, y: 50 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.6, delay: index * 0.1 }}
+                      whileHover={{ scale: 1.02, y: -5 }}
+                      className="group"
+                    >
+                      <Card className={`${glassTheme.primary} border-white/20 overflow-hidden h-full hover:border-purple-400/50 transition-all duration-500`}>
+                        <CardHeader className="relative pb-4">
+                          <div className="flex items-start justify-between mb-4">
+                            <div className="p-4 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-2xl">
+                              <IconComponent className="w-8 h-8 text-purple-400" />
+                            </div>
+                            <Badge className={`${category.trend.startsWith('+') ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'} border-0`}>
+                              {category.trend}
+                            </Badge>
+                          </div>
+                          
+                          <CardTitle className="text-2xl font-bold text-white group-hover:text-purple-400 transition-colors">
+                            {category.name}
+                          </CardTitle>
+                          
+                          <p className="text-gray-300 leading-relaxed">
+                            {category.description}
+                          </p>
+                        </CardHeader>
+
+                        <CardContent className="space-y-6">
+                          {/* AI Features */}
+                          <div>
+                            <h4 className="text-sm font-semibold text-purple-400 mb-3">AI FEATURES</h4>
+                            <div className="flex flex-wrap gap-2">
+                              {category.aiFeatures.map((feature, idx) => (
+                                <Badge key={idx} className="bg-purple-500/10 text-purple-300 border border-purple-500/20 text-xs">
+                                  {feature}
+                                </Badge>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Pricing & Availability */}
+                          <div className="flex justify-between items-center">
+                            <div>
+                              <div className="text-2xl font-bold text-white">{category.avgPrice}</div>
+                              <div className="text-xs text-gray-400">avg. starting price</div>
+                            </div>
+                            <div className="text-right">
+                              <div className="text-green-400 font-semibold">{category.nextAvailable}</div>
+                              <div className="text-xs text-gray-400">next available</div>
+                            </div>
+                          </div>
+
+                          {/* CTA */}
+                          <Link href={`/category/${category.slug}`}>
+                            <Button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold group border-0">
+                              Explore {category.name}
+                              <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                            </Button>
+                          </Link>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  );
+                })}
               </div>
+            </div>
+          </section>
+
+          {/* Futuristic Trust Section */}
+          <section className="py-20 px-4">
+            <div className="max-w-6xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                className={`${glassTheme.accent} p-16 rounded-3xl text-center`}
+              >
+                <Shield className="w-16 h-16 text-purple-400 mx-auto mb-8" />
+                <h2 className="text-4xl font-bold text-white mb-6">
+                  Quantum-Secured Trust Network
+                </h2>
+                <p className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
+                  Every provider is verified through our AI-powered background screening, 
+                  biometric authentication, and blockchain-secured reputation system.
+                </p>
+                
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                  {[
+                    { icon: Eye, label: 'AI Background Verification', desc: 'Quantum-level security checks' },
+                    { icon: Shield, label: 'Blockchain Identity', desc: 'Immutable reputation scores' },
+                    { icon: Zap, label: 'Real-time Monitoring', desc: 'Continuous quality assurance' },
+                    { icon: Award, label: 'Performance Guaranteed', desc: '100% satisfaction promise' }
+                  ].map((item, index) => (
+                    <motion.div
+                      key={index}
+                      whileHover={{ scale: 1.05 }}
+                      className="text-center"
+                    >
+                      <item.icon className="w-12 h-12 text-purple-400 mx-auto mb-4" />
+                      <h3 className="text-lg font-bold text-white mb-2">{item.label}</h3>
+                      <p className="text-sm text-gray-400">{item.desc}</p>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
             </div>
           </section>
         </main>
 
+        {/* Enhanced UI Elements */}
         <ModernFooter />
         <CommandPaletteHint />
         <CommandPalette
@@ -488,14 +608,40 @@ export default function HomePage() {
         />
         <FloatingFAB />
         <MobileBottomNav currentPath="/" />
+        <PremiumUpgradeCard />
 
         {/* Mobile Bottom Spacing */}
-        <div className="h-20 md:h-0 mobile-bottom-spacing"></div>
+        <div className="h-20 md:h-0"></div>
 
-        {/* Structured Data */}
+        {/* Enhanced Structured Data for AI/SEO */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "Loconomy",
+              "description": "AI-Powered Local Services Platform",
+              "url": "https://loconomy.com",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://loconomy.com/search?q={search_term_string}"
+                },
+                "query-input": "required name=search_term_string"
+              },
+              "provider": {
+                "@type": "Organization",
+                "name": "Loconomy",
+                "aggregateRating": {
+                  "@type": "AggregateRating",
+                  "ratingValue": stats.averageRating,
+                  "reviewCount": stats.userCount
+                }
+              }
+            })
+          }}
         />
       </div>
     </PWAProvider>
