@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createSupabaseServerClient } from '@/lib/supabase/server'
+import { createSupabaseServerComponent } from '@/lib/supabase/server'
 
 interface WebVitalMetric {
   name: string
