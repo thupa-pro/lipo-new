@@ -1,113 +1,80 @@
-"use client"
+'use client';
 
-import React from 'react'
-import { motion } from 'framer-motion'
-import { cn } from '@/lib/utils'
+import { cn } from '@/lib/utils';
+import { motion } from 'framer-motion';
 
 interface HolographicTextProps {
-  children: React.ReactNode
-  className?: string
-  variant?: 'primary' | 'secondary' | 'accent' | 'rainbow'
-  size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'
-  animated?: boolean
-  glitch?: boolean
-  glow?: boolean
+  children: React.ReactNode;
+  className?: string;
+  variant?: 'gradient' | 'shimmer' | 'glow';
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  animated?: boolean;
 }
 
 export function HolographicText({
   children,
-  className,
-  variant = 'primary',
+  className = '',
+  variant = 'gradient',
   size = 'md',
   animated = true,
-  glitch = false,
-  glow = true,
-  ...props
 }: HolographicTextProps) {
-  const variants = {
-    primary: 'from-purple-400 via-blue-400 to-cyan-400',
-    secondary: 'from-emerald-400 via-green-400 to-teal-400',
-    accent: 'from-pink-400 via-purple-400 to-indigo-400',
-    rainbow: 'from-red-400 via-yellow-400 via-green-400 via-blue-400 to-purple-400'
-  }
-
-  const sizes = {
+  const sizeClasses = {
     sm: 'text-sm',
     md: 'text-base',
     lg: 'text-lg',
-    xl: 'text-xl',
-    '2xl': 'text-2xl',
-    '3xl': 'text-3xl'
+    xl: 'text-xl'
+  };
+
+  const variantClasses = {
+    gradient: 'bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent',
+    shimmer: 'bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent bg-size-200 animate-gradient-shift',
+    glow: 'text-blue-400 drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]'
+  };
+
+  const textClasses = cn(
+    'font-bold tracking-tight',
+    sizeClasses[size],
+    variantClasses[variant],
+    className
+  );
+
+  if (animated && variant === 'shimmer') {
+    return (
+      <motion.span
+        className={textClasses}
+        style={{
+          backgroundSize: '200% 200%',
+        }}
+        animate={{
+          backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+        }}
+        transition={{
+          duration: 3,
+          repeat: Infinity,
+          ease: 'linear',
+        }}
+      >
+        {children}
+      </motion.span>
+    );
   }
 
-  const baseClasses = cn(
-    'font-bold bg-gradient-to-r bg-clip-text text-transparent inline-block',
-    variants[variant],
-    sizes[size],
-    glow && 'drop-shadow-lg',
-    className
-  )
-
-  if (!animated && !glitch) {
+  if (animated) {
     return (
-      <span className={baseClasses} {...props}>
+      <motion.span
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className={textClasses}
+      >
         {children}
-      </span>
-    )
+      </motion.span>
+    );
   }
 
   return (
-    <motion.span
-      className={baseClasses}
-      animate={animated ? {
-        backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
-        ...(glow && {
-          filter: [
-            'drop-shadow(0 0 0px rgba(139, 92, 246, 0))',
-            'drop-shadow(0 0 20px rgba(139, 92, 246, 0.8))',
-            'drop-shadow(0 0 0px rgba(139, 92, 246, 0))'
-          ]
-        })
-      } : {}}
-      transition={{
-        backgroundPosition: {
-          duration: 3,
-          repeat: Infinity,
-          ease: "easeInOut"
-        },
-        filter: {
-          duration: 2,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }
-      }}
-      style={{
-        backgroundSize: '200% 200%'
-      }}
-      {...props}
-    >
-      {glitch ? (
-        <motion.span
-          animate={{
-            x: [0, -2, 2, 0],
-            textShadow: [
-              '0 0 0px rgba(255, 0, 0, 0)',
-              '2px 0px 0px rgba(255, 0, 0, 0.7), -2px 0px 0px rgba(0, 255, 255, 0.7)',
-              '0 0 0px rgba(255, 0, 0, 0)'
-            ]
-          }}
-          transition={{
-            duration: 0.1,
-            repeat: Infinity,
-            repeatDelay: 2,
-            ease: "easeInOut"
-          }}
-        >
-          {children}
-        </motion.span>
-      ) : (
-        children
-      )}
-    </motion.span>
-  )
+    <span className={textClasses}>
+      {children}
+    </span>
+  );
 }
