@@ -334,14 +334,79 @@ export default function CompleteDemoPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-12">
+        {/* Platform Insights */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="mb-12"
+        >
+          <div className="bg-gradient-to-r from-purple-600/10 via-blue-600/10 to-teal-600/10 rounded-2xl p-6 border border-purple-200/30">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center space-x-3">
+                <Brain className="w-6 h-6 text-purple-600" />
+                <h3 className="text-xl font-bold">AI Platform Insights</h3>
+              </div>
+              <Badge className="bg-purple-100 text-purple-700">Real-time</Badge>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <motion.div
+                className="text-center p-4 bg-white/50 backdrop-blur-sm rounded-lg border border-purple-100"
+                whileHover={{ scale: 1.05 }}
+              >
+                <TrendingUp className="w-8 h-8 text-green-500 mx-auto mb-2" />
+                <div className="text-2xl font-bold text-green-600">+34%</div>
+                <div className="text-sm text-gray-600">User Growth</div>
+              </motion.div>
+              <motion.div
+                className="text-center p-4 bg-white/50 backdrop-blur-sm rounded-lg border border-blue-100"
+                whileHover={{ scale: 1.05 }}
+              >
+                <Target className="w-8 h-8 text-blue-500 mx-auto mb-2" />
+                <div className="text-2xl font-bold text-blue-600">97%</div>
+                <div className="text-sm text-gray-600">AI Match Rate</div>
+              </motion.div>
+              <motion.div
+                className="text-center p-4 bg-white/50 backdrop-blur-sm rounded-lg border border-purple-100"
+                whileHover={{ scale: 1.05 }}
+              >
+                <Eye className="w-8 h-8 text-purple-500 mx-auto mb-2" />
+                <div className="text-2xl font-bold text-purple-600">{liveStats.responseTime}</div>
+                <div className="text-sm text-gray-600">Response Time</div>
+              </motion.div>
+              <motion.div
+                className="text-center p-4 bg-white/50 backdrop-blur-sm rounded-lg border border-emerald-100"
+                whileHover={{ scale: 1.05 }}
+              >
+                <Shield className="w-8 h-8 text-emerald-500 mx-auto mb-2" />
+                <div className="text-2xl font-bold text-emerald-600">99.9%</div>
+                <div className="text-sm text-gray-600">Uptime</div>
+              </motion.div>
+            </div>
+          </div>
+        </motion.div>
+
         {/* Feature Grid */}
         <div className="mb-12">
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold mb-4">Complete Feature Suite</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Explore all the implemented features and capabilities of the Loconomy platform. 
-              Each module is fully functional and ready for production use.
-            </p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <Badge className="bg-gradient-to-r from-blue-600 to-purple-600 text-white mb-4">
+                <Gem className="w-4 h-4 mr-1" />
+                Production Ready
+              </Badge>
+              <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-gray-900 via-purple-600 to-blue-600 bg-clip-text text-transparent">
+                Complete Feature Suite
+              </h2>
+              <p className="text-gray-600 max-w-3xl mx-auto text-lg">
+                Explore all the implemented features and capabilities of the Loconomy platform.
+                Each module is fully functional, tested, and ready for production deployment.
+              </p>
+            </motion.div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
