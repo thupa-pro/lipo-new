@@ -485,7 +485,7 @@ export default function HomePage() {
                 className={`${glassTheme.primary} p-12 rounded-3xl shadow-2xl`}
               >
                 <div className="text-center mb-8">
-                  <h2 className="text-4xl font-bold text-white dark:text-white light:text-gray-900 mb-4">
+                  <h2 className="text-4xl font-bold text-slate-800 dark:text-white mb-4">
                     AI-Powered Service Discovery
                   </h2>
                   <p className="text-xl text-gray-300 dark:text-gray-300 light:text-gray-600">
