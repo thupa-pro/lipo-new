@@ -576,8 +576,8 @@ export default function HomePage() {
                           {/* Pricing & Availability */}
                           <div className="flex justify-between items-center">
                             <div>
-                              <div className="text-2xl font-bold text-white dark:text-white light:text-gray-900">{category.avgPrice}</div>
-                              <div className="text-xs text-gray-400 dark:text-gray-400 light:text-gray-600">avg. starting price</div>
+                              <div className="text-2xl font-bold text-slate-800 dark:text-white">{category.avgPrice}</div>
+                              <div className="text-xs text-slate-500 dark:text-gray-400">avg. starting price</div>
                             </div>
                             <div className="text-right">
                               <div className="text-green-400 dark:text-green-400 light:text-green-600 font-semibold">{category.nextAvailable}</div>
