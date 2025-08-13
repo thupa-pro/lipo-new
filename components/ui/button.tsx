@@ -10,20 +10,20 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white shadow-lg hover:from-purple-700 hover:to-fuchsia-600 btn-glow hover:scale-105 transition-all duration-300",
+          "bg-gradient-to-r from-indigo-600 to-sky-500 dark:from-purple-600 dark:to-fuchsia-500 text-white shadow-lg hover:from-indigo-700 hover:to-sky-600 dark:hover:from-purple-700 dark:hover:to-fuchsia-600 btn-glow hover:scale-105 transition-all duration-300",
         destructive:
           "bg-gradient-to-r from-red-600 to-pink-600 text-white shadow-lg hover:from-red-700 hover:to-pink-700 hover:scale-105 transition-all duration-300",
         outline:
-          "border border-white/20 bg-glass text-white hover:bg-white/20 hover:border-white/30 hover:scale-105 transition-all duration-300",
+          "border border-slate-200 dark:border-white/20 bg-transparent dark:bg-glass text-slate-700 dark:text-white hover:bg-slate-50 dark:hover:bg-white/20 hover:border-indigo-300 dark:hover:border-white/30 hover:scale-105 transition-all duration-300",
         secondary:
-          "bg-white/10 text-white hover:bg-white/20 hover:scale-105 transition-all duration-300",
+          "bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-white hover:bg-slate-200 dark:hover:bg-white/20 hover:scale-105 transition-all duration-300",
         ghost:
-          "text-white hover:bg-white/10 hover:scale-105 transition-all duration-300",
-        link: "text-purple-400 underline-offset-4 hover:underline hover:text-purple-300 transition-colors",
+          "text-slate-700 dark:text-white hover:bg-slate-100 dark:hover:bg-white/10 hover:scale-105 transition-all duration-300",
+        link: "text-indigo-600 dark:text-purple-400 underline-offset-4 hover:underline hover:text-indigo-700 dark:hover:text-purple-300 transition-colors",
         premium:
-          "bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white shadow-lg btn-glow hover:scale-105 transition-all duration-300 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:translate-x-[-100%] hover:before:translate-x-[100%] before:transition-transform before:duration-500",
+          "bg-gradient-to-r from-indigo-600 to-sky-500 dark:from-purple-600 dark:to-fuchsia-500 text-white shadow-lg btn-glow hover:scale-105 transition-all duration-300 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:translate-x-[-100%] hover:before:translate-x-[100%] before:transition-transform before:duration-500",
         glass:
-          "bg-glass backdrop-blur-md border border-white/20 text-white shadow-lg hover:bg-white/20 card-glow hover:scale-105 transition-all duration-300",
+          "bg-white/90 dark:bg-glass backdrop-blur-md border border-slate-200/50 dark:border-white/20 text-slate-700 dark:text-white shadow-lg hover:bg-white dark:hover:bg-white/20 card-glow hover:scale-105 transition-all duration-300",
       },
       size: {
         default: "h-10 px-4 py-2",
