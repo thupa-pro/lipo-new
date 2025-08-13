@@ -199,7 +199,7 @@ export default function CompleteDemoPage() {
     <div className="min-h-screen gradient-hero dark:from-slate-900 dark:via-purple-900 dark:to-blue-900 overflow-x-hidden">
       {/* Mobile-First Header */}
       <motion.header
-        className="sticky top-0 z-50 bg-white/80 backdrop-blur-sm border-b border-purple-100"
+        className="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b border-purple-200 shadow-sm"
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6 }}
@@ -207,22 +207,22 @@ export default function CompleteDemoPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+              <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg flex items-center justify-center animate-pulse-glow">
                 <Zap className="w-5 h-5 text-white" />
               </div>
               <div>
-                <h1 className="text-lg font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                <h1 className="text-lg font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
                   Loconomy
                 </h1>
                 <p className="text-xs text-gray-500 hidden sm:block">AI-Powered Platform</p>
               </div>
             </div>
             <div className="flex items-center space-x-4">
-              <Badge className="hidden sm:flex bg-green-100 text-green-700">
+              <Badge className="hidden sm:flex bg-emerald-100 text-emerald-700 border border-emerald-200">
                 <CheckCircle className="w-3 h-3 mr-1" />
                 Production Ready
               </Badge>
-              <Button size="sm" className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+              <Button size="sm" className="bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-md hover:shadow-lg transition-all duration-300">
                 <Rocket className="w-4 h-4 mr-1" />
                 Launch
               </Button>
@@ -231,7 +231,7 @@ export default function CompleteDemoPage() {
         </div>
       </motion.header>
       {/* Enhanced Hero Section */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 text-white py-16">
+      <div className="relative overflow-hidden bg-gradient-to-br from-purple-600 via-blue-600 to-cyan-500 text-white py-16">
         <div className="absolute inset-0 bg-black/10" />
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent" />
         <div className="absolute inset-0 neural-grid opacity-10" />
@@ -247,7 +247,7 @@ export default function CompleteDemoPage() {
             >
               <div className="flex items-center space-x-2 mb-6">
                 <Sparkles className="w-6 h-6 text-yellow-300" />
-                <Badge className="bg-white/20 backdrop-blur-sm text-white border-white/30">
+                <Badge className="bg-white/25 backdrop-blur-sm text-white border-white/40 shadow-lg">
                   <Crown className="w-4 h-4 mr-1" />
                   Complete Platform
                 </Badge>
