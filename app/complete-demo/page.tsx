@@ -43,8 +43,8 @@ const features = [
     title: 'Business Intelligence',
     description: 'Advanced analytics and AI-powered insights',
     icon: BarChart3,
-    color: 'bg-gradient-to-r from-purple-500 to-pink-500',
-    borderColor: 'border-purple-200',
+    color: 'bg-gradient-to-r from-violet-500 to-purple-500',
+    borderColor: 'border-violet-200',
     path: '/analytics-demo',
     highlights: ['Real-time Analytics', 'AI Insights', 'Custom Dashboards', 'Data Visualization'],
     stats: '1.2B+ data points'
