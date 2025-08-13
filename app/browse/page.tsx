@@ -382,6 +382,21 @@ function BrowsePageContent() {
 
         <ModernFooter />
         <CommandPaletteHint />
+
+        {/* AI Chat Assistant */}
+        <AIChat
+          agentId="aria"
+          context={{
+            currentPage: "browse",
+            searchQuery: q,
+            location: location,
+            category: category
+          }}
+          position="floating"
+          theme="brand"
+          autoOpen={false}
+          proactiveMessage={false}
+        />
       </div>
     </>
   );
