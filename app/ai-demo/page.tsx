@@ -60,7 +60,7 @@ const aiFeatures = [
 
 export default function AIDemoPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 dark:from-slate-950 dark:via-blue-950 dark:to-purple-950">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100 dark:from-slate-950 dark:via-blue-950 dark:to-purple-950">
       {/* Hero Section */}
       <section className="py-20 px-4 relative overflow-hidden">
         <div className="absolute inset-0 overflow-hidden">
@@ -69,16 +69,16 @@ export default function AIDemoPage() {
         </div>
 
         <div className="container mx-auto text-center relative z-10">
-          <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg">
+          <Badge className="mb-6 bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg hover:shadow-xl transition-all duration-300">
             <Brain className="w-4 h-4 mr-2" />
             AI-Powered Demo
           </Badge>
 
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 bg-clip-text text-transparent">
+          <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-500 bg-clip-text text-transparent">
             Experience AI in Action
           </h1>
 
-          <p className="text-xl text-slate-600 dark:text-slate-300 mb-8 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-700 dark:text-slate-300 mb-8 max-w-3xl mx-auto">
             Discover how artificial intelligence transforms the way you find,
             book, and manage local services. Try our AI features below to see
             the future of service marketplaces.
@@ -87,7 +87,7 @@ export default function AIDemoPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <Button
               size="lg"
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-300"
+              className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 animate-pulse-glow"
               asChild
             >
               <Link href="/browse">
@@ -98,7 +98,7 @@ export default function AIDemoPage() {
             <Button
               size="lg"
               variant="outline"
-              className="border-2 hover:border-blue-500 hover:bg-blue-50"
+              className="border-2 border-purple-200 hover:border-purple-500 hover:bg-purple-50 text-purple-700 hover:text-purple-800 transition-all duration-300"
               asChild
             >
               <Link href="/request-service">
