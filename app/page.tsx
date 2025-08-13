@@ -580,8 +580,8 @@ export default function HomePage() {
                               <div className="text-xs text-slate-500 dark:text-gray-400">avg. starting price</div>
                             </div>
                             <div className="text-right">
-                              <div className="text-green-400 dark:text-green-400 light:text-green-600 font-semibold">{category.nextAvailable}</div>
-                              <div className="text-xs text-gray-400 dark:text-gray-400 light:text-gray-600">next available</div>
+                              <div className="text-green-600 dark:text-green-400 font-semibold">{category.nextAvailable}</div>
+                              <div className="text-xs text-slate-500 dark:text-gray-400">next available</div>
                             </div>
                           </div>
 
