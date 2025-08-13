@@ -365,7 +365,7 @@ export default function HomePage() {
                 transition={{ duration: 0.8, delay: 0.2 }}
                 className="text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-tight"
               >
-                <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 dark:from-blue-400 dark:via-purple-500 dark:to-pink-500 light:from-blue-600 light:via-purple-600 light:to-pink-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-sky-600 dark:from-blue-400 dark:via-purple-500 dark:to-pink-500 bg-clip-text text-transparent">
                   {personalizedContent.heroText.split(' ').slice(0, 3).join(' ')}
                 </span>
                 <br />
