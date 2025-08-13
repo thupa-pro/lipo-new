@@ -369,7 +369,7 @@ export default function HomePage() {
                   {personalizedContent.heroText.split(' ').slice(0, 3).join(' ')}
                 </span>
                 <br />
-                <span className="text-white dark:text-white light:text-gray-900">
+                <span className="text-slate-900 dark:text-white">
                   {personalizedContent.heroText.split(' ').slice(3).join(' ')}
                 </span>
               </motion.h1>
