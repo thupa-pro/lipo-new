@@ -268,21 +268,21 @@ export function PriceOptimizer({
   return (
     <div className="w-full space-y-6">
       {/* Main Price Insight */}
-      <Card className="border-l-4 border-l-green-500 bg-gradient-to-r from-green-50 to-blue-50">
+      <Card className="border-l-4 border-l-emerald-500 bg-gradient-to-r from-emerald-50 to-cyan-50 shadow-lg">
         <CardHeader>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <PiggyBank className="w-6 h-6 text-green-600" />
-              <CardTitle className="text-xl text-green-800">
+              <CardTitle className="text-xl text-emerald-800">
                 Smart Savings Found!
               </CardTitle>
             </div>
-            <Badge variant="secondary" className="bg-green-100 text-green-700">
+            <Badge variant="secondary" className="bg-emerald-100 text-emerald-700 border border-emerald-200">
               <CheckCircle className="w-3 h-3 mr-1" />
               {priceInsight.confidence}% Confidence
             </Badge>
           </div>
-          <CardDescription className="text-green-700">
+          <CardDescription className="text-emerald-700">
             AI analysis found significant savings opportunities for your{" "}
             {serviceType} booking
           </CardDescription>
@@ -294,7 +294,7 @@ export function PriceOptimizer({
                 ${priceInsight.suggestedPrice}
               </div>
               <div className="text-sm text-slate-600">Optimized Price</div>
-              <div className="flex items-center justify-center gap-1 text-green-600">
+              <div className="flex items-center justify-center gap-1 text-emerald-600">
                 <TrendingDown className="w-4 h-4" />
                 <span className="font-medium">
                   {priceInsight.savingsPercentage}% less
@@ -303,7 +303,7 @@ export function PriceOptimizer({
             </div>
 
             <div className="text-center space-y-2">
-              <div className="text-3xl font-bold text-green-600">
+              <div className="text-3xl font-bold text-emerald-600">
                 ${priceInsight.savings}
               </div>
               <div className="text-sm text-slate-600">Total Savings</div>
@@ -498,7 +498,7 @@ export function PriceOptimizer({
       {/* Action Buttons */}
       <div className="flex gap-4">
         <Button
-          className="flex-1 bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white shadow-lg hover:shadow-xl transition-all duration-300"
+          className="flex-1 bg-gradient-to-r from-emerald-600 to-blue-600 hover:from-emerald-700 hover:to-blue-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 animate-pulse-glow"
           onClick={() => {
             toast({
               title: "🎯 Booking with Optimized Price",
