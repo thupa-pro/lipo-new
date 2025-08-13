@@ -117,7 +117,7 @@ export default function AIDemoPage() {
             <h2 className="text-3xl font-bold text-gray-800 dark:text-slate-100 mb-4">
               AI Features Demo
             </h2>
-            <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+            <p className="text-gray-600 dark:text-slate-400 max-w-2xl mx-auto">
               Explore how artificial intelligence enhances every aspect of the
               service booking experience
             </p>
@@ -138,7 +138,7 @@ export default function AIDemoPage() {
                   <CardTitle className="text-xl">{feature.title}</CardTitle>
                 </CardHeader>
                 <CardContent className="pt-0">
-                  <CardDescription className="text-slate-600 dark:text-slate-400">
+                  <CardDescription className="text-gray-600 dark:text-slate-400">
                     {feature.description}
                   </CardDescription>
                 </CardContent>
@@ -155,7 +155,7 @@ export default function AIDemoPage() {
             <h2 className="text-3xl font-bold text-gray-800 dark:text-slate-100 mb-4">
               Live AI Recommendations
             </h2>
-            <p className="text-slate-600 dark:text-slate-400">
+            <p className="text-gray-600 dark:text-slate-400">
               See how our AI selects and ranks service providers based on your
               needs
             </p>
@@ -182,7 +182,7 @@ export default function AIDemoPage() {
             <h2 className="text-3xl font-bold text-gray-800 dark:text-slate-100 mb-4">
               AI Price Optimization
             </h2>
-            <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+            <p className="text-gray-600 dark:text-slate-400 max-w-2xl mx-auto">
               Watch our AI analyze market data to find you the best prices and
               optimal booking times
             </p>
@@ -205,7 +205,7 @@ export default function AIDemoPage() {
             <h2 className="text-3xl font-bold text-gray-800 dark:text-slate-100 mb-4">
               AI Performance Metrics
             </h2>
-            <p className="text-slate-600 dark:text-slate-400">
+            <p className="text-gray-600 dark:text-slate-400">
               Real-world results from our AI-powered matching system
             </p>
           </div>
@@ -219,7 +219,7 @@ export default function AIDemoPage() {
                 <div className="text-4xl font-bold text-gray-800 dark:text-slate-100 mb-2">
                   94%
                 </div>
-                <div className="text-slate-600 dark:text-slate-400 mb-2">
+                <div className="text-gray-600 dark:text-slate-400 mb-2">
                   Match Accuracy
                 </div>
                 <div className="text-sm text-emerald-600 flex items-center justify-center gap-1">
@@ -237,7 +237,7 @@ export default function AIDemoPage() {
                 <div className="text-4xl font-bold text-gray-800 dark:text-slate-100 mb-2">
                   $247
                 </div>
-                <div className="text-slate-600 dark:text-slate-400 mb-2">
+                <div className="text-gray-600 dark:text-slate-400 mb-2">
                   Avg. Savings
                 </div>
                 <div className="text-sm text-emerald-600 flex items-center justify-center gap-1">
@@ -255,7 +255,7 @@ export default function AIDemoPage() {
                 <div className="text-4xl font-bold text-gray-800 dark:text-slate-100 mb-2">
                   2.3s
                 </div>
-                <div className="text-slate-600 dark:text-slate-400 mb-2">
+                <div className="text-gray-600 dark:text-slate-400 mb-2">
                   Response Time
                 </div>
                 <div className="text-sm text-emerald-600 flex items-center justify-center gap-1">
