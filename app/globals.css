@@ -211,6 +211,67 @@ html {
   100% { transform: translateX(100vw) translateY(-10px); opacity: 0; }
 }
 
+/* Premium Gradient Classes */
+.gradient-neural, .bg-gradient-neural {
+  background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 50%, #9333ea 100%);
+}
+
+.gradient-quantum, .bg-gradient-quantum {
+  background: linear-gradient(135deg, #06b6d4 0%, #0891b2 50%, #0e7490 100%);
+}
+
+.gradient-trust, .bg-gradient-trust {
+  background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+}
+
+.gradient-plasma, .bg-gradient-plasma {
+  background: linear-gradient(135deg, #ec4899 0%, #db2777 50%, #be185d 100%);
+}
+
+.gradient-ai, .bg-gradient-ai {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #8b5cf6 100%);
+}
+
+.gradient-glow, .bg-gradient-glow {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 50%, #4facfe 100%);
+}
+
+/* Text gradient classes */
+.text-gradient-neural {
+  background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 50%, #9333ea 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-quantum {
+  background: linear-gradient(135deg, #06b6d4 0%, #0891b2 50%, #0e7490 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-trust {
+  background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-plasma {
+  background: linear-gradient(135deg, #ec4899 0%, #db2777 50%, #be185d 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-ai {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #8b5cf6 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 /* Premium Animation Classes */
 .neural-pulse {
   animation: neural-pulse 3s ease-in-out infinite;
