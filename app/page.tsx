@@ -424,29 +424,31 @@ export default function HomePage() {
               </motion.div>
 
               {/* Real-time Stats Showcase */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: 0.8 }}
-                className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto"
-              >
-                {[
-                  { label: 'AI Matches Today', value: stats.completedToday, icon: Target, color: 'text-green-400' },
-                  { label: 'Revenue Generated', value: `$${(stats.revenueToday / 1000).toFixed(0)}K`, icon: TrendingUp, color: 'text-blue-400' },
-                  { label: 'Live Users', value: stats.liveUsers.toLocaleString(), icon: Users, color: 'text-purple-400' },
-                  { label: 'Success Rate', value: stats.successRate, icon: Award, color: 'text-yellow-400' }
-                ].map((stat, index) => (
-                  <motion.div
-                    key={index}
-                    whileHover={{ scale: 1.05 }}
-                    className={`${glassTheme.secondary} p-6 rounded-2xl text-center`}
-                  >
-                    <stat.icon className={`w-8 h-8 ${stat.color} mx-auto mb-3`} />
-                    <div className="text-2xl font-bold text-white mb-1">{stat.value}</div>
-                    <div className="text-sm text-gray-400">{stat.label}</div>
-                  </motion.div>
-                ))}
-              </motion.div>
+              {isClient && (
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 1, delay: 0.8 }}
+                  className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto"
+                >
+                  {[
+                    { label: 'AI Matches Today', value: stats.completedToday, icon: Target, color: 'text-green-400' },
+                    { label: 'Revenue Generated', value: `$${(stats.revenueToday / 1000).toFixed(0)}K`, icon: TrendingUp, color: 'text-blue-400' },
+                    { label: 'Live Users', value: stats.liveUsers.toLocaleString(), icon: Users, color: 'text-purple-400' },
+                    { label: 'Success Rate', value: stats.successRate, icon: Award, color: 'text-yellow-400' }
+                  ].map((stat, index) => (
+                    <motion.div
+                      key={index}
+                      whileHover={{ scale: 1.05 }}
+                      className={`${glassTheme.secondary} p-6 rounded-2xl text-center`}
+                    >
+                      <stat.icon className={`w-8 h-8 ${stat.color} mx-auto mb-3`} />
+                      <div className="text-2xl font-bold text-white mb-1">{stat.value}</div>
+                      <div className="text-sm text-gray-400">{stat.label}</div>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              )}
             </div>
           </motion.section>
 
