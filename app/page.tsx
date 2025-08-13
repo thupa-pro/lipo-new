@@ -610,8 +610,8 @@ export default function HomePage() {
                 viewport={{ once: true }}
                 className={`${glassTheme.accent} p-16 rounded-3xl text-center`}
               >
-                <Shield className="w-16 h-16 text-purple-400 dark:text-purple-400 light:text-purple-600 mx-auto mb-8" />
-                <h2 className="text-4xl font-bold text-white dark:text-white light:text-gray-900 mb-6">
+                <Shield className="w-16 h-16 text-indigo-600 dark:text-purple-400 mx-auto mb-8" />
+                <h2 className="text-4xl font-bold text-slate-800 dark:text-white mb-6">
                   Quantum-Secured Trust Network
                 </h2>
                 <p className="text-xl text-gray-300 dark:text-gray-300 light:text-gray-600 mb-12 max-w-3xl mx-auto">
