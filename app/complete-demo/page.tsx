@@ -196,7 +196,7 @@ export default function CompleteDemoPage() {
   }, [currentAIMessage, isTyping, showAnswer]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100 dark:from-slate-900 dark:via-purple-900 dark:to-blue-900 overflow-x-hidden">
+    <div className="min-h-screen gradient-hero dark:from-slate-900 dark:via-purple-900 dark:to-blue-900 overflow-x-hidden">
       {/* Mobile-First Header */}
       <motion.header
         className="sticky top-0 z-50 bg-white/80 backdrop-blur-sm border-b border-purple-100"
