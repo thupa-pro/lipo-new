@@ -197,6 +197,39 @@ export default function CompleteDemoPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100 dark:from-slate-900 dark:via-purple-900 dark:to-blue-900 overflow-x-hidden">
+      {/* Mobile-First Header */}
+      <motion.header
+        className="sticky top-0 z-50 bg-white/80 backdrop-blur-sm border-b border-purple-100"
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6 }}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center space-x-3">
+              <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+                <Zap className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <h1 className="text-lg font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  Loconomy
+                </h1>
+                <p className="text-xs text-gray-500 hidden sm:block">AI-Powered Platform</p>
+              </div>
+            </div>
+            <div className="flex items-center space-x-4">
+              <Badge className="hidden sm:flex bg-green-100 text-green-700">
+                <CheckCircle className="w-3 h-3 mr-1" />
+                Production Ready
+              </Badge>
+              <Button size="sm" className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+                <Rocket className="w-4 h-4 mr-1" />
+                Launch
+              </Button>
+            </div>
+          </div>
+        </div>
+      </motion.header>
       {/* Enhanced Hero Section */}
       <div className="relative overflow-hidden bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 text-white py-16">
         <div className="absolute inset-0 bg-black/10" />
