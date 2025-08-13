@@ -544,7 +544,7 @@ export default function HomePage() {
                         <CardHeader className="relative pb-4">
                           <div className="flex items-start justify-between mb-4">
                             <div className="p-4 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-2xl">
-                              <IconComponent className="w-8 h-8 text-purple-400 dark:text-purple-400 light:text-purple-600" />
+                              <IconComponent className="w-8 h-8 text-indigo-600 dark:text-purple-400" />
                             </div>
                             <Badge className={`${category.trend.startsWith('+') ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'} border-0`}>
                               {category.trend}
