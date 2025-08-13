@@ -42,46 +42,46 @@ export function ModernFooter() {
 
             {/* Quick Links */}
             <div>
-              <h3 className="font-bold text-white mb-4">Platform</h3>
+              <h3 className="font-bold text-slate-800 dark:text-white mb-4">Platform</h3>
               <ul className="space-y-3">
-                <li><a href="/browse" className="text-[var(--mid-gray)] hover:text-white transition-colors">Browse Services</a></li>
-                <li><a href="/become-provider" className="text-[var(--mid-gray)] hover:text-white transition-colors">Become a Provider</a></li>
-                <li><a href="/how-it-works" className="text-[var(--mid-gray)] hover:text-white transition-colors">How It Works</a></li>
-                <li><a href="/pricing" className="text-[var(--mid-gray)] hover:text-white transition-colors">Pricing</a></li>
-                <li><a href="/mobile-app" className="text-[var(--mid-gray)] hover:text-white transition-colors">Mobile App</a></li>
+                <li><a href="/browse" className="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-white transition-colors">Browse Services</a></li>
+                <li><a href="/become-provider" className="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-white transition-colors">Become a Provider</a></li>
+                <li><a href="/how-it-works" className="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-white transition-colors">How It Works</a></li>
+                <li><a href="/pricing" className="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-white transition-colors">Pricing</a></li>
+                <li><a href="/mobile-app" className="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-white transition-colors">Mobile App</a></li>
               </ul>
             </div>
 
             {/* Support */}
             <div>
-              <h3 className="font-bold text-white mb-4">Support</h3>
+              <h3 className="font-bold text-slate-800 dark:text-white mb-4">Support</h3>
               <ul className="space-y-3">
-                <li><a href="/help" className="text-[var(--mid-gray)] hover:text-white transition-colors">Help Center</a></li>
-                <li><a href="/safety" className="text-[var(--mid-gray)] hover:text-white transition-colors">Safety Guide</a></li>
-                <li><a href="/community" className="text-[var(--mid-gray)] hover:text-white transition-colors">Community</a></li>
-                <li><a href="/contact" className="text-[var(--mid-gray)] hover:text-white transition-colors">Contact Us</a></li>
-                <li><a href="/customer-support" className="text-[var(--mid-gray)] hover:text-white transition-colors">Customer Support</a></li>
+                <li><a href="/help" className="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-white transition-colors">Help Center</a></li>
+                <li><a href="/safety" className="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-white transition-colors">Safety Guide</a></li>
+                <li><a href="/community" className="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-white transition-colors">Community</a></li>
+                <li><a href="/contact" className="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-white transition-colors">Contact Us</a></li>
+                <li><a href="/customer-support" className="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-white transition-colors">Customer Support</a></li>
               </ul>
             </div>
 
             {/* Contact */}
             <div>
-              <h3 className="font-bold text-white mb-4">Contact</h3>
+              <h3 className="font-bold text-slate-800 dark:text-white mb-4">Contact</h3>
               <ul className="space-y-3">
-                <li className="flex items-center text-[var(--mid-gray)]">
-                  <Phone className="w-4 h-4 mr-3 text-purple-400" />
+                <li className="flex items-center text-slate-600 dark:text-slate-300">
+                  <Phone className="w-4 h-4 mr-3 text-indigo-600 dark:text-purple-400" />
                   <span>+1 (555) 123-4567</span>
                 </li>
-                <li className="flex items-center text-[var(--mid-gray)]">
-                  <Mail className="w-4 h-4 mr-3 text-purple-400" />
+                <li className="flex items-center text-slate-600 dark:text-slate-300">
+                  <Mail className="w-4 h-4 mr-3 text-indigo-600 dark:text-purple-400" />
                   <span>hello@loconomy.com</span>
                 </li>
-                <li className="flex items-center text-[var(--mid-gray)]">
-                  <MapPin className="w-4 h-4 mr-3 text-purple-400" />
+                <li className="flex items-center text-slate-600 dark:text-slate-300">
+                  <MapPin className="w-4 h-4 mr-3 text-indigo-600 dark:text-purple-400" />
                   <span>San Francisco, CA</span>
                 </li>
-                <li className="flex items-center text-[var(--mid-gray)]">
-                  <MessageCircle className="w-4 h-4 mr-3 text-purple-400" />
+                <li className="flex items-center text-slate-600 dark:text-slate-300">
+                  <MessageCircle className="w-4 h-4 mr-3 text-indigo-600 dark:text-purple-400" />
                   <span>24/7 Live Chat</span>
                 </li>
               </ul>
