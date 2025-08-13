@@ -7,9 +7,9 @@ import {
 
 export function ModernFooter() {
   return (
-    <footer className="relative z-10 px-6 py-16 mt-24 border-t border-white/10 bg-glass/50">
+    <footer className="relative z-10 px-6 py-16 mt-24 border-t border-slate-200/50 dark:border-white/10 bg-white/80 dark:bg-glass/50">
       <div className="max-w-7xl mx-auto">
-        <div className="bg-glass rounded-3xl p-12">
+        <div className="bg-white/90 dark:bg-glass rounded-3xl p-12 border border-slate-200/50 dark:border-white/10">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
             {/* Company Info */}
             <div className="lg:col-span-2">
