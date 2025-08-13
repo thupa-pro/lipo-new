@@ -87,17 +87,17 @@
   --border: 226 232 240; /* Slate-200 border */
   --input: 226 232 240; /* Slate-200 input */
   --ring: 79 70 229; /* Indigo ring to match primary */
-  --chart-1: 12 76% 61%;
-  --chart-2: 173 58% 39%;
-  --chart-3: 197 37% 24%;
-  --chart-4: 43 74% 66%;
-  --chart-5: 27 87% 67%;
+  --chart-1: 79 70 229; /* Indigo */
+  --chart-2: 16 185 129; /* Emerald */
+  --chart-3: 245 101 101; /* Red */
+  --chart-4: 251 191 36; /* Amber */
+  --chart-5: 168 85 247; /* Purple */
 
-  /* Enhanced glassmorphism for light mode */
-  --glass-primary: rgba(255, 255, 255, 0.85);
-  --glass-secondary: rgba(255, 255, 255, 0.65);
-  --glass-border: rgba(124, 58, 237, 0.1);
-  --glass-shadow: 0 8px 32px 0 rgba(124, 58, 237, 0.1);
+  /* Enhanced glassmorphism for light mode inspired by attached files */
+  --glass-primary: rgba(255, 255, 255, 0.95);
+  --glass-secondary: rgba(248, 250, 252, 0.90);
+  --glass-border: rgba(79, 70, 229, 0.15);
+  --glass-shadow: 0 10px 25px 0 rgba(79, 70, 229, 0.08);
 }
 
 /* Base Styles with Futuristic Enhancements */
