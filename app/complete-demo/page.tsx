@@ -509,77 +509,123 @@ export default function CompleteDemoPage() {
           </div>
         </div>
 
-        {/* Feature Details */}
-        <Card className="glass-card">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-3">
-              <div className={`w-10 h-10 rounded-lg ${selectedFeature.color} flex items-center justify-center`}>
-                <selectedFeature.icon className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <div className="text-2xl">{selectedFeature.title}</div>
-                <div className="text-muted-foreground text-base font-normal">
-                  {selectedFeature.description}
-                </div>
-              </div>
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <div>
-                <h4 className="font-semibold mb-4">Key Features</h4>
-                <div className="space-y-3">
-                  {selectedFeature.highlights.map((highlight) => (
-                    <div key={highlight} className="flex items-center space-x-3">
-                      <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
-                      <span>{highlight}</span>
+        {/* Enhanced Feature Details */}
+        <motion.div
+          key={selectedFeature.id}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Card className="glass-card border-gradient">
+            <CardHeader className="pb-4">
+              <CardTitle className="flex items-center space-x-4">
+                <motion.div
+                  className={`w-12 h-12 rounded-xl ${selectedFeature.color} flex items-center justify-center shadow-lg`}
+                  whileHover={{ scale: 1.05, rotate: 5 }}
+                >
+                  <selectedFeature.icon className="w-7 h-7 text-white" />
+                </motion.div>
+                <div className="flex-1">
+                  <div className="flex items-center space-x-3">
+                    <div className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-purple-600 bg-clip-text text-transparent">
+                      {selectedFeature.title}
                     </div>
-                  ))}
+                    <Badge className="bg-green-100 text-green-700">
+                      <CheckCircle className="w-3 h-3 mr-1" />
+                      Live
+                    </Badge>
+                  </div>
+                  <div className="text-gray-600 dark:text-gray-400 text-base mt-1">
+                    {selectedFeature.description}
+                  </div>
+                  <div className="text-sm text-purple-600 font-medium mt-1">
+                    {selectedFeature.stats}
+                  </div>
+                </div>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div>
+                  <h4 className="font-semibold mb-4 flex items-center">
+                    <Star className="w-5 h-5 text-yellow-500 mr-2" />
+                    Key Features
+                  </h4>
+                  <div className="space-y-3">
+                    {selectedFeature.highlights.map((highlight, index) => (
+                      <motion.div
+                        key={highlight}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.1 }}
+                        className="flex items-center space-x-3 p-2 rounded-lg hover:bg-purple-50 transition-colors"
+                      >
+                        <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
+                        <span className="text-gray-700 dark:text-gray-300">{highlight}</span>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="font-semibold mb-4 flex items-center">
+                    <Award className="w-5 h-5 text-blue-500 mr-2" />
+                    Implementation Status
+                  </h4>
+                  <div className="space-y-4">
+                    {[
+                      { label: 'Components Built', status: 'Complete', color: 'green' },
+                      { label: 'Functionality', status: 'Fully Implemented', color: 'green' },
+                      { label: 'UI/UX Design', status: 'Production Ready', color: 'green' },
+                      { label: 'Testing', status: 'Verified', color: 'blue' },
+                      { label: 'Documentation', status: 'Complete', color: 'green' },
+                      { label: 'Integration', status: 'Fully Integrated', color: 'green' }
+                    ].map((item, index) => (
+                      <motion.div
+                        key={item.label}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.1 }}
+                        className="flex items-center justify-between p-2 rounded-lg hover:bg-gray-50 transition-colors"
+                      >
+                        <span className="text-gray-700 dark:text-gray-300">{item.label}</span>
+                        <Badge
+                          variant="outline"
+                          className={`
+                            ${item.color === 'green' ? 'bg-green-50 text-green-700 border-green-200' : ''}
+                            ${item.color === 'blue' ? 'bg-blue-50 text-blue-700 border-blue-200' : ''}
+                          `}
+                        >
+                          {item.status}
+                        </Badge>
+                      </motion.div>
+                    ))}
+                  </div>
+
+                  <div className="mt-6 space-y-3">
+                    <Button
+                      className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                      onClick={() => window.open(selectedFeature.path, '_blank')}
+                    >
+                      <ArrowRight className="w-4 h-4 mr-2" />
+                      View Live Demo
+                    </Button>
+                    <div className="flex space-x-2">
+                      <Button variant="outline" size="sm" className="flex-1">
+                        <MessageCircle className="w-4 h-4 mr-1" />
+                        Feedback
+                      </Button>
+                      <Button variant="outline" size="sm" className="flex-1">
+                        <Share2 className="w-4 h-4 mr-1" />
+                        Share
+                      </Button>
+                    </div>
+                  </div>
                 </div>
               </div>
-
-              <div>
-                <h4 className="font-semibold mb-4">Implementation Status</h4>
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <span>Components Built</span>
-                    <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
-                      Complete
-                    </Badge>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span>Functionality</span>
-                    <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
-                      Fully Implemented
-                    </Badge>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span>UI/UX Design</span>
-                    <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
-                      Production Ready
-                    </Badge>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span>Integration</span>
-                    <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
-                      Fully Integrated
-                    </Badge>
-                  </div>
-                </div>
-
-                <div className="mt-6">
-                  <Button 
-                    className="w-full"
-                    onClick={() => window.open(selectedFeature.path, '_blank')}
-                  >
-                    <ArrowRight className="w-4 h-4 mr-2" />
-                    View Live Demo
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </motion.div>
 
         {/* Technical Achievements */}
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
