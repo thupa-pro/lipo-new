@@ -63,8 +63,9 @@ import {
 // Interactive components
 import { HomePageClient } from './components/home-page-client';
 
-// Enhanced stats with real-time simulation
+// Enhanced stats with real-time simulation (client-only to prevent hydration issues)
 const useRealTimeStats = () => {
+  const [isClient, setIsClient] = useState(false);
   const [stats, setStats] = useState({
     userCount: 2400000,
     providerCount: 45000,
@@ -78,6 +79,12 @@ const useRealTimeStats = () => {
   });
 
   useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isClient) return;
+
     const interval = setInterval(() => {
       setStats(prev => ({
         ...prev,
@@ -87,9 +94,9 @@ const useRealTimeStats = () => {
       }));
     }, 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, [isClient]);
 
-  return stats;
+  return { stats, isClient };
 };
 
 // AI-Powered Personalization Hook
