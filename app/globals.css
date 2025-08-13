@@ -67,9 +67,9 @@
 }
 
 .light {
-  /* Enhanced Light Mode with Vibrant Modern Colors */
-  --background: 0 0% 100%;
-  --foreground: 220 13% 18%; /* Rich dark navy instead of pure black */
+  /* Enhanced Light Mode inspired by HyperLocalOS Demo attachments */
+  --background: 248 250 252; /* Clean slate background like attached files */
+  --foreground: 15 23 42; /* Rich slate-800 text like attached files */
   --card: 0 0% 100%;
   --card-foreground: 220 13% 18%;
   --popover: 0 0% 100%;
