@@ -22,20 +22,20 @@ export function ModernFooter() {
                 Powered by AI-driven matching technology and trusted by millions worldwide.
               </p>
               <div className="flex space-x-4">
-                <a href="#" className="w-10 h-10 bg-glass rounded-xl flex items-center justify-center hover:bg-white/10 transition-colors">
-                  <Facebook className="w-5 h-5 text-purple-400" />
+                <a href="#" className="w-10 h-10 bg-slate-100 dark:bg-glass rounded-xl flex items-center justify-center hover:bg-slate-200 dark:hover:bg-white/10 transition-colors">
+                  <Facebook className="w-5 h-5 text-indigo-600 dark:text-purple-400" />
                 </a>
-                <a href="#" className="w-10 h-10 bg-glass rounded-xl flex items-center justify-center hover:bg-white/10 transition-colors">
-                  <Twitter className="w-5 h-5 text-purple-400" />
+                <a href="#" className="w-10 h-10 bg-slate-100 dark:bg-glass rounded-xl flex items-center justify-center hover:bg-slate-200 dark:hover:bg-white/10 transition-colors">
+                  <Twitter className="w-5 h-5 text-indigo-600 dark:text-purple-400" />
                 </a>
-                <a href="#" className="w-10 h-10 bg-glass rounded-xl flex items-center justify-center hover:bg-white/10 transition-colors">
-                  <Instagram className="w-5 h-5 text-purple-400" />
+                <a href="#" className="w-10 h-10 bg-slate-100 dark:bg-glass rounded-xl flex items-center justify-center hover:bg-slate-200 dark:hover:bg-white/10 transition-colors">
+                  <Instagram className="w-5 h-5 text-indigo-600 dark:text-purple-400" />
                 </a>
-                <a href="#" className="w-10 h-10 bg-glass rounded-xl flex items-center justify-center hover:bg-white/10 transition-colors">
-                  <Linkedin className="w-5 h-5 text-purple-400" />
+                <a href="#" className="w-10 h-10 bg-slate-100 dark:bg-glass rounded-xl flex items-center justify-center hover:bg-slate-200 dark:hover:bg-white/10 transition-colors">
+                  <Linkedin className="w-5 h-5 text-indigo-600 dark:text-purple-400" />
                 </a>
-                <a href="#" className="w-10 h-10 bg-glass rounded-xl flex items-center justify-center hover:bg-white/10 transition-colors">
-                  <Github className="w-5 h-5 text-purple-400" />
+                <a href="#" className="w-10 h-10 bg-slate-100 dark:bg-glass rounded-xl flex items-center justify-center hover:bg-slate-200 dark:hover:bg-white/10 transition-colors">
+                  <Github className="w-5 h-5 text-indigo-600 dark:text-purple-400" />
                 </a>
               </div>
             </div>
