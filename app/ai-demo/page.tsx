@@ -114,7 +114,7 @@ export default function AIDemoPage() {
       <section className="py-16 px-4 bg-white/50 dark:bg-slate-950/50 backdrop-blur-sm">
         <div className="container mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            <h2 className="text-3xl font-bold text-gray-800 dark:text-slate-100 mb-4">
               AI Features Demo
             </h2>
             <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
@@ -152,7 +152,7 @@ export default function AIDemoPage() {
       <section className="py-16 px-4">
         <div className="container mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            <h2 className="text-3xl font-bold text-gray-800 dark:text-slate-100 mb-4">
               Live AI Recommendations
             </h2>
             <p className="text-slate-600 dark:text-slate-400">
@@ -179,7 +179,7 @@ export default function AIDemoPage() {
       <section className="py-16 px-4 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-950/20 dark:to-purple-950/20">
         <div className="container mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            <h2 className="text-3xl font-bold text-gray-800 dark:text-slate-100 mb-4">
               AI Price Optimization
             </h2>
             <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
@@ -202,7 +202,7 @@ export default function AIDemoPage() {
       <section className="py-16 px-4">
         <div className="container mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            <h2 className="text-3xl font-bold text-gray-800 dark:text-slate-100 mb-4">
               AI Performance Metrics
             </h2>
             <p className="text-slate-600 dark:text-slate-400">
@@ -216,7 +216,7 @@ export default function AIDemoPage() {
                 <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center">
                   <Target className="w-8 h-8 text-white" />
                 </div>
-                <div className="text-4xl font-bold text-slate-900 dark:text-slate-100 mb-2">
+                <div className="text-4xl font-bold text-gray-800 dark:text-slate-100 mb-2">
                   94%
                 </div>
                 <div className="text-slate-600 dark:text-slate-400 mb-2">
@@ -234,7 +234,7 @@ export default function AIDemoPage() {
                 <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-emerald-600 to-blue-600 rounded-2xl flex items-center justify-center">
                   <PiggyBank className="w-8 h-8 text-white" />
                 </div>
-                <div className="text-4xl font-bold text-slate-900 dark:text-slate-100 mb-2">
+                <div className="text-4xl font-bold text-gray-800 dark:text-slate-100 mb-2">
                   $247
                 </div>
                 <div className="text-slate-600 dark:text-slate-400 mb-2">
@@ -252,7 +252,7 @@ export default function AIDemoPage() {
                 <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-600 to-emerald-600 rounded-2xl flex items-center justify-center">
                   <Zap className="w-8 h-8 text-white" />
                 </div>
-                <div className="text-4xl font-bold text-slate-900 dark:text-slate-100 mb-2">
+                <div className="text-4xl font-bold text-gray-800 dark:text-slate-100 mb-2">
                   2.3s
                 </div>
                 <div className="text-slate-600 dark:text-slate-400 mb-2">
