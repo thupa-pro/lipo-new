@@ -206,7 +206,7 @@ export function IntelligentHeader({
       setNotifications([])
       setUnreadCount(0)
     }
-  }, [user, userRole, isCustomer, isProvider, isAdmin, isSuperAdmin])
+  }, [user, userRole]) // Removed function dependencies to prevent infinite re-renders
 
   useEffect(() => {
     setIsClient(true)
