@@ -1,6 +1,18 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-const genAI = new GoogleGenerativeAI('AIzaSyAgqO16uwvIWypTTEZmWvnfqcOrW5gg5uM');
+// Use environment variable for API key, fallback to mock if not configured
+const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY || process.env.GOOGLE_AI_API_KEY;
+const isConfigured = apiKey && !apiKey.includes('your-google-ai-api-key-here') && !apiKey.includes('placeholder');
+
+let genAI: GoogleGenerativeAI | null = null;
+if (isConfigured) {
+  try {
+    genAI = new GoogleGenerativeAI(apiKey!);
+  } catch (error) {
+    console.warn('Failed to initialize Google Generative AI:', error);
+    genAI = null;
+  }
+}
 
 export interface UserAIAgent {
   id: string;
