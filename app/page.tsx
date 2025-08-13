@@ -466,8 +466,8 @@ export default function HomePage() {
                     className={`${glassTheme.secondary} p-6 rounded-2xl text-center`}
                   >
                     <stat.icon className={`w-8 h-8 ${stat.color} mx-auto mb-3`} />
-                    <div className="text-2xl font-bold text-white dark:text-white light:text-gray-900 mb-1">{stat.value}</div>
-                    <div className="text-sm text-gray-400 dark:text-gray-400 light:text-gray-600">{stat.label}</div>
+                    <div className="text-2xl font-bold text-slate-800 dark:text-white mb-1">{stat.value}</div>
+                    <div className="text-sm text-slate-600 dark:text-gray-400">{stat.label}</div>
                   </motion.div>
                 ))}
               </motion.div>
