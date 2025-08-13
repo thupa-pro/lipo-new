@@ -74,10 +74,10 @@
   --card-foreground: 220 13% 18%;
   --popover: 0 0% 100%;
   --popover-foreground: 220 13% 18%;
-  --primary: 262 83% 58%; /* Vibrant purple instead of gray */
-  --primary-foreground: 0 0% 100%;
-  --secondary: 220 13% 95%; /* Subtle warm gray instead of cold gray */
-  --secondary-foreground: 220 13% 18%;
+  --primary: 79 70 229; /* Vibrant indigo-600 like attached files */
+  --primary-foreground: 255 255 255;
+  --secondary: 241 245 249; /* Subtle slate-100 */
+  --secondary-foreground: 51 65 85; /* Slate-600 */
   --muted: 220 13% 96%; /* Warmer muted background */
   --muted-foreground: 215 16% 47%; /* Warmer muted text */
   --accent: 199 89% 48%; /* Bright cyan accent */
