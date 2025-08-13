@@ -125,12 +125,12 @@ function DashboardContent() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-stratosphere via-cirrus to-white dark:from-gray-900 dark:via-gray-800 dark:to-black transition-colors duration-300">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-gray-800 dark:to-black transition-colors duration-300">
       {/* Neural Background Pattern */}
-      <div className="absolute inset-0 opacity-[0.03]">
+      <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.03]">
         <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 25px 25px, hsl(var(--neural-500)) 2px, transparent 0),
-                           radial-gradient(circle at 75px 75px, hsl(var(--quantum-500)) 1px, transparent 0)`,
+          backgroundImage: `radial-gradient(circle at 25px 25px, rgb(79 70 229) 2px, transparent 0),
+                           radial-gradient(circle at 75px 75px, rgb(14 165 233) 1px, transparent 0)`,
           backgroundSize: '100px 100px'
         }} />
       </div>
