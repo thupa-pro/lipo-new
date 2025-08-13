@@ -62,6 +62,7 @@ import {
 
 // Interactive components
 import { HomePageClient } from './components/home-page-client';
+import AIChat from '@/components/ai/AIChat';
 
 // Enhanced stats with real-time simulation (client-only to prevent hydration issues)
 const useRealTimeStats = () => {
