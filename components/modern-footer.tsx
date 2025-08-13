@@ -89,15 +89,15 @@ export function ModernFooter() {
           </div>
 
           {/* Bottom Bar */}
-          <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center">
-            <div className="text-sm text-[var(--mid-gray)] mb-4 md:mb-0">
+          <div className="border-t border-slate-200/50 dark:border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <div className="text-sm text-slate-600 dark:text-slate-300 mb-4 md:mb-0">
               © 2025 Loconomy. All rights reserved. Connecting communities through local services.
             </div>
             <div className="flex space-x-6 text-sm">
-              <a href="/privacy" className="text-[var(--mid-gray)] hover:text-white transition-colors">Privacy Policy</a>
-              <a href="/terms" className="text-[var(--mid-gray)] hover:text-white transition-colors">Terms of Service</a>
-              <a href="/cookies" className="text-[var(--mid-gray)] hover:text-white transition-colors">Cookie Policy</a>
-              <a href="/accessibility" className="text-[var(--mid-gray)] hover:text-white transition-colors">Accessibility</a>
+              <a href="/privacy" className="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-white transition-colors">Privacy Policy</a>
+              <a href="/terms" className="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-white transition-colors">Terms of Service</a>
+              <a href="/cookies" className="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-white transition-colors">Cookie Policy</a>
+              <a href="/accessibility" className="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-white transition-colors">Accessibility</a>
             </div>
           </div>
         </div>
