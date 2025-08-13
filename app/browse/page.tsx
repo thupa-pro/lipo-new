@@ -212,10 +212,40 @@ function BrowsePageContent() {
         <main className="container py-8">
           {/* Page Header */}
           <div className="mb-8">
-            <h1 className="text-3xl font-bold mb-2">Find Local Service Providers</h1>
-            <p className="text-muted-foreground mb-4">
-              Browse {data.providers.length}+ verified professionals in your area
+            <div className="flex items-center gap-3 mb-4">
+              <h1 className="text-3xl font-bold">Find Local Service Providers</h1>
+              <Badge className="bg-gradient-to-r from-purple-600 to-blue-600 text-white">
+                <Brain className="w-3 h-3 mr-1" />
+                AI-Powered
+              </Badge>
+            </div>
+            <p className="text-muted-foreground mb-6">
+              Browse {data.providers.length}+ verified professionals with intelligent AI matching
             </p>
+
+            {/* AI Smart Recommendations Section */}
+            {q && (
+              <div className="mb-6 p-4 bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-950/20 dark:to-blue-950/20 rounded-lg border border-purple-200 dark:border-purple-800">
+                <div className="flex items-center gap-2 mb-3">
+                  <Sparkles className="w-5 h-5 text-purple-600" />
+                  <h3 className="font-semibold text-purple-800 dark:text-purple-200">AI Smart Recommendations</h3>
+                </div>
+                <SmartRecommendations
+                  userId="browse-user"
+                  query={q}
+                  context={{
+                    location: location ? { search: location } : { lat: 40.7128, lng: -74.0060 },
+                    urgency: "medium",
+                    budget: { min: 50, max: 500 },
+                    timeframe: "this month"
+                  }}
+                  onProviderSelect={(providerId) => {
+                    console.log("Selected provider:", providerId);
+                    // Could navigate to provider detail page
+                  }}
+                />
+              </div>
+            )}
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
