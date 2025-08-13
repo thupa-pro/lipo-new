@@ -648,6 +648,73 @@ export default function MarketplacePage() {
         </div>
       </section>
 
+      {/* AI Intelligence Section */}
+      <section className="py-20 bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-950/20 dark:to-blue-950/20">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+              AI-Powered Marketplace Intelligence
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300">
+              Advanced AI algorithms optimize pricing, matching, and marketplace efficiency
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-8">
+            {/* AI Price Optimization */}
+            <Card className="p-6">
+              <CardHeader>
+                <div className="flex items-center gap-2 mb-4">
+                  <Brain className="w-6 h-6 text-purple-600" />
+                  <CardTitle className="text-xl">Smart Pricing Engine</CardTitle>
+                </div>
+                <p className="text-gray-600 dark:text-gray-300 text-sm">
+                  AI analyzes market data, demand patterns, and competitive pricing to optimize revenue.
+                </p>
+              </CardHeader>
+              <CardContent>
+                <PriceOptimizer
+                  serviceType="Professional Services"
+                  location="Global Marketplace"
+                  flexibility="high"
+                  onOptimizationComplete={(insight) => {
+                    console.log('Marketplace price optimization:', insight);
+                  }}
+                />
+              </CardContent>
+            </Card>
+
+            {/* AI Provider Matching */}
+            <Card className="p-6">
+              <CardHeader>
+                <div className="flex items-center gap-2 mb-4">
+                  <Target className="w-6 h-6 text-blue-600" />
+                  <CardTitle className="text-xl">Intelligent Matching</CardTitle>
+                </div>
+                <p className="text-gray-600 dark:text-gray-300 text-sm">
+                  Machine learning matches customers with optimal service providers based on complex criteria.
+                </p>
+              </CardHeader>
+              <CardContent>
+                <SmartRecommendations
+                  userId="marketplace-demo"
+                  query="marketplace services"
+                  context={{
+                    location: { lat: 40.7128, lng: -74.0060 },
+                    urgency: "medium",
+                    budget: { min: 100, max: 1000 },
+                    timeframe: "this quarter"
+                  }}
+                  onProviderSelect={(providerId) => {
+                    console.log('Marketplace provider selected:', providerId);
+                  }}
+                />
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* Call to Action */}
       <section className="py-20 bg-gradient-to-r from-blue-900 to-purple-900 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
