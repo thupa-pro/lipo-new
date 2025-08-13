@@ -555,7 +555,7 @@ export default function HomePage() {
                             {category.name}
                           </CardTitle>
                           
-                          <p className="text-gray-300 dark:text-gray-300 light:text-gray-600 leading-relaxed">
+                          <p className="text-slate-600 dark:text-gray-300 leading-relaxed">
                             {category.description}
                           </p>
                         </CardHeader>
