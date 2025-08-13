@@ -511,7 +511,7 @@ export default function HomePage() {
                 viewport={{ once: true }}
                 className="text-center mb-16"
               >
-                <h2 className="text-5xl font-bold text-white dark:text-white light:text-gray-900 mb-6">
+                <h2 className="text-5xl font-bold text-slate-800 dark:text-white mb-6">
                   Next-Generation Services
                 </h2>
                 <p className="text-xl text-gray-300 dark:text-gray-300 light:text-gray-600 max-w-3xl mx-auto">
