@@ -98,8 +98,86 @@ const stats = {
   completionRate: 100
 };
 
+const liveMetrics = {
+  activeUsers: "127K+",
+  jobsCompleted: "2.3M",
+  averageRating: "4.9",
+  responseTime: "< 8 mins",
+  totalRevenue: "$12.8M+",
+  providersOnline: "45K+"
+};
+
+const aiMessages = [
+  {
+    id: 1,
+    question: "How does AI match users with service providers?",
+    answer: "Our AI analyzes location, requirements, budget, ratings, and availability in real-time to find the perfect match with 97% accuracy.",
+    typing: false,
+    answered: false
+  },
+  {
+    id: 2,
+    question: "What makes Loconomy different from other platforms?",
+    answer: "Advanced AI-powered matching, blockchain-verified reviews, real-time bidding, smart contracts, and comprehensive automation - all production-ready.",
+    typing: false,
+    answered: false
+  },
+  {
+    id: 3,
+    question: "How secure are payments and user data?",
+    answer: "Enterprise-grade security with escrow protection, encrypted transactions, verified identities, and compliance with international standards.",
+    typing: false,
+    answered: false
+  }
+];
+
 export default function CompleteDemoPage() {
   const [selectedFeature, setSelectedFeature] = useState(features[0]);
+  const [currentAIMessage, setCurrentAIMessage] = useState(0);
+  const [displayText, setDisplayText] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
+  const [showAnswer, setShowAnswer] = useState(false);
+  const [liveStats, setLiveStats] = useState(liveMetrics);
+
+  // Animate live stats
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLiveStats(prev => ({
+        ...prev,
+        activeUsers: Math.random() > 0.5 ? "127K+" : "128K+",
+        providersOnline: Math.random() > 0.5 ? "45K+" : "46K+"
+      }));
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // AI Chat Animation
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const current = aiMessages[currentAIMessage];
+      if (!isTyping && !showAnswer) {
+        setIsTyping(true);
+        let i = 0;
+        const typeInterval = setInterval(() => {
+          if (i < current.question.length) {
+            setDisplayText(current.question.slice(0, i + 1));
+            i++;
+          } else {
+            clearInterval(typeInterval);
+            setIsTyping(false);
+            setTimeout(() => setShowAnswer(true), 1000);
+          }
+        }, 50);
+      } else if (showAnswer) {
+        setTimeout(() => {
+          setShowAnswer(false);
+          setDisplayText('');
+          setCurrentAIMessage((prev) => (prev + 1) % aiMessages.length);
+        }, 4000);
+      }
+    }, 100);
+    return () => clearInterval(interval);
+  }, [currentAIMessage, isTyping, showAnswer]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 dark:from-slate-900 dark:via-slate-800 dark:to-purple-900">
