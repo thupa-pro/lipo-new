@@ -67,30 +67,37 @@
 }
 
 .light {
+  /* Enhanced Light Mode with Vibrant Modern Colors */
   --background: 0 0% 100%;
-  --foreground: 0 0% 3.9%;
+  --foreground: 220 13% 18%; /* Rich dark navy instead of pure black */
   --card: 0 0% 100%;
-  --card-foreground: 0 0% 3.9%;
+  --card-foreground: 220 13% 18%;
   --popover: 0 0% 100%;
-  --popover-foreground: 0 0% 3.9%;
-  --primary: 0 0% 9%;
-  --primary-foreground: 0 0% 98%;
-  --secondary: 0 0% 96.1%;
-  --secondary-foreground: 0 0% 9%;
-  --muted: 0 0% 96.1%;
-  --muted-foreground: 0 0% 45.1%;
-  --accent: 0 0% 96.1%;
-  --accent-foreground: 0 0% 9%;
-  --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 0 0% 98%;
-  --border: 0 0% 89.8%;
-  --input: 0 0% 89.8%;
-  --ring: 0 0% 3.9%;
+  --popover-foreground: 220 13% 18%;
+  --primary: 262 83% 58%; /* Vibrant purple instead of gray */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 220 13% 95%; /* Subtle warm gray instead of cold gray */
+  --secondary-foreground: 220 13% 18%;
+  --muted: 220 13% 96%; /* Warmer muted background */
+  --muted-foreground: 215 16% 47%; /* Warmer muted text */
+  --accent: 199 89% 48%; /* Bright cyan accent */
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 220 13% 91%; /* Warmer border color */
+  --input: 220 13% 91%;
+  --ring: 262 83% 58%; /* Purple ring to match primary */
   --chart-1: 12 76% 61%;
   --chart-2: 173 58% 39%;
   --chart-3: 197 37% 24%;
   --chart-4: 43 74% 66%;
   --chart-5: 27 87% 67%;
+
+  /* Enhanced glassmorphism for light mode */
+  --glass-primary: rgba(255, 255, 255, 0.85);
+  --glass-secondary: rgba(255, 255, 255, 0.65);
+  --glass-border: rgba(124, 58, 237, 0.1);
+  --glass-shadow: 0 8px 32px 0 rgba(124, 58, 237, 0.1);
 }
 
 /* Base Styles with Futuristic Enhancements */
@@ -139,11 +146,11 @@ html {
 
 /* Advanced Glassmorphism Components */
 .glass-card {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--glass-primary);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
   border-radius: 16px;
   transition: all 0.3s ease;
 }
