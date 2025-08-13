@@ -21,72 +21,88 @@ const features = [
     title: 'Advanced Marketplace',
     description: 'Real-time bidding, smart contracts, and dynamic pricing',
     icon: Zap,
-    color: 'bg-blue-500',
+    color: 'bg-gradient-to-r from-blue-500 to-purple-500',
+    borderColor: 'border-blue-200',
     path: '/marketplace-demo',
-    highlights: ['Real-time Bidding', 'Smart Contracts', 'Dynamic Pricing', 'Escrow System']
+    highlights: ['Real-time Bidding', 'Smart Contracts', 'Dynamic Pricing', 'Escrow System'],
+    stats: '2.3M+ transactions'
   },
   {
     id: 'social',
     title: 'Social Platform',
     description: 'Reviews, community features, and social proof',
     icon: Users,
-    color: 'bg-green-500',
+    color: 'bg-gradient-to-r from-green-500 to-emerald-500',
+    borderColor: 'border-green-200',
     path: '/social-demo',
-    highlights: ['AI-Powered Reviews', 'Community Platform', 'Social Proof', 'User Profiles']
+    highlights: ['AI-Powered Reviews', 'Community Platform', 'Social Proof', 'User Profiles'],
+    stats: '850K+ reviews'
   },
   {
     id: 'analytics',
     title: 'Business Intelligence',
     description: 'Advanced analytics and AI-powered insights',
     icon: BarChart3,
-    color: 'bg-purple-500',
+    color: 'bg-gradient-to-r from-purple-500 to-pink-500',
+    borderColor: 'border-purple-200',
     path: '/analytics-demo',
-    highlights: ['Real-time Analytics', 'AI Insights', 'Custom Dashboards', 'Data Visualization']
+    highlights: ['Real-time Analytics', 'AI Insights', 'Custom Dashboards', 'Data Visualization'],
+    stats: '1.2B+ data points'
   },
   {
     id: 'payments',
     title: 'Payment System',
     description: 'Multi-currency, splits, and escrow protection',
     icon: CreditCard,
-    color: 'bg-emerald-500',
+    color: 'bg-gradient-to-r from-emerald-500 to-teal-500',
+    borderColor: 'border-emerald-200',
     path: '/payment-demo',
-    highlights: ['Multi-Currency', 'Payment Splits', 'Escrow Protection', 'Financial Analytics']
+    highlights: ['Multi-Currency', 'Payment Splits', 'Escrow Protection', 'Financial Analytics'],
+    stats: '$12.8M+ processed'
   },
   {
     id: 'automation',
     title: 'Business Automation',
     description: 'Workflows, notifications, and scheduling',
     icon: Calendar,
-    color: 'bg-orange-500',
+    color: 'bg-gradient-to-r from-orange-500 to-red-500',
+    borderColor: 'border-orange-200',
     path: '/automation-demo',
-    highlights: ['Workflow Automation', 'Smart Notifications', 'Advanced Scheduling', 'Multi-channel Messaging']
+    highlights: ['Workflow Automation', 'Smart Notifications', 'Advanced Scheduling', 'Multi-channel Messaging'],
+    stats: '450K+ workflows'
   },
   {
     id: 'enterprise',
     title: 'Enterprise Features',
     description: 'Team management and white-label solutions',
     icon: Building,
-    color: 'bg-red-500',
+    color: 'bg-gradient-to-r from-red-500 to-pink-500',
+    borderColor: 'border-red-200',
     path: '/enterprise-demo',
-    highlights: ['Team Management', 'Bulk Operations', 'White-label Solutions', 'Role-based Access']
+    highlights: ['Team Management', 'Bulk Operations', 'White-label Solutions', 'Role-based Access'],
+    stats: '2,500+ teams'
   },
   {
     id: 'integrations',
     title: 'Third-party Integrations',
     description: 'Calendar, CRM, and accounting integrations',
     icon: Globe,
-    color: 'bg-indigo-500',
+    color: 'bg-gradient-to-r from-indigo-500 to-purple-500',
+    borderColor: 'border-indigo-200',
     path: '/integrations-demo',
-    highlights: ['Calendar Sync', 'CRM Integration', 'Accounting Tools', 'API Management']
+    highlights: ['Calendar Sync', 'CRM Integration', 'Accounting Tools', 'API Management'],
+    stats: '150+ integrations'
   },
   {
     id: 'gamification',
     title: 'Gamification System',
     description: 'Rewards, achievements, and engagement',
     icon: Trophy,
-    color: 'bg-yellow-500',
+    color: 'bg-gradient-to-r from-yellow-500 to-orange-500',
+    borderColor: 'border-yellow-200',
     path: '/gamification-demo',
-    highlights: ['Achievement System', 'Reward Programs', 'Leaderboards', 'User Engagement']
+    highlights: ['Achievement System', 'Reward Programs', 'Leaderboards', 'User Engagement'],
+    stats: '95% retention'
   }
 ];
 
