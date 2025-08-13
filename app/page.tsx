@@ -287,25 +287,25 @@ export default function HomePage() {
 
   // Enhanced Glassmorphism Theme
   const glassTheme = {
-    primary: 'backdrop-blur-xl bg-white/10 border border-white/20',
-    secondary: 'backdrop-blur-lg bg-white/5 border border-white/10',
-    accent: 'backdrop-blur-md bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-300/30'
+    primary: 'backdrop-blur-xl bg-white/10 dark:bg-white/10 light:bg-white/80 border border-white/20 dark:border-white/20 light:border-purple-200/30',
+    secondary: 'backdrop-blur-lg bg-white/5 dark:bg-white/5 light:bg-white/70 border border-white/10 dark:border-white/10 light:border-purple-100/40',
+    accent: 'backdrop-blur-md bg-gradient-to-r from-purple-500/20 to-pink-500/20 dark:from-purple-500/20 dark:to-pink-500/20 light:from-purple-100/50 light:to-blue-100/50 border border-purple-300/30 dark:border-purple-300/30 light:border-purple-200/40'
   };
 
   return (
     <PWAProvider>
-      <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+      <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 dark:from-slate-900 dark:via-purple-900 dark:to-slate-900 light:from-purple-50 light:via-blue-50 light:to-indigo-50">
         {/* Dynamic Background with Floating Elements */}
         <div className="absolute inset-0">
           {/* Animated Gradient Mesh */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(120,119,198,0.3),transparent)] animate-pulse"></div>
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(236,72,153,0.2),transparent)]"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(120,119,198,0.3),transparent)] dark:bg-[radial-gradient(ellipse_at_top,rgba(120,119,198,0.3),transparent)] light:bg-[radial-gradient(ellipse_at_top,rgba(139,92,246,0.1),transparent)] animate-pulse"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(236,72,153,0.2),transparent)] dark:bg-[radial-gradient(ellipse_at_bottom_right,rgba(236,72,153,0.2),transparent)] light:bg-[radial-gradient(ellipse_at_bottom_right,rgba(59,130,246,0.1),transparent)]"></div>
           
           {/* Floating Geometric Shapes */}
           {[...Array(20)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-2 h-2 bg-white/20 rounded-full"
+              className="absolute w-2 h-2 bg-white/20 dark:bg-white/20 light:bg-purple-200/40 rounded-full"
               animate={{
                 x: [0, Math.random() * 100 - 50],
                 y: [0, Math.random() * 100 - 50],
@@ -343,7 +343,7 @@ export default function HomePage() {
                 transition={{ duration: 0.6 }}
                 className="mb-8"
               >
-                <Badge className={`${glassTheme.primary} text-white px-6 py-3 text-sm font-medium`}>
+                <Badge className={`${glassTheme.primary} text-white dark:text-white light:text-gray-800 px-6 py-3 text-sm font-medium`}>
                   <div className="flex items-center gap-3">
                     <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
                     <Brain className="w-4 h-4" />
@@ -365,11 +365,11 @@ export default function HomePage() {
                 transition={{ duration: 0.8, delay: 0.2 }}
                 className="text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-tight"
               >
-                <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 dark:from-blue-400 dark:via-purple-500 dark:to-pink-500 light:from-blue-600 light:via-purple-600 light:to-pink-600 bg-clip-text text-transparent">
                   {personalizedContent.heroText.split(' ').slice(0, 3).join(' ')}
                 </span>
                 <br />
-                <span className="text-white">
+                <span className="text-white dark:text-white light:text-gray-900">
                   {personalizedContent.heroText.split(' ').slice(3).join(' ')}
                 </span>
               </motion.h1>
@@ -379,7 +379,7 @@ export default function HomePage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
-                className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto mb-12 leading-relaxed"
+                className="text-xl md:text-2xl text-gray-300 dark:text-gray-300 light:text-gray-600 max-w-4xl mx-auto mb-12 leading-relaxed"
               >
                 Experience the future of service discovery with AI-powered matching, 
                 quantum-fast booking, and premium professionals in 200+ cities worldwide.
@@ -418,7 +418,7 @@ export default function HomePage() {
                     onClick={startListening}
                     variant="outline" 
                     size="lg"
-                    className={`${glassTheme.primary} text-white border-white/30 px-8 py-6 text-lg font-semibold rounded-full group`}
+                    className={`${glassTheme.primary} text-white dark:text-white light:text-gray-800 border-white/30 dark:border-white/30 light:border-purple-200/50 px-8 py-6 text-lg font-semibold rounded-full group`}
                   >
                     <Mic className={`w-5 h-5 mr-2 ${isListening ? 'text-red-400 animate-pulse' : ''}`} />
                     Voice Search
@@ -466,8 +466,8 @@ export default function HomePage() {
                     className={`${glassTheme.secondary} p-6 rounded-2xl text-center`}
                   >
                     <stat.icon className={`w-8 h-8 ${stat.color} mx-auto mb-3`} />
-                    <div className="text-2xl font-bold text-white mb-1">{stat.value}</div>
-                    <div className="text-sm text-gray-400">{stat.label}</div>
+                    <div className="text-2xl font-bold text-white dark:text-white light:text-gray-900 mb-1">{stat.value}</div>
+                    <div className="text-sm text-gray-400 dark:text-gray-400 light:text-gray-600">{stat.label}</div>
                   </motion.div>
                 ))}
               </motion.div>
@@ -485,10 +485,10 @@ export default function HomePage() {
                 className={`${glassTheme.primary} p-12 rounded-3xl shadow-2xl`}
               >
                 <div className="text-center mb-8">
-                  <h2 className="text-4xl font-bold text-white mb-4">
+                  <h2 className="text-4xl font-bold text-white dark:text-white light:text-gray-900 mb-4">
                     AI-Powered Service Discovery
                   </h2>
-                  <p className="text-xl text-gray-300">
+                  <p className="text-xl text-gray-300 dark:text-gray-300 light:text-gray-600">
                     Describe what you need in natural language, our AI does the rest
                   </p>
                 </div>
@@ -511,10 +511,10 @@ export default function HomePage() {
                 viewport={{ once: true }}
                 className="text-center mb-16"
               >
-                <h2 className="text-5xl font-bold text-white mb-6">
+                <h2 className="text-5xl font-bold text-white dark:text-white light:text-gray-900 mb-6">
                   Next-Generation Services
                 </h2>
-                <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                <p className="text-xl text-gray-300 dark:text-gray-300 light:text-gray-600 max-w-3xl mx-auto">
                   Explore AI-enhanced services that blend cutting-edge technology with human expertise
                 </p>
               </motion.div>
@@ -540,22 +540,22 @@ export default function HomePage() {
                       whileHover={{ scale: 1.02, y: -5 }}
                       className="group"
                     >
-                      <Card className={`${glassTheme.primary} border-white/20 overflow-hidden h-full hover:border-purple-400/50 transition-all duration-500`}>
+                      <Card className={`${glassTheme.primary} border-white/20 dark:border-white/20 light:border-purple-200/40 overflow-hidden h-full hover:border-purple-400/50 dark:hover:border-purple-400/50 light:hover:border-purple-500/60 transition-all duration-500`}>
                         <CardHeader className="relative pb-4">
                           <div className="flex items-start justify-between mb-4">
                             <div className="p-4 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-2xl">
-                              <IconComponent className="w-8 h-8 text-purple-400" />
+                              <IconComponent className="w-8 h-8 text-purple-400 dark:text-purple-400 light:text-purple-600" />
                             </div>
                             <Badge className={`${category.trend.startsWith('+') ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'} border-0`}>
                               {category.trend}
                             </Badge>
                           </div>
                           
-                          <CardTitle className="text-2xl font-bold text-white group-hover:text-purple-400 transition-colors">
+                          <CardTitle className="text-2xl font-bold text-white dark:text-white light:text-gray-900 group-hover:text-purple-400 dark:group-hover:text-purple-400 light:group-hover:text-purple-600 transition-colors">
                             {category.name}
                           </CardTitle>
                           
-                          <p className="text-gray-300 leading-relaxed">
+                          <p className="text-gray-300 dark:text-gray-300 light:text-gray-600 leading-relaxed">
                             {category.description}
                           </p>
                         </CardHeader>
@@ -563,10 +563,10 @@ export default function HomePage() {
                         <CardContent className="space-y-6">
                           {/* AI Features */}
                           <div>
-                            <h4 className="text-sm font-semibold text-purple-400 mb-3">AI FEATURES</h4>
+                            <h4 className="text-sm font-semibold text-purple-400 dark:text-purple-400 light:text-purple-600 mb-3">AI FEATURES</h4>
                             <div className="flex flex-wrap gap-2">
                               {category.aiFeatures.map((feature, idx) => (
-                                <Badge key={idx} className="bg-purple-500/10 text-purple-300 border border-purple-500/20 text-xs">
+                                <Badge key={idx} className="bg-purple-500/10 dark:bg-purple-500/10 light:bg-purple-100/70 text-purple-300 dark:text-purple-300 light:text-purple-700 border border-purple-500/20 dark:border-purple-500/20 light:border-purple-300/40 text-xs">
                                   {feature}
                                 </Badge>
                               ))}
@@ -576,12 +576,12 @@ export default function HomePage() {
                           {/* Pricing & Availability */}
                           <div className="flex justify-between items-center">
                             <div>
-                              <div className="text-2xl font-bold text-white">{category.avgPrice}</div>
-                              <div className="text-xs text-gray-400">avg. starting price</div>
+                              <div className="text-2xl font-bold text-white dark:text-white light:text-gray-900">{category.avgPrice}</div>
+                              <div className="text-xs text-gray-400 dark:text-gray-400 light:text-gray-600">avg. starting price</div>
                             </div>
                             <div className="text-right">
-                              <div className="text-green-400 font-semibold">{category.nextAvailable}</div>
-                              <div className="text-xs text-gray-400">next available</div>
+                              <div className="text-green-400 dark:text-green-400 light:text-green-600 font-semibold">{category.nextAvailable}</div>
+                              <div className="text-xs text-gray-400 dark:text-gray-400 light:text-gray-600">next available</div>
                             </div>
                           </div>
 
@@ -610,11 +610,11 @@ export default function HomePage() {
                 viewport={{ once: true }}
                 className={`${glassTheme.accent} p-16 rounded-3xl text-center`}
               >
-                <Shield className="w-16 h-16 text-purple-400 mx-auto mb-8" />
-                <h2 className="text-4xl font-bold text-white mb-6">
+                <Shield className="w-16 h-16 text-purple-400 dark:text-purple-400 light:text-purple-600 mx-auto mb-8" />
+                <h2 className="text-4xl font-bold text-white dark:text-white light:text-gray-900 mb-6">
                   Quantum-Secured Trust Network
                 </h2>
-                <p className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
+                <p className="text-xl text-gray-300 dark:text-gray-300 light:text-gray-600 mb-12 max-w-3xl mx-auto">
                   Every provider is verified through our AI-powered background screening, 
                   biometric authentication, and blockchain-secured reputation system.
                 </p>
@@ -631,9 +631,9 @@ export default function HomePage() {
                       whileHover={{ scale: 1.05 }}
                       className="text-center"
                     >
-                      <item.icon className="w-12 h-12 text-purple-400 mx-auto mb-4" />
-                      <h3 className="text-lg font-bold text-white mb-2">{item.label}</h3>
-                      <p className="text-sm text-gray-400">{item.desc}</p>
+                      <item.icon className="w-12 h-12 text-purple-400 dark:text-purple-400 light:text-purple-600 mx-auto mb-4" />
+                      <h3 className="text-lg font-bold text-white dark:text-white light:text-gray-900 mb-2">{item.label}</h3>
+                      <p className="text-sm text-gray-400 dark:text-gray-400 light:text-gray-600">{item.desc}</p>
                     </motion.div>
                   ))}
                 </div>
