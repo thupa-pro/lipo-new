@@ -32,8 +32,8 @@ const features = [
     title: 'Social Platform',
     description: 'Reviews, community features, and social proof',
     icon: Users,
-    color: 'bg-gradient-to-r from-green-500 to-emerald-500',
-    borderColor: 'border-green-200',
+    color: 'bg-gradient-to-r from-emerald-500 to-cyan-500',
+    borderColor: 'border-emerald-200',
     path: '/social-demo',
     highlights: ['AI-Powered Reviews', 'Community Platform', 'Social Proof', 'User Profiles'],
     stats: '850K+ reviews'
