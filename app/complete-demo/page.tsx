@@ -196,7 +196,7 @@ export default function CompleteDemoPage() {
   }, [currentAIMessage, isTyping, showAnswer]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100 dark:from-slate-900 dark:via-purple-900 dark:to-blue-900">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100 dark:from-slate-900 dark:via-purple-900 dark:to-blue-900 overflow-x-hidden">
       {/* Enhanced Hero Section */}
       <div className="relative overflow-hidden bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 text-white py-16">
         <div className="absolute inset-0 bg-black/10" />
