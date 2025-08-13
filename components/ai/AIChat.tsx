@@ -214,7 +214,7 @@ export default function AIChat({
     return (
       <Button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 shadow-xl hover:shadow-2xl transition-all duration-500 group relative overflow-hidden"
+        className="fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full bg-gradient-to-r from-indigo-600 via-sky-500 to-blue-600 dark:from-blue-600 dark:via-purple-600 dark:to-pink-600 hover:from-indigo-700 hover:via-sky-600 hover:to-blue-700 dark:hover:from-blue-700 dark:hover:via-purple-700 dark:hover:to-pink-700 shadow-xl hover:shadow-2xl transition-all duration-500 group relative overflow-hidden"
         size="icon"
       >
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
