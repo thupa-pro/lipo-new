@@ -563,7 +563,7 @@ export default function HomePage() {
                         <CardContent className="space-y-6">
                           {/* AI Features */}
                           <div>
-                            <h4 className="text-sm font-semibold text-purple-400 dark:text-purple-400 light:text-purple-600 mb-3">AI FEATURES</h4>
+                            <h4 className="text-sm font-semibold text-indigo-600 dark:text-purple-400 mb-3">AI FEATURES</h4>
                             <div className="flex flex-wrap gap-2">
                               {category.aiFeatures.map((feature, idx) => (
                                 <Badge key={idx} className="bg-purple-500/10 dark:bg-purple-500/10 light:bg-purple-100/70 text-purple-300 dark:text-purple-300 light:text-purple-700 border border-purple-500/20 dark:border-purple-500/20 light:border-purple-300/40 text-xs">
