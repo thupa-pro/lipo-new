@@ -14,10 +14,10 @@ export function ModernFooter() {
             {/* Company Info */}
             <div className="lg:col-span-2">
               <div className="flex items-center space-x-3 mb-6">
-                <span className="material-icons text-purple-400 text-3xl">hub</span>
-                <span className="text-2xl font-bold text-white tracking-wider">Loconomy</span>
+                <span className="material-icons text-indigo-600 dark:text-purple-400 text-3xl">hub</span>
+                <span className="text-2xl font-bold text-slate-800 dark:text-white tracking-wider">Loconomy</span>
               </div>
-              <p className="text-[var(--mid-gray)] mb-6 leading-relaxed text-sm">
+              <p className="text-slate-600 dark:text-slate-300 mb-6 leading-relaxed text-sm">
                 The premium local services marketplace connecting customers with verified professionals. 
                 Powered by AI-driven matching technology and trusted by millions worldwide.
               </p>
