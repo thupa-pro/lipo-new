@@ -379,7 +379,7 @@ export default function HomePage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
-                className="text-xl md:text-2xl text-gray-300 dark:text-gray-300 light:text-gray-600 max-w-4xl mx-auto mb-12 leading-relaxed"
+                className="text-xl md:text-2xl text-slate-600 dark:text-gray-300 max-w-4xl mx-auto mb-12 leading-relaxed"
               >
                 Experience the future of service discovery with AI-powered matching, 
                 quantum-fast booking, and premium professionals in 200+ cities worldwide.
