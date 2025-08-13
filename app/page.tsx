@@ -551,7 +551,7 @@ export default function HomePage() {
                             </Badge>
                           </div>
                           
-                          <CardTitle className="text-2xl font-bold text-white dark:text-white light:text-gray-900 group-hover:text-purple-400 dark:group-hover:text-purple-400 light:group-hover:text-purple-600 transition-colors">
+                          <CardTitle className="text-2xl font-bold text-slate-800 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-purple-400 transition-colors">
                             {category.name}
                           </CardTitle>
                           
