@@ -298,8 +298,8 @@ export default function HomePage() {
         {/* Dynamic Background with Floating Elements */}
         <div className="absolute inset-0">
           {/* Animated Gradient Mesh */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(120,119,198,0.3),transparent)] dark:bg-[radial-gradient(ellipse_at_top,rgba(120,119,198,0.3),transparent)] light:bg-[radial-gradient(ellipse_at_top,rgba(139,92,246,0.1),transparent)] animate-pulse"></div>
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(236,72,153,0.2),transparent)] dark:bg-[radial-gradient(ellipse_at_bottom_right,rgba(236,72,153,0.2),transparent)] light:bg-[radial-gradient(ellipse_at_bottom_right,rgba(59,130,246,0.1),transparent)]"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(139,92,246,0.05),transparent)] dark:bg-[radial-gradient(ellipse_at_top,rgba(120,119,198,0.3),transparent)] animate-pulse"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(59,130,246,0.05),transparent)] dark:bg-[radial-gradient(ellipse_at_bottom_right,rgba(236,72,153,0.2),transparent)]"></div>
           
           {/* Floating Geometric Shapes */}
           {[...Array(20)].map((_, i) => (
