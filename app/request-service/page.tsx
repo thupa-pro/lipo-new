@@ -360,6 +360,28 @@ export default function RequestServicePage() {
                       </p>
                     </div>
 
+                    {/* AI Price Optimization */}
+                    {formData.category && formData.location && (
+                      <div className="mb-8 p-6 bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-950/20 dark:to-blue-950/20 rounded-2xl border border-purple-200 dark:border-purple-800">
+                        <div className="flex items-center gap-2 mb-4">
+                          <Brain className="w-5 h-5 text-purple-600" />
+                          <h3 className="font-semibold text-purple-800 dark:text-purple-200 text-lg">AI Price Intelligence</h3>
+                        </div>
+                        <p className="text-purple-700 dark:text-purple-300 text-sm mb-4">
+                          Get real-time market analysis and optimal pricing recommendations for your service request.
+                        </p>
+                        <PriceOptimizer
+                          serviceType={formData.category}
+                          location={formData.location}
+                          flexibility="medium"
+                          onOptimizationComplete={(insight) => {
+                            console.log('Price optimization completed:', insight);
+                            // Could auto-fill budget based on AI recommendation
+                          }}
+                        />
+                      </div>
+                    )}
+
                     <div className="grid md:grid-cols-2 gap-8">
                       <div>
                         <Label className="text-lg font-medium text-slate-700 dark:text-gray-300 mb-4 block">
