@@ -203,13 +203,14 @@ export default function CompleteDemoPage() {
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent" />
         <div className="absolute inset-0 neural-grid opacity-10" />
 
-        <div className="relative max-w-7xl mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Left Content */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
+              className="text-center lg:text-left"
             >
               <div className="flex items-center space-x-2 mb-6">
                 <Sparkles className="w-6 h-6 text-yellow-300" />
