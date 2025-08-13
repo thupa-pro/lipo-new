@@ -434,31 +434,73 @@ export default function CompleteDemoPage() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={{
+                    scale: 1.02,
+                    y: -5,
+                    transition: { duration: 0.2 }
+                  }}
                   className="group cursor-pointer"
                   onClick={() => setSelectedFeature(feature)}
                 >
-                  <Card className={`glass-card h-full transition-all duration-300 ${
-                    selectedFeature.id === feature.id 
-                      ? 'ring-2 ring-blue-500 bg-blue-50 dark:bg-blue-950' 
-                      : 'hover:shadow-lg'
+                  <Card className={`glass-card h-full transition-all duration-300 overflow-hidden ${
+                    selectedFeature.id === feature.id
+                      ? `ring-2 ring-blue-500 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950 ${feature.borderColor}`
+                      : 'hover:shadow-xl border-gray-200'
                   }`}>
-                    <CardContent className="pt-6">
+                    <CardContent className="pt-6 relative">
                       <div className="text-center space-y-4">
-                        <div className={`w-16 h-16 mx-auto rounded-xl ${feature.color} flex items-center justify-center group-hover:scale-110 transition-transform`}>
+                        <motion.div
+                          className={`w-16 h-16 mx-auto rounded-xl ${feature.color} flex items-center justify-center shadow-lg`}
+                          whileHover={{ scale: 1.1, rotate: 5 }}
+                          transition={{ duration: 0.2 }}
+                        >
                           <Icon className="w-8 h-8 text-white" />
-                        </div>
+                        </motion.div>
+
                         <div>
-                          <h3 className="font-semibold text-lg">{feature.title}</h3>
-                          <p className="text-sm text-muted-foreground mt-1">
+                          <h3 className="font-semibold text-lg text-gray-900 dark:text-white">
+                            {feature.title}
+                          </h3>
+                          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1 leading-relaxed">
                             {feature.description}
                           </p>
                         </div>
-                        <div className="flex items-center justify-center">
-                          <CheckCircle className="w-5 h-5 text-green-600 mr-2" />
-                          <span className="text-sm font-medium text-green-600">Completed</span>
+
+                        <div className="flex items-center justify-center space-x-2">
+                          <CheckCircle className="w-5 h-5 text-green-600" />
+                          <span className="text-sm font-medium text-green-600">Production Ready</span>
                         </div>
+
+                        <div className="flex items-center justify-center">
+                          <Badge className="bg-purple-100 text-purple-700 text-xs">
+                            {feature.stats}
+                          </Badge>
+                        </div>
+
+                        {selectedFeature.id === feature.id && (
+                          <motion.div
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            className="pt-2"
+                          >
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="bg-white/80 hover:bg-white border-gray-300"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                window.open(feature.path, '_blank');
+                              }}
+                            >
+                              <Eye className="w-4 h-4 mr-1" />
+                              View Demo
+                            </Button>
+                          </motion.div>
+                        )}
                       </div>
+
+                      {/* Hover Effect Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                     </CardContent>
                   </Card>
                 </motion.div>
