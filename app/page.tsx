@@ -305,7 +305,7 @@ export default function HomePage() {
           {[...Array(20)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-2 h-2 bg-white/20 dark:bg-white/20 light:bg-purple-200/40 rounded-full"
+              className="absolute w-2 h-2 bg-indigo-200/60 dark:bg-white/20 rounded-full"
               animate={{
                 x: [0, Math.random() * 100 - 50],
                 y: [0, Math.random() * 100 - 50],
