@@ -286,6 +286,11 @@ Respond as ${agent.name} with your unique personality. Be helpful, personalized,
     const agent = USER_AI_AGENTS.find(a => a.id === agentId);
     if (!agent) throw new Error('Agent not found');
 
+    // If API not configured, use fallback immediately
+    if (!this.isConfigured || !this.model) {
+      return this.getProactiveFallback(agent);
+    }
+
     const contextualData = this.buildUserContext(context);
 
     const prompt = `${agent.systemPrompt}
