@@ -336,23 +336,26 @@ export default function HomePage() {
           >
             <div className="max-w-7xl mx-auto text-center">
               {/* AI Status Indicator */}
-              {isClient && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.6 }}
-                  className="mb-8"
-                >
-                  <Badge className={`${glassTheme.primary} text-white px-6 py-3 text-sm font-medium`}>
-                    <div className="flex items-center gap-3">
-                      <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                      <Brain className="w-4 h-4" />
-                      <span>AI-Powered • Live: {stats.liveUsers.toLocaleString()} users</span>
-                      <Bot className="w-4 h-4 animate-bounce" />
-                    </div>
-                  </Badge>
-                </motion.div>
-              )}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6 }}
+                className="mb-8"
+              >
+                <Badge className={`${glassTheme.primary} text-white px-6 py-3 text-sm font-medium`}>
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                    <Brain className="w-4 h-4" />
+                    <span>
+                      {isClient
+                        ? `AI-Powered • Live: ${stats.liveUsers.toLocaleString()} users`
+                        : 'AI-Powered • Trusted by 2.4M+ Users'
+                      }
+                    </span>
+                    <Bot className="w-4 h-4 animate-bounce" />
+                  </div>
+                </Badge>
+              </motion.div>
 
               {/* Dynamic Hero Title */}
               <motion.h1
