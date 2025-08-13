@@ -631,6 +631,20 @@ export default function RequestServicePage() {
           </div>
         </div>
       </div>
+
+      {/* AI Chat Assistant */}
+      <AIChat
+        agentId="maya"
+        context={{
+          currentPage: "request-service",
+          currentStep: currentStep,
+          formData: formData
+        }}
+        position="floating"
+        theme="brand"
+        autoOpen={false}
+        proactiveMessage={true}
+      />
     </div>
   );
 }
