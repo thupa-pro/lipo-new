@@ -282,7 +282,7 @@ export default function CompleteDemoPage() {
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="lg:block hidden"
+              className="mt-8 lg:mt-0"
             >
               <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20">
                 <div className="flex items-center justify-between mb-4">
