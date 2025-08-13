@@ -6,6 +6,9 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { MarketplaceDashboard } from '@/components/marketplace/marketplace-dashboard'
+import { PriceOptimizer } from '@/components/ai/price-optimizer'
+import { SmartRecommendations } from '@/components/ai/smart-recommendations'
+import AIChat from '@/components/ai/AIChat'
 import { 
   Gavel, 
   TrendingUp, 
