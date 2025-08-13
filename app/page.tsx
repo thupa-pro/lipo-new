@@ -294,7 +294,7 @@ export default function HomePage() {
 
   return (
     <PWAProvider>
-      <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 dark:from-slate-900 dark:via-purple-900 dark:to-slate-900 light:from-purple-50 light:via-blue-50 light:to-indigo-50">
+      <div className="relative min-h-screen overflow-hidden bg-white dark:bg-gradient-to-br dark:from-slate-900 dark:via-purple-900 dark:to-slate-900">
         {/* Dynamic Background with Floating Elements */}
         <div className="absolute inset-0">
           {/* Animated Gradient Mesh */}
