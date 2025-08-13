@@ -67,7 +67,7 @@ export function MobileHeader({
         "fixed top-0 left-0 right-0 z-40 safe-area-pt",
         transparent
           ? "bg-transparent"
-          : "glass-ultra border-b border-border/20",
+          : "bg-white/95 dark:bg-black/95 backdrop-blur-lg border-b border-slate-200/50 dark:border-white/20",
         className,
       )}
     >
