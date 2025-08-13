@@ -418,7 +418,7 @@ export default function HomePage() {
                     onClick={startListening}
                     variant="outline" 
                     size="lg"
-                    className={`${glassTheme.primary} text-white dark:text-white light:text-gray-800 border-white/30 dark:border-white/30 light:border-purple-200/50 px-8 py-6 text-lg font-semibold rounded-full group`}
+                    className={`${glassTheme.primary} text-slate-700 dark:text-white border-slate-200/50 dark:border-white/30 px-8 py-6 text-lg font-semibold rounded-full group`}
                   >
                     <Mic className={`w-5 h-5 mr-2 ${isListening ? 'text-red-400 animate-pulse' : ''}`} />
                     Voice Search
