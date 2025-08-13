@@ -878,6 +878,77 @@ export default function CompleteDemoPage() {
           </Card>
         </motion.div>
       </div>
+
+      {/* Floating AI Assistant */}
+      <motion.div
+        className="fixed bottom-6 right-6 z-50"
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ delay: 2, duration: 0.5, type: "spring" }}
+      >
+        <motion.button
+          className="w-16 h-16 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full shadow-2xl hover:shadow-purple-500/25 transition-all duration-300 flex items-center justify-center group"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          animate={{
+            y: [0, -5, 0],
+            boxShadow: [
+              "0 10px 30px rgba(139, 92, 246, 0.3)",
+              "0 15px 40px rgba(139, 92, 246, 0.4)",
+              "0 10px 30px rgba(139, 92, 246, 0.3)"
+            ]
+          }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            repeatType: "reverse"
+          }}
+        >
+          <Brain className="w-8 h-8 group-hover:scale-110 transition-transform" />
+
+          {/* Pulse Effect */}
+          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 animate-ping opacity-20"></div>
+
+          {/* Tooltip */}
+          <div className="absolute bottom-full right-0 mb-3 px-3 py-1 bg-gray-900 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+            AI Assistant Online
+            <div className="absolute top-full right-4 w-2 h-2 bg-gray-900 transform rotate-45"></div>
+          </div>
+        </motion.button>
+      </motion.div>
+
+      {/* Live Status Bar */}
+      <motion.div
+        className="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white py-3 z-40"
+        initial={{ y: 100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 1.5, duration: 0.6 }}
+      >
+        <div className="max-w-7xl mx-auto px-4 flex items-center justify-between text-sm">
+          <div className="flex items-center space-x-6">
+            <motion.div
+              className="flex items-center space-x-2"
+              animate={{ scale: [1, 1.05, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+              <span>{liveStats.activeUsers} Active Users</span>
+            </motion.div>
+            <div className="flex items-center space-x-2">
+              <Star className="w-4 h-4 text-yellow-300" />
+              <span>{liveStats.averageRating} Average Rating</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <TrendingUp className="w-4 h-4 text-green-300" />
+              <span>{liveStats.totalRevenue} Total Revenue</span>
+            </div>
+          </div>
+          <div className="flex items-center space-x-2">
+            <Shield className="w-4 h-4 text-blue-300" />
+            <span>100% Secure & Verified</span>
+          </div>
+        </div>
+      </motion.div>
     </div>
   );
 }
