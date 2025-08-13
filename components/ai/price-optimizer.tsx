@@ -68,7 +68,7 @@ interface PriceOptimizerProps {
   onOptimizationComplete?: (insight: PriceInsight) => void;
 }
 
-export default function PriceOptimizer({
+export function PriceOptimizer({
   serviceType,
   location = "New York, NY",
   preferredDate,
