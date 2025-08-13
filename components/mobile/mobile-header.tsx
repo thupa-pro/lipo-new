@@ -114,18 +114,18 @@ export function MobileHeader({
         {/* Logo */}
         <div className="flex items-center gap-3">
           <div className="relative">
-            <div className="w-8 h-8 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
+            <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-sky-500 dark:from-cyan-400 dark:to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
               <span className="text-white font-bold text-sm">L</span>
             </div>
             {isOnline && (
-              <div className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-500 border-2 border-white rounded-full animate-pulse" />
+              <div className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-500 border-2 border-white dark:border-white rounded-full animate-pulse" />
             )}
           </div>
           <div>
-            <h1 className="font-bold text-lg bg-gradient-to-r from-blue-600 to-cyan-400 bg-clip-text text-transparent">
+            <h1 className="font-bold text-lg bg-gradient-to-r from-indigo-600 to-sky-500 dark:from-blue-600 dark:to-cyan-400 bg-clip-text text-transparent">
               {displayTitle}
             </h1>
-            <div className="flex items-center gap-1 text-xs text-muted-foreground">
+            <div className="flex items-center gap-1 text-xs text-slate-600 dark:text-muted-foreground">
               <Zap className="w-3 h-3 text-emerald-500" />
               <span>Elite Network</span>
             </div>
