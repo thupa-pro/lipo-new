@@ -631,9 +631,9 @@ export default function HomePage() {
                       whileHover={{ scale: 1.05 }}
                       className="text-center"
                     >
-                      <item.icon className="w-12 h-12 text-purple-400 dark:text-purple-400 light:text-purple-600 mx-auto mb-4" />
-                      <h3 className="text-lg font-bold text-white dark:text-white light:text-gray-900 mb-2">{item.label}</h3>
-                      <p className="text-sm text-gray-400 dark:text-gray-400 light:text-gray-600">{item.desc}</p>
+                      <item.icon className="w-12 h-12 text-indigo-600 dark:text-purple-400 mx-auto mb-4" />
+                      <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-2">{item.label}</h3>
+                      <p className="text-sm text-slate-600 dark:text-gray-400">{item.desc}</p>
                     </motion.div>
                   ))}
                 </div>
