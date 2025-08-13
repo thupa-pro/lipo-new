@@ -223,18 +223,25 @@ Current context: You're helping users discover services, providers, and opportun
 ];
 
 export class UserAIClient {
-  private model;
+  private model: any;
+  private isConfigured: boolean;
 
   constructor() {
-    this.model = genAI.getGenerativeModel({ 
-      model: "gemini-1.5-pro-latest",
-      generationConfig: {
-        temperature: 0.8,
-        topK: 40,
-        topP: 0.95,
-        maxOutputTokens: 1024,
-      },
-    });
+    this.isConfigured = !!genAI;
+    if (this.isConfigured) {
+      this.model = genAI!.getGenerativeModel({
+        model: "gemini-1.5-pro-latest",
+        generationConfig: {
+          temperature: 0.8,
+          topK: 40,
+          topP: 0.95,
+          maxOutputTokens: 1024,
+        },
+      });
+    } else {
+      this.model = null;
+      console.warn('Google AI not configured, using fallback responses');
+    }
   }
 
   async generateResponse(
