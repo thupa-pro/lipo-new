@@ -614,7 +614,7 @@ export default function HomePage() {
                 <h2 className="text-4xl font-bold text-slate-800 dark:text-white mb-6">
                   Quantum-Secured Trust Network
                 </h2>
-                <p className="text-xl text-gray-300 dark:text-gray-300 light:text-gray-600 mb-12 max-w-3xl mx-auto">
+                <p className="text-xl text-slate-600 dark:text-gray-300 mb-12 max-w-3xl mx-auto">
                   Every provider is verified through our AI-powered background screening, 
                   biometric authentication, and blockchain-secured reputation system.
                 </p>
