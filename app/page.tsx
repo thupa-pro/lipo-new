@@ -488,7 +488,7 @@ export default function HomePage() {
                   <h2 className="text-4xl font-bold text-slate-800 dark:text-white mb-4">
                     AI-Powered Service Discovery
                   </h2>
-                  <p className="text-xl text-gray-300 dark:text-gray-300 light:text-gray-600">
+                  <p className="text-xl text-slate-600 dark:text-gray-300">
                     Describe what you need in natural language, our AI does the rest
                   </p>
                 </div>
