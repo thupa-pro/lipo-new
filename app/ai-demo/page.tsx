@@ -162,10 +162,15 @@ export default function AIDemoPage() {
           </div>
 
           <SmartRecommendations
-            location="New York, NY"
-            context="homepage"
-            maxRecommendations={3}
-            showAIInsights={true}
+            userId="demo-user-123"
+            query="home cleaning service"
+            context={{
+              location: { lat: 40.7128, lng: -74.0060 },
+              urgency: "medium",
+              budget: { min: 50, max: 200 },
+              timeframe: "this week"
+            }}
+            onProviderSelect={(providerId) => console.log("Selected provider:", providerId)}
           />
         </div>
       </section>
