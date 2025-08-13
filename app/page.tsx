@@ -514,7 +514,7 @@ export default function HomePage() {
                 <h2 className="text-5xl font-bold text-slate-800 dark:text-white mb-6">
                   Next-Generation Services
                 </h2>
-                <p className="text-xl text-gray-300 dark:text-gray-300 light:text-gray-600 max-w-3xl mx-auto">
+                <p className="text-xl text-slate-600 dark:text-gray-300 max-w-3xl mx-auto">
                   Explore AI-enhanced services that blend cutting-edge technology with human expertise
                 </p>
               </motion.div>
