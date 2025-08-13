@@ -245,17 +245,22 @@ export class UserAIClient {
   }
 
   async generateResponse(
-    agentId: string, 
-    userMessage: string, 
+    agentId: string,
+    userMessage: string,
     context?: any,
     conversationHistory?: any[]
   ): Promise<string> {
     const agent = USER_AI_AGENTS.find(a => a.id === agentId);
     if (!agent) throw new Error('Agent not found');
 
+    // If API not configured, use fallback immediately
+    if (!this.isConfigured || !this.model) {
+      return this.getFallbackResponse(agent, userMessage);
+    }
+
     const contextualData = this.buildUserContext(context);
     const historyContext = this.buildConversationHistory(conversationHistory);
-    
+
     const prompt = `${agent.systemPrompt}
 
 ${historyContext}
