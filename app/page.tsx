@@ -287,9 +287,9 @@ export default function HomePage() {
 
   // Enhanced Glassmorphism Theme
   const glassTheme = {
-    primary: 'backdrop-blur-xl bg-white/10 dark:bg-white/10 light:bg-white/80 border border-white/20 dark:border-white/20 light:border-purple-200/30',
-    secondary: 'backdrop-blur-lg bg-white/5 dark:bg-white/5 light:bg-white/70 border border-white/10 dark:border-white/10 light:border-purple-100/40',
-    accent: 'backdrop-blur-md bg-gradient-to-r from-purple-500/20 to-pink-500/20 dark:from-purple-500/20 dark:to-pink-500/20 light:from-purple-100/50 light:to-blue-100/50 border border-purple-300/30 dark:border-purple-300/30 light:border-purple-200/40'
+    primary: 'backdrop-blur-xl bg-white/90 dark:bg-white/10 border border-slate-200/50 dark:border-white/20',
+    secondary: 'backdrop-blur-lg bg-white/80 dark:bg-white/5 border border-slate-200/30 dark:border-white/10',
+    accent: 'backdrop-blur-md bg-gradient-to-r from-indigo-50/80 to-sky-50/80 dark:from-purple-500/20 dark:to-pink-500/20 border border-indigo-200/40 dark:border-purple-300/30'
   };
 
   return (
