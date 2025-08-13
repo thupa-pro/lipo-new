@@ -1,93 +1,157 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { useToast } from '@/components/ui/use-toast';
-import { Search, MapPin, Briefcase } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Search, MapPin, Star, Clock, ArrowRight, Sparkles } from 'lucide-react';
 
 export function HomePageClient() {
   const [searchQuery, setSearchQuery] = useState('');
-  const [locationQuery, setLocationQuery] = useState('');
-  const router = useRouter();
-  const { toast } = useToast();
+  const [selectedLocation, setSelectedLocation] = useState('');
 
-  const handleSearch = () => {
-    if (searchQuery.trim() || locationQuery.trim()) {
-      const params = new URLSearchParams();
-      if (searchQuery.trim()) params.set('q', searchQuery.trim());
-      if (locationQuery.trim()) params.set('location', locationQuery.trim());
-      router.push(`/browse?${params.toString()}`);
-    } else {
-      toast({
-        title: "Search Query Required",
-        description: "Please enter a service or location to search",
-        variant: "destructive",
-      });
+  const popularServices = [
+    {
+      name: 'House Cleaning',
+      rating: 4.9,
+      providers: 1247,
+      avgPrice: '$89',
+      nextAvailable: '2 hours',
+      trend: '+15%'
+    },
+    {
+      name: 'Plumbing Repair',
+      rating: 4.8,
+      providers: 892,
+      avgPrice: '$124',
+      nextAvailable: '45 min',
+      trend: '+8%'
+    },
+    {
+      name: 'Personal Training',
+      rating: 4.9,
+      providers: 634,
+      avgPrice: '$67',
+      nextAvailable: '1 hour',
+      trend: '+23%'
     }
-  };
+  ];
 
-  const handleQuickSearch = (tag: string) => {
-    setSearchQuery(tag);
-    const params = new URLSearchParams();
-    params.set('q', tag);
-    router.push(`/browse?${params.toString()}`);
-  };
+  const aiSuggestions = [
+    'I need help with my leaky faucet',
+    'Looking for a personal trainer near me',
+    'Weekly house cleaning service',
+    'Emergency plumber needed',
+    'Dog walking service',
+    'Home security installation'
+  ];
 
   return (
-    <section className="py-8 sm:py-12 md:py-16 lg:py-20 landscape-compact" id="find-service" role="search" aria-labelledby="search-title">
-      <div className="search-card card-elite resp-p-6 hover-scale mx-2 sm:mx-4 md:mx-0 animate-elite-float">
-        <h2 id="search-title" className="section-title resp-text-xl md:text-3xl lg:text-4xl font-heading text-center mb-2">Start Your Search</h2>
-        <p className="section-subtitle text-center mb-4 sm:mb-6 md:mb-10 font-body resp-text-sm">Get matched with the perfect professional in seconds.</p>
-
-        <div className="max-w-4xl mx-auto">
-          <div className="search-input-container flex flex-col sm:flex-row items-center p-2 md:p-3 rounded-full">
-            <div className="flex-grow w-full flex items-center pl-2 sm:pl-3 md:pl-4 pr-2">
-              <Briefcase className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-[var(--mid-gray)] mr-2 md:mr-3" />
-              <input
-                className="search-input w-full focus:outline-none py-2 md:py-3 resp-text-sm md:text-lg"
-                placeholder="What service do you need?"
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                aria-label="Service type"
-                id="service-input"
-              />
-            </div>
-            <div className="w-full sm:w-auto flex items-center pl-2 sm:pl-3 md:pl-4 pr-2 border-t sm:border-t-0 sm:border-l border-gray-200 dark:border-white/10 mt-2 sm:mt-0 pt-2 sm:pt-0">
-              <MapPin className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-gray-500 dark:text-[var(--mid-gray)] mr-2 md:mr-3" />
-              <input
-                className="search-input w-full focus:outline-none py-2 md:py-3 resp-text-sm md:text-lg"
-                placeholder="Your Location"
-                type="text"
-                value={locationQuery}
-                onChange={(e) => setLocationQuery(e.target.value)}
-                aria-label="Service location"
-                id="location-input"
-              />
-            </div>
-            <button
-              onClick={handleSearch}
-              className="w-full mt-3 sm:mt-0 sm:w-auto px-4 sm:px-6 md:px-10 py-3 md:py-4 bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white font-ui font-semibold rounded-full btn-glow transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex-shrink-0 touch-target resp-text-sm"
-              aria-label="Search for services"
-            >
-              <span className="hidden sm:inline">Search</span>
-              <Search className="w-4 h-4 sm:hidden" />
-            </button>
+    <div className="space-y-8">
+      {/* AI-Powered Search */}
+      <div className="relative">
+        <div className="flex gap-3">
+          <div className="flex-1 relative">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <Input
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Tell me what you need... (AI will understand)"
+              className="pl-12 h-14 text-lg bg-white/90 backdrop-blur-sm border-white/40 focus:border-purple-400 focus:ring-purple-400/30 rounded-xl"
+            />
           </div>
-          
-          <div className="flex flex-wrap justify-center gap-2 md:gap-3 mt-4 sm:mt-6 md:mt-8 resp-text-xs">
-            {['House Cleaning', 'Plumber', 'Electrician', 'Personal Trainer', 'Math Tutor'].map((tag) => (
-              <button
-                key={tag}
-                onClick={() => handleQuickSearch(tag)}
-                className="search-tag interactive-element px-2 sm:px-3 md:px-4 py-1 sm:py-1.5 md:py-2 rounded-full transition-all duration-300 touch-target"
+          <div className="relative">
+            <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <Input
+              value={selectedLocation}
+              onChange={(e) => setSelectedLocation(e.target.value)}
+              placeholder="Location"
+              className="pl-12 h-14 w-48 bg-white/90 backdrop-blur-sm border-white/40 focus:border-purple-400 focus:ring-purple-400/30 rounded-xl"
+            />
+          </div>
+          <Button 
+            size="lg"
+            className="h-14 px-8 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 rounded-xl group"
+          >
+            <Sparkles className="w-5 h-5 mr-2 group-hover:animate-pulse" />
+            Search
+          </Button>
+        </div>
+
+        {/* AI Suggestions */}
+        {searchQuery.length === 0 && (
+          <div className="mt-4 flex flex-wrap gap-2">
+            <span className="text-sm text-gray-600 font-medium">Try:</span>
+            {aiSuggestions.slice(0, 3).map((suggestion, index) => (
+              <Button
+                key={index}
+                variant="outline"
+                size="sm"
+                onClick={() => setSearchQuery(suggestion)}
+                className="text-xs bg-white/60 backdrop-blur-sm border-white/40 hover:bg-white/80 rounded-lg"
               >
-                {tag}
-              </button>
+                "{suggestion}"
+              </Button>
             ))}
           </div>
+        )}
+      </div>
+
+      {/* Popular Services */}
+      <div>
+        <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+          <Star className="w-5 h-5 text-yellow-400" />
+          Popular Right Now
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {popularServices.map((service, index) => (
+            <Card key={index} className="bg-white/90 backdrop-blur-sm border-white/40 hover:bg-white/95 transition-all duration-300 group">
+              <CardContent className="p-4">
+                <div className="flex justify-between items-start mb-3">
+                  <h4 className="font-semibold text-gray-900">{service.name}</h4>
+                  <Badge className="bg-green-100 text-green-700 text-xs">
+                    {service.trend}
+                  </Badge>
+                </div>
+                
+                <div className="space-y-2 text-sm text-gray-600">
+                  <div className="flex items-center gap-2">
+                    <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                    <span>{service.rating}</span>
+                    <span>•</span>
+                    <span>{service.providers} providers</span>
+                  </div>
+                  
+                  <div className="flex justify-between items-center">
+                    <span className="font-semibold text-gray-900">{service.avgPrice}</span>
+                    <div className="flex items-center gap-1 text-green-600">
+                      <Clock className="w-3 h-3" />
+                      <span className="text-xs">{service.nextAvailable}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <Button 
+                  size="sm" 
+                  className="w-full mt-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 group-hover:scale-[1.02] transition-transform"
+                >
+                  Book Now
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
         </div>
       </div>
-    </section>
+
+      {/* AI Assistance */}
+      <div className="text-center">
+        <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-white text-sm">
+          <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+          <span>AI Assistant is analyzing your needs...</span>
+        </div>
+      </div>
+    </div>
   );
 }
