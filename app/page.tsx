@@ -343,7 +343,7 @@ export default function HomePage() {
                 transition={{ duration: 0.6 }}
                 className="mb-8"
               >
-                <Badge className={`${glassTheme.primary} text-white dark:text-white light:text-gray-800 px-6 py-3 text-sm font-medium`}>
+                <Badge className={`${glassTheme.primary} text-slate-700 dark:text-white px-6 py-3 text-sm font-medium`}>
                   <div className="flex items-center gap-3">
                     <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
                     <Brain className="w-4 h-4" />
