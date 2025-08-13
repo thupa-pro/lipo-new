@@ -156,9 +156,9 @@ html {
 }
 
 .glass-card:hover {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 12px 48px rgba(31, 38, 135, 0.25);
+  background: var(--glass-secondary);
+  border-color: hsl(var(--primary) / 0.2);
+  box-shadow: 0 12px 40px rgba(124, 58, 237, 0.15);
   transform: translateY(-2px);
 }
 
