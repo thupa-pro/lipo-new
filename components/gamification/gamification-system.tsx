@@ -402,7 +402,7 @@ export function GamificationSystem({
                       {position === 1 && <Crown className="w-6 h-6 text-yellow-600 mx-auto" />}
                       {position === 2 && <Medal className="w-6 h-6 text-gray-400 mx-auto" />}
                       {position === 3 && <Medal className="w-6 h-6 text-orange-600 mx-auto" />}
-                      {position > 3 && <span>#{position}</span>
+                      {position > 3 && <span>#{position}</span>}
                     </div>
                     <div className="w-10 h-10 bg-gray-200 rounded-full"></div>
                     <div className="flex-1">
