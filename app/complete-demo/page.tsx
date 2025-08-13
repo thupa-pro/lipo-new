@@ -180,76 +180,156 @@ export default function CompleteDemoPage() {
   }, [currentAIMessage, isTyping, showAnswer]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 dark:from-slate-900 dark:via-slate-800 dark:to-purple-900">
-      {/* Hero Section */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white py-20">
-        <div className="absolute inset-0 bg-black/20" />
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-        
-        <div className="relative max-w-7xl mx-auto px-4 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <div className="flex items-center justify-center space-x-2 mb-6">
-              <Sparkles className="w-8 h-8 text-yellow-300" />
-              <Badge className="bg-white/20 text-white border-white/30">
-                <Crown className="w-4 h-4 mr-1" />
-                Complete Platform
-              </Badge>
-              <Sparkles className="w-8 h-8 text-yellow-300" />
-            </div>
-            
-            <h1 className="text-6xl font-bold mb-6 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
-              Loconomy Platform
-            </h1>
-            <h2 className="text-3xl font-semibold mb-4 opacity-90">
-              Complete Implementation
-            </h2>
-            <p className="text-xl opacity-80 mb-8 max-w-4xl mx-auto">
-              Experience the fully implemented next-generation marketplace platform with 
-              advanced features, enterprise capabilities, and cutting-edge technology integrations.
-            </p>
-            
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 max-w-4xl mx-auto mb-8">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-yellow-300">{stats.totalFeatures}</div>
-                <div className="text-sm opacity-80">Feature Modules</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-green-300">{stats.componentsBuilt}</div>
-                <div className="text-sm opacity-80">Components Built</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-blue-300">{stats.linesOfCode.toLocaleString()}</div>
-                <div className="text-sm opacity-80">Lines of Code</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-purple-300">{stats.integrations}</div>
-                <div className="text-sm opacity-80">Integrations</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-pink-300">{stats.completionRate}%</div>
-                <div className="text-sm opacity-80">Complete</div>
-              </div>
-            </div>
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100 dark:from-slate-900 dark:via-purple-900 dark:to-blue-900">
+      {/* Enhanced Hero Section */}
+      <div className="relative overflow-hidden bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 text-white py-16">
+        <div className="absolute inset-0 bg-black/10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent" />
+        <div className="absolute inset-0 neural-grid opacity-10" />
 
+        <div className="relative max-w-7xl mx-auto px-4">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left Content */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
-              className="flex items-center justify-center space-x-4"
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
             >
-              <Button size="lg" className="bg-white text-blue-600 hover:bg-blue-50">
-                <Rocket className="w-5 h-5 mr-2" />
-                Explore Features
-              </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
-                View Documentation
-              </Button>
+              <div className="flex items-center space-x-2 mb-6">
+                <Sparkles className="w-6 h-6 text-yellow-300" />
+                <Badge className="bg-white/20 backdrop-blur-sm text-white border-white/30">
+                  <Crown className="w-4 h-4 mr-1" />
+                  Complete Platform
+                </Badge>
+                <Sparkles className="w-6 h-6 text-yellow-300" />
+              </div>
+
+              <h1 className="text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent leading-tight">
+                Loconomy Platform
+              </h1>
+              <h2 className="text-2xl lg:text-3xl font-semibold mb-4 opacity-90">
+                AI-Powered Local Services
+              </h2>
+              <p className="text-lg lg:text-xl opacity-80 mb-8 leading-relaxed">
+                Experience the fully implemented next-generation marketplace platform with
+                advanced AI matching, real-time analytics, and enterprise capabilities.
+              </p>
+
+              {/* Live Metrics */}
+              <div className="grid grid-cols-3 gap-4 mb-8">
+                <motion.div
+                  className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-3"
+                  animate={{ scale: [1, 1.02, 1] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  <div className="text-2xl font-bold text-green-300">{liveStats.activeUsers}</div>
+                  <div className="text-xs opacity-80">Active Users</div>
+                </motion.div>
+                <motion.div
+                  className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-3"
+                  animate={{ scale: [1, 1.02, 1] }}
+                  transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+                >
+                  <div className="text-2xl font-bold text-blue-300">{liveStats.jobsCompleted}</div>
+                  <div className="text-xs opacity-80">Jobs Done</div>
+                </motion.div>
+                <motion.div
+                  className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-3"
+                  animate={{ scale: [1, 1.02, 1] }}
+                  transition={{ duration: 2, repeat: Infinity, delay: 1 }}
+                >
+                  <div className="text-2xl font-bold text-yellow-300">{liveStats.averageRating}</div>
+                  <div className="text-xs opacity-80">Rating</div>
+                </motion.div>
+              </div>
+
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.5, duration: 0.5 }}
+                className="flex flex-col sm:flex-row gap-4"
+              >
+                <Button size="lg" className="bg-white text-blue-600 hover:bg-blue-50 flex-1 sm:flex-none">
+                  <Rocket className="w-5 h-5 mr-2" />
+                  Explore Features
+                </Button>
+                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 flex-1 sm:flex-none">
+                  <Play className="w-5 h-5 mr-2" />
+                  Watch Demo
+                </Button>
+              </motion.div>
             </motion.div>
-          </motion.div>
+
+            {/* Right - AI Demo Chat */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="lg:block hidden"
+            >
+              <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                      <Brain className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-white">AI Assistant</h3>
+                      <p className="text-sm text-green-300 flex items-center">
+                        <div className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></div>
+                        Online
+                      </p>
+                    </div>
+                  </div>
+                  <Badge className="bg-white/20 text-white text-xs">Live Demo</Badge>
+                </div>
+
+                <div className="space-y-4 h-64 overflow-hidden">
+                  <div className="flex items-start space-x-3">
+                    <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+                      <Users className="w-4 h-4 text-gray-600" />
+                    </div>
+                    <div className="bg-white/20 backdrop-blur-sm rounded-lg p-3 max-w-xs">
+                      <p className="text-sm text-white">{displayText}</p>
+                      {isTyping && <div className="animate-pulse inline-block w-2 h-4 bg-purple-300 ml-1"></div>}
+                    </div>
+                  </div>
+
+                  <AnimatePresence>
+                    {showAnswer && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        className="flex items-start space-x-3"
+                      >
+                        <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                          <Brain className="w-4 h-4 text-white" />
+                        </div>
+                        <div className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 backdrop-blur-sm border border-purple-300/30 rounded-lg p-3 max-w-sm">
+                          <p className="text-sm text-white">{aiMessages[currentAIMessage].answer}</p>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+
+                <div className="mt-4 flex items-center space-x-2 text-xs text-white/70">
+                  <div className="flex space-x-1">
+                    {aiMessages.map((_, index) => (
+                      <div
+                        key={index}
+                        className={`w-2 h-2 rounded-full ${
+                          index === currentAIMessage ? 'bg-purple-300' : 'bg-white/30'
+                        }`}
+                      />
+                    ))}
+                  </div>
+                  <span>AI learning from interactions</span>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </div>
 
