@@ -99,8 +99,9 @@ const useRealTimeStats = () => {
   return { stats, isClient };
 };
 
-// AI-Powered Personalization Hook
+// AI-Powered Personalization Hook (client-only)
 const useAIPersonalization = () => {
+  const [isClient, setIsClient] = useState(false);
   const [userIntent, setUserIntent] = useState('exploring');
   const [personalizedContent, setPersonalizedContent] = useState({
     heroText: "Connect with Local Service Professionals You Trust",
@@ -109,10 +110,16 @@ const useAIPersonalization = () => {
   });
 
   useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isClient) return;
+
     // Simulate AI-driven personalization based on time, location, behavior
     const hour = new Date().getHours();
     const isWeekend = [0, 6].includes(new Date().getDay());
-    
+
     if (hour < 12) {
       setPersonalizedContent(prev => ({
         ...prev,
@@ -134,9 +141,9 @@ const useAIPersonalization = () => {
         ctaText: "Find Weekend Experts"
       }));
     }
-  }, []);
+  }, [isClient]);
 
-  return { userIntent, personalizedContent };
+  return { userIntent, personalizedContent, isClient };
 };
 
 // Voice UI Hook
