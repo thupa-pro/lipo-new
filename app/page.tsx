@@ -653,6 +653,20 @@ export default function HomePage() {
         <MobileBottomNav currentPath="/" />
         <PremiumUpgradeCard />
 
+        {/* AI Chat Assistant */}
+        <AIChat
+          agentId="loconomy"
+          context={{
+            currentPage: "home",
+            userStats: stats,
+            isAuthenticated: false
+          }}
+          position="floating"
+          theme="brand"
+          autoOpen={false}
+          proactiveMessage={true}
+        />
+
         {/* Mobile Bottom Spacing */}
         <div className="h-20 md:h-0"></div>
 
