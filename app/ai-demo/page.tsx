@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import SmartRecommendations from "@/components/ai/smart-recommendations";
+import { SmartRecommendations } from "@/components/ai/smart-recommendations";
 import PriceOptimizer from "@/components/ai/price-optimizer";
 import AIChat from "@/components/ai/AIChat";
 import {
