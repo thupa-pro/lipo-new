@@ -272,9 +272,12 @@ const PremiumUpgradeCard = () => (
 export default function HomePage() {
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const stats = useRealTimeStats();
-  const { personalizedContent } = useAIPersonalization();
+  const { stats, isClient: statsClient } = useRealTimeStats();
+  const { personalizedContent, isClient: personalizationClient } = useAIPersonalization();
   const { isListening, startListening } = useVoiceInterface();
+
+  // Combined client flag
+  const isClient = statsClient && personalizationClient;
   
   const heroRef = useRef(null);
   const { scrollYProgress } = useScroll();
