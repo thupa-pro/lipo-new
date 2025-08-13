@@ -21,8 +21,8 @@ const features = [
     title: 'Advanced Marketplace',
     description: 'Real-time bidding, smart contracts, and dynamic pricing',
     icon: Zap,
-    color: 'bg-gradient-to-r from-blue-500 to-purple-500',
-    borderColor: 'border-blue-200',
+    color: 'bg-gradient-to-r from-purple-500 to-blue-500',
+    borderColor: 'border-purple-200',
     path: '/marketplace-demo',
     highlights: ['Real-time Bidding', 'Smart Contracts', 'Dynamic Pricing', 'Escrow System'],
     stats: '2.3M+ transactions'
