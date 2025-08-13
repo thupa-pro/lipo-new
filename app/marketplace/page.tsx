@@ -738,6 +738,20 @@ export default function MarketplacePage() {
           </div>
         </div>
       </section>
+
+      {/* AI Chat Assistant for Marketplace */}
+      <AIChat
+        agentId="market-ai"
+        context={{
+          currentPage: "marketplace",
+          features: "bidding, pricing, analytics",
+          userType: "marketplace-operator"
+        }}
+        position="floating"
+        theme="brand"
+        autoOpen={false}
+        proactiveMessage={false}
+      />
     </div>
   )
 }
