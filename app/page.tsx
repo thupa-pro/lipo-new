@@ -540,7 +540,7 @@ export default function HomePage() {
                       whileHover={{ scale: 1.02, y: -5 }}
                       className="group"
                     >
-                      <Card className={`${glassTheme.primary} border-white/20 dark:border-white/20 light:border-purple-200/40 overflow-hidden h-full hover:border-purple-400/50 dark:hover:border-purple-400/50 light:hover:border-purple-500/60 transition-all duration-500`}>
+                      <Card className={`${glassTheme.primary} border-slate-200/50 dark:border-white/20 overflow-hidden h-full hover:border-indigo-300/80 dark:hover:border-purple-400/50 transition-all duration-500`}>
                         <CardHeader className="relative pb-4">
                           <div className="flex items-start justify-between mb-4">
                             <div className="p-4 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-2xl">
