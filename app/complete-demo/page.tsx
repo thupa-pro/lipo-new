@@ -1,15 +1,18 @@
 "use client";
 
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { 
-  Zap, Users, BarChart3, CreditCard, Calendar, 
+import {
+  Zap, Users, BarChart3, CreditCard, Calendar,
   Building, Globe, Trophy, CheckCircle, Star,
-  ArrowRight, Sparkles, Rocket, Crown
+  ArrowRight, Sparkles, Rocket, Crown, Brain,
+  MessageCircle, TrendingUp, Eye, Shield, Target,
+  Heart, Share2, Bell, Search, Filter, Play,
+  Pause, RotateCcw, ChevronRight, Award, Gem
 } from 'lucide-react';
 
 const features = [
