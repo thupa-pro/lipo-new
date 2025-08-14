@@ -9,7 +9,7 @@ import { useRef } from 'react';
 // Core UI Components
 import { IntelligentHeader } from '@/components/ui/intelligent-header';
 import { PWAProvider } from '@/components/ui/pwa-features';
-import { ModernFooter } from '@/components/modern-footer';
+import { ModernFooter } from '@/components/layout/modern-footer';
 import { CommandPaletteHint } from '@/components/ui/command-palette-hint';
 import { CommandPalette } from '@/components/ui/command-palette';
 import { FloatingFAB, MobileBottomNav } from '@/components/ui/floating-fab';
@@ -62,7 +62,7 @@ import {
 
 // Interactive components
 import { HomePageClient } from './components/home-page-client';
-import AIChat from '@/components/ai/AIChat';
+import AIChat from '@/components/features/ai/AIChat';
 
 // Enhanced stats with real-time simulation (client-only to prevent hydration issues)
 const useRealTimeStats = () => {
