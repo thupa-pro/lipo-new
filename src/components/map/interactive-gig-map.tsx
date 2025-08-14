@@ -32,6 +32,7 @@ import {
   Share2
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { LeafletMapWrapper } from './leaflet-map-wrapper';
 
 // Dynamic import for Leaflet and components (client-side only)
 const MapContainer = dynamic(() => import("react-leaflet").then(mod => mod.MapContainer), { ssr: false });
@@ -306,18 +307,15 @@ export function InteractiveGigMap({
     return R * c;
   };
 
-  const getMarkerIcon = (job: GigJob) => {
-    const urgencyColors = {
-      urgent: '#ef4444', // red
-      high: '#f97316',   // orange
-      medium: '#eab308', // yellow
-      low: '#10b981'     // green
+  const getMarkerIcon = useCallback((job: GigJob) => {
+    // This function is now handled by the LeafletMapWrapper component
+    // Return job data for marker creation
+    return {
+      urgency: job.urgency,
+      title: job.title,
+      provider: job.provider
     };
-
-    // Temporarily return null to fix webpack SSR issues with Leaflet
-    // TODO: Implement proper dynamic loading for Leaflet icons
-    return null;
-  };
+  }, []);
 
   const handleJobClick = useCallback((job: GigJob) => {
     setSelectedJob(job);
