@@ -613,24 +613,24 @@ export default function HomePage() {
           </section>
 
           {/* Futuristic Trust Section */}
-          <section className="py-20 px-4">
-            <div className="max-w-6xl mx-auto">
+          <section className="spacing-responsive-y">
+            <div className="responsive-container max-w-6xl mx-auto">
               <motion.div
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
-                className={`${glassTheme.accent} p-16 rounded-3xl text-center`}
+                className={`${glassTheme.accent} card-responsive text-center`}
               >
-                <Shield className="w-16 h-16 text-indigo-600 dark:text-purple-400 mx-auto mb-8" />
-                <h2 className="text-4xl font-bold text-slate-800 dark:text-white mb-6">
+                <Shield className="w-12 h-12 md:w-16 md:h-16 text-indigo-600 dark:text-purple-400 mx-auto mb-6 md:mb-8" />
+                <h2 className="fluid-text-3xl font-bold text-slate-800 dark:text-white mb-4 md:mb-6">
                   Quantum-Secured Trust Network
                 </h2>
-                <p className="text-xl text-slate-600 dark:text-gray-300 mb-12 max-w-3xl mx-auto">
+                <p className="fluid-text-lg text-slate-600 dark:text-gray-300 mb-8 md:mb-12 max-w-3xl mx-auto">
                   Every provider is verified through our AI-powered background screening, 
                   biometric authentication, and blockchain-secured reputation system.
                 </p>
                 
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div className="grid-responsive-2-3-4">
                   {[
                     { icon: Eye, label: 'AI Background Verification', desc: 'Quantum-level security checks' },
                     { icon: Shield, label: 'Blockchain Identity', desc: 'Immutable reputation scores' },
@@ -640,11 +640,11 @@ export default function HomePage() {
                     <motion.div
                       key={index}
                       whileHover={{ scale: 1.05 }}
-                      className="text-center"
+                      className="text-center hover-touch"
                     >
-                      <item.icon className="w-12 h-12 text-indigo-600 dark:text-purple-400 mx-auto mb-4" />
-                      <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-2">{item.label}</h3>
-                      <p className="text-sm text-slate-600 dark:text-gray-400">{item.desc}</p>
+                      <item.icon className="w-8 h-8 md:w-12 md:h-12 text-indigo-600 dark:text-purple-400 mx-auto mb-3 md:mb-4" />
+                      <h3 className="fluid-text-base font-bold text-slate-800 dark:text-white mb-2">{item.label}</h3>
+                      <p className="text-responsive-sm text-slate-600 dark:text-gray-400">{item.desc}</p>
                     </motion.div>
                   ))}
                 </div>
