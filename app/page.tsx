@@ -252,7 +252,7 @@ const PremiumUpgradeCard = () => (
     transition={{ delay: 2 }}
     className="fixed bottom-4 right-4 z-50 max-w-sm"
   >
-    <Card className="bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0 shadow-2xl">
+    <Card className="bg-gradient-to-r from-indigo-600 to-sky-500 text-white border-0 shadow-2xl">
       <CardContent className="p-4">
         <div className="flex items-center gap-3">
           <Crown className="w-6 h-6 text-yellow-300" />
@@ -298,14 +298,14 @@ export default function HomePage() {
         {/* Dynamic Background with Floating Elements */}
         <div className="absolute inset-0">
           {/* Animated Gradient Mesh */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(139,92,246,0.05),transparent)] dark:bg-[radial-gradient(ellipse_at_top,rgba(120,119,198,0.3),transparent)] animate-pulse"></div>
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(59,130,246,0.05),transparent)] dark:bg-[radial-gradient(ellipse_at_bottom_right,rgba(236,72,153,0.2),transparent)]"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(79,70,229,0.03),transparent)] dark:bg-[radial-gradient(ellipse_at_top,rgba(120,119,198,0.3),transparent)] animate-pulse"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(14,165,233,0.03),transparent)] dark:bg-[radial-gradient(ellipse_at_bottom_right,rgba(236,72,153,0.2),transparent)]"></div>
           
           {/* Floating Geometric Shapes */}
           {[...Array(20)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-2 h-2 bg-indigo-200/60 dark:bg-white/20 rounded-full"
+              className="absolute w-2 h-2 bg-indigo-200/40 dark:bg-white/20 rounded-full"
               animate={{
                 x: [0, Math.random() * 100 - 50],
                 y: [0, Math.random() * 100 - 50],
@@ -365,7 +365,7 @@ export default function HomePage() {
                 transition={{ duration: 0.8, delay: 0.2 }}
                 className="text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-tight"
               >
-                <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-sky-600 dark:from-blue-400 dark:via-purple-500 dark:to-pink-500 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-indigo-600 via-blue-600 to-sky-500 dark:from-blue-400 dark:via-purple-500 dark:to-pink-500 bg-clip-text text-transparent">
                   {personalizedContent.heroText.split(' ').slice(0, 3).join(' ')}
                 </span>
                 <br />
@@ -398,9 +398,9 @@ export default function HomePage() {
                   whileTap={{ scale: 0.95 }}
                 >
                   <Link href="/browse">
-                    <Button 
-                      size="lg" 
-                      className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-12 py-6 text-xl font-bold rounded-full shadow-2xl border-0 group"
+                    <Button
+                      size="lg"
+                      className="bg-gradient-to-r from-indigo-600 to-sky-500 hover:from-indigo-700 hover:to-sky-600 text-white px-12 py-6 text-xl font-bold rounded-full shadow-2xl border-0 group"
                     >
                       <Lightning className="w-6 h-6 mr-3 group-hover:animate-pulse" />
                       {personalizedContent.ctaText}
@@ -543,7 +543,7 @@ export default function HomePage() {
                       <Card className={`${glassTheme.primary} border-slate-200/50 dark:border-white/20 overflow-hidden h-full hover:border-indigo-300/80 dark:hover:border-purple-400/50 transition-all duration-500`}>
                         <CardHeader className="relative pb-4">
                           <div className="flex items-start justify-between mb-4">
-                            <div className="p-4 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-2xl">
+                            <div className="p-4 bg-gradient-to-r from-indigo-500/20 to-sky-500/20 rounded-2xl">
                               <IconComponent className="w-8 h-8 text-indigo-600 dark:text-purple-400" />
                             </div>
                             <Badge className={`${category.trend.startsWith('+') ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'} border-0`}>
@@ -587,7 +587,7 @@ export default function HomePage() {
 
                           {/* CTA */}
                           <Link href={`/category/${category.slug}`}>
-                            <Button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold group border-0">
+                            <Button className="w-full bg-gradient-to-r from-indigo-600 to-sky-500 hover:from-indigo-700 hover:to-sky-600 text-white font-semibold group border-0">
                               Explore {category.name}
                               <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                             </Button>
