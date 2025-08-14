@@ -17,8 +17,6 @@ import {
 import PerformanceClient from "@/components/performance/performance-client";
 import WebVitals from "@/components/performance/web-vitals";
 import PWAInstall from "@/components/pwa/pwa-install";
-import MinimalLayout from "./layout-minimal";
-
 const inter = Inter({ subsets: ["latin"] });
 
 // Use minimal layout temporarily to debug hydration
@@ -27,7 +25,20 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <MinimalLayout>{children}</MinimalLayout>;
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Loconomy - AI-Powered Local Services</title>
+      </head>
+      <body className={inter.className} suppressHydrationWarning>
+        <main id="main-content" className="min-h-screen">
+          {children}
+        </main>
+      </body>
+    </html>
+  );
 }
 
 export const metadata: Metadata = {
