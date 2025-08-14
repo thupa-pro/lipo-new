@@ -34,7 +34,7 @@ import {
   Layers,
   Lightbulb
 } from 'lucide-react'
-import { MobileAppShell } from '@/components/mobile/mobile-app-shell'
+import { MobileAppShell } from '@/components/features/mobile/mobile-app-shell'
 import Image from 'next/image'
 import Link from 'next/link'
 
