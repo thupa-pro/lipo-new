@@ -92,7 +92,7 @@ export default function UserManagementPage() {
       role: "provider",
       status: "pending",
       lastActive: "5 days ago",
-      avatar: getUserAvatar('user-1').url,
+      avatar: getUserAvatar('user-4').url,
     },
     {
       id: "user-5",
@@ -103,7 +103,7 @@ export default function UserManagementPage() {
       role: "admin",
       status: "active",
       lastActive: "Just now",
-      avatar: getUserAvatar('user-1').url,
+      avatar: getUserAvatar('user-5').url,
     },
     {
       id: "user-6",
@@ -114,7 +114,7 @@ export default function UserManagementPage() {
       role: "customer",
       status: "active",
       lastActive: "1 day ago",
-      avatar: getUserAvatar('user-1').url,
+      avatar: getUserAvatar('user-6').url,
     },
   ]
 
