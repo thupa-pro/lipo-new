@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -59,6 +59,23 @@ const aiFeatures = [
 ];
 
 export default function AIDemoPage() {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100 dark:from-slate-950 dark:via-blue-950 dark:to-purple-950 flex items-center justify-center">
+        <div className="animate-pulse text-center">
+          <div className="w-12 h-12 bg-purple-200 dark:bg-purple-800 rounded-full mx-auto mb-4"></div>
+          <p className="text-gray-600 dark:text-gray-400">Loading AI Demo...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100 dark:from-slate-950 dark:via-blue-950 dark:to-purple-950">
       {/* Hero Section */}
@@ -161,17 +178,19 @@ export default function AIDemoPage() {
             </p>
           </div>
 
-          <SmartRecommendations
-            userId="demo-user-123"
-            query="home cleaning service"
-            context={{
-              location: { lat: 40.7128, lng: -74.0060 },
-              urgency: "medium",
-              budget: { min: 50, max: 200 },
-              timeframe: "this week"
-            }}
-            onProviderSelect={(providerId) => console.log("Selected provider:", providerId)}
-          />
+          {isClient && (
+            <SmartRecommendations
+              userId="demo-user-123"
+              query="home cleaning service"
+              context={{
+                location: { lat: 40.7128, lng: -74.0060 },
+                urgency: "medium",
+                budget: { min: 50, max: 200 },
+                timeframe: "this week"
+              }}
+              onProviderSelect={(providerId) => console.log("Selected provider:", providerId)}
+            />
+          )}
         </div>
       </section>
 
@@ -189,11 +208,13 @@ export default function AIDemoPage() {
           </div>
 
           <div className="max-w-4xl mx-auto">
-            <PriceOptimizer
-              serviceType="House Cleaning"
-              location="New York, NY"
-              flexibility="medium"
-            />
+            {isClient && (
+              <PriceOptimizer
+                serviceType="House Cleaning"
+                location="New York, NY"
+                flexibility="medium"
+              />
+            )}
           </div>
         </div>
       </section>
@@ -307,14 +328,16 @@ export default function AIDemoPage() {
       </section>
 
       {/* AI Chat Assistant */}
-      <AIChat
-        agentId="maya"
-        context={{ currentPage: "ai-demo" }}
-        position="floating"
-        theme="brand"
-        autoOpen={false}
-        proactiveMessage={true}
-      />
+      {isClient && (
+        <AIChat
+          agentId="maya"
+          context={{ currentPage: "ai-demo" }}
+          position="floating"
+          theme="brand"
+          autoOpen={false}
+          proactiveMessage={true}
+        />
+      )}
     </div>
   );
 }
