@@ -8,7 +8,7 @@ import { EnhancedButton, IconButton } from "@/components/ui/enhanced-button";
 import { DashboardSkeleton, SkeletonLoader } from "@/components/ui/skeleton-loader";
 import { Badge } from "@/components/ui/badge";
 import { ModernNavigation } from "@/components/modern-navigation";
-import { ModernFooter } from "@/components/modern-footer";
+import { ModernFooter } from "@/components/layout/modern-footer";
 import {
   Calendar,
   DollarSign,
