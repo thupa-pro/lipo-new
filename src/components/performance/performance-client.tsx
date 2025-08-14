@@ -23,10 +23,16 @@ interface PerformanceMetrics {
 }
 
 export default function PerformanceClient() {
+  const [mounted, setMounted] = useState(false)
   const [metrics, setMetrics] = useState<PerformanceMetrics | null>(null)
   const [isOptimized, setIsOptimized] = useState(false)
 
   useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (!mounted) return;
     // Initialize performance monitoring
     const monitor = PerformanceMonitor.getInstance()
     monitor.startMonitoring()
