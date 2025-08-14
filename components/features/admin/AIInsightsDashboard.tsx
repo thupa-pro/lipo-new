@@ -6,11 +6,11 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { aiClient } from '@/lib/ai/gemini-client';
-import { GlassmorphicContainer } from '@/components/admin/design-system/glassmorphic-container';
-import { AICard } from '@/components/admin/design-system/ai-native-card';
-import { HolographicText } from '@/components/admin/design-system/holographic-text';
-import { NeuralLoading } from '@/components/admin/design-system/neural-loading';
-import { FuturisticMetrics } from '@/components/admin/design-system/futuristic-metrics';
+import { GlassmorphicContainer } from './design-system/glassmorphic-container';
+import { AICard } from './design-system/ai-native-card';
+import { HolographicText } from './design-system/holographic-text';
+import { NeuralLoading } from './design-system/neural-loading';
+import { FuturisticMetrics } from './design-system/futuristic-metrics';
 import {
   TrendingUp,
   TrendingDown,
@@ -262,7 +262,7 @@ export default function AIInsightsDashboard({ platformData }: { platformData: an
               <p className="text-gray-600/80 mt-2 font-medium">Real-time insights and predictive analytics powered by advanced AI</p>
               <div className="flex items-center gap-2 mt-3">
                 <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                <span className="text-xs font-medium text-green-600">Neural Networks Online • Quantum Processing Active</span>
+                <span className="text-xs font-medium text-green-600">Neural Networks Online ��� Quantum Processing Active</span>
               </div>
             </div>
             <Button 
