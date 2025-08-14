@@ -131,7 +131,7 @@ export default function CareersPage() {
                     <Badge variant="outline" className="mt-2 md:mt-0">{job.location}</Badge>
                   </div>
                   <p className="text-muted-foreground mb-4">{job.description}</p>
-                  <Button variant="outline" onClick={() => toast({ title: "Apply Now", description: `Applying for ${job.title}... (Simulated)`, variant: "default" })}>
+                  <Button variant="outline" onClick={() => toast({ title: "Apply Now", description: `Redirecting to application for ${job.title}...`, variant: "default" })}>
                     Apply Now
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
