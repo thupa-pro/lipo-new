@@ -36,18 +36,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [userProfile, setUserProfile] = useState<any | null>(null)
   const [loading, setLoading] = useState(true)
 
-  // Get Supabase configuration status
+  // Get Supabase client - this will return mock client if not configured
   const supabase = createSupabaseClient()
-
-  // Always try to create client but handle gracefully if not configured
-  const initializeAuth = async () => {
-    try {
-      supabase = createSupabaseClient()
-    } catch (error) {
-      console.warn('Failed to create Supabase client:', error)
-      supabase = null
-    }
-  }
 
   const fetchUserProfile = async (userId: string) => {
     if (!supabase) return null
@@ -82,11 +72,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   useEffect(() => {
-    // If Supabase is not configured, set loading to false and return
-    if (!supabase) {
-      setLoading(false)
-      return
-    }
 
     // Get initial session
     const getSession = async () => {
@@ -138,13 +123,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [supabase])
 
   const signOut = async () => {
-    if (!supabase) {
-      // Clear local state even if Supabase is not configured
-      setUser(null)
-      setSession(null)
-      setUserProfile(null)
-      return
-    }
 
     try {
       const { error } = await supabase.auth.signOut()
