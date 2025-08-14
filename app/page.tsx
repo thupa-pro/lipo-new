@@ -493,9 +493,11 @@ export default function HomePage() {
                   </p>
                 </div>
                 
-                <div className="h-96 bg-white/10 rounded-2xl flex items-center justify-center">
-                  <p className="text-white">Search functionality temporarily disabled</p>
-                </div>
+                <Suspense fallback={
+                  <div className="h-96 animate-pulse bg-white/10 rounded-2xl"></div>
+                }>
+                  <HomePageClient />
+                </Suspense>
               </motion.div>
             </div>
           </section>
@@ -651,7 +653,21 @@ export default function HomePage() {
         <MobileBottomNav currentPath="/" />
         <PremiumUpgradeCard />
 
-        {/* AI Chat Assistant - Temporarily disabled */}
+        {/* AI Chat Assistant */}
+        {isClient && (
+          <AIChat
+            agentId="loconomy"
+            context={{
+              currentPage: "home",
+              userStats: stats,
+              isAuthenticated: false
+            }}
+            position="floating"
+            theme="brand"
+            autoOpen={false}
+            proactiveMessage={true}
+          />
+        )}
 
         {/* Mobile Bottom Spacing */}
         <div className="h-20 md:h-0"></div>
