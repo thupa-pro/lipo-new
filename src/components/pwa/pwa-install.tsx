@@ -57,12 +57,19 @@ export default function PWAInstall() {
   const [showInstallCard, setShowInstallCard] = useState(false)
 
   useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (!mounted) return
     checkPWACapabilities()
     setupEventListeners()
     checkInstallationStatus()
-  }, [])
+  }, [mounted])
 
   const checkPWACapabilities = () => {
+    if (typeof window === 'undefined' || typeof navigator === 'undefined') return
+
     const caps: PWACapabilities = {
       installable: 'serviceWorker' in navigator,
       standalone: window.matchMedia('(display-mode: standalone)').matches,
