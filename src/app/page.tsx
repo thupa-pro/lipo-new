@@ -443,7 +443,7 @@ export default function HomePage() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.8 }}
-                className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto"
+                className="grid-responsive-2-3-4 max-w-4xl mx-auto px-4"
               >
                 {[
                   {
@@ -474,7 +474,7 @@ export default function HomePage() {
                   <motion.div
                     key={index}
                     whileHover={{ scale: 1.05 }}
-                    className={`${glassTheme.secondary} p-6 rounded-2xl text-center`}
+                    className={`${glassTheme.secondary} card-responsive text-center hover-touch`}
                   >
                     <stat.icon className={`w-8 h-8 ${stat.color} mx-auto mb-3`} />
                     <div className="text-2xl font-bold text-slate-800 dark:text-white mb-1">{stat.value}</div>
@@ -486,20 +486,20 @@ export default function HomePage() {
           </motion.section>
 
           {/* Enhanced Search Section */}
-          <section className="py-20 px-4">
-            <div className="max-w-6xl mx-auto">
+          <section className="spacing-responsive-y">
+            <div className="responsive-container max-w-6xl mx-auto">
               <motion.div
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
-                className={`${glassTheme.primary} p-12 rounded-3xl shadow-2xl`}
+                className={`${glassTheme.primary} card-responsive shadow-responsive`}
               >
-                <div className="text-center mb-8">
-                  <h2 className="text-4xl font-bold text-slate-800 dark:text-white mb-4">
+                <div className="text-center mb-6 md:mb-8">
+                  <h2 className="fluid-text-3xl font-bold text-slate-800 dark:text-white mb-3 md:mb-4">
                     AI-Powered Service Discovery
                   </h2>
-                  <p className="text-xl text-slate-600 dark:text-gray-300">
+                  <p className="fluid-text-lg text-slate-600 dark:text-gray-300">
                     Describe what you need in natural language, our AI does the rest
                   </p>
                 </div>
