@@ -1,4 +1,4 @@
-import { formatDistanceToNow, subDays, subHours, startOfDay } from 'date-fns';
+import { subDays } from 'date-fns';
 
 // Real analytics data structure
 export interface AnalyticsData {
