@@ -314,32 +314,9 @@ export function InteractiveGigMap({
       low: '#10b981'     // green
     };
 
-    return L.divIcon({
-      className: 'custom-marker',
-      html: `
-        <div style="
-          background-color: ${urgencyColors[job.urgency]};
-          border: 3px solid white;
-          border-radius: 50%;
-          width: 24px;
-          height: 24px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-          cursor: pointer;
-        ">
-          <div style="
-            background-color: white;
-            border-radius: 50%;
-            width: 12px;
-            height: 12px;
-          "></div>
-        </div>
-      `,
-      iconSize: [24, 24],
-      iconAnchor: [12, 12],
-    });
+    // Temporarily return null to fix webpack SSR issues with Leaflet
+    // TODO: Implement proper dynamic loading for Leaflet icons
+    return null;
   };
 
   const handleJobClick = useCallback((job: GigJob) => {
