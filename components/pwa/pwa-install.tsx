@@ -250,9 +250,9 @@ export default function PWAInstall() {
   if (!showInstallCard) return null
 
   return (
-    <Card className="border-blue-200 bg-gradient-to-br from-blue-50 to-purple-50 shadow-lg">
+    <Card className="border-indigo-200 bg-gradient-to-br from-indigo-50 to-sky-50 shadow-lg">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-blue-700">
+        <CardTitle className="flex items-center gap-2 text-indigo-700">
           <Download className="w-5 h-5" />
           Install Loconomy App
         </CardTitle>
@@ -276,7 +276,7 @@ export default function PWAInstall() {
             <h4 className="font-medium text-sm text-gray-700">✨ Premium Features</h4>
             <div className="space-y-2 text-sm">
               <div className="flex items-center gap-2">
-                <WifiOff className="w-4 h-4 text-blue-600" />
+                <WifiOff className="w-4 h-4 text-indigo-600" />
                 <span>Works offline</span>
               </div>
               <div className="flex items-center gap-2">
@@ -321,7 +321,7 @@ export default function PWAInstall() {
           <Button 
             onClick={handleInstall}
             disabled={!installPrompt || installProgress > 0}
-            className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+            className="flex-1 bg-gradient-to-r from-indigo-600 to-sky-500 hover:from-indigo-700 hover:to-sky-600"
           >
             <Download className="w-4 h-4 mr-2" />
             {installProgress > 0 ? 'Installing...' : 'Install App'}
