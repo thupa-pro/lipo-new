@@ -58,6 +58,7 @@ export function useNetworkStatus() {
 }
 
 export function NetworkProvider({ children }: { children: React.ReactNode }) {
+  const [mounted, setMounted] = useState(false);
   const [status, setStatus] = useState<NetworkStatus>({
     isOnline: true,
     connectionType: 'unknown',
@@ -66,7 +67,7 @@ export function NetworkProvider({ children }: { children: React.ReactNode }) {
     rtt: 0,
     saveData: false,
   });
-  
+
   const [errors, setErrors] = useState<NetworkError[]>([]);
 
   const addError = useCallback((error: Omit<NetworkError, 'id' | 'timestamp'>) => {
@@ -95,7 +96,11 @@ export function NetworkProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted || typeof window === 'undefined') return;
 
     const updateNetworkStatus = () => {
       const connection = (navigator as any).connection || 
