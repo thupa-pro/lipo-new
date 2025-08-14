@@ -24,6 +24,7 @@ interface CommandPaletteProviderProps {
 }
 
 export function CommandPaletteProvider({ children }: CommandPaletteProviderProps) {
+  const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
   const openCommandPalette = () => setIsOpen(true);
@@ -31,6 +32,12 @@ export function CommandPaletteProvider({ children }: CommandPaletteProviderProps
   const toggleCommandPalette = () => setIsOpen(prev => !prev);
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted || typeof document === 'undefined') return;
+
     const handleKeyDown = (event: KeyboardEvent) => {
       // Cmd+K or Ctrl+K to open command palette
       if ((event.metaKey || event.ctrlKey) && event.key === 'k') {
