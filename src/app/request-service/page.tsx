@@ -40,8 +40,8 @@ import {
   FileImage,
 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
-import { PriceOptimizer } from "@/components/ai/price-optimizer";
-import AIChat from "@/components/ai/AIChat";
+import { PriceOptimizer } from "@/components/features/ai/price-optimizer";
+import AIChat from "@/components/features/ai/AIChat";
 
 const serviceCategories = [
   { name: "House Cleaning", icon: "🏠", popular: true },
