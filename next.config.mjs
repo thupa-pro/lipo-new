@@ -9,6 +9,8 @@ const nextConfig = {
 
   // Allow cross-origin requests from preview domains
   allowedDevOrigins: [
+    'dependable-vibraphone.name',
+    'linear-cafe.com',
     '*.builder.io',
     '*.vercel.app',
     '*.netlify.app',

@@ -36,18 +36,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [userProfile, setUserProfile] = useState<any | null>(null)
   const [loading, setLoading] = useState(true)
 
-  // Check if Supabase environment variables are configured
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-  const isSupabaseConfigured = supabaseUrl && supabaseAnonKey &&
-    !supabaseUrl.includes('your-project-ref') &&
-    !supabaseAnonKey.includes('your-anon-key') &&
-    !supabaseUrl.includes('placeholder') &&
-    !supabaseAnonKey.includes('placeholder')
+  // Get Supabase configuration status
+  const supabase = createSupabaseClient()
 
-  let supabase = null
-
-  if (isSupabaseConfigured) {
+  // Always try to create client but handle gracefully if not configured
+  const initializeAuth = async () => {
     try {
       supabase = createSupabaseClient()
     } catch (error) {
