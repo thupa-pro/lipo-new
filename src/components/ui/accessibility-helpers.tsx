@@ -55,8 +55,8 @@ export function AccessibilityProvider({ children }: { children: ReactNode }) {
 
   // Detect user preferences on mount
   useEffect(() => {
-    // SSR safety guard
-    if (typeof window === 'undefined') return;
+    // SSR and mounting safety guard
+    if (!mounted || typeof window === 'undefined') return;
 
     // Check for reduced motion preference
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
