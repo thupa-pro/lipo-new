@@ -229,7 +229,7 @@ export const viewport: Viewport = {
   ],
 };
 
-export function RootLayout_BACKUP({
+function RootLayout_BACKUP({
   children,
 }: {
   children: React.ReactNode;
