@@ -58,7 +58,7 @@ export default function UserManagementPage() {
       role: "customer",
       status: "active",
       lastActive: "2 hours ago",
-      avatar: "/placeholder.svg?height=40&width=40",
+      avatar: getUserAvatar('user-1').url,
     },
     {
       id: "user-2",
@@ -69,7 +69,7 @@ export default function UserManagementPage() {
       role: "provider",
       status: "active",
       lastActive: "15 minutes ago",
-      avatar: "/placeholder.svg?height=40&width=40",
+      avatar: getUserAvatar('user-1').url,
     },
     {
       id: "user-3",
@@ -80,7 +80,7 @@ export default function UserManagementPage() {
       role: "customer",
       status: "suspended",
       lastActive: "3 days ago",
-      avatar: "/placeholder.svg?height=40&width=40",
+      avatar: getUserAvatar('user-1').url,
     },
     {
       id: "user-4",
@@ -91,7 +91,7 @@ export default function UserManagementPage() {
       role: "provider",
       status: "pending",
       lastActive: "5 days ago",
-      avatar: "/placeholder.svg?height=40&width=40",
+      avatar: getUserAvatar('user-1').url,
     },
     {
       id: "user-5",
@@ -102,7 +102,7 @@ export default function UserManagementPage() {
       role: "admin",
       status: "active",
       lastActive: "Just now",
-      avatar: "/placeholder.svg?height=40&width=40",
+      avatar: getUserAvatar('user-1').url,
     },
     {
       id: "user-6",
@@ -113,7 +113,7 @@ export default function UserManagementPage() {
       role: "customer",
       status: "active",
       lastActive: "1 day ago",
-      avatar: "/placeholder.svg?height=40&width=40",
+      avatar: getUserAvatar('user-1').url,
     },
   ]
 
