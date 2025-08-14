@@ -87,7 +87,7 @@ export default function PressMediaPage() {
                   <h3 className="text-xl font-semibold mb-2">{release.title}</h3>
                   <p className="text-muted-foreground text-sm mb-3">{release.date}</p>
                   <p className="text-muted-foreground mb-4">{release.summary}</p>
-                  <Button variant="outline" onClick={() => toast({ title: "Read More", description: `Opening press release: ${release.title}... (Simulated)`, variant: "default" })}>
+                  <Button variant="outline" onClick={() => toast({ title: "Read More", description: `Opening press release: ${release.title}...`, variant: "default" })}>
                     Read More
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
@@ -115,7 +115,7 @@ export default function PressMediaPage() {
                   <p className="text-muted-foreground text-sm mb-3">
                     <span className="font-medium">{mention.source}</span> • {mention.date}
                   </p>
-                  <Button variant="outline" onClick={() => toast({ title: "View Article", description: `Opening article from ${mention.source}... (Simulated)`, variant: "default" })}>
+                  <Button variant="outline" onClick={() => toast({ title: "View Article", description: `Opening article from ${mention.source}...`, variant: "default" })}>
                     View Article
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
