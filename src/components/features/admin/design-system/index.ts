@@ -1,11 +1,6 @@
-// Ultra-modern AI-native design system exports
-export * from './ai-native-card'
-export * from './glassmorphic-container'
-export * from './neomorphic-button'
-export * from './ai-insight-widget'
-export * from './futuristic-metrics'
-export * from './neural-loading'
-export * from './adaptive-layout'
-export * from './intelligent-background'
-export * from './quantum-animation'
-export * from './holographic-text'
+// AI-native design system exports
+export * from './ai-native-card';
+export * from './glassmorphic-container';
+export * from './futuristic-metrics';
+export * from './neural-loading';
+export * from './holographic-text';
