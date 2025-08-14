@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { createSupabaseClient } from "@/lib/supabase/client";
+import { authService } from '@/lib/auth/auth-service';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -116,86 +116,48 @@ export function SignInForm({ redirectTo }: SignInFormProps) {
         return;
       }
 
-      // Check if Supabase is configured
-      const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-      const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-      if (!supabaseUrl || !supabaseAnonKey ||
-          supabaseUrl.includes('placeholder') ||
-          supabaseAnonKey.includes('placeholder')) {
-        
-        // Simulate successful login for demo purposes
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        
-        toast({
-          title: "Demo Mode",
-          description: "Authentication simulated successfully! Redirecting...",
-          variant: "default",
-        });
-
-        // Store device trust
-        const currentDevice = navigator.userAgent + screen.width + screen.height;
-        localStorage.setItem('loconomy_device_id', currentDevice);
-
-        // Redirect
-        setTimeout(() => {
-          router.push(redirectTo || "/dashboard");
-        }, 1000);
-        
-        setIsLoading(false);
-        return;
-      }
-
-      const supabase = createSupabaseClient();
-
-      const { data, error } = await supabase.auth.signInWithPassword({
+      // Use real authentication service
+      const response = await authService.signIn({
         email: email.trim(),
         password: password,
+        rememberMe: rememberMe
       });
 
-      if (error) {
-        console.error("Sign in error:", error);
-        setAttemptCount(prev => prev + 1);
-        
-        let errorMessage = "An unexpected error occurred. Please try again.";
-        
-        if (error.message === "Invalid login credentials") {
-          errorMessage = "Invalid email or password. Please check your credentials and try again.";
-        } else if (error.message === "Email not confirmed") {
-          errorMessage = "Please verify your email address before signing in.";
-        } else if (error.message === "Too many requests") {
-          errorMessage = "Too many login attempts. Please wait a moment and try again.";
-        } else {
-          errorMessage = error.message;
-        }
-
-        toast({
-          title: "Sign In Failed",
-          description: errorMessage,
-          variant: "destructive",
-        });
-        setIsLoading(false);
-        return;
-      }
-
-      if (data.user) {
+      if (response.success && response.user) {
         // Store device trust
         const currentDevice = navigator.userAgent + screen.width + screen.height;
         localStorage.setItem('loconomy_device_id', currentDevice);
 
         toast({
           title: "Welcome back!",
-          description: "You have been signed in successfully.",
+          description: response.message || "You have been signed in successfully.",
         });
 
-        // Redirect to intended page or dashboard
-        router.push(redirectTo || "/dashboard");
+        // Redirect based on user role
+        let redirectPath = redirectTo || "/dashboard";
+        if (response.user.role === 'admin') {
+          redirectPath = "/admin";
+        } else if (response.user.role === 'provider') {
+          redirectPath = "/dashboard";
+        } else {
+          redirectPath = "/";
+        }
+
+        router.push(redirectPath);
         router.refresh(); // Refresh to update auth state
+      } else {
+        setAttemptCount(prev => prev + 1);
+
+        toast({
+          title: "Sign In Failed",
+          description: response.error || "Please check your credentials and try again.",
+          variant: "destructive",
+        });
       }
     } catch (err: any) {
       console.error("Unexpected sign in error:", err);
       setAttemptCount(prev => prev + 1);
-      
+
       toast({
         title: "Sign In Failed",
         description: "An unexpected error occurred. Please try again.",
