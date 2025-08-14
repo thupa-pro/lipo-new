@@ -206,7 +206,7 @@ export function InteractiveGigMap({
     sortBy: 'distance'
   });
 
-  const mapRef = useRef<L.Map>(null);
+  const mapRef = useRef<any>(null);
 
   // Get user location on mount
   useEffect(() => {
