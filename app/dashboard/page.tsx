@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useAuth } from "@/components/auth/auth-provider";
-import { ProtectedRoute } from "@/components/auth/protected-route";
+import { useAuth } from "@/components/features/auth-provider";
+import { ProtectedRoute } from "@/components/features/protected-route";
 import { EnhancedCard, EnhancedCardContent, EnhancedCardDescription, EnhancedCardHeader, EnhancedCardTitle } from "@/components/ui/enhanced-card";
 import { EnhancedButton, IconButton } from "@/components/ui/enhanced-button";
 import { DashboardSkeleton, SkeletonLoader } from "@/components/ui/skeleton-loader";
