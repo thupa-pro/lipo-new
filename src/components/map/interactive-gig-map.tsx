@@ -1,5 +1,9 @@
 "use client";
 
+// NOTE: This component has been superseded by InteractiveGigMapV2
+// which includes proper Leaflet SSR handling and better performance.
+// Use InteractiveGigMapV2 for new implementations.
+
 import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import dynamic from "next/dynamic";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
