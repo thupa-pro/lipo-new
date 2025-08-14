@@ -32,9 +32,8 @@ import {
   Share2
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import L from "leaflet";
 
-// Dynamic import for Leaflet components (client-side only)
+// Dynamic import for Leaflet and components (client-side only)
 const MapContainer = dynamic(() => import("react-leaflet").then(mod => mod.MapContainer), { ssr: false });
 const TileLayer = dynamic(() => import("react-leaflet").then(mod => mod.TileLayer), { ssr: false });
 const Marker = dynamic(() => import("react-leaflet").then(mod => mod.Marker), { ssr: false });
