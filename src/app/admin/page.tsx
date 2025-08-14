@@ -23,11 +23,11 @@ import {
   FuturisticMetrics,
   NeuralLoading,
   HolographicText
-} from "@/components/admin/design-system";
+} from "@/components/features/admin/design-system";
 
-import { RevenueAcceleratorDashboard } from "@/components/admin/revenue-accelerators";
-import AIAssistant from "@/components/admin/AIAssistant";
-import AIInsightsDashboard from "@/components/admin/AIInsightsDashboard";
+import { RevenueAcceleratorDashboard } from "@/components/features/admin/revenue-accelerators";
+import AIAssistant from "@/components/features/admin/AIAssistant";
+import AIInsightsDashboard from "@/components/features/admin/AIInsightsDashboard";
 import AIMonitoringHub from "@/components/admin/AIMonitoringHub";
 
 import {
