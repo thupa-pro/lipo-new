@@ -6,10 +6,10 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { AI_AGENTS, aiClient, type AIAgent } from '@/lib/ai/gemini-client';
-import { GlassmorphicContainer } from '@/components/admin/design-system/glassmorphic-container';
-import { AICard } from '@/components/admin/design-system/ai-native-card';
-import { HolographicText } from '@/components/admin/design-system/holographic-text';
-import { NeuralLoading } from '@/components/admin/design-system/neural-loading';
+import { GlassmorphicContainer } from './design-system/glassmorphic-container';
+import { AICard } from './design-system/ai-native-card';
+import { HolographicText } from './design-system/holographic-text';
+import { NeuralLoading } from './design-system/neural-loading';
 import { Send, Zap, Eye, MessageCircle, Lightbulb, AlertTriangle, TrendingUp, Shield, Sparkles, Brain, Network } from 'lucide-react';
 
 interface Message {
