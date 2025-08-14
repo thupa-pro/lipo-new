@@ -17,8 +17,18 @@ import {
 import PerformanceClient from "@/components/performance/performance-client";
 import WebVitals from "@/components/performance/web-vitals";
 import PWAInstall from "@/components/pwa/pwa-install";
+import MinimalLayout from "./layout-minimal";
 
 const inter = Inter({ subsets: ["latin"] });
+
+// Use minimal layout temporarily to debug hydration
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return <MinimalLayout>{children}</MinimalLayout>;
+}
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'),
@@ -107,7 +117,7 @@ export const viewport: Viewport = {
   ],
 };
 
-export default function RootLayout({
+export default function RootLayout_BACKUP({
   children,
 }: {
   children: React.ReactNode;
