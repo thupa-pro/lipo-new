@@ -38,6 +38,7 @@ interface AccessibilityContextType {
 const AccessibilityContext = createContext<AccessibilityContextType | null>(null)
 
 export function AccessibilityProvider({ children }: { children: ReactNode }) {
+  const [mounted, setMounted] = useState(false)
   const [reducedMotion, setReducedMotion] = useState(false)
   const [highContrast, setHighContrast] = useState(false)
   const [fontSize, setFontSize] = useState<'small' | 'medium' | 'large' | 'extra-large'>('medium')
@@ -46,6 +47,11 @@ export function AccessibilityProvider({ children }: { children: ReactNode }) {
   const [colorBlindMode, setColorBlindMode] = useState<'none' | 'deuteranopia' | 'protanopia' | 'tritanopia'>('none')
   const [focusVisible, setFocusVisible] = useState(false)
   const [announcements, setAnnouncements] = useState<string[]>([])
+
+  // Set mounted state
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   // Detect user preferences on mount
   useEffect(() => {
