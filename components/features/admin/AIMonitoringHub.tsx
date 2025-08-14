@@ -5,11 +5,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { aiClient } from '@/lib/ai/gemini-client';
-import { GlassmorphicContainer } from '@/components/admin/design-system/glassmorphic-container';
-import { AICard } from '@/components/admin/design-system/ai-native-card';
-import { HolographicText } from '@/components/admin/design-system/holographic-text';
-import { NeuralLoading } from '@/components/admin/design-system/neural-loading';
-import { FuturisticMetrics } from '@/components/admin/design-system/futuristic-metrics';
+import { GlassmorphicContainer } from './design-system/glassmorphic-container';
+import { AICard } from './design-system/ai-native-card';
+import { HolographicText } from './design-system/holographic-text';
+import { NeuralLoading } from './design-system/neural-loading';
+import { FuturisticMetrics } from './design-system/futuristic-metrics';
 import {
   Monitor,
   Cpu,
