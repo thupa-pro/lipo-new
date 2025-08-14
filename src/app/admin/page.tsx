@@ -730,8 +730,8 @@ export default function AdminDashboard() {
                       </h3>
                       <AIAssistant
                         platformData={{
-                          totalUsers: mockData.stats.totalUsers,
-                          totalRevenue: mockData.stats.totalRevenue,
+                          totalUsers: 15847,
+                          totalRevenue: 892435,
                           systemHealth: 'Excellent',
                           recentActivity: [
                             { type: 'Growth', description: 'User engagement up 23%', priority: 'High' },
