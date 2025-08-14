@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { ModernNavigation } from "@/components/modern-navigation";
-import { ModernFooter } from "@/components/modern-footer";
+import { ModernFooter } from "@/components/layout/modern-footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";

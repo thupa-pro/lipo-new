@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ModernFooter } from "@/components/modern-footer";
+import { ModernFooter } from "@/components/layout/modern-footer";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { 
   CheckCircle, 

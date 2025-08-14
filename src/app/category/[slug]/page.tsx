@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { ModernFooter } from "@/components/modern-footer";
+import { ModernFooter } from "@/components/layout/modern-footer";
 import { CommandPaletteHint } from "@/components/ui/command-palette-hint";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import Link from "next/link";
