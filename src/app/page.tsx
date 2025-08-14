@@ -341,12 +341,12 @@ export default function HomePage() {
         {/* Main Content */}
         <main className="relative z-10">
           {/* Revolutionary Hero Section */}
-          <motion.section 
+          <motion.section
             ref={heroRef}
             style={{ y, opacity }}
-            className="min-h-screen flex items-center justify-center px-4 py-20"
+            className="min-h-screen flex items-center justify-center responsive-container safe-area-padding-top py-12 md:py-20"
           >
-            <div className="max-w-7xl mx-auto text-center">
+            <div className="w-full max-w-7xl mx-auto text-center">
               {/* AI Status Indicator */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -374,7 +374,7 @@ export default function HomePage() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-tight"
+                className="fluid-text-4xl font-black mb-6 md:mb-8 leading-tight"
               >
                 <span className="bg-gradient-to-r from-indigo-600 via-blue-600 to-sky-500 dark:from-blue-400 dark:via-purple-500 dark:to-pink-500 bg-clip-text text-transparent">
                   {personalizedContent.heroText.split(' ').slice(0, 3).join(' ')}
@@ -390,7 +390,7 @@ export default function HomePage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
-                className="text-xl md:text-2xl text-slate-600 dark:text-gray-300 max-w-4xl mx-auto mb-12 leading-relaxed"
+                className="fluid-text-lg text-slate-600 dark:text-gray-300 max-w-4xl mx-auto mb-8 md:mb-12 leading-relaxed px-4"
               >
                 Experience the future of service discovery with AI-powered matching, 
                 quantum-fast booking, and premium professionals in 200+ cities worldwide.
@@ -401,7 +401,7 @@ export default function HomePage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
-                className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16"
+                className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center mb-12 md:mb-16 px-4"
               >
                 {/* Primary CTA with Micro-interactions */}
                 <motion.div
@@ -411,7 +411,7 @@ export default function HomePage() {
                   <Link href="/browse">
                     <Button
                       size="lg"
-                      className="bg-gradient-to-r from-indigo-600 to-sky-500 hover:from-indigo-700 hover:to-sky-600 text-white px-12 py-6 text-xl font-bold rounded-full shadow-2xl border-0 group"
+                      className="bg-gradient-to-r from-indigo-600 to-sky-500 hover:from-indigo-700 hover:to-sky-600 text-white btn-responsive-lg shadow-2xl border-0 group w-full sm:w-auto touch-target-lg hover-touch"
                     >
                       <Lightning className="w-6 h-6 mr-3 group-hover:animate-pulse" />
                       {personalizedContent.ctaText}
@@ -425,11 +425,11 @@ export default function HomePage() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <Button 
+                  <Button
                     onClick={startListening}
-                    variant="outline" 
+                    variant="outline"
                     size="lg"
-                    className={`${glassTheme.primary} text-slate-700 dark:text-white border-slate-200/50 dark:border-white/30 px-8 py-6 text-lg font-semibold rounded-full group`}
+                    className={`${glassTheme.primary} text-slate-700 dark:text-white border-slate-200/50 dark:border-white/30 btn-responsive font-semibold group w-full sm:w-auto touch-target-lg hover-touch`}
                   >
                     <Mic className={`w-5 h-5 mr-2 ${isListening ? 'text-red-400 animate-pulse' : ''}`} />
                     Voice Search
