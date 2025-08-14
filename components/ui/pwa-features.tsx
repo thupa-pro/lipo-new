@@ -94,7 +94,7 @@ export function PWAInstallPrompt() {
   if (isInstalled || !showInstallPrompt) return null;
 
   return (
-    <Card className="fixed bottom-4 right-4 w-80 z-50 shadow-2xl border-0 bg-gradient-to-br from-purple-600 via-blue-600 to-cyan-600 text-white animate-in slide-in-from-bottom-full duration-500">
+    <Card className="fixed bottom-4 right-4 w-80 z-50 shadow-2xl border-0 bg-gradient-to-br from-indigo-600 via-blue-600 to-sky-500 text-white animate-in slide-in-from-bottom-full duration-500">
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -129,14 +129,14 @@ export function PWAInstallPrompt() {
             <p className="text-xs text-white/90">Secure</p>
           </div>
           <div className="space-y-1">
-            <WifiOff className="w-6 h-6 mx-auto text-blue-300" />
+            <WifiOff className="w-6 h-6 mx-auto text-sky-300" />
             <p className="text-xs text-white/90">Offline</p>
           </div>
         </div>
         <div className="flex gap-2">
           <Button 
             onClick={handleInstallClick}
-            className="flex-1 bg-white text-purple-600 hover:bg-white/90 font-semibold"
+            className="flex-1 bg-white text-indigo-600 hover:bg-white/90 font-semibold"
           >
             <Download className="w-4 h-4 mr-2" />
             Install App
@@ -375,7 +375,7 @@ export function PushNotificationManager() {
         <div className="flex gap-2">
           <Button 
             onClick={requestPermission}
-            className="flex-1 bg-white text-purple-600 hover:bg-white/90 font-semibold"
+            className="flex-1 bg-white text-indigo-600 hover:bg-white/90 font-semibold"
           >
             <Bell className="w-4 h-4 mr-2" />
             Enable Notifications
