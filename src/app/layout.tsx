@@ -128,7 +128,7 @@ export const viewport: Viewport = {
   ],
 };
 
-export default function RootLayout_BACKUP({
+export function RootLayout_BACKUP({
   children,
 }: {
   children: React.ReactNode;
