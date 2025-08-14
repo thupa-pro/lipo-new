@@ -269,8 +269,15 @@ const PremiumUpgradeCard = () => (
   </motion.div>
 );
 
+// Import minimal test version
+import MinimalHomePage from './page-minimal';
+
 // Main Homepage Component
 export default function HomePage() {
+  return <MinimalHomePage />;
+}
+
+export function HomePage_BACKUP() {
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const { stats, isClient: statsClient } = useRealTimeStats();
