@@ -10,10 +10,10 @@ import {
   userAIClient,
   type UserAIAgent,
 } from "@/lib/ai/user-ai-agents";
-import { GlassmorphicContainer } from "@/components/admin/design-system/glassmorphic-container";
-import { AICard } from "@/components/admin/design-system/ai-native-card";
-import { HolographicText } from "@/components/admin/design-system/holographic-text";
-import { NeuralLoading } from "@/components/admin/design-system/neural-loading";
+import { GlassmorphicContainer } from "@/components/features/admin/design-system/glassmorphic-container";
+import { AICard } from "@/components/features/admin/design-system/ai-native-card";
+import { HolographicText } from "@/components/features/admin/design-system/holographic-text";
+import { NeuralLoading } from "@/components/features/admin/design-system/neural-loading";
 import {
   MessageCircle,
   Send,
