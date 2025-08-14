@@ -314,11 +314,11 @@ export function MobileAppShell({ children, currentPath = '/' }: MobileAppShellPr
       {/* Install Banner */}
       {installPrompt && !isInstalled && (
         <div className="fixed top-32 left-4 right-4 z-40">
-          <Card className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950 border-blue-200 dark:border-blue-800">
+          <Card className="bg-gradient-to-r from-indigo-50 to-sky-50 dark:from-indigo-950 dark:to-sky-950 border-indigo-200 dark:border-indigo-800">
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-blue-500 rounded-lg">
+                  <div className="p-2 bg-indigo-500 rounded-lg">
                     <Download className="h-5 w-5 text-white" />
                   </div>
                   <div>
