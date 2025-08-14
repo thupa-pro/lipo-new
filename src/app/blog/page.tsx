@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Search, Calendar, Tag, ArrowRight } from "lucide-react"
 import { useToast } from "@/components/ui/use-toast"
 import { useRouter } from "next/navigation"
+import { getBlogImage } from '@/lib/assets/image-service'
 
 export default function BlogPage() {
   const { toast } = useToast()
