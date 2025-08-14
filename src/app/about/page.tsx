@@ -11,7 +11,7 @@ import { EnhancedCard, EnhancedCardContent, EnhancedCardDescription, EnhancedCar
 import { EnhancedButton } from "@/components/ui/enhanced-button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { ModernFooter } from "@/components/modern-footer";
+import { ModernFooter } from "@/components/layout/modern-footer";
 
 import {
   MapPin,
