@@ -514,23 +514,23 @@ export default function HomePage() {
           </section>
 
           {/* Revolutionary Service Categories */}
-          <section className="py-20 px-4">
-            <div className="max-w-7xl mx-auto">
+          <section className="spacing-responsive-y">
+            <div className="responsive-container max-w-7xl mx-auto">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 className="text-center mb-16"
               >
-                <h2 className="text-5xl font-bold text-slate-800 dark:text-white mb-6">
+                <h2 className="fluid-text-4xl font-bold text-slate-800 dark:text-white mb-4 md:mb-6">
                   Next-Generation Services
                 </h2>
-                <p className="text-xl text-slate-600 dark:text-gray-300 max-w-3xl mx-auto">
+                <p className="fluid-text-lg text-slate-600 dark:text-gray-300 max-w-3xl mx-auto">
                   Explore AI-enhanced services that blend cutting-edge technology with human expertise
                 </p>
               </motion.div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid-responsive-1-2-3">
                 {categories.map((category, index) => {
                   const IconComponent = {
                     'home': HomeIcon,
@@ -551,7 +551,7 @@ export default function HomePage() {
                       whileHover={{ scale: 1.02, y: -5 }}
                       className="group"
                     >
-                      <Card className={`${glassTheme.primary} border-slate-200/50 dark:border-white/20 overflow-hidden h-full hover:border-indigo-300/80 dark:hover:border-purple-400/50 transition-all duration-500`}>
+                      <Card className={`${glassTheme.primary} border-slate-200/50 dark:border-white/20 overflow-hidden h-full hover:border-indigo-300/80 dark:hover:border-purple-400/50 transition-all duration-500 hover-touch`}>
                         <CardHeader className="relative pb-4">
                           <div className="flex items-start justify-between mb-4">
                             <div className="p-4 bg-gradient-to-r from-indigo-500/20 to-sky-500/20 rounded-2xl">
@@ -562,7 +562,7 @@ export default function HomePage() {
                             </Badge>
                           </div>
                           
-                          <CardTitle className="text-2xl font-bold text-slate-800 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-purple-400 transition-colors">
+                          <CardTitle className="fluid-text-xl font-bold text-slate-800 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-purple-400 transition-colors">
                             {category.name}
                           </CardTitle>
                           
@@ -598,7 +598,7 @@ export default function HomePage() {
 
                           {/* CTA */}
                           <Link href={`/category/${category.slug}`}>
-                            <Button className="w-full bg-gradient-to-r from-indigo-600 to-sky-500 hover:from-indigo-700 hover:to-sky-600 text-white font-semibold group border-0">
+                            <Button className="w-full bg-gradient-to-r from-indigo-600 to-sky-500 hover:from-indigo-700 hover:to-sky-600 text-white font-semibold group border-0 btn-responsive touch-target hover-touch">
                               Explore {category.name}
                               <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                             </Button>
