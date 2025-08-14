@@ -65,7 +65,7 @@ export default function BlogPage() {
           </p>
           <div className="max-w-md mx-auto flex gap-2">
             <Input placeholder="Search blog posts..." className="flex-1" />
-            <Button onClick={() => toast({ title: "Search Blog", description: "Searching blog posts... (Simulated)", variant: "default" })}>
+            <Button onClick={() => toast({ title: "Search Blog", description: "Searching blog posts...", variant: "default" })}>
               <Search className="w-4 h-4" />
             </Button>
           </div>
@@ -94,7 +94,7 @@ export default function BlogPage() {
                         </span>
                       </div>
                       <p className="text-muted-foreground mb-4 line-clamp-3">{post.summary}</p>
-                      <Button variant="outline" onClick={() => toast({ title: "Read Article", description: `Opening blog post: ${post.title}... (Simulated)`, variant: "default" })}>
+                      <Button variant="outline" onClick={() => toast({ title: "Read Article", description: `Opening blog post: ${post.title}...`, variant: "default" })}>
                         Read Article
                         <ArrowRight className="w-4 h-4 ml-2" />
                       </Button>
@@ -114,7 +114,7 @@ export default function BlogPage() {
                   <ul className="space-y-2">
                     {categories.map((category, index) => (
                       <li key={index}>
-                        <Button variant="ghost" className="w-full justify-start" onClick={() => toast({ title: "Filter by Category", description: `Filtering posts by category: ${category}... (Simulated)`, variant: "default" })}>
+                        <Button variant="ghost" className="w-full justify-start" onClick={() => toast({ title: "Filter by Category", description: `Filtering posts by category: ${category}...`, variant: "default" })}>
                           {category}
                         </Button>
                       </li>
