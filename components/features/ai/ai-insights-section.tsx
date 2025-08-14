@@ -2,10 +2,10 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { GlassmorphicContainer } from '@/components/admin/design-system/glassmorphic-container';
-import { AICard } from '@/components/admin/design-system/ai-native-card';
-import { HolographicText } from '@/components/admin/design-system/holographic-text';
-import { FuturisticMetrics } from '@/components/admin/design-system/futuristic-metrics';
+import { GlassmorphicContainer } from '@/components/features/admin/design-system/glassmorphic-container';
+import { AICard } from '@/components/features/admin/design-system/ai-native-card';
+import { HolographicText } from '@/components/features/admin/design-system/holographic-text';
+import { FuturisticMetrics } from '@/components/features/admin/design-system/futuristic-metrics';
 import {
   TrendingUp,
   Clock,
