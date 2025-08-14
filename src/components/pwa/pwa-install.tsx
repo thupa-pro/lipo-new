@@ -39,6 +39,7 @@ interface InstallPromptEvent extends Event {
 }
 
 export default function PWAInstall() {
+  const [mounted, setMounted] = useState(false)
   const [installPrompt, setInstallPrompt] = useState<InstallPromptEvent | null>(null)
   const [isInstalled, setIsInstalled] = useState(false)
   const [isOnline, setIsOnline] = useState(true)
