@@ -12,7 +12,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ModernFooter } from "@/components/layout/modern-footer";
 import { CommandPaletteHint } from "@/components/ui/command-palette-hint";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
-import { SmartRecommendations } from "@/components/ai/smart-recommendations";
+import { SmartRecommendations } from "@/components/features/ai/smart-recommendations";
 import AIChat from "@/components/ai/AIChat";
 import Link from "next/link";
 import { Star, Clock, CheckCircle, MapPin, Filter, Search, Heart, MessageCircle, ArrowRight, TrendingUp, Users, Brain, Sparkles } from 'lucide-react';
