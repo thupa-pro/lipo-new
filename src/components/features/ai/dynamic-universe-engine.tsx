@@ -1,30 +1,25 @@
 'use client';
 
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { 
-  Brain, 
-  Zap, 
-  Target, 
-  TrendingUp, 
-  Users, 
-  MessageSquare, 
+import {
+  Brain,
+  Zap,
+  Target,
+  TrendingUp,
+  Users,
   Star,
   Activity,
   Sparkles,
   Globe,
-  Network,
-  Bot,
   Eye,
   BarChart3,
   Lightbulb,
-  Rocket,
-  Shield,
-  Heart
+  Rocket
 } from 'lucide-react';
 
 interface UserBehavior {
