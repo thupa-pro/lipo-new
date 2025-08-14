@@ -19,7 +19,6 @@ import WebVitals from "@/components/performance/web-vitals";
 import PWAInstall from "@/components/pwa/pwa-install";
 const inter = Inter({ subsets: ["latin"] });
 
-// Use minimal layout temporarily to debug hydration
 export default function RootLayout({
   children,
 }: {
@@ -29,13 +28,115 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Loconomy - AI-Powered Local Services</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+        {/* PWA and App-like Meta Tags */}
+        <meta name="theme-color" content="#7C3AED" />
+        <meta name="theme-color" media="(prefers-color-scheme: light)" content="#7C3AED" />
+        <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0A0B1E" />
+
+        {/* iOS PWA Support */}
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="Loconomy" />
+
+        {/* Android PWA Support */}
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="application-name" content="Loconomy" />
+
+        {/* Windows PWA Support */}
+        <meta name="msapplication-TileColor" content="#7C3AED" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <meta name="msapplication-starturl" content="/" />
+
+        {/* App-like Features */}
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="format-detection" content="address=no" />
+        <meta name="format-detection" content="email=no" />
+
+        {/* Performance and Optimization */}
+        <meta name="referrer" content="origin-when-cross-origin" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="HandheldFriendly" content="true" />
+
+        {/* Icons and Manifest */}
+        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+        {/* Fonts */}
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+
+        {/* Color blind support SVG filters */}
+        <svg className="accessibility-filters" aria-hidden="true">
+          <defs>
+            <filter id="deuteranopia-filter">
+              <feColorMatrix values="0.625 0.375 0   0 0
+                                   0.7   0.3   0   0 0
+                                   0     0.3   0.7 0 0
+                                   0     0     0   1 0" />
+            </filter>
+            <filter id="protanopia-filter">
+              <feColorMatrix values="0.567 0.433 0     0 0
+                                   0.558 0.442 0     0 0
+                                   0     0.242 0.758 0 0
+                                   0     0     0     1 0" />
+            </filter>
+            <filter id="tritanopia-filter">
+              <feColorMatrix values="0.95  0.05  0     0 0
+                                   0     0.433 0.567 0 0
+                                   0     0.475 0.525 0 0
+                                   0     0     0     1 0" />
+            </filter>
+          </defs>
+        </svg>
       </head>
       <body className={inter.className} suppressHydrationWarning>
-        <main id="main-content" className="min-h-screen">
-          {children}
-        </main>
+        <AccessibilityProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+            suppressHydrationWarning
+          >
+            <NetworkProvider>
+              <AuthProvider>
+                <CommandPaletteProvider>
+                  {/* Skip Links for keyboard navigation */}
+                  <SkipLink href="#main-content">
+                    Skip to main content
+                  </SkipLink>
+                  <SkipLink href="#navigation">
+                    Skip to navigation
+                  </SkipLink>
+
+                  {/* Main application content */}
+                  <main id="main-content" className="min-h-screen">
+                    {children}
+                  </main>
+
+                  {/* Accessibility features */}
+                  <LiveRegion />
+                  <KeyboardNavigationIndicator />
+                  <AccessibilityToolbar />
+
+                  {/* Toast notifications */}
+                  <Toaster />
+
+                  {/* Performance optimization */}
+                  <PerformanceClient />
+                  <WebVitals />
+
+                  {/* PWA Installation */}
+                  <PWAInstall />
+                </CommandPaletteProvider>
+              </AuthProvider>
+            </NetworkProvider>
+          </ThemeProvider>
+        </AccessibilityProvider>
       </body>
     </html>
   );
