@@ -439,7 +439,9 @@ export function IntelligentHeader({
             >
               <item.icon className="w-3 h-3 xl:w-4 xl:h-4" />
               <span className="hidden xl:inline">{item.label}</span>
-              <span className="xl:hidden text-xs">{item.label.split(' ')[0]}</span>
+              <span className="xl:hidden text-xs">
+                {item.label.split(' ')[0]}
+              </span>
             </Link>
           ))}
         </nav>
@@ -652,7 +654,10 @@ export function IntelligentHeader({
                 <Menu className="w-5 h-5 text-gray-600 dark:text-gray-300" />
               </button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-72 sm:w-80 glass border-white/10 safe-area-padding">
+            <SheetContent
+              side="right"
+              className="w-72 sm:w-80 glass border-white/10 safe-area-padding"
+            >
               <div className="flex flex-col space-y-6 mt-8">
                 {user && (
                   <div className="flex items-center space-x-3 pb-6 border-b border-white/10">

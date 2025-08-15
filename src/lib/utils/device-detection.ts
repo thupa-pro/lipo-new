@@ -1,15 +1,15 @@
-'use client';
+'use client'
 
 export interface DeviceInfo {
-  isMobile: boolean;
-  isTablet: boolean;
-  isDesktop: boolean;
-  screenSize: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
-  userAgent: string;
+  isMobile: boolean
+  isTablet: boolean
+  isDesktop: boolean
+  screenSize: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'
+  userAgent: string
   viewport: {
-    width: number;
-    height: number;
-  };
+    width: number
+    height: number
+  }
 }
 
 export function getDeviceInfo(): DeviceInfo {
@@ -21,13 +21,13 @@ export function getDeviceInfo(): DeviceInfo {
       isDesktop: true,
       screenSize: 'lg',
       userAgent: '',
-      viewport: { width: 1024, height: 768 }
-    };
+      viewport: { width: 1024, height: 768 },
+    }
   }
 
-  const userAgent = navigator.userAgent.toLowerCase();
-  const width = window.innerWidth;
-  const height = window.innerHeight;
+  const userAgent = navigator.userAgent.toLowerCase()
+  const width = window.innerWidth
+  const height = window.innerHeight
 
   // Mobile detection patterns
   const mobilePatterns = [
@@ -38,8 +38,8 @@ export function getDeviceInfo(): DeviceInfo {
     /ipod/,
     /blackberry/,
     /windows phone/,
-    /mobile/
-  ];
+    /mobile/,
+  ]
 
   // Tablet detection patterns
   const tabletPatterns = [
@@ -48,30 +48,30 @@ export function getDeviceInfo(): DeviceInfo {
     /tablet/,
     /kindle/,
     /silk/,
-    /playbook/
-  ];
+    /playbook/,
+  ]
 
-  const isMobileUA = mobilePatterns.some(pattern => pattern.test(userAgent));
-  const isTabletUA = tabletPatterns.some(pattern => pattern.test(userAgent));
+  const isMobileUA = mobilePatterns.some((pattern) => pattern.test(userAgent))
+  const isTabletUA = tabletPatterns.some((pattern) => pattern.test(userAgent))
 
   // Screen size based detection
-  const isMobileScreen = width < 768;
-  const isTabletScreen = width >= 768 && width < 1024;
-  const isDesktopScreen = width >= 1024;
+  const isMobileScreen = width < 768
+  const isTabletScreen = width >= 768 && width < 1024
+  const isDesktopScreen = width >= 1024
 
   // Combine UA and screen size detection
-  const isMobile = isMobileUA || isMobileScreen;
-  const isTablet = (isTabletUA || isTabletScreen) && !isMobile;
-  const isDesktop = !isMobile && !isTablet;
+  const isMobile = isMobileUA || isMobileScreen
+  const isTablet = (isTabletUA || isTabletScreen) && !isMobile
+  const isDesktop = !isMobile && !isTablet
 
   // Determine screen size class
-  let screenSize: DeviceInfo['screenSize'] = 'lg';
-  if (width < 480) screenSize = 'xs';
-  else if (width < 640) screenSize = 'sm';
-  else if (width < 768) screenSize = 'md';
-  else if (width < 1024) screenSize = 'lg';
-  else if (width < 1280) screenSize = 'xl';
-  else screenSize = '2xl';
+  let screenSize: DeviceInfo['screenSize'] = 'lg'
+  if (width < 480) screenSize = 'xs'
+  else if (width < 640) screenSize = 'sm'
+  else if (width < 768) screenSize = 'md'
+  else if (width < 1024) screenSize = 'lg'
+  else if (width < 1280) screenSize = 'xl'
+  else screenSize = '2xl'
 
   return {
     isMobile,
@@ -79,8 +79,8 @@ export function getDeviceInfo(): DeviceInfo {
     isDesktop,
     screenSize,
     userAgent,
-    viewport: { width, height }
-  };
+    viewport: { width, height },
+  }
 }
 
 export function useDeviceDetection() {
@@ -92,38 +92,38 @@ export function useDeviceDetection() {
         isDesktop: true,
         screenSize: 'lg',
         userAgent: '',
-        viewport: { width: 1024, height: 768 }
-      };
+        viewport: { width: 1024, height: 768 },
+      }
     }
-    return getDeviceInfo();
-  });
+    return getDeviceInfo()
+  })
 
   React.useEffect(() => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined') return
 
     // Only update device info on mount, not on every resize to improve performance
-    setDeviceInfo(getDeviceInfo());
-  }, []);
+    setDeviceInfo(getDeviceInfo())
+  }, [])
 
-  return deviceInfo;
+  return deviceInfo
 }
 
 // React import for useDeviceDetection hook
-import React from 'react';
+import React from 'react'
 
 export function redirectToMobileIfNeeded() {
-  if (typeof window === 'undefined') return;
-  
-  const deviceInfo = getDeviceInfo();
-  const currentPath = window.location.pathname;
-  
+  if (typeof window === 'undefined') return
+
+  const deviceInfo = getDeviceInfo()
+  const currentPath = window.location.pathname
+
   // Only redirect if on mobile and not already on /mobile route
   if (deviceInfo.isMobile && !currentPath.startsWith('/mobile')) {
     // Preserve query parameters and hash
-    const search = window.location.search;
-    const hash = window.location.hash;
-    const newPath = `/mobile${currentPath === '/' ? '' : currentPath}${search}${hash}`;
-    
-    window.location.href = newPath;
+    const search = window.location.search
+    const hash = window.location.hash
+    const newPath = `/mobile${currentPath === '/' ? '' : currentPath}${search}${hash}`
+
+    window.location.href = newPath
   }
 }

@@ -1,13 +1,13 @@
-'use client';
+'use client'
 
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { useState, useEffect } from 'react'
+import Link from 'next/link'
+import { motion } from 'framer-motion'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { Input } from '@/components/ui/input'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
   Search,
   Filter,
@@ -23,24 +23,24 @@ import {
   Zap,
   CheckCircle,
   Users,
-  TrendingUp
-} from 'lucide-react';
+  TrendingUp,
+} from 'lucide-react'
 
-import { MobileBottomNav } from '@/components/ui/floating-fab';
+import { MobileBottomNav } from '@/components/ui/floating-fab'
 
 interface Provider {
-  id: string;
-  name: string;
-  category: string;
-  rating: number;
-  reviewCount: number;
-  distance: string;
-  price: string;
-  avatar: string;
-  isVerified: boolean;
-  isOnline: boolean;
-  responseTime: string;
-  completedJobs: number;
+  id: string
+  name: string
+  category: string
+  rating: number
+  reviewCount: number
+  distance: string
+  price: string
+  avatar: string
+  isVerified: boolean
+  isOnline: boolean
+  responseTime: string
+  completedJobs: number
 }
 
 const mockProviders: Provider[] = [
@@ -56,7 +56,7 @@ const mockProviders: Provider[] = [
     isVerified: true,
     isOnline: true,
     responseTime: '< 5 min',
-    completedJobs: 89
+    completedJobs: 89,
   },
   {
     id: '2',
@@ -70,7 +70,7 @@ const mockProviders: Provider[] = [
     isVerified: true,
     isOnline: false,
     responseTime: '< 15 min',
-    completedJobs: 156
+    completedJobs: 156,
   },
   {
     id: '3',
@@ -84,7 +84,7 @@ const mockProviders: Provider[] = [
     isVerified: true,
     isOnline: true,
     responseTime: '< 2 min',
-    completedJobs: 67
+    completedJobs: 67,
   },
   {
     id: '4',
@@ -98,33 +98,43 @@ const mockProviders: Provider[] = [
     isVerified: false,
     isOnline: true,
     responseTime: '< 10 min',
-    completedJobs: 201
-  }
-];
+    completedJobs: 201,
+  },
+]
 
 export default function MobileBrowsePage() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('list');
-  const [selectedCategory, setSelectedCategory] = useState('All');
-  const [showFilters, setShowFilters] = useState(false);
-  const [favorites, setFavorites] = useState<string[]>([]);
+  const [searchQuery, setSearchQuery] = useState('')
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('list')
+  const [selectedCategory, setSelectedCategory] = useState('All')
+  const [showFilters, setShowFilters] = useState(false)
+  const [favorites, setFavorites] = useState<string[]>([])
 
-  const categories = ['All', 'House Cleaning', 'Handyman', 'Pet Care', 'Tutoring', 'Beauty', 'Fitness'];
+  const categories = [
+    'All',
+    'House Cleaning',
+    'Handyman',
+    'Pet Care',
+    'Tutoring',
+    'Beauty',
+    'Fitness',
+  ]
 
   const toggleFavorite = (providerId: string) => {
-    setFavorites(prev => 
-      prev.includes(providerId) 
-        ? prev.filter(id => id !== providerId)
+    setFavorites((prev) =>
+      prev.includes(providerId)
+        ? prev.filter((id) => id !== providerId)
         : [...prev, providerId]
-    );
-  };
+    )
+  }
 
-  const filteredProviders = mockProviders.filter(provider => {
-    const matchesSearch = provider.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         provider.category.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = selectedCategory === 'All' || provider.category === selectedCategory;
-    return matchesSearch && matchesCategory;
-  });
+  const filteredProviders = mockProviders.filter((provider) => {
+    const matchesSearch =
+      provider.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      provider.category.toLowerCase().includes(searchQuery.toLowerCase())
+    const matchesCategory =
+      selectedCategory === 'All' || provider.category === selectedCategory
+    return matchesSearch && matchesCategory
+  })
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
@@ -165,7 +175,7 @@ export default function MobileBrowsePage() {
               <Button
                 key={category}
                 size="sm"
-                variant={selectedCategory === category ? "default" : "outline"}
+                variant={selectedCategory === category ? 'default' : 'outline'}
                 onClick={() => setSelectedCategory(category)}
                 className={`whitespace-nowrap rounded-full ${
                   selectedCategory === category
@@ -235,7 +245,11 @@ export default function MobileBrowsePage() {
 
       {/* Provider List */}
       <div className="px-4 pb-24">
-        <div className={viewMode === 'grid' ? 'grid grid-cols-2 gap-3' : 'space-y-3'}>
+        <div
+          className={
+            viewMode === 'grid' ? 'grid grid-cols-2 gap-3' : 'space-y-3'
+          }
+        >
           {filteredProviders.map((provider, index) => (
             <motion.div
               key={provider.id}
@@ -244,14 +258,26 @@ export default function MobileBrowsePage() {
               transition={{ delay: index * 0.1 }}
             >
               <Card className="bg-white/10 backdrop-blur-md border border-white/20 overflow-hidden">
-                <CardContent className={`p-3 ${viewMode === 'grid' ? 'text-center' : ''}`}>
-                  <div className={`flex ${viewMode === 'grid' ? 'flex-col items-center' : 'items-start gap-3'}`}>
+                <CardContent
+                  className={`p-3 ${viewMode === 'grid' ? 'text-center' : ''}`}
+                >
+                  <div
+                    className={`flex ${viewMode === 'grid' ? 'flex-col items-center' : 'items-start gap-3'}`}
+                  >
                     {/* Avatar */}
                     <div className="relative">
-                      <Avatar className={`${viewMode === 'grid' ? 'w-12 h-12 mb-2' : 'w-16 h-16'} border-2 border-white/40`}>
-                        <AvatarImage src={provider.avatar} alt={provider.name} />
+                      <Avatar
+                        className={`${viewMode === 'grid' ? 'w-12 h-12 mb-2' : 'w-16 h-16'} border-2 border-white/40`}
+                      >
+                        <AvatarImage
+                          src={provider.avatar}
+                          alt={provider.name}
+                        />
                         <AvatarFallback className="bg-gradient-to-r from-purple-500 to-pink-500 text-white">
-                          {provider.name.split(' ').map(n => n[0]).join('')}
+                          {provider.name
+                            .split(' ')
+                            .map((n) => n[0])
+                            .join('')}
                         </AvatarFallback>
                       </Avatar>
                       {provider.isOnline && (
@@ -265,26 +291,40 @@ export default function MobileBrowsePage() {
                     </div>
 
                     {/* Provider Info */}
-                    <div className={`flex-1 ${viewMode === 'grid' ? 'text-center' : ''}`}>
-                      <div className={`flex ${viewMode === 'grid' ? 'flex-col items-center' : 'justify-between items-start'} mb-1`}>
-                        <h3 className="font-semibold text-white text-sm">{provider.name}</h3>
+                    <div
+                      className={`flex-1 ${viewMode === 'grid' ? 'text-center' : ''}`}
+                    >
+                      <div
+                        className={`flex ${viewMode === 'grid' ? 'flex-col items-center' : 'justify-between items-start'} mb-1`}
+                      >
+                        <h3 className="font-semibold text-white text-sm">
+                          {provider.name}
+                        </h3>
                         <Button
                           size="sm"
                           variant="ghost"
                           onClick={() => toggleFavorite(provider.id)}
                           className="p-1 text-white hover:bg-white/20"
                         >
-                          <Heart className={`w-4 h-4 ${favorites.includes(provider.id) ? 'fill-red-500 text-red-500' : ''}`} />
+                          <Heart
+                            className={`w-4 h-4 ${favorites.includes(provider.id) ? 'fill-red-500 text-red-500' : ''}`}
+                          />
                         </Button>
                       </div>
 
-                      <p className="text-gray-300 text-xs mb-2">{provider.category}</p>
+                      <p className="text-gray-300 text-xs mb-2">
+                        {provider.category}
+                      </p>
 
-                      <div className={`flex ${viewMode === 'grid' ? 'flex-col gap-1' : 'justify-between items-center'} text-xs mb-2`}>
+                      <div
+                        className={`flex ${viewMode === 'grid' ? 'flex-col gap-1' : 'justify-between items-center'} text-xs mb-2`}
+                      >
                         <div className="flex items-center gap-1 text-yellow-400">
                           <Star className="w-3 h-3 fill-current" />
                           <span>{provider.rating}</span>
-                          <span className="text-gray-400">({provider.reviewCount})</span>
+                          <span className="text-gray-400">
+                            ({provider.reviewCount})
+                          </span>
                         </div>
                         <div className="flex items-center gap-1 text-gray-300">
                           <MapPin className="w-3 h-3" />
@@ -292,17 +332,30 @@ export default function MobileBrowsePage() {
                         </div>
                       </div>
 
-                      <div className={`flex ${viewMode === 'grid' ? 'flex-col gap-1' : 'justify-between items-center'} text-xs mb-3`}>
-                        <span className="text-white font-semibold">{provider.price}</span>
-                        <span className="text-green-400">{provider.responseTime}</span>
+                      <div
+                        className={`flex ${viewMode === 'grid' ? 'flex-col gap-1' : 'justify-between items-center'} text-xs mb-3`}
+                      >
+                        <span className="text-white font-semibold">
+                          {provider.price}
+                        </span>
+                        <span className="text-green-400">
+                          {provider.responseTime}
+                        </span>
                       </div>
 
                       <div className="flex gap-2">
-                        <Button size="sm" className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs h-8">
+                        <Button
+                          size="sm"
+                          className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs h-8"
+                        >
                           <MessageCircle className="w-3 h-3 mr-1" />
                           Message
                         </Button>
-                        <Button size="sm" variant="outline" className="border-white/40 text-white hover:bg-white/20 text-xs h-8">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="border-white/40 text-white hover:bg-white/20 text-xs h-8"
+                        >
                           View
                         </Button>
                       </div>
@@ -333,5 +386,5 @@ export default function MobileBrowsePage() {
         </Button>
       </motion.div>
     </div>
-  );
+  )
 }

@@ -1,24 +1,24 @@
-"use client";
+'use client'
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { Plus, Search, UserPlus, Sparkles, Zap, X } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { Plus, Search, UserPlus, Sparkles, Zap, X } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 interface FABAction {
-  id: string;
-  label: string;
-  icon: React.ComponentType<{ className?: string }>;
-  color: string;
-  action: () => void;
+  id: string
+  label: string
+  icon: React.ComponentType<{ className?: string }>
+  color: string
+  action: () => void
 }
 
 export function FloatingFAB() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
-  const [isClient, setIsClient] = useState(false);
-  const router = useRouter();
+  const [isOpen, setIsOpen] = useState(false)
+  const [isVisible, setIsVisible] = useState(true)
+  const [lastScrollY, setLastScrollY] = useState(0)
+  const [isClient, setIsClient] = useState(false)
+  const router = useRouter()
 
   const actions: FABAction[] = [
     {
@@ -49,75 +49,79 @@ export function FloatingFAB() {
       color: 'bg-fuchsia-500 hover:bg-fuchsia-600',
       action: () => {
         // Open AI assistant
-        console.log('AI Assistant coming soon!');
+        console.log('AI Assistant coming soon!')
       },
     },
-  ];
+  ]
 
   useEffect(() => {
-    setIsClient(true);
-  }, []);
+    setIsClient(true)
+  }, [])
 
   useEffect(() => {
-    if (!isClient || typeof window === 'undefined') return;
+    if (!isClient || typeof window === 'undefined') return
 
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
+      const currentScrollY = window.scrollY
 
       // Hide FAB when scrolling down, show when scrolling up
       if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        setIsVisible(false);
-        setIsOpen(false);
+        setIsVisible(false)
+        setIsOpen(false)
       } else {
-        setIsVisible(true);
+        setIsVisible(true)
       }
 
-      setLastScrollY(currentScrollY);
-    };
+      setLastScrollY(currentScrollY)
+    }
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [isClient, lastScrollY]);
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [isClient, lastScrollY])
 
   const handleActionClick = (action: FABAction) => {
-    action.action();
-    setIsOpen(false);
-  };
+    action.action()
+    setIsOpen(false)
+  }
 
   const toggleFAB = () => {
-    setIsOpen(!isOpen);
-  };
+    setIsOpen(!isOpen)
+  }
 
   return (
     <>
       {/* Backdrop */}
       {isOpen && (
-        <div 
+        <div
           className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm transition-all duration-300"
           onClick={() => setIsOpen(false)}
         />
       )}
 
       {/* FAB Container */}
-      <div className={cn(
-        "fixed bottom-4 md:bottom-6 right-4 md:right-6 z-50 flex flex-col items-end space-y-2 md:space-y-3 transition-all duration-500 ease-out safe-area-padding-bottom",
-        (isClient && isVisible) ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
-      )}>
+      <div
+        className={cn(
+          'fixed bottom-4 md:bottom-6 right-4 md:right-6 z-50 flex flex-col items-end space-y-2 md:space-y-3 transition-all duration-500 ease-out safe-area-padding-bottom',
+          isClient && isVisible
+            ? 'translate-y-0 opacity-100'
+            : 'translate-y-20 opacity-0'
+        )}
+      >
         {/* Action Buttons */}
         {actions.map((action, index) => {
-          const Icon = action.icon;
-          
+          const Icon = action.icon
+
           return (
             <div
               key={action.id}
               className={cn(
-                "flex items-center space-x-2 md:space-x-3 transition-all duration-300",
+                'flex items-center space-x-2 md:space-x-3 transition-all duration-300',
                 isOpen
-                  ? "translate-y-0 opacity-100 scale-100"
-                  : "translate-y-8 opacity-0 scale-95"
+                  ? 'translate-y-0 opacity-100 scale-100'
+                  : 'translate-y-8 opacity-0 scale-95'
               )}
               style={{
-                transitionDelay: isOpen ? `${index * 50}ms` : '0ms'
+                transitionDelay: isOpen ? `${index * 50}ms` : '0ms',
               }}
             >
               {/* Label */}
@@ -129,26 +133,26 @@ export function FloatingFAB() {
               <button
                 onClick={() => handleActionClick(action)}
                 className={cn(
-                  "w-10 h-10 md:w-12 md:h-12 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center touch-target hover-touch",
+                  'w-10 h-10 md:w-12 md:h-12 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center touch-target hover-touch',
                   action.color,
-                  "hover:scale-110 hover:shadow-xl active:scale-95"
+                  'hover:scale-110 hover:shadow-xl active:scale-95'
                 )}
               >
                 <Icon className="w-4 h-4 md:w-5 md:h-5 text-white" />
               </button>
             </div>
-          );
+          )
         })}
 
         {/* Main FAB */}
         <button
           onClick={toggleFAB}
           className={cn(
-            "w-12 h-12 md:w-14 md:h-14 bg-gradient-to-r from-purple-600 to-fuchsia-500 rounded-full shadow-xl",
-            "transition-all duration-300 flex items-center justify-center touch-target hover-touch",
-            "hover:scale-110 hover:shadow-2xl active:scale-95",
-            "border-2 border-white/10 backdrop-blur-xl",
-            isOpen && "rotate-45"
+            'w-12 h-12 md:w-14 md:h-14 bg-gradient-to-r from-purple-600 to-fuchsia-500 rounded-full shadow-xl',
+            'transition-all duration-300 flex items-center justify-center touch-target hover-touch',
+            'hover:scale-110 hover:shadow-2xl active:scale-95',
+            'border-2 border-white/10 backdrop-blur-xl',
+            isOpen && 'rotate-45'
           )}
         >
           {isOpen ? (
@@ -159,16 +163,16 @@ export function FloatingFAB() {
         </button>
       </div>
     </>
-  );
+  )
 }
 
 interface MobileBottomNavProps {
-  currentPath?: string;
+  currentPath?: string
 }
 
 export function MobileBottomNav({ currentPath = '/' }: MobileBottomNavProps) {
-  const router = useRouter();
-  
+  const router = useRouter()
+
   const navItems = [
     {
       id: 'home',
@@ -203,50 +207,58 @@ export function MobileBottomNav({ currentPath = '/' }: MobileBottomNavProps) {
       label: 'Profile',
       icon: ({ className }: { className?: string }) => (
         <svg className={className} fill="currentColor" viewBox="0 0 20 20">
-          <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+          <path
+            fillRule="evenodd"
+            d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+            clipRule="evenodd"
+          />
         </svg>
       ),
       path: '/profile',
     },
-  ];
+  ]
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden safe-area-padding-bottom">
       <div className="bg-gray-900/95 backdrop-blur-xl border-t border-gray-700/50">
         <div className="flex items-center justify-around py-1.5 md:py-2">
           {navItems.map((item) => {
-            const Icon = item.icon;
-            const isActive = currentPath === item.path;
-            
+            const Icon = item.icon
+            const isActive = currentPath === item.path
+
             return (
               <button
                 key={item.id}
                 onClick={() => router.push(item.path)}
                 className={cn(
-                  "flex flex-col items-center justify-center py-1.5 md:py-2 px-2 md:px-3 min-w-0 flex-1 touch-target hover-touch",
-                  "transition-all duration-200 font-ui",
+                  'flex flex-col items-center justify-center py-1.5 md:py-2 px-2 md:px-3 min-w-0 flex-1 touch-target hover-touch',
+                  'transition-all duration-200 font-ui',
                   isActive
-                    ? "text-purple-400"
-                    : "text-gray-400 hover:text-gray-200"
+                    ? 'text-purple-400'
+                    : 'text-gray-400 hover:text-gray-200'
                 )}
               >
-                <div className={cn(
-                  "p-0.5 md:p-1 rounded-lg transition-colors duration-200",
-                  isActive && "bg-purple-500/20"
-                )}>
+                <div
+                  className={cn(
+                    'p-0.5 md:p-1 rounded-lg transition-colors duration-200',
+                    isActive && 'bg-purple-500/20'
+                  )}
+                >
                   <Icon className="w-4 h-4 md:w-5 md:h-5" />
                 </div>
-                <span className={cn(
-                  "text-xs mt-0.5 md:mt-1 font-medium leading-tight",
-                  isActive && "text-purple-400"
-                )}>
+                <span
+                  className={cn(
+                    'text-xs mt-0.5 md:mt-1 font-medium leading-tight',
+                    isActive && 'text-purple-400'
+                  )}
+                >
                   {item.label}
                 </span>
               </button>
-            );
+            )
           })}
         </div>
       </div>
     </div>
-  );
+  )
 }

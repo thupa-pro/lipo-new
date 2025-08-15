@@ -1,57 +1,62 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { ResponsiveCard, ResponsiveCardContent, ResponsiveCardHeader, ResponsiveCardTitle } from "@/components/ui/responsive-card";
-import { ResponsiveButton } from "@/components/ui/responsive-button";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { Search, MapPin, Filter, X } from 'lucide-react';
+import { useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import {
+  ResponsiveCard,
+  ResponsiveCardContent,
+  ResponsiveCardHeader,
+  ResponsiveCardTitle,
+} from '@/components/ui/responsive-card'
+import { ResponsiveButton } from '@/components/ui/responsive-button'
+import { Input } from '@/components/ui/input'
+import { Badge } from '@/components/ui/badge'
+import { Search, MapPin, Filter, X } from 'lucide-react'
 
 interface BrowseFiltersProps {
   categories: Array<{
-    id: string;
-    name: string;
-    slug: string;
-  }>;
-  currentSearch: string;
-  currentLocation: string;
-  currentCategory: string;
+    id: string
+    name: string
+    slug: string
+  }>
+  currentSearch: string
+  currentLocation: string
+  currentCategory: string
 }
 
-export function BrowseFilters({ 
-  categories, 
-  currentSearch, 
-  currentLocation, 
-  currentCategory 
+export function BrowseFilters({
+  categories,
+  currentSearch,
+  currentLocation,
+  currentCategory,
 }: BrowseFiltersProps) {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  
-  const [searchQuery, setSearchQuery] = useState(currentSearch);
-  const [locationQuery, setLocationQuery] = useState(currentLocation);
-  const [selectedCategory, setSelectedCategory] = useState(currentCategory);
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 200]);
+  const router = useRouter()
+  const searchParams = useSearchParams()
+
+  const [searchQuery, setSearchQuery] = useState(currentSearch)
+  const [locationQuery, setLocationQuery] = useState(currentLocation)
+  const [selectedCategory, setSelectedCategory] = useState(currentCategory)
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 200])
 
   const applyFilters = () => {
-    const params = new URLSearchParams();
-    
-    if (searchQuery.trim()) params.set('q', searchQuery.trim());
-    if (locationQuery.trim()) params.set('location', locationQuery.trim());
-    if (selectedCategory) params.set('category', selectedCategory);
-    
-    router.push(`/browse${params.toString() ? `?${params.toString()}` : ''}`);
-  };
+    const params = new URLSearchParams()
+
+    if (searchQuery.trim()) params.set('q', searchQuery.trim())
+    if (locationQuery.trim()) params.set('location', locationQuery.trim())
+    if (selectedCategory) params.set('category', selectedCategory)
+
+    router.push(`/browse${params.toString() ? `?${params.toString()}` : ''}`)
+  }
 
   const clearFilters = () => {
-    setSearchQuery('');
-    setLocationQuery('');
-    setSelectedCategory('');
-    setPriceRange([0, 200]);
-    router.push('/browse');
-  };
+    setSearchQuery('')
+    setLocationQuery('')
+    setSelectedCategory('')
+    setPriceRange([0, 200])
+    router.push('/browse')
+  }
 
-  const hasActiveFilters = searchQuery || locationQuery || selectedCategory;
+  const hasActiveFilters = searchQuery || locationQuery || selectedCategory
 
   return (
     <div className="space-y-4 md:space-y-6">
@@ -65,7 +70,9 @@ export function BrowseFilters({
         </ResponsiveCardHeader>
         <ResponsiveCardContent className="space-y-4">
           <div>
-            <label className="text-responsive-sm font-medium mb-2 block">Service</label>
+            <label className="text-responsive-sm font-medium mb-2 block">
+              Service
+            </label>
             <Input
               placeholder="What service do you need?"
               value={searchQuery}
@@ -73,9 +80,11 @@ export function BrowseFilters({
               className="w-full touch-target"
             />
           </div>
-          
+
           <div>
-            <label className="text-responsive-sm font-medium mb-2 block">Location</label>
+            <label className="text-responsive-sm font-medium mb-2 block">
+              Location
+            </label>
             <div className="relative">
               <MapPin className="w-4 h-4 absolute left-3 top-3 text-muted-foreground" />
               <Input
@@ -87,7 +96,11 @@ export function BrowseFilters({
             </div>
           </div>
 
-          <ResponsiveButton onClick={applyFilters} className="w-full btn-glow" touchOptimized>
+          <ResponsiveButton
+            onClick={applyFilters}
+            className="w-full btn-glow"
+            touchOptimized
+          >
             Apply Filters
           </ResponsiveButton>
         </ResponsiveCardContent>
@@ -103,8 +116,8 @@ export function BrowseFilters({
             <button
               onClick={() => setSelectedCategory('')}
               className={`w-full text-left px-3 py-2 rounded-md text-responsive-sm transition-colors touch-target ${
-                !selectedCategory 
-                  ? 'bg-primary text-primary-foreground' 
+                !selectedCategory
+                  ? 'bg-primary text-primary-foreground'
                   : 'hover:bg-muted active:bg-muted/80'
               }`}
             >
@@ -115,8 +128,8 @@ export function BrowseFilters({
                 key={category.id}
                 onClick={() => setSelectedCategory(category.slug)}
                 className={`w-full text-left px-3 py-2 rounded-md text-responsive-sm transition-colors touch-target ${
-                  selectedCategory === category.slug 
-                    ? 'bg-primary text-primary-foreground' 
+                  selectedCategory === category.slug
+                    ? 'bg-primary text-primary-foreground'
                     : 'hover:bg-muted active:bg-muted/80'
                 }`}
               >
@@ -139,7 +152,9 @@ export function BrowseFilters({
                 type="number"
                 placeholder="Min"
                 value={priceRange[0]}
-                onChange={(e) => setPriceRange([parseInt(e.target.value) || 0, priceRange[1]])}
+                onChange={(e) =>
+                  setPriceRange([parseInt(e.target.value) || 0, priceRange[1]])
+                }
                 className="w-full touch-target"
               />
               <span className="text-muted-foreground">-</span>
@@ -147,7 +162,12 @@ export function BrowseFilters({
                 type="number"
                 placeholder="Max"
                 value={priceRange[1]}
-                onChange={(e) => setPriceRange([priceRange[0], parseInt(e.target.value) || 200])}
+                onChange={(e) =>
+                  setPriceRange([
+                    priceRange[0],
+                    parseInt(e.target.value) || 200,
+                  ])
+                }
                 className="w-full touch-target"
               />
             </div>
@@ -221,7 +241,8 @@ export function BrowseFilters({
               )}
               {selectedCategory && (
                 <Badge variant="secondary" className="text-responsive-sm">
-                  Category: {categories.find(c => c.slug === selectedCategory)?.name}
+                  Category:{' '}
+                  {categories.find((c) => c.slug === selectedCategory)?.name}
                   <button
                     onClick={() => setSelectedCategory('')}
                     className="ml-1 hover:text-foreground touch-target"
@@ -235,5 +256,5 @@ export function BrowseFilters({
         </ResponsiveCard>
       )}
     </div>
-  );
+  )
 }

@@ -1,28 +1,28 @@
-'use client';
+'use client'
 
-import { ReactNode } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowLeft, Menu, Search, Bell, User } from 'lucide-react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { MobileBottomNav } from '@/components/ui/floating-fab';
-import { cn } from '@/lib/utils';
+import { ReactNode } from 'react'
+import { motion } from 'framer-motion'
+import { ArrowLeft, Menu, Search, Bell, User } from 'lucide-react'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
+import { MobileBottomNav } from '@/components/ui/floating-fab'
+import { cn } from '@/lib/utils'
 
 interface MobileLayoutProps {
-  children: ReactNode;
-  title?: string;
-  showBackButton?: boolean;
-  backUrl?: string;
-  showSearch?: boolean;
-  showNotifications?: boolean;
-  showProfile?: boolean;
-  currentPath?: string;
-  headerActions?: ReactNode;
-  className?: string;
-  containerClassName?: string;
-  hideBottomNav?: boolean;
+  children: ReactNode
+  title?: string
+  showBackButton?: boolean
+  backUrl?: string
+  showSearch?: boolean
+  showNotifications?: boolean
+  showProfile?: boolean
+  currentPath?: string
+  headerActions?: ReactNode
+  className?: string
+  containerClassName?: string
+  hideBottomNav?: boolean
 }
 
 export function MobileLayout({
@@ -37,20 +37,25 @@ export function MobileLayout({
   headerActions,
   className,
   containerClassName,
-  hideBottomNav = false
+  hideBottomNav = false,
 }: MobileLayoutProps) {
-  const router = useRouter();
+  const router = useRouter()
 
   const handleBack = () => {
     if (backUrl) {
-      router.push(backUrl);
+      router.push(backUrl)
     } else {
-      router.back();
+      router.back()
     }
-  };
+  }
 
   return (
-    <div className={cn("min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 relative", className)}>
+    <div
+      className={cn(
+        'min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 relative',
+        className
+      )}
+    >
       {/* Background Effects */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(120,119,198,0.3),transparent)]" />
@@ -58,7 +63,7 @@ export function MobileLayout({
       </div>
 
       {/* Mobile Header */}
-      <motion.header 
+      <motion.header
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         className="sticky top-0 z-50 bg-white/10 backdrop-blur-md border-b border-white/20 safe-area-padding-top"
@@ -95,7 +100,7 @@ export function MobileLayout({
                   <Search className="w-5 h-5" />
                 </Button>
               )}
-              
+
               {showNotifications && (
                 <Button
                   size="sm"
@@ -126,7 +131,7 @@ export function MobileLayout({
       </motion.header>
 
       {/* Main Content */}
-      <main className={cn("relative z-10 pb-20", containerClassName)}>
+      <main className={cn('relative z-10 pb-20', containerClassName)}>
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -140,11 +145,19 @@ export function MobileLayout({
       {/* Mobile Bottom Navigation */}
       {!hideBottomNav && <MobileBottomNav currentPath={currentPath} />}
     </div>
-  );
+  )
 }
 
 // Quick preset layouts
-export function MobilePageLayout({ children, title, currentPath }: { children: ReactNode; title: string; currentPath?: string }) {
+export function MobilePageLayout({
+  children,
+  title,
+  currentPath,
+}: {
+  children: ReactNode
+  title: string
+  currentPath?: string
+}) {
   return (
     <MobileLayout
       title={title}
@@ -155,10 +168,16 @@ export function MobilePageLayout({ children, title, currentPath }: { children: R
     >
       {children}
     </MobileLayout>
-  );
+  )
 }
 
-export function MobileBrowseLayout({ children, currentPath }: { children: ReactNode; currentPath?: string }) {
+export function MobileBrowseLayout({
+  children,
+  currentPath,
+}: {
+  children: ReactNode
+  currentPath?: string
+}) {
   return (
     <MobileLayout
       title="Find Services"
@@ -169,10 +188,16 @@ export function MobileBrowseLayout({ children, currentPath }: { children: ReactN
     >
       {children}
     </MobileLayout>
-  );
+  )
 }
 
-export function MobileProfileLayout({ children, currentPath }: { children: ReactNode; currentPath?: string }) {
+export function MobileProfileLayout({
+  children,
+  currentPath,
+}: {
+  children: ReactNode
+  currentPath?: string
+}) {
   return (
     <MobileLayout
       title="Profile"
@@ -182,5 +207,5 @@ export function MobileProfileLayout({ children, currentPath }: { children: React
     >
       {children}
     </MobileLayout>
-  );
+  )
 }

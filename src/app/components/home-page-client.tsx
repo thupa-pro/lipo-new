@@ -1,15 +1,15 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Search, MapPin, Star, Clock, ArrowRight, Sparkles } from 'lucide-react';
+import { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Card, CardContent } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { Search, MapPin, Star, Clock, ArrowRight, Sparkles } from 'lucide-react'
 
 export function HomePageClient() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedLocation, setSelectedLocation] = useState('');
+  const [searchQuery, setSearchQuery] = useState('')
+  const [selectedLocation, setSelectedLocation] = useState('')
 
   const popularServices = [
     {
@@ -18,7 +18,7 @@ export function HomePageClient() {
       providers: 1247,
       avgPrice: '$89',
       nextAvailable: '2 hours',
-      trend: '+15%'
+      trend: '+15%',
     },
     {
       name: 'Plumbing Repair',
@@ -26,7 +26,7 @@ export function HomePageClient() {
       providers: 892,
       avgPrice: '$124',
       nextAvailable: '45 min',
-      trend: '+8%'
+      trend: '+8%',
     },
     {
       name: 'Personal Training',
@@ -34,9 +34,9 @@ export function HomePageClient() {
       providers: 634,
       avgPrice: '$67',
       nextAvailable: '1 hour',
-      trend: '+23%'
-    }
-  ];
+      trend: '+23%',
+    },
+  ]
 
   const aiSuggestions = [
     'I need help with my leaky faucet',
@@ -44,8 +44,8 @@ export function HomePageClient() {
     'Weekly house cleaning service',
     'Emergency plumber needed',
     'Dog walking service',
-    'Home security installation'
-  ];
+    'Home security installation',
+  ]
 
   return (
     <div className="space-y-6 md:space-y-8">
@@ -82,7 +82,9 @@ export function HomePageClient() {
         {/* AI Suggestions */}
         {searchQuery.length === 0 && (
           <div className="mt-3 md:mt-4 flex flex-wrap gap-2">
-            <span className="text-xs md:text-sm text-gray-600 font-medium">Try:</span>
+            <span className="text-xs md:text-sm text-gray-600 font-medium">
+              Try:
+            </span>
             {aiSuggestions.slice(0, 3).map((suggestion, index) => (
               <Button
                 key={index}
@@ -106,15 +108,20 @@ export function HomePageClient() {
         </h3>
         <div className="grid-responsive-1-2-3">
           {popularServices.map((service, index) => (
-            <Card key={index} className="bg-white/90 backdrop-blur-sm border-white/40 hover:bg-white/95 transition-all duration-300 group hover-touch">
+            <Card
+              key={index}
+              className="bg-white/90 backdrop-blur-sm border-white/40 hover:bg-white/95 transition-all duration-300 group hover-touch"
+            >
               <CardContent className="p-3 md:p-4">
                 <div className="flex justify-between items-start mb-2 md:mb-3">
-                  <h4 className="font-semibold text-gray-900 text-sm md:text-base">{service.name}</h4>
+                  <h4 className="font-semibold text-gray-900 text-sm md:text-base">
+                    {service.name}
+                  </h4>
                   <Badge className="bg-green-100 text-green-700 text-xs">
                     {service.trend}
                   </Badge>
                 </div>
-                
+
                 <div className="space-y-2 text-sm text-gray-600">
                   <div className="flex items-center gap-2">
                     <Star className="w-4 h-4 text-yellow-400 fill-current" />
@@ -122,9 +129,11 @@ export function HomePageClient() {
                     <span>•</span>
                     <span>{service.providers} providers</span>
                   </div>
-                  
+
                   <div className="flex justify-between items-center">
-                    <span className="font-semibold text-gray-900">{service.avgPrice}</span>
+                    <span className="font-semibold text-gray-900">
+                      {service.avgPrice}
+                    </span>
                     <div className="flex items-center gap-1 text-green-600">
                       <Clock className="w-3 h-3" />
                       <span className="text-xs">{service.nextAvailable}</span>
@@ -153,5 +162,5 @@ export function HomePageClient() {
         </div>
       </div>
     </div>
-  );
+  )
 }
