@@ -645,14 +645,14 @@ export function IntelligentHeader({
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger asChild>
               <button
-                className="p-2 rounded-full hover:bg-white/10 transition-all duration-300 hover:scale-105 lg:hidden"
+                className="p-2 rounded-full hover:bg-white/10 transition-all duration-300 hover:scale-105 lg:hidden touch-target hover-touch"
                 aria-label="Open mobile menu"
                 aria-expanded={mobileMenuOpen}
               >
                 <Menu className="w-5 h-5 text-gray-600 dark:text-gray-300" />
               </button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-80 glass border-white/10">
+            <SheetContent side="right" className="w-72 sm:w-80 glass border-white/10 safe-area-padding">
               <div className="flex flex-col space-y-6 mt-8">
                 {user && (
                   <div className="flex items-center space-x-3 pb-6 border-b border-white/10">
