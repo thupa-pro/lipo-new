@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { useDeviceDetection, redirectToMobileIfNeeded } from '@/lib/utils/device-detection';
+// import { useDeviceDetection, redirectToMobileIfNeeded } from '@/lib/utils/device-detection';
 
 // Core UI Components
 import { IntelligentHeader } from '@/components/ui/intelligent-header';
@@ -277,19 +277,8 @@ export default function HomePage() {
   const { stats, isClient: statsClient } = useRealTimeStats();
   const { personalizedContent, isClient: personalizationClient } = useAIPersonalization();
   const { isListening, startListening } = useVoiceInterface();
-  const deviceInfo = useDeviceDetection();
-
   // Combined client flag
   const isClient = statsClient && personalizationClient;
-
-  // Mobile redirect logic
-  useEffect(() => {
-    if (isClient && typeof window !== 'undefined') {
-      // Optional: redirect mobile users to /mobile route
-      // Uncomment the line below to enable automatic mobile redirect
-      // redirectToMobileIfNeeded();
-    }
-  }, [isClient]);
   
   const heroRef = useRef(null);
   const { scrollYProgress } = useScroll();
