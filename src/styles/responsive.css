@@ -1,0 +1,275 @@
+/* Enhanced Responsive Design System */
+
+/* Mobile-first responsive breakpoints */
+.responsive-container {
+  @apply w-full mx-auto px-4;
+}
+
+/* Breakpoint-specific containers */
+@screen sm {
+  .responsive-container {
+    @apply max-w-screen-sm px-6;
+  }
+}
+
+@screen md {
+  .responsive-container {
+    @apply max-w-screen-md px-8;
+  }
+}
+
+@screen lg {
+  .responsive-container {
+    @apply max-w-screen-lg px-12;
+  }
+}
+
+@screen xl {
+  .responsive-container {
+    @apply max-w-screen-xl px-16;
+  }
+}
+
+@screen 2xl {
+  .responsive-container {
+    @apply max-w-screen-2xl px-20;
+  }
+}
+
+/* Responsive typography */
+.text-responsive-xs {
+  @apply text-xs;
+}
+
+.text-responsive-sm {
+  @apply text-sm md:text-base;
+}
+
+.text-responsive-base {
+  @apply text-sm md:text-base lg:text-lg;
+}
+
+.text-responsive-lg {
+  @apply text-base md:text-lg lg:text-xl;
+}
+
+.text-responsive-xl {
+  @apply text-lg md:text-xl lg:text-2xl;
+}
+
+.text-responsive-2xl {
+  @apply text-xl md:text-2xl lg:text-3xl;
+}
+
+.text-responsive-3xl {
+  @apply text-2xl md:text-3xl lg:text-4xl;
+}
+
+.text-responsive-4xl {
+  @apply text-3xl md:text-4xl lg:text-5xl xl:text-6xl;
+}
+
+/* Responsive spacing */
+.spacing-responsive {
+  @apply p-3 md:p-6 lg:p-8 xl:p-12;
+}
+
+.spacing-responsive-x {
+  @apply px-3 md:px-6 lg:px-8 xl:px-12;
+}
+
+.spacing-responsive-y {
+  @apply py-3 md:py-6 lg:py-8 xl:py-12;
+}
+
+.margin-responsive {
+  @apply m-3 md:m-6 lg:m-8 xl:m-12;
+}
+
+.margin-responsive-x {
+  @apply mx-3 md:mx-6 lg:mx-8 xl:mx-12;
+}
+
+.margin-responsive-y {
+  @apply my-3 md:my-6 lg:my-8 xl:my-12;
+}
+
+/* Responsive cards */
+.card-responsive {
+  @apply rounded-lg md:rounded-xl lg:rounded-2xl;
+  @apply p-4 md:p-6 lg:p-8;
+  @apply shadow-md md:shadow-lg lg:shadow-xl;
+}
+
+/* Responsive buttons */
+.btn-responsive {
+  @apply px-4 py-2 text-sm;
+  @apply md:px-6 md:py-3 md:text-base;
+  @apply lg:px-8 lg:py-4 lg:text-lg;
+  @apply rounded-lg md:rounded-xl;
+}
+
+.btn-responsive-sm {
+  @apply px-3 py-1.5 text-xs;
+  @apply md:px-4 md:py-2 md:text-sm;
+  @apply lg:px-5 lg:py-2.5 lg:text-base;
+  @apply rounded-md md:rounded-lg;
+}
+
+.btn-responsive-lg {
+  @apply px-6 py-3 text-base;
+  @apply md:px-8 md:py-4 md:text-lg;
+  @apply lg:px-10 lg:py-5 lg:text-xl;
+  @apply rounded-xl md:rounded-2xl;
+}
+
+/* Responsive grids */
+.grid-responsive-1-2 {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-8;
+}
+
+.grid-responsive-1-2-3 {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8;
+}
+
+.grid-responsive-1-2-4 {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8;
+}
+
+.grid-responsive-2-3-4 {
+  @apply grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4 lg:gap-6;
+}
+
+/* Mobile-specific utilities */
+.mobile-only {
+  @apply block md:hidden;
+}
+
+.tablet-only {
+  @apply hidden md:block lg:hidden;
+}
+
+.desktop-only {
+  @apply hidden lg:block;
+}
+
+.mobile-tablet {
+  @apply block lg:hidden;
+}
+
+.tablet-desktop {
+  @apply hidden md:block;
+}
+
+/* Touch-friendly sizing */
+.touch-target {
+  @apply min-h-[44px] min-w-[44px];
+}
+
+.touch-target-lg {
+  @apply min-h-[56px] min-w-[56px];
+}
+
+/* Safe area padding for mobile */
+.safe-area-padding {
+  padding-top: env(safe-area-inset-top);
+  padding-right: env(safe-area-inset-right);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+}
+
+.safe-area-padding-top {
+  padding-top: max(1rem, env(safe-area-inset-top));
+}
+
+.safe-area-padding-bottom {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+}
+
+/* Responsive aspect ratios */
+.aspect-responsive-square {
+  @apply aspect-square;
+}
+
+.aspect-responsive-video {
+  @apply aspect-video;
+}
+
+.aspect-responsive-card {
+  @apply aspect-[4/3] md:aspect-[3/2] lg:aspect-[16/10];
+}
+
+/* Flexible font sizes for different screen sizes */
+.fluid-text-sm {
+  font-size: clamp(0.875rem, 0.8rem + 0.375vw, 1rem);
+}
+
+.fluid-text-base {
+  font-size: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
+}
+
+.fluid-text-lg {
+  font-size: clamp(1.125rem, 1rem + 0.625vw, 1.25rem);
+}
+
+.fluid-text-xl {
+  font-size: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem);
+}
+
+.fluid-text-2xl {
+  font-size: clamp(1.5rem, 1.3rem + 1vw, 2rem);
+}
+
+.fluid-text-3xl {
+  font-size: clamp(1.875rem, 1.5rem + 1.5vw, 2.5rem);
+}
+
+.fluid-text-4xl {
+  font-size: clamp(2.25rem, 1.8rem + 2vw, 3.5rem);
+}
+
+/* Interactive states for touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .hover-touch {
+    @apply active:scale-95 transition-transform duration-100;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hover-touch {
+    @apply hover:scale-105 transition-transform duration-200;
+  }
+}
+
+/* Responsive glassmorphism effects */
+.glass-responsive {
+  @apply backdrop-blur-md bg-white/10 border border-white/20;
+  @apply md:backdrop-blur-lg md:bg-white/5 md:border-white/10;
+  @apply lg:backdrop-blur-xl lg:bg-white/10 lg:border-white/20;
+}
+
+/* Responsive shadows */
+.shadow-responsive {
+  @apply shadow-md md:shadow-lg lg:shadow-xl xl:shadow-2xl;
+}
+
+/* Mobile scroll optimizations */
+.scroll-smooth-mobile {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Prevent text selection on mobile for UI elements */
+.no-select-mobile {
+  @apply select-none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+}
+
+/* High DPI and retina display optimizations */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .retina-optimized {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
