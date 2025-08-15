@@ -698,15 +698,15 @@ export function IntelligentHeader({
                     <Button
                       key={item.href}
                       variant="ghost"
-                      className="justify-start h-12 w-full glass hover:bg-white/10 transition-all duration-300 rounded-2xl mb-2"
+                      className="justify-start h-11 md:h-12 w-full glass hover:bg-white/10 transition-all duration-300 rounded-2xl mb-2 touch-target hover-touch"
                       asChild
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       <Link
                         href={item.href}
-                        className="flex items-center gap-3"
+                        className="flex items-center gap-3 text-sm md:text-base"
                       >
-                        <item.icon className="w-5 h-5" />
+                        <item.icon className="w-4 h-4 md:w-5 md:h-5" />
                         {item.label}
                       </Link>
                     </Button>
