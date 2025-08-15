@@ -100,7 +100,7 @@ export function FloatingFAB() {
 
       {/* FAB Container */}
       <div className={cn(
-        "fixed bottom-6 right-6 z-50 flex flex-col items-end space-y-3 transition-all duration-500 ease-out",
+        "fixed bottom-4 md:bottom-6 right-4 md:right-6 z-50 flex flex-col items-end space-y-2 md:space-y-3 transition-all duration-500 ease-out safe-area-padding-bottom",
         (isClient && isVisible) ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
       )}>
         {/* Action Buttons */}
@@ -111,9 +111,9 @@ export function FloatingFAB() {
             <div
               key={action.id}
               className={cn(
-                "flex items-center space-x-3 transition-all duration-300",
-                isOpen 
-                  ? "translate-y-0 opacity-100 scale-100" 
+                "flex items-center space-x-2 md:space-x-3 transition-all duration-300",
+                isOpen
+                  ? "translate-y-0 opacity-100 scale-100"
                   : "translate-y-8 opacity-0 scale-95"
               )}
               style={{
@@ -121,20 +121,20 @@ export function FloatingFAB() {
               }}
             >
               {/* Label */}
-              <div className="px-3 py-2 bg-gray-900/95 text-white text-sm font-ui font-medium rounded-full backdrop-blur-xl border border-gray-700/50 shadow-lg">
+              <div className="px-2 md:px-3 py-1.5 md:py-2 bg-gray-900/95 text-white text-xs md:text-sm font-ui font-medium rounded-full backdrop-blur-xl border border-gray-700/50 shadow-lg">
                 {action.label}
               </div>
-              
+
               {/* Action Button */}
               <button
                 onClick={() => handleActionClick(action)}
                 className={cn(
-                  "w-12 h-12 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center",
+                  "w-10 h-10 md:w-12 md:h-12 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center touch-target hover-touch",
                   action.color,
                   "hover:scale-110 hover:shadow-xl active:scale-95"
                 )}
               >
-                <Icon className="w-5 h-5 text-white" />
+                <Icon className="w-4 h-4 md:w-5 md:h-5 text-white" />
               </button>
             </div>
           );
@@ -144,17 +144,17 @@ export function FloatingFAB() {
         <button
           onClick={toggleFAB}
           className={cn(
-            "w-14 h-14 bg-gradient-to-r from-purple-600 to-fuchsia-500 rounded-full shadow-xl",
-            "transition-all duration-300 flex items-center justify-center",
+            "w-12 h-12 md:w-14 md:h-14 bg-gradient-to-r from-purple-600 to-fuchsia-500 rounded-full shadow-xl",
+            "transition-all duration-300 flex items-center justify-center touch-target hover-touch",
             "hover:scale-110 hover:shadow-2xl active:scale-95",
             "border-2 border-white/10 backdrop-blur-xl",
             isOpen && "rotate-45"
           )}
         >
           {isOpen ? (
-            <X className="w-6 h-6 text-white transition-transform duration-300" />
+            <X className="w-5 h-5 md:w-6 md:h-6 text-white transition-transform duration-300" />
           ) : (
-            <Plus className="w-6 h-6 text-white transition-transform duration-300" />
+            <Plus className="w-5 h-5 md:w-6 md:h-6 text-white transition-transform duration-300" />
           )}
         </button>
       </div>
