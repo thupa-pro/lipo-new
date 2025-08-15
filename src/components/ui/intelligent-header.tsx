@@ -411,23 +411,23 @@ export function IntelligentHeader({
       aria-label="Main navigation"
     >
       <div className="w-full flex justify-between items-center">
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-2 md:space-x-3">
           <div className="relative" aria-hidden="true">
-            <Sparkles className="w-6 h-6 md:w-8 md:h-8 text-purple-400 animate-pulse" />
+            <Sparkles className="w-5 h-5 md:w-6 md:h-6 lg:w-8 lg:h-8 text-purple-400 animate-pulse" />
             <div className="absolute inset-0 animate-ping">
-              <Sparkles className="w-6 h-6 md:w-8 md:h-8 text-purple-400 opacity-20" />
+              <Sparkles className="w-5 h-5 md:w-6 md:h-6 lg:w-8 lg:h-8 text-purple-400 opacity-20" />
             </div>
           </div>
           <Link
             href="/"
-            className="text-xl md:text-3xl font-display text-gray-900 dark:text-white tracking-tight hover:text-purple-500 transition-colors"
+            className="fluid-text-lg md:fluid-text-xl font-display text-gray-900 dark:text-white tracking-tight hover:text-purple-500 transition-colors"
           >
             Loconomy
           </Link>
         </div>
 
         <nav
-          className="hidden lg:flex items-center space-x-8 text-sm font-medium text-gray-600 dark:text-gray-300"
+          className="hidden lg:flex items-center space-x-4 xl:space-x-8 text-sm font-medium text-gray-600 dark:text-gray-300"
           role="navigation"
           aria-label="Primary navigation"
         >
@@ -435,39 +435,41 @@ export function IntelligentHeader({
             <Link
               key={item.href}
               href={item.href}
-              className="hover:text-purple-500 dark:hover:text-white transition-colors duration-300 flex items-center gap-2"
+              className="hover:text-purple-500 dark:hover:text-white transition-colors duration-300 flex items-center gap-1 xl:gap-2 touch-target hover-touch"
             >
-              <item.icon className="w-4 h-4" />
-              {item.label}
+              <item.icon className="w-3 h-3 xl:w-4 xl:h-4" />
+              <span className="hidden xl:inline">{item.label}</span>
+              <span className="xl:hidden text-xs">{item.label.split(' ')[0]}</span>
             </Link>
           ))}
         </nav>
 
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-2 md:space-x-4">
           <ThemeToggle />
 
           {/* Guest User Actions */}
           {!user && (
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-2 md:space-x-3">
               <Button
                 variant="ghost"
                 size="sm"
                 asChild
-                className="hidden sm:flex text-gray-600 dark:text-gray-300 hover:text-purple-500 transition-colors"
+                className="hidden sm:flex text-gray-600 dark:text-gray-300 hover:text-purple-500 transition-colors touch-target hover-touch"
               >
                 <Link href="/auth/signin">
-                  <User className="w-4 h-4 mr-2" />
-                  Sign In
+                  <User className="w-4 h-4 md:mr-2" />
+                  <span className="hidden md:inline">Sign In</span>
                 </Link>
               </Button>
               <Button
                 size="sm"
                 asChild
-                className="bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white hover:from-purple-700 hover:to-fuchsia-600"
+                className="bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white hover:from-purple-700 hover:to-fuchsia-600 touch-target hover-touch"
               >
                 <Link href="/auth/signup">
-                  <UserPlus className="w-4 h-4 mr-2" />
-                  Get Started
+                  <UserPlus className="w-4 h-4 md:mr-2" />
+                  <span className="hidden md:inline">Get Started</span>
+                  <span className="md:hidden">Join</span>
                 </Link>
               </Button>
             </div>
