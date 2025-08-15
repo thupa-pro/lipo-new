@@ -402,15 +402,15 @@ export function IntelligentHeader({
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out safe-area-padding-top ${
         isClient && isScrolled
-          ? 'py-3 px-4 sm:px-6 lg:px-8 bg-glass/95 backdrop-blur-xl border-b border-white/20 shadow-lg shadow-purple-500/10'
-          : 'py-6 px-4 sm:px-6 lg:px-8 bg-transparent border-b border-transparent'
+          ? 'py-2 md:py-3 responsive-container bg-glass/95 backdrop-blur-xl border-b border-white/20 shadow-lg shadow-purple-500/10'
+          : 'py-4 md:py-6 responsive-container bg-transparent border-b border-transparent'
       }`}
       role="banner"
       aria-label="Main navigation"
     >
-      <div className="responsive-container flex justify-between items-center">
+      <div className="w-full flex justify-between items-center">
         <div className="flex items-center space-x-3">
           <div className="relative" aria-hidden="true">
             <Sparkles className="w-6 h-6 md:w-8 md:h-8 text-purple-400 animate-pulse" />
