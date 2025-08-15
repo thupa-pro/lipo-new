@@ -543,8 +543,8 @@ export function IntelligentHeader({
               {/* User Menu */}
               <DropdownMenu open={userMenuOpen} onOpenChange={setUserMenuOpen}>
                 <DropdownMenuTrigger asChild>
-                  <button className="relative p-2 rounded-full hover:bg-white/10 transition-colors">
-                    <Avatar className="h-8 w-8 border-2 border-purple-500/50">
+                  <button className="relative p-1 md:p-2 rounded-full hover:bg-white/10 transition-colors touch-target hover-touch">
+                    <Avatar className="h-7 w-7 md:h-8 md:w-8 border-2 border-purple-500/50">
                       <AvatarImage
                         src={
                           userProfile?.avatar || user?.user_metadata?.avatar_url
@@ -552,7 +552,7 @@ export function IntelligentHeader({
                         alt={userProfile?.name || user?.email}
                       />
                       <AvatarFallback
-                        className={`${getRoleBadgeColor()} text-white text-sm font-bold`}
+                        className={`${getRoleBadgeColor()} text-white text-xs md:text-sm font-bold`}
                       >
                         {(
                           userProfile?.name ||
@@ -564,11 +564,11 @@ export function IntelligentHeader({
                           .toUpperCase()}
                       </AvatarFallback>
                     </Avatar>
-                    <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-cyan-400 rounded-full border-2 border-[var(--bg-primary)]" />
+                    <div className="absolute -bottom-1 -right-1 w-2.5 h-2.5 md:w-3 md:h-3 bg-cyan-400 rounded-full border-2 border-[var(--bg-primary)]" />
                   </button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent
-                  className="w-64 glass border-white/20"
+                  className="w-56 md:w-64 glass border-white/20 max-h-96 overflow-y-auto"
                   align="end"
                 >
                   <DropdownMenuLabel className="font-normal p-4">
