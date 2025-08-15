@@ -2,9 +2,8 @@
 
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { EnhancedCard, EnhancedCardContent, EnhancedCardHeader, EnhancedCardTitle } from "@/components/ui/enhanced-card";
-import { EnhancedButton, IconButton } from "@/components/ui/enhanced-button";
-import { SkeletonLoader, ListSkeleton } from "@/components/ui/skeleton-loader";
+import { ResponsiveCard, ResponsiveCardContent, ResponsiveCardHeader, ResponsiveCardTitle } from "@/components/ui/responsive-card";
+import { ResponsiveButton } from "@/components/ui/responsive-button";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -195,40 +194,44 @@ function BrowsePageContent() {
       
       <div className="min-h-screen bg-background">
         {/* Header */}
-        <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
-          <div className="container flex h-14 items-center justify-between">
-            <Link href="/" className="flex items-center space-x-2">
-              <span className="text-xl font-bold gradient-text">Loconomy</span>
+        <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 safe-area-padding-top">
+          <div className="responsive-container flex h-16 md:h-18 lg:h-20 items-center justify-between">
+            <Link href="/" className="flex items-center space-x-2 touch-target">
+              <span className="fluid-text-xl font-bold gradient-text">Loconomy</span>
             </Link>
-            <div className="flex items-center space-x-4">
-              <ThemeToggle />
-              <Link href="/auth/signin">
-                <Button variant="outline" size="sm">Sign In</Button>
-              </Link>
+            <div className="flex items-center gap-2 md:gap-4">
+              <div className="desktop-only">
+                <ThemeToggle />
+              </div>
+              <ResponsiveButton variant="outline" size="sm" responsive>
+                <Link href="/auth/signin" className="w-full h-full flex items-center justify-center">
+                  Sign In
+                </Link>
+              </ResponsiveButton>
             </div>
           </div>
         </header>
 
-        <main className="container py-8">
+        <main className="responsive-container spacing-responsive-y">
           {/* Page Header */}
-          <div className="mb-8">
-            <div className="flex items-center gap-3 mb-4">
-              <h1 className="text-3xl font-bold">Find Local Service Providers</h1>
-              <Badge className="bg-gradient-to-r from-purple-600 to-blue-600 text-white">
+          <div className="margin-responsive-y">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-4">
+              <h1 className="fluid-text-3xl font-bold">Find Local Service Providers</h1>
+              <Badge className="bg-gradient-to-r from-purple-600 to-blue-600 text-white self-start sm:self-auto">
                 <Brain className="w-3 h-3 mr-1" />
                 AI-Powered
               </Badge>
             </div>
-            <p className="text-muted-foreground mb-6">
+            <p className="text-responsive-lg text-muted-foreground mb-6">
               Browse {data.providers.length}+ verified professionals with intelligent AI matching
             </p>
 
             {/* AI Smart Recommendations Section */}
             {q && (
-              <div className="mb-6 p-4 bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-950/20 dark:to-blue-950/20 rounded-lg border border-purple-200 dark:border-purple-800">
+              <ResponsiveCard variant="gradient" padding="default" className="mb-6 bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-950/20 dark:to-blue-950/20 border-purple-200 dark:border-purple-800">
                 <div className="flex items-center gap-2 mb-3">
                   <Sparkles className="w-5 h-5 text-purple-600" />
-                  <h3 className="font-semibold text-purple-800 dark:text-purple-200">AI Smart Recommendations</h3>
+                  <h3 className="fluid-text-lg font-semibold text-purple-800 dark:text-purple-200">AI Smart Recommendations</h3>
                 </div>
                 <SmartRecommendations
                   userId="browse-user"
@@ -244,55 +247,63 @@ function BrowsePageContent() {
                     // Could navigate to provider detail page
                   }}
                 />
-              </div>
+              </ResponsiveCard>
             )}
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
             {/* Filters Sidebar - Client Component */}
-            <div className="lg:col-span-1">
-              <Suspense fallback={<div className="h-96 animate-pulse bg-gray-200 dark:bg-gray-700 rounded-lg"></div>}>
+            <div className="lg:col-span-1 order-2 lg:order-1">
+              <div className="mobile-tablet lg:hidden mb-6">
+                <ResponsiveButton variant="outline" className="w-full" touchOptimized>
+                  <Filter className="w-4 h-4 mr-2" />
+                  Show Filters
+                </ResponsiveButton>
+              </div>
+              <div className="hidden lg:block">
+                <Suspense fallback={<div className="h-96 animate-pulse bg-gray-200 dark:bg-gray-700 card-responsive"></div>}>
                 <BrowseFilters 
                   categories={data.categories}
                   currentSearch={q}
                   currentLocation={location}
                   currentCategory={category}
                 />
-              </Suspense>
+                </Suspense>
+              </div>
             </div>
 
             {/* Results Grid - Client Rendered */}
-            <div className="lg:col-span-3">
-              <div className="flex justify-between items-center mb-6">
-                <p className="text-sm text-muted-foreground">
+            <div className="lg:col-span-3 order-1 lg:order-2">
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
+                <p className="text-responsive-sm text-muted-foreground">
                   Showing {data.providers.length} results
                   {q && (
                     <span> for "{q}"</span>
                   )}
                 </p>
                 <div className="flex gap-2">
-                  <Button variant="outline" size="sm">
+                  <ResponsiveButton variant="outline" size="sm" className="desktop-only">
                     <Filter className="w-4 h-4 mr-2" />
                     Sort
-                  </Button>
+                  </ResponsiveButton>
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+              <div className="grid-responsive-1-2-3">
                 {data.providers.map((provider) => (
-                  <Card key={provider.id} className="card-glow hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                    <CardHeader className="pb-4">
+                  <ResponsiveCard key={provider.id} variant="elevated" interactive className="card-glow">
+                    <ResponsiveCardHeader className="pb-4">
                       <div className="flex items-start justify-between">
                         <div className="flex items-center gap-3">
-                          <Avatar className="h-12 w-12">
+                          <Avatar className="h-12 w-12 md:h-14 md:w-14">
                             <AvatarImage src={provider.users?.avatar_url || undefined} />
                             <AvatarFallback className="bg-gradient-to-r from-purple-500 to-pink-500 text-white">
                               {provider.users?.display_name?.split(' ').map(n => n[0]).join('') || 'P'}
                             </AvatarFallback>
                           </Avatar>
-                          <div>
-                            <CardTitle className="text-lg">{provider.users?.display_name || provider.business_name}</CardTitle>
-                            <p className="text-sm text-muted-foreground">{provider.categories?.name}</p>
+                          <div className="min-w-0 flex-1">
+                            <ResponsiveCardTitle className="truncate">{provider.users?.display_name || provider.business_name}</ResponsiveCardTitle>
+                            <p className="text-responsive-sm text-muted-foreground truncate">{provider.categories?.name}</p>
                           </div>
                         </div>
                         {provider.verified && (
@@ -302,14 +313,14 @@ function BrowsePageContent() {
                           </Badge>
                         )}
                       </div>
-                    </CardHeader>
+                    </ResponsiveCardHeader>
 
-                    <CardContent className="space-y-4">
-                      <p className="text-sm text-muted-foreground line-clamp-2">
+                    <ResponsiveCardContent className="space-y-4">
+                      <p className="text-responsive-sm text-muted-foreground line-clamp-2">
                         {provider.bio}
                       </p>
 
-                      <div className="flex items-center gap-4 text-sm">
+                      <div className="flex flex-wrap items-center gap-2 md:gap-4 text-responsive-sm">
                         <div className="flex items-center gap-1">
                           <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                           <span className="font-medium">{provider.rating_average}</span>
@@ -321,9 +332,9 @@ function BrowsePageContent() {
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                      <div className="flex items-center gap-1 text-responsive-sm text-muted-foreground">
                         <MapPin className="w-4 h-4" />
-                        <span>{provider.location || 'Local area'}</span>
+                        <span className="truncate">{provider.location || 'Local area'}</span>
                       </div>
 
                       <div className="flex flex-wrap gap-1">
@@ -334,46 +345,46 @@ function BrowsePageContent() {
                         ))}
                       </div>
 
-                      <div className="flex items-center justify-between pt-4">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-4">
                         <div>
-                          <span className="text-lg font-bold">${provider.hourlyRate || 50}</span>
-                          <span className="text-sm text-muted-foreground">/hour</span>
+                          <span className="fluid-text-lg font-bold">${provider.hourlyRate || 50}</span>
+                          <span className="text-responsive-sm text-muted-foreground">/hour</span>
                         </div>
                         <div className="flex gap-2">
-                          <Button variant="outline" size="sm">
+                          <ResponsiveButton variant="outline" size="sm" responsive>
                             View Profile
-                          </Button>
-                          <Button size="sm" className="btn-glow">
+                          </ResponsiveButton>
+                          <ResponsiveButton size="sm" className="btn-glow" responsive>
                             Book Now
-                          </Button>
+                          </ResponsiveButton>
                         </div>
                       </div>
-                    </CardContent>
-                  </Card>
+                    </ResponsiveCardContent>
+                  </ResponsiveCard>
                 ))}
               </div>
 
               {data.providers.length === 0 && (
-                <div className="text-center py-16">
+                <div className="text-center spacing-responsive">
                   <div className="w-16 h-16 mx-auto mb-4 bg-muted rounded-full flex items-center justify-center">
                     <Search className="w-8 h-8 text-muted-foreground" />
                   </div>
-                  <h3 className="text-lg font-medium mb-2">No providers found</h3>
-                  <p className="text-muted-foreground mb-4">
+                  <h3 className="fluid-text-lg font-medium mb-2">No providers found</h3>
+                  <p className="text-responsive-base text-muted-foreground mb-4">
                     Try adjusting your search criteria or browse different categories
                   </p>
                   <Link href="/browse">
-                    <Button>Browse All Categories</Button>
+                    <ResponsiveButton responsive>Browse All Categories</ResponsiveButton>
                   </Link>
                 </div>
               )}
 
               {/* Load More - for future pagination */}
               {data.providers.length > 0 && (
-                <div className="text-center mt-12">
-                  <Button variant="outline" size="lg">
+                <div className="text-center margin-responsive-y">
+                  <ResponsiveButton variant="outline" size="lg" responsive>
                     Load More Providers
-                  </Button>
+                  </ResponsiveButton>
                 </div>
               )}
             </div>
