@@ -211,9 +211,9 @@ export function MobileBottomNav({ currentPath = '/' }: MobileBottomNavProps) {
   ];
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden">
+    <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden safe-area-padding-bottom">
       <div className="bg-gray-900/95 backdrop-blur-xl border-t border-gray-700/50">
-        <div className="flex items-center justify-around py-2">
+        <div className="flex items-center justify-around py-1.5 md:py-2">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = currentPath === item.path;
@@ -223,21 +223,21 @@ export function MobileBottomNav({ currentPath = '/' }: MobileBottomNavProps) {
                 key={item.id}
                 onClick={() => router.push(item.path)}
                 className={cn(
-                  "flex flex-col items-center justify-center py-2 px-3 min-w-0 flex-1",
+                  "flex flex-col items-center justify-center py-1.5 md:py-2 px-2 md:px-3 min-w-0 flex-1 touch-target hover-touch",
                   "transition-all duration-200 font-ui",
-                  isActive 
-                    ? "text-purple-400" 
+                  isActive
+                    ? "text-purple-400"
                     : "text-gray-400 hover:text-gray-200"
                 )}
               >
                 <div className={cn(
-                  "p-1 rounded-lg transition-colors duration-200",
+                  "p-0.5 md:p-1 rounded-lg transition-colors duration-200",
                   isActive && "bg-purple-500/20"
                 )}>
-                  <Icon className="w-5 h-5" />
+                  <Icon className="w-4 h-4 md:w-5 md:h-5" />
                 </div>
                 <span className={cn(
-                  "text-xs mt-1 font-medium",
+                  "text-xs mt-0.5 md:mt-1 font-medium leading-tight",
                   isActive && "text-purple-400"
                 )}>
                   {item.label}
