@@ -84,25 +84,25 @@ export function getDeviceInfo(): DeviceInfo {
 }
 
 export function useDeviceDetection() {
-  if (typeof window === 'undefined') {
+  const [deviceInfo, setDeviceInfo] = React.useState<DeviceInfo>(() => {
+    if (typeof window === 'undefined') {
+      return {
+        isMobile: false,
+        isTablet: false,
+        isDesktop: true,
+        screenSize: 'lg',
+        userAgent: '',
+        viewport: { width: 1024, height: 768 }
+      };
+    }
     return getDeviceInfo();
-  }
-
-  const [deviceInfo, setDeviceInfo] = React.useState<DeviceInfo>(getDeviceInfo);
+  });
 
   React.useEffect(() => {
-    const updateDeviceInfo = () => {
-      setDeviceInfo(getDeviceInfo());
-    };
+    if (typeof window === 'undefined') return;
 
-    updateDeviceInfo();
-    window.addEventListener('resize', updateDeviceInfo);
-    window.addEventListener('orientationchange', updateDeviceInfo);
-
-    return () => {
-      window.removeEventListener('resize', updateDeviceInfo);
-      window.removeEventListener('orientationchange', updateDeviceInfo);
-    };
+    // Only update device info on mount, not on every resize to improve performance
+    setDeviceInfo(getDeviceInfo());
   }, []);
 
   return deviceInfo;
