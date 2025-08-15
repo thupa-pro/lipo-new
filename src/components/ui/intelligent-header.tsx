@@ -482,19 +482,19 @@ export function IntelligentHeader({
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <button
-                    className="relative p-2 rounded-full hover:bg-white/10 transition-all duration-300 hover:scale-105"
+                    className="relative p-2 rounded-full hover:bg-white/10 transition-all duration-300 hover:scale-105 touch-target hover-touch"
                     aria-label="View notifications"
                   >
-                    <Bell className="w-5 h-5 text-gray-600 dark:text-gray-300 transition-transform duration-300 hover:rotate-12" />
+                    <Bell className="w-4 h-4 md:w-5 md:h-5 text-gray-600 dark:text-gray-300 transition-transform duration-300 hover:rotate-12" />
                     {unreadCount > 0 && (
-                      <Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full p-0 text-xs bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white border-2 border-[var(--bg-primary)] animate-pulse">
-                        {unreadCount}
+                      <Badge className="absolute -top-1 -right-1 h-4 w-4 md:h-5 md:w-5 rounded-full p-0 text-xs bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white border-2 border-[var(--bg-primary)] animate-pulse flex items-center justify-center">
+                        {unreadCount > 9 ? '9+' : unreadCount}
                       </Badge>
                     )}
                   </button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent
-                  className="w-80 glass border-white/20"
+                  className="w-72 md:w-80 glass border-white/20 max-h-96 overflow-y-auto"
                   align="end"
                 >
                   <DropdownMenuLabel className="flex items-center justify-between">
